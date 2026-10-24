@@ -83,3 +83,7 @@ Steps
 3. [x] Screens (swipe gestures not yet exercised, only static states shot): feed (vertical topics, horizontal cards, page dots), card (headline above, picture panel fills, paragraph below), opener (question large), guess, more ("Go deeper"), Index sheet, interaction cue pill with the same timing rules as the web.
 4. [x] Launch arguments (`--topic`, `--card`) so any screen can be shot headlessly; screenshots into `ios/wireframe/`.
 5. [x] `ios/README.md` (how to open, build, regenerate) and a short wireframe note listing what is real vs placeholder.
+
+### Phase 4 blocker: the phone is on iOS 27 (2026-10-24)
+Xcode 26.6 cannot connect to an iOS 27 iPhone. Apple's requirements page: **Xcode 27 needs macOS Tahoe 26.6 or later** (it debugs iOS 17+ devices). This Mac is on macOS 26.3.1 and offers macOS Tahoe 26.7.1 (about 7 GB; enough, no need for macOS 27.0.1 at 12 GB).
+Plan, owner does the GUI parts: (1) System Settings > General > Software Update > macOS Tahoe 26.7.1, restart; (2) install Xcode 27 (App Store or developer.apple.com/download, free Apple ID is fine); (3) Xcode > Settings > Accounts is already re-signed in; (4) plug the iPhone in, unlock, Trust, Developer Mode on; (5) `cd ios && ./run-device.sh`. The iOS 26.5 simulator download was cancelled (obsoleted by Xcode 27's own platform). Then re-test `xcodegen generate` and a scheme build under Xcode 27 (`xcode-select -s /Applications/Xcode-27.app` if both are installed).

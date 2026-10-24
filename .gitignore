@@ -4,3 +4,4 @@ node_modules/
 prototypes/
 ios/build/
 ios/Polymath.xcodeproj/
+ios/.team
