@@ -1,0 +1,1325 @@
+<title>How a Car Engine Works</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=IBM+Plex+Mono:wght@500;600&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #E3E8EB;
+  --panel: #F2F5F6;
+  --ink: #121C24;
+  --ink2: #44535F;
+  --line: #7F8F9B;
+  --soft: #C5CED5;
+  --block: #C9D1D7;
+  --hatch: #8C9AA5;
+  --metal: #A9B4BD;
+  --metalhi: #DDE3E8;
+  --mech: #2E3B46;
+  --accent: #B8360A;
+  --mix: #2F9BC9;
+  --mixhi: #2459B3;
+  --burn: #F0620F;
+  --burnhot: #FFB830;
+  --exh: #7C8790;
+  --good: #17693F;
+  --bad: #A8231B;
+  --goodbg: #D5EBDD;
+  --badbg: #F3D9D6;
+  --focus: #1A5FB4;
+  --onink: #E3E8EB;
+  --display: 'Big Shoulders Display', 'Arial Narrow', 'Roboto Condensed', 'Helvetica Neue', sans-serif;
+  --body: 'Public Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --gap: clamp(var(--space-3), 2.2cqh, var(--space-5));
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0E1317;
+    --panel: #161D23;
+    --ink: #E7EDF1;
+    --ink2: #9FAEBA;
+    --line: #62727F;
+    --soft: #2B3640;
+    --block: #27313A;
+    --hatch: #46545F;
+    --metal: #7C8A95;
+    --metalhi: #B5C1CA;
+    --mech: #C3CED6;
+    --accent: #FF7B35;
+    --mix: #4DB6E8;
+    --mixhi: #5B8CF0;
+    --burn: #FF7A2A;
+    --burnhot: #FFD470;
+    --exh: #8C98A1;
+    --good: #5ED08D;
+    --bad: #FF8A80;
+    --goodbg: #16301F;
+    --badbg: #3A1B19;
+    --focus: #6FB1FF;
+    --onink: #0E1317;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0E1317;
+  --panel: #161D23;
+  --ink: #E7EDF1;
+  --ink2: #9FAEBA;
+  --line: #62727F;
+  --soft: #2B3640;
+  --block: #27313A;
+  --hatch: #46545F;
+  --metal: #7C8A95;
+  --metalhi: #B5C1CA;
+  --mech: #C3CED6;
+  --accent: #FF7B35;
+  --mix: #4DB6E8;
+  --mixhi: #5B8CF0;
+  --burn: #FF7A2A;
+  --burnhot: #FFD470;
+  --exh: #8C98A1;
+  --good: #5ED08D;
+  --bad: #FF8A80;
+  --goodbg: #16301F;
+  --badbg: #3A1B19;
+  --focus: #6FB1FF;
+  --onink: #0E1317;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 16px;
+  line-height: 1.45;
+  -webkit-text-size-adjust: 100%;
+  overflow: hidden;
+}
+[hidden] { display: none !important; }
+
+.app {
+  height: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 8px 0;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+}
+.hud {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  height: 36px;
+  font-family: var(--mono); font-size: 12px; font-weight: 600; letter-spacing: .08em;
+  color: var(--ink2);
+}
+.hud .count b { color: var(--ink); font-weight: 600; }
+.segs { display: flex; gap: 4px; flex: 1; max-width: 190px; }
+.segs i { flex: 1; height: 4px; background: var(--soft); transition: background .2s; }
+.segs i.done { background: var(--ink2); }
+.segs i.now { background: var(--accent); }
+
+.feed {
+  position: relative; /* contains the visually hidden (absolute) labels so the page itself never gains scroll height */
+  height: 100%;
+  overflow-y: auto; overflow-x: hidden;
+  scroll-snap-type: y mandatory;
+  overscroll-behavior: contain;
+  scrollbar-width: none;
+}
+.feed::-webkit-scrollbar { display: none; }
+.card {
+  height: 100%;
+  container-type: size;
+  scroll-snap-align: start; scroll-snap-stop: always;
+  overflow-y: auto; overflow-x: hidden;
+  scrollbar-width: none;
+}
+.card::-webkit-scrollbar { display: none; }
+/* Shared card layout: .hd (header cluster) at top, one flexible middle (the visual or the
+   options, auto margins centre any leftover), .ft (text, controls, mental model) at the bottom.
+   If a card ever outgrows the screen the card scrolls inside itself. */
+.inner {
+  height: 100%;
+  display: flex; flex-direction: column; gap: var(--gap);
+  padding-block: var(--space-2) var(--space-5);
+}
+.hd { display: flex; flex-direction: column; gap: var(--space-2); }
+.ft { display: flex; flex-direction: column; gap: var(--space-3); }
+.ft:not(:has(> :not([hidden]))) { display: none; }
+
+.kicker {
+  font-family: var(--mono); font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--accent);
+}
+h1, h2 {
+  margin: 0; font-family: var(--display); font-weight: 800; text-transform: uppercase;
+  letter-spacing: .005em; line-height: .98;
+}
+h2 { font-size: clamp(30px, 9vw, 40px); }
+h1 { font-size: clamp(30px, 9.4vw, 42px); }
+h1 em { font-style: normal; color: var(--accent); }
+.head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.head .kicker { white-space: nowrap; }
+.sr { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.lead { margin: 0; color: var(--ink2); font-size: 16px; }
+.lead.sm { font-size: 14px; }
+
+.stage {
+  position: relative; flex: 1 1 0; min-height: var(--stage-min, 180px); max-height: var(--stage-max, 112cqw); margin-block: auto;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  overflow: hidden;
+}
+.stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; touch-action: pan-y; }
+.stage canvas.grab { cursor: grab; }
+.stage canvas.grabbing { cursor: grabbing; }
+.fig {
+  position: absolute; right: 0; bottom: 0;
+  padding: 3px 8px; background: var(--bg);
+  border-top: 1px solid var(--line); border-left: 1px solid var(--line);
+  font-family: var(--mono); font-size: 10px; letter-spacing: .1em; color: var(--ink2);
+  pointer-events: none;
+}
+
+.readout {
+  display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+  font-family: var(--mono); font-size: 12px; font-weight: 600; letter-spacing: .06em; color: var(--ink2);
+}
+.readout b { color: var(--ink); font-weight: 600; }
+
+.strokebar { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.strokebar .no { font-family: var(--mono); font-size: 11px; font-weight: 600; letter-spacing: .08em; color: var(--ink2); text-align: right; line-height: 1.5; white-space: nowrap; }
+.strokebar .nm { font-family: var(--display); font-weight: 900; font-size: 44px; line-height: .9; text-transform: uppercase; }
+
+.controls { display: flex; align-items: center; gap: 12px; }
+.controls label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+.btn {
+  appearance: none; -webkit-appearance: none;
+  min-height: 48px; padding: 0 18px;
+  font-family: var(--mono); font-size: 12px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--ink); background: transparent;
+  border: 1.5px solid var(--ink); border-radius: 2px;
+  cursor: pointer; touch-action: manipulation;
+}
+.btn:hover { background: var(--soft); }
+.btn:active { transform: translateY(1px); }
+.btn.solid { background: var(--ink); color: var(--onink); }
+.btn.solid:hover { background: var(--ink2); }
+.btn.sm { min-width: 84px; }
+:is(.btn, .opt, .chip, .seg, .vote, input[type=range], summary):focus-visible {
+  outline: 3px solid var(--focus); outline-offset: 2px;
+}
+
+input[type=range] {
+  -webkit-appearance: none; appearance: none;
+  flex: 1; min-width: 0; height: 48px; margin: 0; background: transparent; touch-action: pan-y;
+}
+input[type=range]::-webkit-slider-runnable-track { height: 4px; background: var(--line); border-radius: 0; }
+input[type=range]::-moz-range-track { height: 4px; background: var(--line); border-radius: 0; }
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 28px; height: 28px; margin-top: -12px;
+  background: var(--accent); border: 3px solid var(--panel); border-radius: 50%; box-shadow: 0 0 0 1.5px var(--ink);
+}
+input[type=range]::-moz-range-thumb {
+  width: 22px; height: 22px; background: var(--accent); border: 3px solid var(--panel); border-radius: 50%; box-shadow: 0 0 0 1.5px var(--ink);
+}
+
+.chips { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+.chip {
+  appearance: none; -webkit-appearance: none;
+  display: flex; flex-direction: row; align-items: center; gap: 6px;
+  min-height: 44px; padding: 6px 8px;
+  font-family: var(--mono); font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
+  color: var(--ink); background: transparent; border: 1.5px solid var(--line); border-radius: 2px; cursor: pointer;
+}
+.chip .sw { width: 10px; height: 10px; flex: none; order: -1; }
+.chip[aria-pressed="true"] { background: var(--ink); color: var(--onink); border-color: var(--ink); }
+.desc { margin: 0; min-height: 4.1em; font-size: 15px; line-height: 1.38; }
+
+.model { border-top: 1.5px solid var(--ink); padding-top: 8px; }
+.model small { display: block; font-family: var(--mono); font-size: 10px; font-weight: 600; letter-spacing: .16em; color: var(--ink2); margin-bottom: 2px; }
+.model b { font-family: var(--display); font-weight: 800; font-size: 22px; line-height: 1.05; letter-spacing: .01em; }
+
+.opts, .votes {
+  --n: 4;
+  flex: 1 1 auto; margin-block: auto;
+  max-height: calc(var(--n) * 128px);
+  display: grid; gap: var(--space-2); grid-auto-rows: minmax(min-content, 1fr);
+}
+.opts.locked { flex: 0 0 auto; max-height: none; grid-auto-rows: auto; }
+.opt {
+  appearance: none; -webkit-appearance: none;
+  display: grid; grid-template-columns: 26px 1fr auto; gap: 10px; align-items: center;
+  width: 100%; text-align: left; padding: clamp(var(--space-3), 1.8cqh, var(--space-4)) var(--space-3);
+  font: inherit; font-size: 16px; font-weight: 500; color: var(--ink);
+  background: var(--panel); border: 1.5px solid var(--line); border-radius: 2px; cursor: pointer;
+  touch-action: manipulation;
+}
+.opt:hover { border-color: var(--ink); }
+.opt-key { font-family: var(--mono); font-size: 12px; font-weight: 600; color: var(--ink2); }
+.opt-body { display: grid; gap: 4px; }
+.opt-why { display: none; font-size: 14px; font-weight: 400; color: var(--ink2); }
+.opt-tag { font-family: var(--mono); font-size: 10px; font-weight: 600; letter-spacing: .1em; white-space: nowrap; }
+.opt.answered { cursor: default; }
+.opt.answered .opt-why { display: block; }
+.opt-why:empty { display: none !important; }
+h2.q.sm { font-size: 22px; line-height: 1.05; }
+.opt.ok { border-color: var(--good); background: var(--goodbg); }
+.opt.ok .opt-tag { color: var(--good); }
+.opt.bad { border-color: var(--bad); background: var(--badbg); }
+.opt.bad .opt-tag { color: var(--bad); }
+
+.explain { display: flex; flex-direction: column; gap: var(--space-3); }
+.explain.grow { flex: 1 1 auto; justify-content: space-between; }
+.explain p { margin: 0; font-size: 14.5px; line-height: 1.4; }
+.explain input[type=range] { height: 40px; }
+.bonus { padding: 8px 12px; border: 1px dashed var(--line); font-size: 14px; }
+.bonus b { font-family: var(--mono); font-size: 10px; letter-spacing: .14em; display: block; color: var(--accent); margin-bottom: 2px; }
+.mini { position: relative; flex: 1 1 100px; min-height: 88px; max-height: 220px; background: var(--panel); border: 1px solid var(--line); overflow: hidden; }
+.mini canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+
+.cue { font-family: var(--mono); font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--ink2); text-align: center; padding-top: 2px; }
+.cue::after { content: ''; display: block; width: 8px; height: 8px; margin: 6px auto 0; border-right: 2px solid var(--ink2); border-bottom: 2px solid var(--ink2); transform: rotate(45deg); }
+
+details { font-size: 14px; color: var(--ink2); }
+summary { cursor: pointer; font-family: var(--mono); font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--ink); padding: 6px 0; min-height: 32px; }
+details p { margin: 4px 0 0; }
+
+.segrow { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.seg {
+  appearance: none; -webkit-appearance: none;
+  min-height: 48px; font-family: var(--display); font-weight: 800; font-size: 24px; text-transform: uppercase; letter-spacing: .02em;
+  color: var(--ink); background: transparent; border: 1.5px solid var(--ink); border-radius: 2px; cursor: pointer;
+}
+.seg small { font-family: var(--mono); font-size: 10px; letter-spacing: .1em; font-weight: 600; margin-left: 4px; }
+.seg[aria-pressed="true"] { background: var(--ink); color: var(--onink); }
+
+.qstep { font-family: var(--mono); font-size: 12px; font-weight: 600; letter-spacing: .1em; color: var(--ink2); }
+.score { font-family: var(--display); font-weight: 900; font-size: 96px; line-height: .9; }
+.fb { margin: 0; font-size: 15px; min-height: 2.9em; }
+.fb b { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; }
+.fb.ok b { color: var(--good); }
+.fb.bad b { color: var(--bad); }
+
+.votes { --n: 5; max-height: calc(var(--n) * 96px); }
+.vote {
+  appearance: none; -webkit-appearance: none;
+  display: grid; gap: var(--space-1); align-content: center; text-align: left; width: 100%; padding: clamp(var(--space-2), 1.6cqh, var(--space-4)) var(--space-3);
+  font: inherit; font-size: 16px; font-weight: 600; color: var(--ink);
+  background: var(--panel); border: 1.5px solid var(--line); border-radius: 2px; cursor: pointer; touch-action: manipulation;
+}
+.vote:hover { border-color: var(--ink); }
+.vote .soon { display: none; font-size: 13px; font-weight: 500; color: var(--accent); font-family: var(--mono); letter-spacing: .02em; }
+.vote[aria-pressed="true"] { border-color: var(--accent); background: var(--bg); }
+.vote[aria-pressed="true"] .soon { display: block; }
+
+@media (max-height: 640px) {
+  h2 { font-size: 30px; }
+}
+.recallbody { flex: 1 1 auto; display: flex; flex-direction: column; gap: var(--gap); }
+.recallbody > .opts { --n: 3; }
+.recallbody.done { justify-content: center; }
+.ghost { visibility: hidden; }
+
+.stage.quiet { --stage-min: 140px; --stage-max: 100cqw; border-color: var(--soft); }
+.hows { display: grid; gap: var(--space-2); margin: 0; padding: 0; list-style: none; }
+.hows li { display: flex; align-items: baseline; gap: var(--space-3); padding-top: var(--space-2); border-top: 1px dashed var(--line); font-size: 14px; color: var(--ink2); }
+.hows b { flex: none; min-width: 92px; font-family: var(--mono); font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--ink); }
+.btn.start { width: 100%; min-height: 56px; font-size: 14px; }
+@media (prefers-reduced-motion: reduce) {
+  * { scroll-behavior: auto !important; transition: none !important; }
+}
+</style>
+
+<div class="app">
+  <div class="hud">
+    <span class="count" id="count" aria-live="polite"></span>
+    <div class="segs" id="segs" aria-hidden="true"></div>
+  </div>
+  <main class="feed" id="feed" aria-label="How a car engine works. Swipe up through the cards."></main>
+</div>
+
+<script>
+const EXPLAINER = {
+  id: 'car-engine',
+  title: 'How a Car Engine Works',
+  cards: [
+    {
+      type: 'intro',
+      title: 'Introduction',
+      kicker: 'How a car engine works',
+      headline: [
+        { t: 'Ever wondered how an ' },
+        { t: 'engine', em: true },
+        { t: ' works?' }
+      ],
+      meta: '{n} cards, about 3 minutes. You will drag, guess and play with a real engine cycle.',
+      hows: [
+        { k: 'Swipe up', t: 'to move to the next card.' },
+        { k: 'Guess first', t: 'then see the answer.' }
+      ],
+      start: 'Start'
+    },
+    {
+      type: 'hook',
+      kicker: 'How a car engine works',
+      headline: [
+        { t: 'At highway speed, a 4-cylinder engine sets off about ' },
+        { t: '100 small explosions every second.', em: true }
+      ],
+      question: 'So how does that turn into wheels spinning smoothly?',
+      mathLabel: 'Where does 100 come from?',
+      math: [
+        '3,000 engine turns a minute is 50 turns a second.',
+        'A four-stroke cylinder fires once every 2 turns. That is 25 times a second.',
+        'Four cylinders: 4 × 25 = 100 every second.'
+      ],
+      fig: 'FIG. 0 / RUNNING ENGINE',
+      cue: 'Swipe up'
+    },
+    {
+      type: 'predict',
+      kicker: 'Predict first',
+      q: 'What actually pushes the car forward?',
+      lead: 'Pick one. A guess makes the answer stick.',
+      options: [
+        { t: 'Exhaust gas shooting out the back', why: 'Exhaust leaves with little force. A rocket moves by throwing gas backwards. A car moves because its wheels grip the road.' },
+        { t: 'The fuel pump', why: 'The pump only delivers fuel to the engine. It makes no push on the wheels.' },
+        { t: 'Burning fuel pushing pistons that turn a shaft', ok: true, why: 'Burning fuel makes hot gas that pushes pistons. The pistons turn a shaft, and the shaft drives the wheels.' },
+        { t: 'The battery', why: 'The battery starts the engine and powers the spark. Once the engine runs, burning fuel does the work.' }
+      ],
+      model: 'Fuel burns, pistons push, a shaft spins.'
+    },
+    {
+      type: 'sim-crank',
+      kicker: 'Fig. 1',
+      title: 'Push into spin',
+      lead: 'Drag the crank. Watch the piston. TDC is the top of its travel. BDC is the bottom.',
+      params: { rodRatio: 3.2, speed: 50 },
+      fig: 'FIG. 1 / SLIDER-CRANK',
+      model: 'An engine turns straight-line pushes into spinning.'
+    },
+    {
+      type: 'sequence',
+      kicker: 'Fig. 2',
+      title: 'The four strokes',
+      lead: '',
+      params: { intake: [0, 190], exhaust: [530, 720], ramp: 25, speed: 80, sparkAt: 360 },
+      strokes: [
+        { name: 'Intake', word: 'Suck', gas: 'mix', text: 'The piston moves down. The intake valve opens and fuel-air mix flows in.' },
+        { name: 'Compression', word: 'Squeeze', gas: 'mixhi', text: 'Both valves are shut. The piston moves up and squeezes the mix.' },
+        { name: 'Power', word: 'Bang', gas: 'burn', text: 'The spark lights the mix. Burning gas pushes the piston down. This is the only stroke that makes force.' },
+        { name: 'Exhaust', word: 'Blow', gas: 'exh', text: 'The exhaust valve opens. The piston moves up and pushes the burnt gas out.' }
+      ],
+      fig: 'FIG. 2 / FOUR-STROKE CYCLE',
+      model: 'Suck, squeeze, bang, blow. Only the bang pushes.'
+    },
+    {
+      type: 'reveal',
+      kicker: 'Predict first',
+      q: 'Why does the engine squeeze the fuel-air mix before lighting it?',
+      lead: 'One more guess before the answer.',
+      options: [
+        { t: 'Squeezing cools the mix so it burns slowly', why: 'Squeezing heats the mix a little. It does not cool it.' },
+        { t: 'A smaller space means higher pressure when it burns', ok: true },
+        { t: 'It helps the valves seal', why: 'Springs and the cylinder pressure keep the valves shut. The squeeze exists to make the push bigger.' }
+      ],
+      explain: 'Squeezing packs the mix into a smaller space. A petrol engine squeezes it to about a tenth of its volume, written 10:1. When it burns, the pressure is far higher, so it pushes the piston much harder. Same fuel, more push.',
+      bonus: 'Diesels squeeze 16 to 20 times. That makes the air so hot that fuel lights by itself, with no spark plug.',
+      vizLabel: 'Squeeze ratio',
+      fig: 'FIG. 3 / COMPRESSION',
+      model: 'Squeeze first, and the same fuel pushes harder.'
+    },
+    {
+      type: 'sim-cylinders',
+      kicker: 'Fig. 4',
+      title: 'Why more cylinders?',
+      lead: 'Pick a count. Same total engine size, split into more pieces. Watch the push on the crankshaft.',
+      options: [
+        { n: 1, order: [1] },
+        { n: 4, order: [1, 3, 4, 2] },
+        { n: 8, order: [1, 8, 4, 3, 6, 5, 7, 2] }
+      ],
+      params: { speed: 120 },
+      model: 'More cylinders mean more, smaller pushes, so power is smoother.'
+    },
+    {
+      type: 'recall',
+      kicker: 'Lock it in',
+      title: 'Quick recall',
+      lead: 'Three questions, no new facts. Trying to remember is what makes it stick.',
+      questions: [
+        { q: 'Which stroke is the only one that makes force?', options: ['Compression', 'Power', 'Exhaust'], a: 1, why: 'Power. The burning gas pushes the piston down.' },
+        { q: 'Which part turns the piston’s up-down push into spinning?', options: ['Crankshaft', 'Spark plug', 'Intake valve'], a: 0, why: 'The crankshaft. Its offset crank pin turns straight pushes into rotation.' },
+        { q: 'Why squeeze the mix before the spark?', options: ['To keep the valves shut', 'To cool the mix', 'To get a harder push from the same fuel'], a: 2, why: 'A smaller space means higher pressure when it burns.' }
+      ]
+    },
+    {
+      type: 'branches',
+      kicker: 'Go deeper',
+      title: 'Where next?',
+      lead: 'Tap the ones you want. These are not written yet, and your taps decide what we write first.',
+      items: [
+        'V6 vs V8 vs W16: why the shapes?',
+        'What does a turbo do?',
+        'Diesel vs petrol',
+        'How a gearbox works, in cars and motorcycles',
+        'How electric motors are different'
+      ],
+      soon: 'Coming next. You just voted for this one.',
+      restart: 'Start over'
+    }
+  ]
+};
+
+(function () {
+  'use strict';
+
+  /* ---------- helpers ---------- */
+  const TAU = Math.PI * 2;
+  const rad = d => d * Math.PI / 180;
+  const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+  const wrap360 = d => ((d % 360) + 360) % 360;
+  const wrap720 = d => ((d % 720) + 720) % 720;
+  const pad2 = n => String(n).padStart(2, '0');
+  const MONO = "600 10px 'IBM Plex Mono', ui-monospace, Menlo, monospace";
+  const reducedMQ = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  function h(tag, props, ...kids) {
+    const e = document.createElement(tag);
+    for (const [k, v] of Object.entries(props || {})) {
+      if (v == null || v === false) continue;
+      if (k === 'class') e.className = v;
+      else if (k === 'text') e.textContent = v;
+      else if (k.startsWith('on')) e.addEventListener(k.slice(2), v);
+      else if (v === true) e.setAttribute(k, '');
+      else e.setAttribute(k, v);
+    }
+    kids.flat().forEach(c => { if (c != null) e.append(c.nodeType ? c : document.createTextNode(c)); });
+    return e;
+  }
+
+  /* ---------- theme tokens for canvas ---------- */
+  const T = {};
+  const TOKENS = ['bg', 'panel', 'ink', 'ink2', 'line', 'soft', 'block', 'hatch', 'metal', 'metalhi', 'mech', 'accent', 'mix', 'mixhi', 'burn', 'burnhot', 'exh'];
+  function readTheme() {
+    const cs = getComputedStyle(document.documentElement);
+    TOKENS.forEach(n => { T[n] = cs.getPropertyValue('--' + n).trim(); });
+  }
+  const rgbCache = {};
+  function rgbOf(c) {
+    if (rgbCache[c]) return rgbCache[c];
+    let out;
+    if (c[0] === '#') {
+      out = [parseInt(c.slice(1, 3), 16), parseInt(c.slice(3, 5), 16), parseInt(c.slice(5, 7), 16)];
+    } else {
+      out = c.match(/[\d.]+/g).slice(0, 3).map(Number);
+    }
+    rgbCache[c] = out;
+    return out;
+  }
+  function mixc(a, b, t) {
+    const A = rgbOf(a), B = rgbOf(b);
+    return 'rgb(' + A.map((v, i) => Math.round(v + (B[i] - v) * t)).join(',') + ')';
+  }
+  function rgba(c, a) { const [r, g, b] = rgbOf(c); return 'rgba(' + r + ',' + g + ',' + b + ',' + a + ')'; }
+
+  /* ---------- physics ---------- */
+  // Slider-crank: piston pin height above the crank axis.
+  function pistonX(th, r, l) {
+    const s = Math.sin(th);
+    return r * Math.cos(th) + Math.sqrt(l * l - r * r * s * s);
+  }
+
+  const SEQ = EXPLAINER.cards.find(c => c.type === 'sequence').params;
+  function lift(p, win, ramp) {
+    const a = win[0], b = win[1];
+    if (p < a || p > b) return 0;
+    const k = Math.min((p - a) / ramp, (b - p) / ramp, 1);
+    return k * k * (3 - 2 * k);
+  }
+  // Gas state for a cylinder at cycle position p (0..720). TDC at 0, 360, 720.
+  // 0-180 intake, 180-360 compression, 360-540 power, 540-720 exhaust.
+  function gasAt(p) {
+    p = wrap720(p);
+    let col, a, count = 1;
+    if (p < 180) { const k = p / 180; col = T.mix; a = 0.25 + 0.45 * k; count = k; }
+    else if (p < 360) { const k = (p - 180) / 180; col = mixc(T.mix, T.mixhi, k); a = 0.7 + 0.25 * k; }
+    else if (p < 540) {
+      const k = (p - 360) / 180;
+      col = mixc(T.mixhi, T.burn, clamp((p - 358) / 40, 0, 1));
+      col = mixc(col, mixc(T.burn, T.exh, 0.55), clamp((k - 0.35) / 0.65, 0, 1));
+      a = 0.95 - 0.3 * k;
+    } else { const k = (p - 540) / 180; col = T.exh; a = 0.55 - 0.25 * k; count = 1 - k; }
+    let flame = 0;
+    if (p >= 356 && p < 540) flame = clamp((p - 356) / 40, 0, 1) * (1 - 0.75 * clamp((p - 470) / 70, 0, 1));
+    const spark = (p >= 350 && p < 372) ? 1 - Math.abs(p - 361) / 12 : 0;
+    const push = (p >= 362 && p < 540) ? clamp(1 - (p - 362) / 178, 0, 1) : 0;
+    return { col, a, count, flame, spark: Math.max(0, spark), push, burning: p >= 356 && p < 540 };
+  }
+
+  const PTS = Array.from({ length: 30 }, (_, i) => {
+    const f = v => v - Math.floor(v);
+    return [0.1 + 0.8 * f(Math.sin(i * 12.9898) * 43758.5453), 0.1 + 0.8 * f(Math.sin(i * 78.233 + 1) * 43758.5453)];
+  });
+
+  /* ---------- drawing ---------- */
+  function drawGrid(ctx, W, H) {
+    ctx.fillStyle = T.panel; ctx.fillRect(0, 0, W, H);
+    ctx.strokeStyle = rgba(T.soft, 0.55); ctx.lineWidth = 1; ctx.beginPath();
+    for (let x = 12.5; x < W; x += 24) { ctx.moveTo(x, 0); ctx.lineTo(x, H); }
+    for (let y = 12.5; y < H; y += 24) { ctx.moveTo(0, y); ctx.lineTo(W, y); }
+    ctx.stroke();
+  }
+  function hatchRect(ctx, x, y, w, hh, gap) {
+    ctx.save(); ctx.beginPath(); ctx.rect(x, y, w, hh); ctx.clip();
+    ctx.fillStyle = T.block; ctx.fillRect(x, y, w, hh);
+    ctx.strokeStyle = T.hatch; ctx.lineWidth = 1; ctx.beginPath();
+    for (let k = -hh; k < w; k += gap) { ctx.moveTo(x + k, y + hh); ctx.lineTo(x + k + hh, y); }
+    ctx.stroke(); ctx.restore();
+    ctx.strokeStyle = T.ink; ctx.lineWidth = 1.5; ctx.strokeRect(x, y, w, hh);
+  }
+  function layoutEngine(W, H, head) {
+    const up = head ? 8.5 : 6.4, down = 2.0;
+    const r = Math.min(H / (up + down + 0.7), W / (head ? 10.6 : 9.6), 46);
+    const cy = (H - (up + down) * r) / 2 + up * r;
+    return { r, l: 3.2 * r, cx: W / 2, cy, bore: 4 * r, wall: 0.9 * r, pinToCrown: 0.6 * r, pistonH: 1.3 * r, headY: cy - 5.1 * r };
+  }
+  function arrowDown(ctx, x, y, len, w, col) {
+    ctx.fillStyle = col; ctx.beginPath();
+    ctx.rect(x - w / 2, y, w, Math.max(0, len - w * 1.1));
+    ctx.fill();
+    ctx.beginPath(); ctx.moveTo(x - w * 1.1, y + len - w * 1.3); ctx.lineTo(x + w * 1.1, y + len - w * 1.3); ctx.lineTo(x, y + len); ctx.closePath(); ctx.fill();
+  }
+
+  // Full single-cylinder cross-section. o: {theta(deg crank angle, 0 = TDC), head, gas, intake, exhaust, guides, hint, labels}
+  function drawEngine(ctx, W, H, o) {
+    const head = !!o.head, L = layoutEngine(W, H, head);
+    const { r, l, cx, cy, bore, wall, headY } = L;
+    const th = rad(o.theta), xp = pistonX(th, r, l), pinY = cy - xp, crownY = pinY - L.pinToCrown;
+    const x0 = cx - bore / 2, x1 = cx + bore / 2;
+    const topY = head ? headY - 1.6 * r : headY - 0.9 * r, botY = cy + 1.95 * r;
+    const gap = Math.max(5, r * 0.2), g = o.gas;
+    drawGrid(ctx, W, H);
+    ctx.lineJoin = 'round'; ctx.lineCap = 'round';
+
+    // combustion chamber contents
+    if (head && g) {
+      ctx.fillStyle = rgba(g.col, g.a); ctx.fillRect(x0, headY, bore, crownY - headY);
+      if (g.flame > 0.01) {
+        ctx.save(); ctx.beginPath(); ctx.rect(x0, headY, bore, crownY - headY); ctx.clip();
+        const R = bore * 0.95 * (0.25 + 0.75 * g.flame);
+        const gr = ctx.createRadialGradient(cx, headY + 2, 0, cx, headY + 2, R);
+        gr.addColorStop(0, rgba(T.burnhot, 0.95 * g.flame));
+        gr.addColorStop(0.45, rgba(T.burn, 0.75 * g.flame));
+        gr.addColorStop(1, rgba(T.burn, 0));
+        ctx.fillStyle = gr; ctx.fillRect(x0, headY, bore, crownY - headY); ctx.restore();
+      }
+      const n = Math.round(PTS.length * g.count), pc = g.burning ? T.burnhot : g.col;
+      ctx.fillStyle = rgba(pc, 0.95);
+      const pr = Math.max(1.5, r * 0.055), vh = crownY - headY - 6;
+      for (let i = 0; i < n; i++) {
+        ctx.beginPath(); ctx.arc(x0 + PTS[i][0] * bore, headY + 3 + PTS[i][1] * vh, pr, 0, TAU); ctx.fill();
+      }
+    }
+
+    // block, walls
+    hatchRect(ctx, x0 - wall, topY, wall, botY - topY, gap);
+    hatchRect(ctx, x1, topY, wall, botY - topY, gap);
+    hatchRect(ctx, x0 - wall, cy + 1.7 * r, bore + 2 * wall, botY - (cy + 1.7 * r), gap);
+
+    const vxI = cx - 1.25 * r, vxE = cx + 1.25 * r, portY = headY - 1.15 * r;
+    if (head) {
+      hatchRect(ctx, x0 - wall, headY - 1.6 * r, bore + 2 * wall, 1.6 * r, gap);
+      // ports
+      const lI = o.intake || 0, lE = o.exhaust || 0;
+      [[vxI, -1, lI, T.mix], [vxE, 1, lE, T.exh]].forEach(([vx, dir, lf, gc]) => {
+        ctx.save();
+        ctx.beginPath(); ctx.moveTo(vx, headY - 0.4 * r); ctx.lineTo(vx, headY - 0.7 * r);
+        ctx.quadraticCurveTo(vx, portY, vx + dir * 0.5 * r, portY); ctx.lineTo(dir * 9999 + cx, portY);
+        ctx.lineCap = 'butt'; ctx.lineWidth = 0.75 * r + 3; ctx.strokeStyle = T.ink; ctx.stroke();
+        ctx.lineWidth = 0.75 * r; ctx.strokeStyle = T.panel; ctx.stroke();
+        if (lf > 0.02) { ctx.strokeStyle = rgba(gc, 0.6 * lf); ctx.stroke(); }
+        ctx.restore();
+        ctx.fillStyle = T.panel; ctx.fillRect(vx - 0.375 * r, headY - 0.5 * r, 0.75 * r, 0.5 * r);
+        if (lf > 0.02) { ctx.fillStyle = rgba(gc, 0.6 * lf); ctx.fillRect(vx - 0.375 * r, headY - 0.5 * r, 0.75 * r, 0.5 * r + 1); }
+      });
+      // valves
+      [[vxI, lI], [vxE, lE]].forEach(([vx, lf]) => {
+        const ly = headY + lf * 0.55 * r, capY = headY - 2.4 * r + lf * 0.55 * r;
+        ctx.lineCap = 'butt'; ctx.strokeStyle = T.mech; ctx.lineWidth = Math.max(2, 0.14 * r);
+        ctx.beginPath(); ctx.moveTo(vx, capY); ctx.lineTo(vx, ly); ctx.stroke();
+        // spring
+        ctx.strokeStyle = T.ink2; ctx.lineWidth = 1.5; ctx.beginPath();
+        const sTop = capY, sBot = headY - 1.6 * r, steps = 6;
+        ctx.moveTo(vx, sTop);
+        for (let i = 1; i <= steps; i++) ctx.lineTo(vx + (i % 2 ? 0.32 : -0.32) * r, sTop + (sBot - sTop) * i / steps);
+        ctx.lineTo(vx, sBot); ctx.stroke();
+        ctx.fillStyle = T.metal; ctx.strokeStyle = T.ink; ctx.lineWidth = 1.5;
+        ctx.fillRect(vx - 0.3 * r, capY - 0.1 * r, 0.6 * r, 0.14 * r); ctx.strokeRect(vx - 0.3 * r, capY - 0.1 * r, 0.6 * r, 0.14 * r);
+        ctx.beginPath(); ctx.moveTo(vx - 0.4 * r, ly - 0.18 * r); ctx.lineTo(vx + 0.4 * r, ly - 0.18 * r);
+        ctx.lineTo(vx + 0.52 * r, ly); ctx.lineTo(vx - 0.52 * r, ly); ctx.closePath(); ctx.fill(); ctx.stroke();
+      });
+      // spark plug
+      ctx.fillStyle = T.metalhi; ctx.strokeStyle = T.ink; ctx.lineWidth = 1.5;
+      ctx.fillRect(cx - 0.27 * r, headY - 2.25 * r, 0.54 * r, 0.7 * r); ctx.strokeRect(cx - 0.27 * r, headY - 2.25 * r, 0.54 * r, 0.7 * r);
+      ctx.fillStyle = T.metal; ctx.fillRect(cx - 0.45 * r, headY - 1.85 * r, 0.9 * r, 0.25 * r); ctx.strokeRect(cx - 0.45 * r, headY - 1.85 * r, 0.9 * r, 0.25 * r);
+      ctx.strokeStyle = T.mech; ctx.lineWidth = Math.max(2, 0.1 * r); ctx.lineCap = 'butt';
+      ctx.beginPath(); ctx.moveTo(cx, headY - 1.6 * r); ctx.lineTo(cx, headY + 0.32 * r); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(cx - 0.4 * r, headY); ctx.lineTo(cx - 0.4 * r, headY + 0.32 * r); ctx.lineTo(cx - 0.1 * r, headY + 0.32 * r); ctx.stroke();
+      if (g && g.spark > 0.05) {
+        const sg = ctx.createRadialGradient(cx, headY + 0.3 * r, 0, cx, headY + 0.3 * r, r * 1.1);
+        sg.addColorStop(0, rgba(T.burnhot, 0.95 * g.spark)); sg.addColorStop(1, rgba(T.burnhot, 0));
+        ctx.fillStyle = sg; ctx.fillRect(cx - 1.2 * r, headY - 0.6 * r, 2.4 * r, 2 * r);
+        ctx.strokeStyle = T.ink; ctx.lineWidth = 2; ctx.lineCap = 'round'; ctx.beginPath();
+        ctx.moveTo(cx - 0.1 * r, headY + 0.32 * r); ctx.lineTo(cx - 0.22 * r, headY + 0.5 * r); ctx.lineTo(cx - 0.3 * r, headY + 0.28 * r); ctx.lineTo(cx - 0.4 * r, headY + 0.4 * r); ctx.stroke();
+      }
+    }
+
+    // guides
+    const crownTDC = cy - (r + l) - L.pinToCrown;
+    if (o.guides) {
+      ctx.save(); ctx.setLineDash([5, 4]); ctx.strokeStyle = T.accent; ctx.lineWidth = 1.2; ctx.beginPath();
+      [crownTDC, crownTDC + 2 * r].forEach(y => { ctx.moveTo(x0, y); ctx.lineTo(x1 + wall + 10, y); });
+      ctx.stroke(); ctx.restore();
+      ctx.font = MONO; ctx.fillStyle = T.accent; ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+      ctx.fillText('TDC', x1 + wall + 12, crownTDC); ctx.fillText('BDC', x1 + wall + 12, crownTDC + 2 * r);
+      // stroke dimension
+      const dx = x0 - wall - 12;
+      ctx.strokeStyle = T.ink2; ctx.lineWidth = 1; ctx.beginPath();
+      ctx.moveTo(dx, crownTDC); ctx.lineTo(dx, crownTDC + 2 * r);
+      ctx.moveTo(dx - 4, crownTDC); ctx.lineTo(dx + 4, crownTDC); ctx.moveTo(dx - 4, crownTDC + 2 * r); ctx.lineTo(dx + 4, crownTDC + 2 * r); ctx.stroke();
+      ctx.save(); ctx.translate(dx - 8, crownTDC + r); ctx.rotate(-Math.PI / 2); ctx.fillStyle = T.ink2; ctx.textAlign = 'center'; ctx.fillText('STROKE', 0, 0); ctx.restore();
+    }
+
+    // crank web + counterweight
+    const px = cx + r * Math.sin(th), py = cy - r * Math.cos(th);
+    const cwx = cx - 0.95 * r * Math.sin(th), cwy = cy + 0.95 * r * Math.cos(th);
+    ctx.setLineDash([]);
+    ctx.strokeStyle = T.line; ctx.lineWidth = 1; ctx.beginPath(); ctx.arc(cx, cy, r, 0, TAU); ctx.stroke();
+    ctx.fillStyle = T.mech; ctx.strokeStyle = T.ink; ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.arc(cwx, cwy, 0.7 * r, 0, TAU); ctx.fill(); ctx.stroke();
+    ctx.lineCap = 'round'; ctx.strokeStyle = T.ink; ctx.lineWidth = 0.56 * r + 3; ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(px, py); ctx.stroke();
+    ctx.strokeStyle = T.mech; ctx.lineWidth = 0.56 * r; ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(px, py); ctx.stroke();
+
+    // connecting rod
+    ctx.strokeStyle = T.line; ctx.lineWidth = 0.3 * r + 3; ctx.beginPath(); ctx.moveTo(cx, pinY); ctx.lineTo(px, py); ctx.stroke();
+    ctx.strokeStyle = T.mech; ctx.lineWidth = 0.3 * r; ctx.beginPath(); ctx.moveTo(cx, pinY); ctx.lineTo(px, py); ctx.stroke();
+    ctx.fillStyle = T.mech; ctx.strokeStyle = T.line; ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.arc(px, py, 0.42 * r, 0, TAU); ctx.fill(); ctx.stroke();
+    ctx.fillStyle = T.panel; ctx.beginPath(); ctx.arc(px, py, 0.14 * r, 0, TAU); ctx.fill();
+    ctx.fillStyle = T.panel; ctx.strokeStyle = T.ink; ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.arc(cx, cy, 0.34 * r, 0, TAU); ctx.fill(); ctx.stroke();
+
+    // piston
+    const pw = bore - 0.1 * r;
+    ctx.fillStyle = T.metal; ctx.strokeStyle = T.ink; ctx.lineWidth = 1.5;
+    ctx.fillRect(cx - pw / 2, crownY, pw, L.pistonH); ctx.strokeRect(cx - pw / 2, crownY, pw, L.pistonH);
+    ctx.fillStyle = T.metalhi; ctx.fillRect(cx - pw / 2 + 1, crownY + 1, pw - 2, 0.16 * r);
+    ctx.strokeStyle = T.ink; ctx.lineWidth = 1.2; ctx.beginPath();
+    [0.3, 0.5].forEach(k => { ctx.moveTo(cx - pw / 2, crownY + k * r); ctx.lineTo(cx + pw / 2, crownY + k * r); });
+    ctx.stroke();
+    ctx.fillStyle = T.panel; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.arc(cx, pinY, 0.2 * r, 0, TAU); ctx.fill(); ctx.stroke();
+
+    // push arrow
+    if (g && g.push > 0.02) {
+      const ax = x0 - wall - 0.55 * r;
+      arrowDown(ctx, ax, crownY - 0.2 * r, (0.5 + 1.6 * g.push) * r, 0.22 * r, T.burn);
+      ctx.font = MONO; ctx.fillStyle = T.accent; ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+      ctx.fillText('PUSH', ax - 0.4 * r, crownY + 0.3 * r);
+    }
+
+    // hint ring
+    if (o.hint) {
+      const pulse = 0.5 + 0.5 * Math.sin(performance.now() / 350);
+      ctx.save(); ctx.setLineDash([4, 4]); ctx.strokeStyle = T.accent; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.arc(px, py, 0.75 * r + pulse * 4, 0, TAU); ctx.stroke(); ctx.restore();
+      ctx.font = MONO; ctx.fillStyle = T.accent; ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+      ctx.fillText('DRAG', px, py + 0.75 * r + 8);
+    }
+    if (o.arc) {
+      ctx.strokeStyle = T.accent; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(cx, cy, 0.62 * r, -Math.PI / 2, -Math.PI / 2 + th); ctx.stroke();
+    }
+
+    // labels
+    if (head && o.labels) {
+      ctx.font = MONO; ctx.fillStyle = T.ink2; ctx.textBaseline = 'bottom';
+      ctx.textAlign = 'left'; ctx.fillText('INTAKE', 8, portY - 0.55 * r);
+      ctx.textAlign = 'right'; ctx.fillText('EXHAUST', W - 8, portY - 0.55 * r);
+      ctx.textAlign = 'center'; ctx.fillText('SPARK PLUG', cx, headY - 2.4 * r - 3);
+    }
+    return { px, py, cx, cy, r, bore, xp, L };
+  }
+
+  /* ---------- canvas component and sim loop ---------- */
+  const sims = [];
+  function makeCanvas(host, onResize) {
+    const cv = h('canvas');
+    host.append(cv);
+    const o = { cv, ctx: cv.getContext('2d'), w: 0, h: 0, dpr: 1 };
+    const fit = () => {
+      const w = host.clientWidth, hh = host.clientHeight; // padding box: the canvas fills it, borders excluded
+      if (w < 2 || hh < 2) return;
+      const dpr = Math.min(window.devicePixelRatio || 1, 3);
+      if (w === o.w && hh === o.h && dpr === o.dpr) return;
+      o.w = w; o.h = hh; o.dpr = dpr;
+      cv.width = Math.round(w * dpr); cv.height = Math.round(hh * dpr);
+      o.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      if (onResize) onResize();
+    };
+    new ResizeObserver(fit).observe(host);
+    fit();
+    return o;
+  }
+  function addSim(card, sim) {
+    sim.visible = false; sim.playing = false;
+    sims.push(sim);
+    (card.__sims = card.__sims || []).push(sim);
+    return sim;
+  }
+  function playButton(sim) {
+    const b = h('button', { class: 'btn sm', type: 'button' });
+    sim.syncUI = () => { b.textContent = sim.playing ? 'Pause' : 'Play'; b.setAttribute('aria-label', sim.playing ? 'Pause animation' : 'Play animation'); };
+    b.addEventListener('click', () => { sim.playing = !sim.playing; sim.touched = true; sim.syncUI(); });
+    sim.syncUI();
+    return b;
+  }
+  let last = performance.now();
+  function loop(t) {
+    const dt = Math.min(0.05, (t - last) / 1000); last = t;
+    for (const s of sims) {
+      if (!s.visible) continue;
+      const was = s.playing;
+      if (was) s.update(dt);
+      if (was || s.playing || s.alwaysDraw) s.draw();
+    }
+    requestAnimationFrame(loop);
+  }
+  function redrawAll() { sims.forEach(s => s.draw && s.draw()); }
+
+  /* ---------- card chrome ---------- */
+  // parts: head (top cluster), mid (flexible middle, direct children of the card), foot (bottom cluster)
+  function baseCard(c, parts) {
+    const kids = [];
+    if (parts.head) kids.push(h('div', { class: 'hd' }, parts.head));
+    if (parts.mid) kids.push(...parts.mid);
+    if (parts.foot) kids.push(h('div', { class: 'ft' }, parts.foot));
+    const inner = h('div', { class: 'inner' }, kids);
+    const el = h('section', { class: 'card', 'aria-label': c.title || c.q || c.kicker }, inner);
+    return { el, inner };
+  }
+  function modelBlock(text) {
+    return h('div', { class: 'model' }, h('small', { text: 'MENTAL MODEL' }), h('b', { text }));
+  }
+  function stageBox(fig) {
+    const host = h('div', { class: 'stage' });
+    if (fig) host.append(h('div', { class: 'fig', text: fig }));
+    return host;
+  }
+  function head2(c, title) {
+    return [h('div', { class: 'head' }, h('h2', { text: title }), h('div', { class: 'kicker', text: c.kicker }))];
+  }
+
+  /* ---------- renderers ---------- */
+  const R = {};
+
+  R.intro = function (c) {
+    const stage = stageBox();
+    stage.classList.add('quiet');
+    const hl = h('h1', {}, c.headline.map(p => p.em ? h('em', { text: p.t }) : p.t));
+    const start = h('button', { class: 'btn solid start', type: 'button', text: c.start, onclick: () => {
+      feed.scrollBy({ top: feed.clientHeight, behavior: reducedMQ.matches ? 'auto' : 'smooth' });
+    } });
+    const { el } = baseCard(c, {
+      head: [h('div', { class: 'kicker', text: c.kicker }), hl],
+      mid: [stage],
+      foot: [
+        h('p', { class: 'lead', text: c.meta.replace('{n}', String(countedTotal())) }),
+        h('ul', { class: 'hows' }, c.hows.map(x => h('li', {}, h('b', { text: x.k }), h('span', { text: x.t })))),
+        start
+      ]
+    });
+    let phi = 40;
+    const cv = makeCanvas(stage, () => sim.draw());
+    const sim = addSim(el, {
+      update(dt) { phi = wrap360(phi + 40 * dt); },
+      draw() { if (cv.w) drawEngine(cv.ctx, cv.w, cv.h, { theta: phi, head: false }); },
+      onShow() { if (!reducedMQ.matches) sim.playing = true; }
+    });
+    return el;
+  };
+
+  R.hook = function (c) {
+    const stage = stageBox(c.fig);
+    const hl = h('h1', {}, c.headline.map(p => p.em ? h('em', { text: p.t }) : p.t));
+    const { el } = baseCard(c, {
+      head: [h('div', { class: 'kicker', text: c.kicker }), hl],
+      mid: [stage],
+      foot: [
+        h('p', { class: 'lead', style: 'color:var(--ink);font-weight:700;font-size:18px', text: c.question }),
+        h('details', {}, h('summary', { text: c.mathLabel }), ...c.math.map(m => h('p', { text: m }))),
+        h('div', { class: 'cue', text: c.cue })
+      ]
+    });
+    let phi = 420;
+    const cv = makeCanvas(stage, () => sim.draw());
+    const sim = addSim(el, {
+      update(dt) { phi = wrap720(phi + 90 * dt); },
+      draw() {
+        if (!cv.w) return;
+        drawEngine(cv.ctx, cv.w, cv.h, {
+          theta: wrap360(phi), head: true, gas: gasAt(phi), labels: false,
+          intake: lift(phi, SEQ.intake, SEQ.ramp), exhaust: lift(phi, SEQ.exhaust, SEQ.ramp)
+        });
+      },
+      onShow() { if (!reducedMQ.matches) { sim.playing = true; } }
+    });
+    return el;
+  };
+
+  function optionGroup(opts, pick) {
+    const wrapEl = h('div', { class: 'opts', role: 'group', style: '--n:' + opts.length });
+    const btns = opts.map((o, k) => {
+      const b = h('button', { class: 'opt', type: 'button' },
+        h('span', { class: 'opt-key', text: 'ABCD'[k] }),
+        h('span', { class: 'opt-body' }, h('span', { class: 'opt-text', text: o.t }), h('span', { class: 'opt-why', text: o.why || '' })),
+        h('span', { class: 'opt-tag' }));
+      b.addEventListener('click', () => pick(k));
+      wrapEl.append(b);
+      return b;
+    });
+    return { wrapEl, btns };
+  }
+  function lockOptions(c, btns, k, tagsOnly) {
+    const okIdx = c.options.findIndex(o => o.ok);
+    const shown = new Set([k, okIdx]).size;
+    btns[0].parentNode.classList.add('locked');
+    btns[0].parentNode.style.setProperty('--n', shown);
+    btns.forEach((b, j) => {
+      if (j !== k && j !== okIdx) { b.hidden = true; return; }
+      b.classList.add('answered', j === okIdx ? 'ok' : 'bad');
+      b.setAttribute('aria-disabled', 'true');
+      b.querySelector('.opt-tag').textContent = j === okIdx ? (j === k ? 'RIGHT' : 'ANSWER') : 'NOT QUITE';
+    });
+    return okIdx;
+  }
+
+  R.predict = function (c) {
+    const lead = h('p', { class: 'lead', text: c.lead });
+    const fb = h('div', { class: 'explain', hidden: true, 'aria-live': 'polite' }, modelBlock(c.model), h('div', { class: 'cue', text: 'Swipe up' }));
+    let done = false;
+    const g = optionGroup(c.options, k => {
+      if (done) return; done = true;
+      lockOptions(c, g.btns, k);
+      lead.hidden = true; fb.hidden = false; qh.classList.add('sm');
+    });
+    const qh = h('h2', { class: 'q', text: c.q });
+    return baseCard(c, { head: [h('div', { class: 'kicker', text: c.kicker }), qh, lead], mid: [g.wrapEl], foot: [fb] }).el;
+  };
+
+  R.reveal = function (c) {
+    const lead = h('p', { class: 'lead', text: c.lead });
+    const mini = h('div', { class: 'mini' });
+    const out = h('output', { style: 'font-family:var(--mono);font-size:12px;font-weight:600;min-width:64px;text-align:right' });
+    const slider = h('input', { type: 'range', min: '1', max: '10', step: '0.1', value: '1', id: 'sq-' + Math.random().toString(36).slice(2, 6) });
+    const lab = h('label', { for: slider.id, text: c.vizLabel });
+    const ctrl = h('div', { class: 'controls' }, lab, slider, out);
+    const fb = h('div', { class: 'explain grow', hidden: true, 'aria-live': 'polite' },
+      h('p', { text: c.explain }), mini, ctrl,
+      h('div', { class: 'bonus' }, h('b', { text: 'BONUS' }), c.bonus), modelBlock(c.model));
+    let done = false, tween = null;
+    const g = optionGroup(c.options, k => {
+      if (done) return; done = true;
+      lockOptions(c, g.btns, k);
+      lead.hidden = true; fb.hidden = false; qh.classList.add('sm');
+      mini.append(h('div', { class: 'fig', text: c.fig }));
+      setTimeout(() => {
+        if (reducedMQ.matches) { slider.value = '10'; sim.draw(); return; }
+        tween = performance.now(); sim.playing = true;
+      }, 120);
+    });
+    const qh = h('h2', { class: 'q', text: c.q });
+    const { el } = baseCard(c, { head: [h('div', { class: 'kicker', text: c.kicker }), qh, lead], mid: [g.wrapEl, fb] });
+    const cv = makeCanvas(mini, () => sim.draw());
+    const val = () => parseFloat(slider.value);
+    const sim = addSim(el, {
+      alwaysDraw: false,
+      update() {
+        const k = clamp((performance.now() - tween) / 1400, 0, 1);
+        slider.value = String(1 + 9 * (k * k * (3 - 2 * k)));
+        if (k >= 1) sim.playing = false;
+      },
+      draw() {
+        if (!cv.w) return;
+        const ctx = cv.ctx, W = cv.w, H = cv.h, CR = val();
+        out.textContent = CR.toFixed(1).replace(/\.0$/, '') + ' : 1';
+        drawGrid(ctx, W, H);
+        const bx = W * 0.1, bw = W * 0.42, by = 12, bh = H - 24;
+        const gh = bh * 0.9 / CR, gy = by + bh - gh;
+        ctx.fillStyle = rgba(mixc(T.mix, T.mixhi, (CR - 1) / 9), 0.55 + 0.35 * (CR - 1) / 9);
+        ctx.fillRect(bx, gy, bw, gh);
+        ctx.fillStyle = rgba(mixc(T.mix, T.mixhi, (CR - 1) / 9), 0.95);
+        for (let i = 0; i < 40; i++) {
+          const f = v => v - Math.floor(v);
+          ctx.beginPath(); ctx.arc(bx + 4 + f(Math.sin(i * 9.1) * 4375.5) * (bw - 8), gy + 3 + f(Math.sin(i * 4.7 + 2) * 9137.1) * Math.max(1, gh - 6), 1.8, 0, TAU); ctx.fill();
+        }
+        ctx.fillStyle = T.metal; ctx.strokeStyle = T.ink; ctx.lineWidth = 1.5;
+        ctx.fillRect(bx, gy - 12, bw, 12); ctx.strokeRect(bx, gy - 12, bw, 12);
+        ctx.beginPath(); ctx.moveTo(bx + bw / 2, by - 8); ctx.lineTo(bx + bw / 2, gy - 12); ctx.lineWidth = 4; ctx.strokeStyle = T.mech; ctx.stroke();
+        ctx.lineWidth = 2; ctx.strokeStyle = T.ink;
+        ctx.beginPath(); ctx.moveTo(bx, by); ctx.lineTo(bx, by + bh); ctx.lineTo(bx + bw, by + bh); ctx.lineTo(bx + bw, by); ctx.stroke();
+        // pressure gauge
+        const gx = W * 0.6, gw = 26, press = Math.pow(CR, 1.3) * 3.5;
+        const gtop = by + 30, gbot = by + bh, gH = gbot - gtop;
+        ctx.strokeStyle = T.ink; ctx.lineWidth = 1.5; ctx.strokeRect(gx, gtop, gw, gH);
+        ctx.fillStyle = T.burn; const fh = gH * press / 75; ctx.fillRect(gx + 1, gbot - fh, gw - 2, fh);
+        ctx.font = MONO; ctx.fillStyle = T.ink; ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+        ctx.fillText('~' + Math.round(press) + ' BAR', gx + gw + 8, Math.min(gbot - 2, Math.max(gtop + 12, gbot - fh + 5)));
+        ctx.fillStyle = T.ink2; ctx.textBaseline = 'top'; ctx.fillText('PRESSURE', gx, by - 2);
+        ctx.fillText('WHEN IT BURNS', gx, by + 9);
+      }
+    });
+    slider.addEventListener('input', () => { sim.playing = false; sim.draw(); });
+    sim.alwaysDraw = false;
+    return el;
+  };
+
+  R['sim-crank'] = function (c) {
+    const stage = stageBox(c.fig);
+    const readout = h('div', { class: 'readout' });
+    const slider = h('input', { type: 'range', min: '0', max: '360', step: '1', value: '40', id: 'crank-ang' });
+    const lab = h('label', { for: 'crank-ang', text: 'Crank angle in degrees' });
+    let theta = 40, dragging = false, lastA = 0, geom = null;
+    const play = h('button', { class: 'btn sm', type: 'button' });
+    const { el } = baseCard(c, {
+      head: [...head2(c, c.title), h('p', { class: 'lead sm', text: c.lead })],
+      mid: [stage],
+      foot: [readout, h('div', { class: 'controls' }, play, lab, slider), modelBlock(c.model)]
+    });
+    const cv = makeCanvas(stage, () => sim.draw());
+    const sim = addSim(el, {
+      alwaysDraw: false, hintOn: true,
+      update(dt) { theta = wrap360(theta + c.params.speed * dt); },
+      draw() {
+        if (!cv.w) return;
+        const th = wrap360(theta);
+        geom = drawEngine(cv.ctx, cv.w, cv.h, { theta: th, head: false, guides: true, arc: true, hint: sim.hintOn });
+        slider.value = String(Math.round(th));
+        const travel = Math.round((1 - (geom.xp - (geom.L.l - geom.r)) / (2 * geom.r)) * 100);
+        const dir = (th < 3 || th > 357) ? 'TOP (TDC)' : (Math.abs(th - 180) < 3) ? 'BOTTOM (BDC)' : th < 180 ? 'MOVING DOWN' : 'MOVING UP';
+        readout.replaceChildren(h('span', {}, 'CRANK ', h('b', { text: Math.round(th) + '°' })), h('span', {}, 'PISTON ', h('b', { text: dir })), h('span', {}, 'TRAVEL ', h('b', { text: travel + '% DOWN' })));
+      },
+      onShow() { if (!reducedMQ.matches && !sim.touched) { sim.playing = true; sim.syncUI(); } }
+    });
+    // replace play button with synced one
+    const pb = playButton(sim); play.replaceWith(pb);
+    sim.alwaysDraw = true; // keeps hint ring pulsing while visible
+    function angleAt(e) {
+      const rc = cv.cv.getBoundingClientRect();
+      return Math.atan2(e.clientX - rc.left - geom.cx, -(e.clientY - rc.top - geom.cy)) * 180 / Math.PI;
+    }
+    function hit(e) {
+      if (!geom) return false;
+      const rc = cv.cv.getBoundingClientRect(), x = e.clientX - rc.left, y = e.clientY - rc.top;
+      const near = Math.hypot(x - geom.cx, y - geom.cy) < geom.r * 2.7;
+      const inBore = Math.abs(x - geom.cx) < geom.bore / 2 + geom.r && y > geom.cy - geom.r * 6.2 && y < geom.cy;
+      return near || inBore;
+    }
+    cv.cv.addEventListener('touchstart', e => { const t = e.touches[0]; if (hit(t)) e.preventDefault(); }, { passive: false });
+    cv.cv.addEventListener('touchmove', e => { if (dragging) e.preventDefault(); }, { passive: false });
+    cv.cv.addEventListener('pointerdown', e => {
+      if (!hit(e)) return;
+      dragging = true; lastA = angleAt(e); sim.playing = false; sim.touched = true; sim.hintOn = false; sim.syncUI();
+      cv.cv.setPointerCapture(e.pointerId); cv.cv.classList.add('grabbing');
+    });
+    cv.cv.addEventListener('pointermove', e => {
+      if (!dragging) { cv.cv.classList.toggle('grab', hit(e)); return; }
+      const a = angleAt(e); let d = a - lastA;
+      if (d > 180) d -= 360; if (d < -180) d += 360;
+      theta = wrap360(theta + d); lastA = a; sim.draw();
+    });
+    const end = () => { dragging = false; cv.cv.classList.remove('grabbing'); };
+    cv.cv.addEventListener('pointerup', end); cv.cv.addEventListener('pointercancel', end);
+    slider.addEventListener('input', () => { theta = parseFloat(slider.value); sim.playing = false; sim.touched = true; sim.hintOn = false; sim.syncUI(); sim.draw(); });
+    return el;
+  };
+
+  R.sequence = function (c) {
+    const P = c.params;
+    const stage = stageBox(c.fig);
+    const no = h('span', { class: 'no' }), nm = h('span', { class: 'nm' });
+    const bar = h('div', { class: 'strokebar', 'aria-live': 'polite' }, nm, no);
+    const slider = h('input', { type: 'range', min: '0', max: '719', step: '1', value: '440', id: 'seq-phi' });
+    const lab = h('label', { for: 'seq-phi', text: 'Engine cycle position, 0 to 720 degrees of crank turn' });
+    const desc = h('p', { class: 'desc' });
+    const chips = c.strokes.map((s, i) => h('button', { class: 'chip', type: 'button', 'aria-pressed': 'false', onclick: () => { phi = i * 180 + 90; sim.playing = false; sim.touched = true; sim.syncUI(); sim.draw(); } },
+      s.word, h('span', { class: 'sw', style: 'background:var(--' + s.gas + ')' })));
+    const sp = h('button', { class: 'btn sm', type: 'button' });
+    const { el } = baseCard(c, {
+      head: [h('div', { class: 'head' }, h('div', { class: 'kicker', text: c.kicker + ' \u00B7 ' + c.title }), h('h2', { class: 'sr', text: c.title })), bar],
+      mid: [stage],
+      foot: [
+        h('div', { class: 'chips', role: 'group', 'aria-label': 'Jump to a stroke' }, chips),
+        h('div', { class: 'controls' }, sp, lab, slider),
+        desc, modelBlock(c.model)
+      ]
+    });
+    let phi = 440;
+    const cv = makeCanvas(stage, () => sim.draw());
+    const sim = addSim(el, {
+      alwaysDraw: false,
+      update(dt) { phi = wrap720(phi + P.speed * dt); },
+      draw() {
+        if (!cv.w) return;
+        const g = gasAt(phi);
+        drawEngine(cv.ctx, cv.w, cv.h, { theta: wrap360(phi), head: true, gas: g, labels: true, intake: lift(phi, P.intake, P.ramp), exhaust: lift(phi, P.exhaust, P.ramp) });
+        const si = Math.floor(phi / 180) % 4, s = c.strokes[si];
+        nm.textContent = s.name; no.replaceChildren('STROKE ' + (si + 1) + ' OF 4', h('br'), 'CRANK ' + Math.round(phi) + '° OF 720°');
+        desc.textContent = s.text; slider.value = String(Math.round(phi) % 720);
+        chips.forEach((b, i) => b.setAttribute('aria-pressed', String(i === si)));
+      },
+      onShow() { if (!reducedMQ.matches && !sim.touched) { sim.playing = true; sim.syncUI(); } }
+    });
+    sp.replaceWith(playButton(sim));
+    slider.addEventListener('input', () => { phi = parseFloat(slider.value); sim.playing = false; sim.touched = true; sim.syncUI(); sim.draw(); });
+    return el;
+  };
+
+  /* torque model for the cylinder-count card (one cylinder, relative units) */
+  const TQ = (function () {
+    const r = 1, l = 3.2, Vc = 2 * r / 8;
+    const x = th => pistonX(th, r, l);
+    const dx = th => (x(th + 1e-4) - x(th - 1e-4)) / 2e-4;
+    const ss = (a, b, v) => { const k = clamp((v - a) / (b - a), 0, 1); return k * k * (3 - 2 * k); };
+    const f = pc => {
+      if (pc < 360 || pc >= 540) return 0;
+      const th = rad(pc - 360), V = Vc + (x(0) - x(th));
+      return ss(0, 12, pc - 360) * Math.pow(Vc / V, 1.3) * (-dx(th));
+    };
+    let pk = 0; for (let p = 360; p < 540; p += 0.5) pk = Math.max(pk, f(p));
+    return { f, pk };
+  })();
+
+  R['sim-cylinders'] = function (c) {
+    let optI = 1, s = 0;
+    const stage = stageBox();
+    const info = h('div', { class: 'readout', style: 'display:grid;gap:2px', 'aria-live': 'off' });
+    const segs = c.options.map((o, i) => h('button', { class: 'seg', type: 'button', 'aria-pressed': String(i === optI), onclick: () => { optI = i; syncSeg(); computeMin(); sim.draw(); } },
+      String(o.n), h('small', { text: o.n === 1 ? 'CYL' : 'CYL' })));
+    const pb = h('button', { class: 'btn sm', type: 'button' });
+    stage.style.setProperty('--stage-max', '135cqw');
+    const { el } = baseCard(c, {
+      head: [...head2(c, c.title), h('p', { class: 'lead sm', text: c.lead })],
+      mid: [stage],
+      foot: [h('div', { class: 'segrow', role: 'group', 'aria-label': 'Number of cylinders' }, segs), h('div', { class: 'controls' }, pb, info), modelBlock(c.model)]
+    });
+    function syncSeg() { segs.forEach((b, i) => b.setAttribute('aria-pressed', String(i === optI))); }
+    const total = (N, order, sx) => {
+      let sum = 0;
+      for (let ci = 0; ci < N; ci++) {
+        const fire = order.indexOf(ci + 1) * 720 / N;
+        sum += TQ.f(wrap720(sx - fire + 360));
+      }
+      return sum / N;
+    };
+    let minPct = 0, peakAbs = TQ.pk;
+    function computeMin() {
+      const o = c.options[optI]; let mx = 0, tot = 0, n = 0;
+      for (let a = 0; a < 720; a += 1) { const v = total(o.n, o.order, a); mx = Math.max(mx, v); tot += v; n++; }
+      minPct = (mx / (tot / n)).toFixed(1); peakAbs = mx;
+      return minPct;
+    }
+    computeMin();
+    const cv = makeCanvas(stage, () => sim.draw());
+    const sim = addSim(el, {
+      alwaysDraw: false,
+      update(dt) { s += c.params.speed * dt; },
+      draw() {
+        if (!cv.w) return;
+        const ctx = cv.ctx, W = cv.w, H = cv.h, o = c.options[optI], N = o.n;
+        drawGrid(ctx, W, H);
+        const Hb = Math.round(H * 0.47), pad = 12, slot = (W - 2 * pad) / N;
+        const b = Math.min(slot * 0.72, 84), r = Math.min(b * 0.3, (Hb - 22) / 6.4), l = 3 * r;
+        const cyC = Hb - r - 6, sp = wrap720(s);
+        // shaft
+        const firstX = pad + slot / 2, lastX = pad + slot * (N - 0.5);
+        ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+        ctx.strokeStyle = T.mech; ctx.lineWidth = Math.max(3, r * 0.3);
+        ctx.beginPath(); ctx.moveTo(Math.max(0, firstX - slot * 0.4), cyC); ctx.lineTo(Math.min(W, lastX + slot * 0.4), cyC); ctx.stroke();
+        for (let i = 0; i < N; i++) {
+          const cx = pad + slot * (i + 0.5), fire = o.order.indexOf(i + 1) * 720 / N;
+          const pc = wrap720(sp - fire + 360), th = rad(wrap360(pc));
+          const g = gasAt(pc), xp = pistonX(th, r, l), pinY = cyC - xp, crownY = pinY - 0.55 * r;
+          const headY = cyC - (r + l) - 0.55 * r - 0.25 * r;
+          const x0 = cx - b / 2, x1 = cx + b / 2;
+          ctx.fillStyle = rgba(g.col, g.a); ctx.fillRect(x0, headY, b, crownY - headY);
+          if (g.flame > 0.05) {
+            ctx.fillStyle = rgba(T.burnhot, 0.55 * g.flame); ctx.fillRect(x0, headY, b, Math.min(crownY - headY, b * 0.5));
+          }
+          ctx.strokeStyle = T.ink; ctx.lineWidth = 1.5; ctx.beginPath();
+          ctx.moveTo(x0, headY); ctx.lineTo(x0, cyC - 1.25 * r); ctx.moveTo(x1, headY); ctx.lineTo(x1, cyC - 1.25 * r); ctx.stroke();
+          ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(x0 - 2, headY); ctx.lineTo(x1 + 2, headY); ctx.stroke();
+          const px = cx + r * Math.sin(th), py = cyC - r * Math.cos(th);
+          ctx.strokeStyle = T.line; ctx.lineWidth = 1; ctx.beginPath(); ctx.arc(cx, cyC, r, 0, TAU); ctx.stroke();
+          ctx.strokeStyle = T.mech; ctx.lineWidth = Math.max(2, r * 0.22); ctx.beginPath(); ctx.moveTo(cx, pinY); ctx.lineTo(px, py); ctx.stroke();
+          ctx.lineWidth = Math.max(3, r * 0.36); ctx.beginPath(); ctx.moveTo(cx, cyC); ctx.lineTo(px, py); ctx.stroke();
+          ctx.fillStyle = T.mech; ctx.beginPath(); ctx.arc(px, py, Math.max(2.5, r * 0.26), 0, TAU); ctx.fill();
+          const pw = b - 3;
+          ctx.fillStyle = T.metal; ctx.strokeStyle = T.ink; ctx.lineWidth = 1.5;
+          ctx.fillRect(cx - pw / 2, crownY, pw, 1.1 * r); ctx.strokeRect(cx - pw / 2, crownY, pw, 1.1 * r);
+          if (N > 1) { ctx.font = MONO; ctx.fillStyle = T.ink2; ctx.textAlign = 'center'; ctx.textBaseline = 'bottom'; ctx.fillText(String(i + 1), cx, headY - 5); }
+        }
+        // graph
+        const gx0 = 12, gx1 = W - 12, gy0 = Hb + 22, gy1 = H - 14, gw = gx1 - gx0, gh = gy1 - gy0 - 4;
+        ctx.font = MONO; ctx.fillStyle = T.ink2; ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+        ctx.fillText('PUSH ON THE CRANKSHAFT', gx0, gy0 - 6);
+        ctx.textAlign = 'right'; ctx.fillText('NOW', gx1, gy0 - 6);
+        ctx.strokeStyle = T.line; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(gx0, gy1 + 0.5); ctx.lineTo(gx1, gy1 + 0.5); ctx.stroke();
+        const ymax = peakAbs * 1.12, samples = 160, startS = s - 720;
+        const Y = v => gy1 - clamp(v / ymax, 0, 1) * gh;
+        ctx.beginPath(); ctx.moveTo(gx0, gy1);
+        for (let i = 0; i <= samples; i++) ctx.lineTo(gx0 + gw * i / samples, Y(total(N, o.order, startS + 720 * i / samples)));
+        ctx.lineTo(gx1, gy1); ctx.closePath();
+        ctx.fillStyle = rgba(T.burn, 0.28); ctx.fill();
+        ctx.beginPath();
+        for (let i = 0; i <= samples; i++) { const x = gx0 + gw * i / samples, y = Y(total(N, o.order, startS + 720 * i / samples)); i ? ctx.lineTo(x, y) : ctx.moveTo(x, y); }
+        ctx.strokeStyle = T.accent; ctx.lineWidth = 2.5; ctx.stroke();
+        let tot = 0; for (let a = 0; a < 720; a += 2) tot += total(N, o.order, a);
+        const avg = tot / 360;
+        ctx.save(); ctx.setLineDash([5, 4]); ctx.strokeStyle = T.ink2; ctx.lineWidth = 1.2; ctx.beginPath(); ctx.moveTo(gx0, Y(avg)); ctx.lineTo(gx1, Y(avg)); ctx.stroke(); ctx.restore();
+        ctx.textAlign = 'right'; ctx.textBaseline = 'bottom'; ctx.lineWidth = 4; ctx.strokeStyle = T.panel; ctx.strokeText('AVERAGE', gx1 - 8, Y(avg) - 3); ctx.fillStyle = T.ink2; ctx.fillText('AVERAGE', gx1 - 8, Y(avg) - 3);
+        ctx.strokeStyle = T.ink; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.moveTo(gx1 - 0.5, gy0); ctx.lineTo(gx1 - 0.5, gy1); ctx.stroke();
+        info.replaceChildren(h('span', {}, 'ORDER ', h('b', { text: o.order.join('-') })), h('span', {}, 'PEAK PUSH ', h('b', { text: minPct + 'x AVERAGE' })));
+      },
+      onShow() { if (!reducedMQ.matches && !sim.touched) { sim.playing = true; sim.syncUI(); } }
+    });
+    pb.replaceWith(playButton(sim));
+    if (reducedMQ.matches) s = 380; // static frame: a power stroke is under way
+    return el;
+  };
+
+  R.recall = function (c) {
+    const body = h('div', { class: 'recallbody' });
+    const { el } = baseCard(c, { head: [...head2(c, c.title), h('p', { class: 'lead sm', text: c.lead })], mid: [body] });
+    let qi = 0, score = 0;
+    function show() {
+      body.replaceChildren();
+      body.classList.toggle('done', qi >= c.questions.length);
+      if (qi >= c.questions.length) {
+        body.append(
+          h('div', { class: 'qstep', text: 'YOUR SCORE' }),
+          h('div', { class: 'score', text: score + ' / ' + c.questions.length }),
+          h('p', { class: 'lead', text: 'Pulling it from memory is what makes it stick. Try this again tomorrow and see what you still know.' }),
+          h('button', { class: 'btn', type: 'button', text: 'Try again', onclick: () => { qi = 0; score = 0; show(); } }),
+          h('div', { class: 'cue', text: 'Swipe up' }));
+        return;
+      }
+      const q = c.questions[qi];
+      const fb = h('p', { class: 'fb', 'aria-live': 'polite' });
+      const next = h('button', { class: 'btn solid ghost', type: 'button', disabled: true, tabindex: '-1', 'aria-hidden': 'true', text: qi === c.questions.length - 1 ? 'See score' : 'Next question', onclick: () => { qi++; show(); } });
+      let done = false;
+      const opts = q.options.map((t, k) => h('button', {
+        class: 'opt', type: 'button', onclick: () => {
+          if (done) return; done = true;
+          const right = k === q.a; if (right) score++;
+          opts.forEach((b, j) => { b.setAttribute('aria-disabled', 'true'); b.classList.add('answered'); if (j === q.a) { b.classList.add('ok'); b.querySelector('.opt-tag').textContent = 'ANSWER'; } else if (j === k) { b.classList.add('bad'); b.querySelector('.opt-tag').textContent = 'NOT QUITE'; } });
+          fb.className = 'fb ' + (right ? 'ok' : 'bad');
+          fb.replaceChildren(h('b', { text: right ? 'RIGHT. ' : 'NOT QUITE. ' }), q.why);
+          next.disabled = false; next.removeAttribute('tabindex'); next.removeAttribute('aria-hidden'); next.classList.remove('ghost');
+        }
+      }, h('span', { class: 'opt-key', text: 'ABC'[k] }), h('span', { class: 'opt-body' }, h('span', { class: 'opt-text', text: t })), h('span', { class: 'opt-tag' })));
+      body.append(h('div', { class: 'qstep', text: 'QUESTION ' + (qi + 1) + ' OF ' + c.questions.length }),
+        h('h2', { style: 'font-size:clamp(26px,7.4vw,32px)', text: q.q }),
+        h('div', { class: 'opts', style: '--n:3' }, opts), fb, next);
+    }
+    show();
+    return el;
+  };
+
+  R.branches = function (c) {
+    const items = c.items.map(t => {
+      const b = h('button', { class: 'vote', type: 'button', 'aria-pressed': 'false' }, h('span', { text: t }), h('span', { class: 'soon', text: c.soon }));
+      b.addEventListener('click', () => b.setAttribute('aria-pressed', String(b.getAttribute('aria-pressed') !== 'true')));
+      return b;
+    });
+    const { el } = baseCard(c, {
+      head: [...head2(c, c.title), h('p', { class: 'lead sm', text: c.lead })],
+      mid: [h('div', { class: 'votes' }, items)],
+      foot: [h('button', { class: 'btn', type: 'button', text: c.restart, onclick: build })]
+    });
+    return el;
+  };
+
+  /* ---------- build / feed / progress ---------- */
+  const feed = document.getElementById('feed');
+  const countEl = document.getElementById('count');
+  const segsEl = document.getElementById('segs');
+  let io = null, cur = -1, nums = [];
+
+  // The intro cover is not counted: cards after it are numbered 01..N and the cover shows "Intro".
+  function countedTotal() { return EXPLAINER.cards.filter(c => c.type !== 'intro').length; }
+  function setCurrent(i) {
+    if (i === cur) return; cur = i;
+    const num = nums[i] || 0;
+    if (num) countEl.replaceChildren(h('b', { text: pad2(num) }), ' / ' + pad2(countedTotal()));
+    else countEl.replaceChildren('Intro');
+    [...segsEl.children].forEach((s, k) => { s.className = k < num - 1 ? 'done' : k === num - 1 ? 'now' : ''; });
+  }
+  function build() {
+    if (io) io.disconnect();
+    sims.length = 0; cur = -1; nums = [];
+    feed.replaceChildren(); segsEl.replaceChildren();
+    let counted = 0;
+    const cards = EXPLAINER.cards.map((c, i) => {
+      const el = R[c.type](c, i);
+      el.dataset.i = i; el.dataset.type = c.type;
+      if (c.type === 'intro') nums.push(0);
+      else { nums.push(++counted); segsEl.append(h('i')); }
+      return el;
+    });
+    feed.append(...cards);
+    setCurrent(0);
+    feed.scrollTo({ top: 0 });
+    io = new IntersectionObserver(entries => {
+      entries.forEach(en => {
+        const vis = en.intersectionRatio >= 0.5;
+        if (vis) setCurrent(+en.target.dataset.i);
+        (en.target.__sims || []).forEach(s => {
+          const was = s.visible; s.visible = vis;
+          if (vis && !was) { s.onShow && s.onShow(); s.draw(); }
+        });
+      });
+    }, { root: feed, threshold: [0, 0.5, 0.75] });
+    cards.forEach(c => io.observe(c));
+    // draw static first frames
+    requestAnimationFrame(() => sims.forEach(s => { s.visible = true; s.draw(); s.visible = false; }));
+  }
+
+  /* ---------- global wiring ---------- */
+  readTheme();
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { readTheme(); redrawAll(); });
+  new MutationObserver(() => { readTheme(); redrawAll(); }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(redrawAll);
+  document.addEventListener('keydown', e => {
+    const t = e.target;
+    if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.tagName === 'SELECT')) return;
+    const k = e.key;
+    if (k === 'ArrowDown' || k === 'PageDown') { feed.scrollBy({ top: feed.clientHeight, behavior: reducedMQ.matches ? 'auto' : 'smooth' }); e.preventDefault(); }
+    else if (k === 'ArrowUp' || k === 'PageUp') { feed.scrollBy({ top: -feed.clientHeight, behavior: reducedMQ.matches ? 'auto' : 'smooth' }); e.preventDefault(); }
+  });
+
+  build();
+  requestAnimationFrame(loop);
+})();
+</script>
