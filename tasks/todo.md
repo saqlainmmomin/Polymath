@@ -65,3 +65,21 @@ Owner feedback: the small topics' questions do not spark curiosity; the big ones
 4. [ ] Content, parallel writers + separate newcomer reviewer + fact checker: engine (merge 4 topics), gears (merge 3 topics), retitle/rewrite ice-floats, sky-blue, gps, card-payment.
 5. [ ] Phone check light + dark, then owner review on the private preview. Testers' link stays untouched.
 Later (owner): 10-15 new big-question topics, then the app shell.
+
+## Phase 4: native iOS app "Polymath", wireframe first (2026-10-24, owner direction)
+The product is now called **Polymath**. Target: native iOS app (hybrid visuals, see `tasks/direction-ios-option5.md`). Machine check: macOS 26.3.1, Xcode 26.6, iOS 26.4 simulator runtime + iPhone 17 simulators present, so building works now with no OS or Xcode update.
+
+**This phase = a rough wireframe, not the product:** a SwiftUI app that has the real structure and the real content, with each picture shown as a labelled placeholder (visual type, its step notes cycling). The point is to judge navigation, card anatomy, spacing and the cue on a real iPhone-sized screen before porting any visuals.
+
+Decisions (assumptions, owner can change)
+- Location: `ios/` in this repo. Generated with XcodeGen (`ios/project.yml`); the `.xcodeproj` is not committed. Bundle id `com.saqlainmomin.polymath` (placeholder, change before TestFlight). Deployment target iOS 17.
+- Topic data: the JS topic files stay the source of truth for now. `tools/export-topics.mjs` evaluates them (same sandbox as `build.mjs`) and writes `ios/Polymath/Resources/topics.json`; the app only reads JSON. Revisit when we stop writing topics in JS.
+- Pictures: placeholders in this phase; first real native visual comes from the spike in the direction file (RealityKit GPS card 1). The other session owns that spike; it must live in its own folder (`ios/Spike*`) so the two do not collide.
+- Fonts: system serif and monospaced for now; bundle Newsreader and IBM Plex Mono when we polish.
+
+Steps
+1. [x] Exporter + `topics.json` (6 topics, 32 cards).
+2. [x] Xcode project via XcodeGen; app builds and runs on the installed iOS 26.4 iPhone 17 simulator (via `-target`; scheme destinations need the iOS 26.5 platform, see ios/README.md).
+3. [x] Screens (swipe gestures not yet exercised, only static states shot): feed (vertical topics, horizontal cards, page dots), card (headline above, picture panel fills, paragraph below), opener (question large), guess, more ("Go deeper"), Index sheet, interaction cue pill with the same timing rules as the web.
+4. [x] Launch arguments (`--topic`, `--card`) so any screen can be shot headlessly; screenshots into `ios/wireframe/`.
+5. [x] `ios/README.md` (how to open, build, regenerate) and a short wireframe note listing what is real vs placeholder.

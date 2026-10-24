@@ -1,0 +1,31 @@
+# Polymath iOS app (wireframe phase). Generate the Xcode project with:  xcodegen generate
+# The .xcodeproj is not committed; this file is the source of truth for project settings.
+name: Polymath
+options:
+  bundleIdPrefix: com.saqlainmomin
+  deploymentTarget:
+    iOS: "17.0"
+  createIntermediateGroups: true
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    MARKETING_VERSION: "0.1.0"
+    CURRENT_PROJECT_VERSION: "1"
+targets:
+  Polymath:
+    type: application
+    platform: iOS
+    sources:
+      - Polymath
+    info:
+      path: Polymath/Info.plist
+      properties:
+        CFBundleDisplayName: Polymath
+        UILaunchScreen: {}
+        UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait]
+        UIApplicationSceneManifest:
+          UIApplicationSupportsMultipleScenes: false
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.saqlainmomin.polymath
+        TARGETED_DEVICE_FAMILY: "1"
