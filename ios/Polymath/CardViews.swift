@@ -12,7 +12,7 @@ struct CardView: View {
         switch card.type {
         case "more": MoreCard(topic: topic, card: card, jump: jump)
         case "guess": GuessCard(card: card, isActive: isActive)
-        default: StandardCard(topic: topic, card: card, opener: index == 0, isActive: isActive)
+        default: StandardCard(topic: topic, card: card, index: index, opener: index == 0, isActive: isActive)
         }
     }
 }
@@ -39,9 +39,13 @@ private struct Lead: View {
     }
 }
 
+/// Hook: a build may replace a card's picture (the RealityKit spike does). Nil in the normal app.
+enum PictureHook { static var make: ((Topic, Int, Bool) -> AnyView?)? }
+
 struct StandardCard: View {
     let topic: Topic
     let card: Card
+    let index: Int
     let opener: Bool
     let isActive: Bool
 
@@ -49,7 +53,9 @@ struct StandardCard: View {
         VStack(spacing: 0) {
             // Card 1's headline is the topic's question; the card's own title becomes the setup line under it.
             Lead(headline: opener ? topic.title : (card.title ?? ""), setup: opener ? card.title : nil, opener: opener)
-            VisualPanel(visual: card.visual, active: isActive)
+            Group {
+                if let custom = PictureHook.make?(topic, index, isActive) { custom } else { VisualPanel(visual: card.visual, active: isActive) }
+            }
                 .padding(.horizontal, 16).padding(.top, 14)
                 .frame(maxHeight: .infinity)
             paragraph

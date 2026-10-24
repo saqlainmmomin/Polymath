@@ -5,3 +5,5 @@ prototypes/
 ios/build/
 ios/Polymath.xcodeproj/
 ios/.team
+ios/Spike/shots/*
+!ios/Spike/shots/card[1-4]-*s.png
