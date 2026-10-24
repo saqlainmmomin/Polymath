@@ -7,7 +7,7 @@ xcodebuild -project Polymath.xcodeproj -target PolymathSpike -sdk iphonesimulato
 xcrun simctl boot "$SIM" 2>/dev/null; xcrun simctl bootstatus "$SIM" -b >/dev/null 2>&1
 xcrun simctl install "$SIM" build/products/Debug-iphonesimulator/PolymathSpike.app
 mkdir -p Spike/shots
-for c in ${CARDS:-1 2 3 4}; do
+for c in ${CARDS:-1 2 3 4 5}; do
   xcrun simctl terminate "$SIM" $B 2>/dev/null; xcrun simctl launch "$SIM" $B --topic gps --card $c >/dev/null
   prev=0
   for s in ${TIMES:-1 3 5 7}; do sleep $((s-prev)); prev=$s; xcrun simctl io "$SIM" screenshot Spike/shots/card$c-${s}s.png 2>/dev/null; done

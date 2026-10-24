@@ -8,7 +8,7 @@ struct PolymathSpikeApp: App {
 
     init() {
         PictureHook.make = { topic, index, active in
-            guard topic.id == "gps", index < 4 else { return nil }
+            guard topic.id == "gps", index < 5 else { return nil }
             return AnyView(GPSPicture(mode: index, active: active))
         }
     }

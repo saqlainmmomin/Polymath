@@ -6,4 +6,4 @@ ios/build/
 ios/Polymath.xcodeproj/
 ios/.team
 ios/Spike/shots/*
-!ios/Spike/shots/card[1-4]-*s.png
+!ios/Spike/shots/card[1-5]-6s.png

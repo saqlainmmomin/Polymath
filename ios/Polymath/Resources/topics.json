@@ -3432,8 +3432,8 @@
    "cards": [
     {
      "type": "card",
-     "title": "Strangely, it never calls a single satellite.",
-     "text": "Satellites circle Earth about 20,000 km up, each announcing where it is and when it spoke. Your phone's GPS chip only listens.",
+     "title": "It never calls a satellite. It just listens.",
+     "text": "Satellites high above keep shouting two things: the exact time they sent it, and where they are. Your phone only listens, then works out where you are.",
      "visual": {
       "type": "diagram",
       "view": [
@@ -3652,7 +3652,7 @@
       ],
       "steps": [
        {
-        "note": "Satellites shout to everyone"
+        "note": "Satellites shout the time"
        },
        {
         "focus": [
@@ -3748,8 +3748,176 @@
     },
     {
      "type": "card",
-     "title": "How late the message is tells the distance",
-     "text": "Each message is stamped with its send time. Your phone times the delay and multiplies by light speed, about 300,000 km a second. So 0.07 seconds means about 20,000 km.",
+     "title": "A late boom means a far storm",
+     "text": "You see lightning at once, but thunder is slow. Count the seconds between flash and boom. Every 3 seconds is about 1 km away.",
+     "visual": {
+      "type": "diagram",
+      "view": [
+       100,
+       96
+      ],
+      "parts": [
+       {
+        "id": "gr",
+        "shape": "rect",
+        "x": 0,
+        "y": 86,
+        "w": 100,
+        "h": 10,
+        "style": "hatch"
+       },
+       {
+        "id": "cloud",
+        "shape": "path",
+        "points": [
+         [
+          4,
+          24
+         ],
+         [
+          6,
+          14
+         ],
+         [
+          16,
+          10
+         ],
+         [
+          24,
+          6
+         ],
+         [
+          34,
+          12
+         ],
+         [
+          42,
+          16
+         ],
+         [
+          42,
+          26
+         ],
+         [
+          30,
+          30
+         ],
+         [
+          14,
+          30
+         ]
+        ],
+        "closed": true,
+        "smooth": true,
+        "style": "thin"
+       },
+       {
+        "id": "bolt",
+        "shape": "path",
+        "points": [
+         [
+          22,
+          30
+         ],
+         [
+          17,
+          46
+         ],
+         [
+          25,
+          48
+         ],
+         [
+          15,
+          84
+         ]
+        ],
+        "style": "spark"
+       },
+       {
+        "id": "me",
+        "shape": "rect",
+        "x": 80,
+        "y": 66,
+        "w": 6,
+        "h": 20,
+        "style": "accent",
+        "label": "You",
+        "labelAt": [
+         98,
+         58
+        ]
+       },
+       {
+        "id": "tb",
+        "shape": "text",
+        "x": 55,
+        "y": 48,
+        "text": "Boom, 3 s later",
+        "hidden": true
+       },
+       {
+        "id": "tk",
+        "shape": "text",
+        "x": 55,
+        "y": 62,
+        "text": "3 s = about 1 km",
+        "hidden": true
+       }
+      ],
+      "steps": [
+       {
+        "note": "The flash reaches you at once"
+       },
+       {
+        "show": [
+         "tb"
+        ],
+        "note": "The boom is slow, so it is late"
+       },
+       {
+        "show": [
+         "tk"
+        ],
+        "hide": [
+         "tb"
+        ],
+        "focus": [
+         "tk",
+         "me",
+         "bolt"
+        ],
+        "note": "The wait tells the distance"
+       }
+      ],
+      "flows": [
+       {
+        "along": [
+         [
+          22,
+          76
+         ],
+         [
+          78,
+          76
+         ]
+        ],
+        "style": "blue",
+        "count": 4,
+        "speed": 18,
+        "during": [
+         1,
+         2
+        ]
+       }
+      ],
+      "tip": "Tap a dot to jump"
+     }
+    },
+    {
+     "type": "card",
+     "title": "A satellite is a very fast thunderclap",
+     "text": "Each shout says when it was sent. Signals travel at light speed, 300,000 km a second, so from straight overhead (20,200 km) one lands 0.07 seconds late. Your phone checks that gap.",
      "visual": {
       "type": "diagram",
       "view": [
@@ -3910,7 +4078,7 @@
         "shape": "text",
         "x": 79,
         "y": 52,
-        "text": "Arrives 0.07 s",
+        "text": "Lands 0.07 s",
         "hidden": true
        },
        {
@@ -3932,7 +4100,7 @@
         "shape": "text",
         "x": 20,
         "y": 38,
-        "text": "About 20,000 km",
+        "text": "About 20,200 km",
         "hidden": true
        },
        {
@@ -3974,7 +4142,7 @@
          "pulse",
          "ta"
         ],
-        "note": "A distance, but not yet a place"
+        "note": "Late by 0.07 s = that far"
        }
       ],
       "tip": "Tap a dot to jump"
@@ -3982,8 +4150,8 @@
     },
     {
      "type": "card",
-     "title": "One distance is a circle. Two give two spots.",
-     "text": "On a flat map, one distance means you could be anywhere that far from the satellite. That is a circle. A second satellite adds a circle that crosses it in two spots.",
+     "title": "One distance leaves a whole ring of places",
+     "text": "Seen from above, a signal this late could have reached any place that far from the satellite. On a map, those places form a ring.",
      "visual": {
       "type": "diagram",
       "view": [
@@ -3992,39 +4160,19 @@
       ],
       "parts": [
        {
-        "id": "rA",
+        "id": "r1",
         "shape": "circle",
-        "x": 61,
-        "y": 28,
-        "r": 26,
+        "x": 50,
+        "y": 48,
+        "r": 32,
         "style": "blue",
         "fill": false
        },
        {
-        "id": "rB",
-        "shape": "circle",
-        "x": 38.5,
-        "y": 67,
-        "r": 26,
-        "style": "blue",
-        "fill": false,
-        "hidden": true
-       },
-       {
-        "id": "rC",
-        "shape": "circle",
-        "x": 83.5,
-        "y": 67,
-        "r": 26,
-        "style": "blue",
-        "fill": false,
-        "hidden": true
-       },
-       {
         "id": "al",
         "shape": "rect",
-        "x": 50.2,
-        "y": 26.2,
+        "x": 39.2,
+        "y": 46.2,
         "w": 6,
         "h": 3.5999999999999996,
         "style": "thin"
@@ -4032,8 +4180,8 @@
        {
         "id": "ar",
         "shape": "rect",
-        "x": 65.8,
-        "y": 26.2,
+        "x": 54.8,
+        "y": 46.2,
         "w": 6,
         "h": 3.5999999999999996,
         "style": "thin"
@@ -4041,250 +4189,125 @@
        {
         "id": "a",
         "shape": "rect",
-        "x": 56.2,
-        "y": 24.4,
+        "x": 45.2,
+        "y": 44.4,
         "w": 9.6,
         "h": 7.199999999999999,
         "style": "ink",
         "label": "Satellite",
         "labelAt": [
          2,
-         16
+         8
         ]
        },
        {
-        "id": "bl",
-        "shape": "rect",
-        "x": 27.700000000000003,
-        "y": 65.2,
-        "w": 6,
-        "h": 3.5999999999999996,
-        "style": "thin",
-        "hidden": true
-       },
-       {
-        "id": "br",
-        "shape": "rect",
-        "x": 43.3,
-        "y": 65.2,
-        "w": 6,
-        "h": 3.5999999999999996,
-        "style": "thin",
-        "hidden": true
-       },
-       {
-        "id": "b",
-        "shape": "rect",
-        "x": 33.7,
-        "y": 63.4,
-        "w": 9.6,
-        "h": 7.199999999999999,
-        "style": "ink",
-        "hidden": true
-       },
-       {
-        "id": "cl",
-        "shape": "rect",
-        "x": 72.7,
-        "y": 65.2,
-        "w": 6,
-        "h": 3.5999999999999996,
-        "style": "thin",
-        "hidden": true
-       },
-       {
-        "id": "cr",
-        "shape": "rect",
-        "x": 88.3,
-        "y": 65.2,
-        "w": 6,
-        "h": 3.5999999999999996,
-        "style": "thin",
-        "hidden": true
-       },
-       {
-        "id": "c",
-        "shape": "rect",
-        "x": 78.7,
-        "y": 63.4,
-        "w": 9.6,
-        "h": 7.199999999999999,
-        "style": "ink",
-        "hidden": true
-       },
-       {
-        "id": "x1",
-        "shape": "dot",
-        "x": 61,
-        "y": 54,
-        "r": 2.6,
-        "style": "ink",
-        "hidden": true
-       },
-       {
-        "id": "x2",
-        "shape": "dot",
-        "x": 38.5,
-        "y": 41,
-        "r": 2.6,
-        "style": "ink",
-        "hidden": true
+        "id": "ra",
+        "shape": "text",
+        "x": 50,
+        "y": 90,
+        "text": "A map from above"
        }
       ],
-      "steps": [
-       {
-        "move": {
-         "rA": [
-          -11,
-          20
-         ],
-         "al": [
-          -11,
-          20
-         ],
-         "ar": [
-          -11,
-          20
-         ],
-         "a": [
-          -11,
-          20
-         ]
-        },
-        "note": "Flat map: a circle of spots"
-       },
-       {
-        "move": {
-         "rA": [
-          0,
-          0
-         ],
-         "al": [
-          0,
-          0
-         ],
-         "ar": [
-          0,
-          0
-         ],
-         "a": [
-          0,
-          0
-         ]
-        },
-        "show": [
-         "rB",
-         "bl",
-         "br",
-         "b",
-         "x1",
-         "x2"
-        ],
-        "note": "Two circles cross in two spots"
-       }
-      ],
+      "steps": [],
       "flows": [
        {
         "along": [
          [
-          76,
+          82,
           48
          ],
          [
-          75.1,
-          54.7
+          80.9,
+          56.3
          ],
          [
-          72.5,
-          61
+          77.7,
+          64
          ],
          [
-          68.4,
-          66.4
+          72.6,
+          70.6
          ],
          [
-          63,
-          70.5
+          66,
+          75.7
          ],
          [
-          56.7,
-          73.1
+          58.3,
+          78.9
          ],
          [
           50,
-          74
+          80
          ],
          [
-          43.3,
-          73.1
+          41.7,
+          78.9
          ],
          [
-          37,
-          70.5
+          34,
+          75.7
          ],
          [
-          31.6,
-          66.4
+          27.4,
+          70.6
          ],
          [
-          27.5,
-          61
+          22.3,
+          64
          ],
          [
-          24.9,
-          54.7
+          19.1,
+          56.3
          ],
          [
-          24,
+          18,
           48
          ],
          [
-          24.9,
-          41.3
+          19.1,
+          39.7
          ],
          [
-          27.5,
-          35
+          22.3,
+          32
          ],
          [
-          31.6,
-          29.6
+          27.4,
+          25.4
          ],
          [
-          37,
-          25.5
+          34,
+          20.3
          ],
          [
-          43.3,
-          22.9
+          41.7,
+          17.1
          ],
          [
           50,
-          22
+          16
          ],
          [
-          56.7,
-          22.9
+          58.3,
+          17.1
          ],
          [
-          63,
-          25.5
+          66,
+          20.3
          ],
          [
-          68.4,
-          29.6
+          72.6,
+          25.4
          ],
          [
-          72.5,
-          35
+          77.7,
+          32
          ]
         ],
         "style": "accent",
         "count": 3,
-        "speed": 22,
-        "during": [
-         0
-        ]
+        "speed": 22
        }
       ],
       "tip": null
@@ -4292,9 +4315,9 @@
     },
     {
      "type": "card",
-     "title": "A third circle picks the right spot",
-     "text": "A third satellite, not in line with the first two, has a circle that misses the other spot. Only one spot fits all three.",
-     "takeaway": "That spot is you.",
+     "title": "More satellites shrink the ring to one spot",
+     "text": "Two rings cross in two spots. A third ring misses one of them.",
+     "takeaway": "The spot left is you.",
      "visual": {
       "type": "diagram",
       "view": [
@@ -4456,7 +4479,7 @@
       ],
       "steps": [
        {
-        "note": "Flat map: two circles, two spots"
+        "note": "Two rings cross in two spots"
        },
        {
         "show": [
@@ -4473,7 +4496,7 @@
          "x1",
          "x2"
         ],
-        "note": "A third circle joins in"
+        "note": "A third ring joins in"
        },
        {
         "show": [
@@ -4494,7 +4517,7 @@
      "links": [
       "card-payment"
      ],
-     "note": "An error of just a thousandth of a second would mean a 300 km mistake, so timing must be exact. Real GPS works in 3D, and a fourth satellite lets your phone solve for its own clock error."
+     "note": "Timing must be exact: a thousandth of a second off is a 300 km mistake. Phones use a fourth satellite to fix their cheap clock, so three give the 3D spot and the fourth corrects the time."
     }
    ]
   },

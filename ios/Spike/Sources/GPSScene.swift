@@ -16,7 +16,8 @@ private func model(_ mesh: MeshResource, _ mat: any RealityKit.Material, at p: S
 }
 private func smooth(_ a: Float, _ b: Float, _ x: Float) -> Float { let t = min(max((x - a) / (b - a), 0), 1); return t * t * (3 - 2 * t) }
 private func ramp(_ x: Float, _ a: Float, _ b: Float) -> Float { min(max((x - a) / (b - a), 0), 1) }
-private func setOpacity(_ e: Entity, _ o: Float) { e.components.set(OpacityComponent(opacity: max(0, min(1, o)))) }
+private func mix(_ a: Float, _ b: Float, _ k: Float) -> Float { a + (b - a) * k }
+private func mix3(_ a: SIMD3<Float>, _ b: SIMD3<Float>, _ k: Float) -> SIMD3<Float> { a + (b - a) * k }
 
 /// A rounded limb: cylinder between two points with sphere end caps (a capsule).
 private func limb(_ a: SIMD3<Float>, _ b: SIMD3<Float>, _ r: Float, _ mat: SimpleMaterial) -> Entity {
@@ -27,17 +28,185 @@ private func limb(_ a: SIMD3<Float>, _ b: SIMD3<Float>, _ r: Float, _ mat: Simpl
     return e
 }
 
-/// Soft radial glow texture (white, alpha falling off), tinted per use.
-private func glowTexture() -> TextureResource? {
-    let n = 128
-    guard let ctx = CGContext(data: nil, width: n, height: n, bitsPerComponent: 8, bytesPerRow: n * 4, space: CGColorSpaceCreateDeviceRGB(),
-                              bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue),
-          let g = CGGradient(colorsSpace: CGColorSpaceCreateDeviceRGB(),
-                             colors: [UIColor(white: 1, alpha: 1).cgColor, UIColor(white: 1, alpha: 0.18).cgColor, UIColor(white: 1, alpha: 0).cgColor] as CFArray,
-                             locations: [0, 0.22, 1]) else { return nil }
-    ctx.drawRadialGradient(g, startCenter: CGPoint(x: n / 2, y: n / 2), startRadius: 0, endCenter: CGPoint(x: n / 2, y: n / 2), endRadius: CGFloat(n / 2), options: [])
-    guard let img = ctx.makeImage() else { return nil }
-    return try? TextureResource(image: img, options: .init(semantic: .color))
+/// Triangular prism (ridge along z) with flat shading: a gabled roof.
+private func prismMesh(_ w: Float, _ h: Float, _ d: Float) -> MeshResource {
+    let hw = w / 2, hd = d / 2
+    let a: SIMD3<Float> = [-hw, 0, hd], b: SIMD3<Float> = [hw, 0, hd], c: SIMD3<Float> = [0, h, hd]
+    let a2: SIMD3<Float> = [-hw, 0, -hd], b2: SIMD3<Float> = [hw, 0, -hd], c2: SIMD3<Float> = [0, h, -hd]
+    var pos: [SIMD3<Float>] = [], nor: [SIMD3<Float>] = [], idx: [UInt32] = []
+    func face(_ pts: [SIMD3<Float>], _ n: SIMD3<Float>, _ tris: [UInt32]) {
+        let o = UInt32(pos.count); pos += pts; nor += Array(repeating: simd_normalize(n), count: pts.count); idx += tris.map { $0 + o }
+    }
+    face([a, b, c], [0, 0, 1], [0, 1, 2])
+    face([b2, a2, c2], [0, 0, -1], [0, 1, 2])
+    face([a2, a, c, c2], [-h, hw, 0], [0, 1, 2, 0, 2, 3])
+    face([b, b2, c2, c], [h, hw, 0], [0, 1, 2, 0, 2, 3])
+    face([a2, b2, b, a], [0, -1, 0], [0, 1, 2, 0, 2, 3])
+    var md = MeshDescriptor(name: "prism"); md.positions = MeshBuffer(pos); md.normals = MeshBuffer(nor); md.primitives = .triangles(idx)
+    return try! MeshResource.generate(from: [md])
+}
+
+// MARK: - glow kit: soft textures, shared meshes and materials (built once, reused by every card)
+
+enum GlowTex { case radial, ribbon }
+
+@MainActor
+enum GlowKit {
+    static var radial: TextureResource?, ribbon: TextureResource?
+    static var cache: [UInt64: UnlitMaterial] = [:]
+    static var quad: MeshResource!, annulus: MeshResource!, flat: MeshResource!, earthMesh: MeshResource!
+    static var chunks: [String: MeshResource] = [:]
+    static let R: Float = 5
+    /// Camera-facing sprites are turned by hand each frame: BillboardComponent crashed the engine when a card was swapped in mid-swipe.
+    static var current: [Entity] = []
+
+    static func prepare() {
+        guard quad == nil else { return }
+        // Falloff textures: smooth, no visible rim, so glows never read as flat discs.
+        radial = texture(96, 96) { u, v in
+            let r = hypot(2 * u - 1, 2 * v - 1)
+            return min(1, pow(max(0, 1 - r), 2.4) + 0.4 * pow(max(0, 1 - r * 4), 2))
+        }
+        ribbon = texture(64, 4) { u, _ in pow(max(0, 1 - abs(2 * u - 1)), 1.7) }
+        quad = mesh([[-0.5, -0.5, 0], [0.5, -0.5, 0], [0.5, 0.5, 0], [-0.5, 0.5, 0]], [[0, 0], [1, 0], [1, 1], [0, 1]], [0, 1, 2, 0, 2, 3])
+        var p: [SIMD3<Float>] = [], uv: [SIMD2<Float>] = [], idx: [UInt32] = []
+        let n = 72
+        for i in 0..<n {
+            let a = 2 * Float.pi * Float(i) / Float(n)
+            p.append([cos(a) * 0.95, sin(a) * 0.95, 0]); uv.append([0, 0]); p.append([cos(a), sin(a), 0]); uv.append([1, 0])
+        }
+        for i in 0..<n { let a = UInt32(i * 2), b = UInt32(((i + 1) % n) * 2); idx += [a, a + 1, b, b, a + 1, b + 1] }
+        annulus = mesh(p, uv, idx)
+        flat = .generatePlane(width: 1, depth: 1)
+        earthMesh = makeEarthMesh()
+    }
+
+    private static func texture(_ w: Int, _ h: Int, _ f: (Float, Float) -> Float) -> TextureResource? {
+        guard let ctx = CGContext(data: nil, width: w, height: h, bitsPerComponent: 8, bytesPerRow: w * 4, space: CGColorSpaceCreateDeviceRGB(),
+                                  bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue), let data = ctx.data else { return nil }
+        let px = data.bindMemory(to: UInt8.self, capacity: w * h * 4)
+        for y in 0..<h { for x in 0..<w {
+            let a = f((Float(x) + 0.5) / Float(w), (Float(y) + 0.5) / Float(h))
+            let v = UInt8(max(0, min(1, a)) * 255), o = (y * w + x) * 4
+            px[o] = v; px[o + 1] = v; px[o + 2] = v; px[o + 3] = v
+        } }
+        guard let img = ctx.makeImage() else { return nil }
+        return try? TextureResource(image: img, options: .init(semantic: .color))
+    }
+
+    private static func mesh(_ p: [SIMD3<Float>], _ uv: [SIMD2<Float>], _ idx: [UInt32], normals: [SIMD3<Float>]? = nil) -> MeshResource {
+        var md = MeshDescriptor(name: "m")
+        md.positions = MeshBuffer(p); md.textureCoordinates = MeshBuffer(uv)
+        md.normals = MeshBuffer(normals ?? Array(repeating: [0, 0, 1], count: p.count))
+        md.primitives = .triangles(idx)
+        return try! MeshResource.generate(from: [md])
+    }
+
+    /// One short arc of a ring on the globe (polar angle psi around +y), `width` world units across, soft edges via uv.
+    static func chunk(psi: Float, width: Float, dTheta: Float) -> MeshResource {
+        let key = "\(psi)-\(width)-\(dTheta)"
+        if let m = chunks[key] { return m }
+        let rad = R + 0.06, hw = width / (2 * rad)
+        var p: [SIMD3<Float>] = [], nr: [SIMD3<Float>] = [], uv: [SIMD2<Float>] = [], idx: [UInt32] = []
+        let steps = 2
+        for i in 0...steps {
+            let th = dTheta * 1.18 * Float(i) / Float(steps)
+            for (j, pol) in [psi - hw, psi + hw].enumerated() {
+                let d = SIMD3<Float>(sin(pol) * cos(th), cos(pol), -sin(pol) * sin(th))
+                p.append(d * rad); nr.append(d); uv.append([Float(j), Float(i) / Float(steps)])
+            }
+        }
+        for i in 0..<steps { let a = UInt32(i * 2); idx += [a, a + 1, a + 2, a + 2, a + 1, a + 3] }
+        let m = mesh(p, uv, idx, normals: nr); chunks[key] = m; return m
+    }
+
+    static func material(_ tex: GlowTex, _ hex: UInt32, _ level: Int) -> UnlitMaterial {
+        let key = UInt64(hex) << 16 | UInt64(level) << 1 | (tex == .radial ? 0 : 1)
+        if let m = cache[key] { return m }
+        var m = UnlitMaterial()
+        if let t = tex == .radial ? radial : ribbon { m.color = .init(tint: UIColor(hex: hex), texture: .init(t)) }
+        else { m.color = .init(tint: UIColor(hex: hex).withAlphaComponent(0.2)) }
+        m.blending = .transparent(opacity: .init(floatLiteral: Float(level) / 12))
+        m.faceCulling = .none
+        cache[key] = m; return m
+    }
+
+    private static func makeEarthMesh() -> MeshResource {
+        let seg = 96, rg = 48
+        var pos: [SIMD3<Float>] = [], nor: [SIMD3<Float>] = [], uv: [SIMD2<Float>] = [], idx: [UInt32] = []
+        for j in 0...rg {
+            let lat = Float.pi * (0.5 - Float(j) / Float(rg))
+            for i in 0...seg {
+                let lon = 2 * Float.pi * Float(i) / Float(seg)
+                let d = SIMD3<Float>(cos(lat) * cos(lon), sin(lat), cos(lat) * sin(lon))
+                pos.append(d * R); nor.append(d); uv.append([Float(i) / Float(seg), Float(j) / Float(rg)])
+            }
+        }
+        for j in 0..<rg { for i in 0..<seg {
+            let a = UInt32(j * (seg + 1) + i), b = a + 1, c = a + UInt32(seg + 1), d = c + 1
+            idx += [a, c, b, b, c, d]
+        } }
+        return mesh(pos, uv, idx, normals: nor)
+    }
+}
+
+/// A glow piece (or a set sharing one look). Fades by swapping to pre-built materials: opacity components set per frame were unreliable.
+@MainActor
+final class Fx {
+    let ents: [ModelEntity]; let tex: GlowTex; let hex: UInt32
+    private var level = 12
+    var e: ModelEntity { ents[0] }
+    init(_ tex: GlowTex, _ hex: UInt32, mesh: MeshResource? = nil, count: Int = 1, billboard: Bool = false, parent: Entity? = nil) {
+        self.tex = tex; self.hex = hex
+        let m = mesh ?? GlowKit.quad!
+        ents = (0..<count).map { _ in
+            let e = ModelEntity(mesh: m, materials: [GlowKit.material(tex, hex, 12)])
+            if billboard { GlowKit.current.append(e) }
+            e.isEnabled = false
+            parent?.addChild(e)
+            return e
+        }
+    }
+    func setLevel(_ o: Float) {
+        let l = Int((max(0, min(1, o)) * 12).rounded())
+        guard l != level, l > 0 else { return }
+        level = l
+        let mats = [GlowKit.material(tex, hex, l)]
+        for e in ents { e.model?.materials = mats }
+    }
+    func show(_ o: Float) {
+        if o < 0.04 { e.isEnabled = false; return }
+        setLevel(o); e.isEnabled = true
+    }
+    func hide() { for e in ents { e.isEnabled = false } }
+}
+
+/// Orient a unit quad so it runs a->b, is `width` wide, and turns its face toward the camera around the beam axis.
+private func placeAlong(_ e: Entity, from a: SIMD3<Float>, to b: SIMD3<Float>, width: Float, cam: SIMD3<Float>) {
+    let d = b - a, len = simd_length(d)
+    guard len > 1e-4 else { return }
+    let y = d / len, mid = (a + b) / 2
+    var n = cam - mid; n -= y * simd_dot(n, y)
+    n = simd_length(n) < 1e-4 ? [0, 0, 1] : simd_normalize(n)
+    let x = simd_cross(y, n)
+    e.position = mid; e.orientation = simd_quatf(simd_float3x3(columns: (x, y, n))); e.scale = [width, len, 1]
+}
+
+/// Signal beam: hair-thin bright core, soft layered glow, gentle shimmer. Looks additive; no hard edges.
+@MainActor
+final class Beam {
+    let core: Fx, halo: Fx, wide: Fx
+    init(hex: UInt32, parent: Entity) {
+        core = Fx(.ribbon, 0xffffff, parent: parent); halo = Fx(.ribbon, hex, parent: parent); wide = Fx(.ribbon, hex, parent: parent)
+    }
+    func aim(_ a: SIMD3<Float>, _ b: SIMD3<Float>, cam: SIMD3<Float>, o: Float, now: Float, phase: Float = 0, thick: Float = 1) {
+        guard o > 0.02 else { core.hide(); halo.hide(); wide.hide(); return }
+        let sh = 0.85 + 0.15 * sin(now * 6 + phase)
+        placeAlong(core.e, from: a, to: b, width: 0.035 * thick, cam: cam); core.show(0.9 * o)
+        placeAlong(halo.e, from: a, to: b, width: 0.16 * thick * (0.92 + 0.08 * sh), cam: cam); halo.show(0.5 * o * sh)
+        placeAlong(wide.e, from: a, to: b, width: 0.5 * thick, cam: cam); wide.show(0.2 * o)
+    }
+    func hide() { core.hide(); halo.hide(); wide.hide() }
 }
 
 // MARK: - Earth texture (generated once, off the main thread, shared by every card)
@@ -86,7 +255,6 @@ enum EarthAssets {
                          bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue)!.makeImage()!
     }
     @MainActor static var texture: TextureResource?
-    @MainActor static var glowTex: TextureResource?
     @MainActor static func loadTexture() async -> TextureResource? {
         if let t = texture { return t }
         let cg = await image.value
@@ -103,14 +271,16 @@ struct SceneLabel: Identifiable, Equatable {
     var you = false
 }
 
+struct ClockInfo: Equatable { var title: String; var text: String; var opacity: Double }
+
 // MARK: - scene
 
+/// One RealityKit scene per card. mode: 0 listening, 1 storm, 2 thunderclap, 3 one ring (camera swings top-down), 4 rings meet.
 @MainActor
 final class GPSScene: ObservableObject {
-    /// 0 broadcast, 1 delay, 2 two circles, 3 three circles and the pin.
     let mode: Int
     @Published var labels: [SceneLabel] = []
-    @Published var clock: (text: String, opacity: Double)?
+    @Published var clock: ClockInfo?
     var aspect: Float = 0.7
 
     private let R: Float = 5
@@ -118,57 +288,59 @@ final class GPSScene: ObservableObject {
     private var t: Float = 0, now: Float = 0
     private var running = false, reduce = false
     private var sub: EventSubscription?
-    private let restTime: [Float] = [4.5, 7, 8, 9.5]
+    /// Moment shown as a still frame under Reduce Motion (everything of the story visible).
+    private let restTime: [Float] = [2.2, 1.45, 6.2, 9.0, 10.6]
 
     private let camera = PerspectiveCamera()
-    private var camPos: SIMD3<Float> = [0, 3.3, 11.5], camTarget: SIMD3<Float> = [0, 3, 0]
+    private var camPos: SIMD3<Float> = [0, 3.8, 12.5], camTarget: SIMD3<Float> = [0, 3.6, 0]
     private let fov: Float = 48
 
-    private let local = Entity(), sat = Entity()
-    private var beacon: ModelEntity!
-    private var satLight: Entity!
-    private var phoneGlow: Entity!
-    private var main: BeamRig!, side: [BeamRig] = []
-    private var rings: [ModelEntity] = []
-    private var sparks: [(e: ModelEntity, t: Float, a: Float, r: Float)] = []
+    private let world = Entity(), local = Entity()
+    private let sunL = DirectionalLight()
     private var stars: [(e: ModelEntity, ph: Float)] = []
-    private var groundRing: ModelEntity!
-    private var phoneSprite: ModelEntity!, satSprite: ModelEntity!
-    private var earthModel: ModelEntity?
-    private let houses: [(Float, Float)] = [(-1.7, -0.5), (1.7, -0.4), (3.2, -1.4), (-3.2, -1.6)]
-    private let phoneW: SIMD3<Float> = [0.47, 1.22, 0]
-    private var glowMat: [UInt32: UnlitMaterial] = [:]
-
-    // mode 1
-    private var pulse = Entity(), pulseGlow: ModelEntity!, trail: [ModelEntity] = [], dimParts: [ModelEntity] = []
-    // modes 2, 3
-    private struct Tri { var psi: Float; var phi: Float; var col: UInt32; var s = SIMD3<Float>.zero; var sat = Entity(); var dots: [ModelEntity] = []; var line = ModelEntity(); var beacon: ModelEntity! }
-    private var tri: [Tri] = []
-    private var markYou: ModelEntity!, markMirror: ModelEntity!, pin = Entity()
-    private var pinFlat: ModelEntity!
-    private let P: SIMD3<Float> = [0, 1, 0]
-    private var mirror: SIMD3<Float> = [0, 1, 0]
-    private let SEG = 120
-    private var shown: [Int] = [0, 0, 0]
     private var starsTop = Entity()
+    private var earthModel: ModelEntity?
+    private var personPos: SIMD3<Float> = .zero, up: SIMD3<Float> = [0, 1, 0]
+    private var phoneW: SIMD3<Float> = [0.49, 1.23, 0]
+    private var phoneGlow = Entity()
+    private var phoneFlare: Fx!, listenRing: Fx!, ripple: Fx!
+    private var built = false
+    private var facing: [Entity] = []
 
-    private final class BeamRig {
-        let root = Entity(); var layers: [ModelEntity] = []; let weights: [Float]
-        init(mesh: MeshResource, color: UInt32, widths: [Float], weights: [Float], parent: Entity) {
-            self.weights = weights
-            for w in widths {
-                let m = ModelEntity(mesh: mesh, materials: [glow(color, culling: false)]); m.scale = [w, 1, w]; root.addChild(m); layers.append(m)
-            }
-            parent.addChild(root)
-        }
-        func set(_ o: Float) { for (l, w) in zip(layers, weights) { setOpacity(l, o * w) }; root.isEnabled = o > 0.002 }
-        func aim(from a: SIMD3<Float>, to b: SIMD3<Float>, radius: Float) {
-            let d = b - a, len = simd_length(d)
-            root.position = a + d / 2
-            root.orientation = simd_quatf(from: [0, 1, 0], to: -d / len)   // apex (+y) at the satellite
-            root.scale = [radius, len, radius]
+    // satellites in the side-view cards
+    private var sats: [(root: Entity, beacon: ModelEntity, flare: Fx)] = []
+    private var satBase: [SIMD3<Float>] = []
+    private let satScale: Float = 0.42
+
+    // mode 0
+    private var beams: [Beam] = [], shout: [Fx] = [], comet: [(outer: Fx, inner: Fx)] = []
+    // mode 1
+    private var cloudParts: [ModelEntity] = [], cloudDark = lit(0x343a55), cloudBright = glow(0xc9c5f5), cloudIsBright = false
+    private var bolt: [(a: SIMD3<Float>, b: SIMD3<Float>, core: Fx, halo: Fx)] = []
+    private var skyGlow: Fx!
+    private var waveRings: Fx!
+    private var rain: [(f: Fx, x: Float, sp: Float, ph: Float)] = []
+    private var bracket: [Fx] = []
+    private var boltBase: SIMD3<Float> = .zero
+    // mode 2
+    private var pulseCore = ModelEntity(), pulseFlare: Fx!, trail: [Fx] = [], dimLine: [Fx] = []
+    // modes 3, 4
+    private let SEGS = 48
+    private final class RingRig {
+        let psi: Float, hex: UInt32, s: SIMD3<Float>, q0: simd_quatf
+        let sat = Entity(); var beacon: ModelEntity!, flare: Fx!, core: Fx!, halo: Fx!, head: Fx!
+        var shown = 0
+        init(psi: Float, hex: UInt32, s: SIMD3<Float>) { self.psi = psi; self.hex = hex; self.s = s; q0 = simd_quatf(from: [0, 1, 0], to: s) }
+        func point(_ th: Float, _ rad: Float, c: SIMD3<Float>) -> SIMD3<Float> {
+            let e1 = q0.act([1, 0, 0]), e2 = q0.act([0, 0, -1])
+            return c + (s * cos(psi) + (e1 * cos(th) + e2 * sin(th)) * sin(psi)) * rad
         }
     }
+    private var rigs: [RingRig] = []
+    private var markYou: ModelEntity!, markMirror: ModelEntity!, markYouG: Fx!, markMirrorG: Fx!
+    private var pin = Entity(), mirror: SIMD3<Float> = [0, 1, 0]
+    private var dot = ModelEntity(), dotGlow: Fx!, dotTrail: [Fx] = []
+    private var labelTheta: Float = 0
 
     init(mode: Int) { self.mode = mode }
 
@@ -181,6 +353,7 @@ final class GPSScene: ObservableObject {
     }
 
     private func dirAt(_ dx: Float, _ dz: Float) -> SIMD3<Float> { simd_normalize([dx / R, 1, dz / R]) }
+    private func groundPoint(_ dx: Float, _ dz: Float = 0) -> SIMD3<Float> { C + dirAt(dx, dz) * R }
     private func stand(_ e: Entity, _ dx: Float, _ dz: Float, spin: Float = 0) {
         let d = dirAt(dx, dz)
         e.position = C + d * R
@@ -193,29 +366,44 @@ final class GPSScene: ObservableObject {
         content.camera = .virtual
         camera.camera.fieldOfViewInDegrees = fov
         content.add(camera)
+        GlowKit.prepare()
+        GlowKit.current = []
 
-        let sun = DirectionalLight()
-        sun.light.intensity = 2600; sun.light.color = UIColor(hex: 0xfff0d6)
-        sun.look(at: .zero, from: [-4, 6, 8], relativeTo: nil)
-        content.add(sun)
+        sunL.light.intensity = mode == 1 ? 1300 : 2600; sunL.light.color = mode == 1 ? UIColor(hex: 0xb6c4ff) : UIColor(hex: 0xfff0d6)
+        sunL.look(at: .zero, from: [-4, 6, 8], relativeTo: nil)
+        content.add(sunL)
         let fill = DirectionalLight()
         fill.light.intensity = 450; fill.light.color = UIColor(hex: 0x6f8cff)
         fill.look(at: .zero, from: [5, 2, 4], relativeTo: nil)
         content.add(fill)
 
-        if EarthAssets.glowTex == nil { EarthAssets.glowTex = glowTexture() }
-        let earth = makeEarth()
-        content.add(earth)
-        content.add(local); buildScenery()
-        buildSatellite(); content.add(sat)
-        buildBeams(content)
-        buildStars(content)
-        if mode == 1 { buildDelay(content) }
-        if mode >= 2 { buildTriangulation(content) }
+        content.add(world)
+        content.add(makeEarth())
+        if mode <= 3 {
+            world.addChild(local)
+            switch mode {
+            case 1: buildScenery(personDX: 0, houses: [(-1.2, -1.0, 1), (1.9, -0.4, 4), (3.3, -1.5, 3), (-3.3, -1.7, 2), (0.9, -2.0, 0)])
+            default: buildScenery(personDX: 0, houses: [(-1.9, -0.5, 0), (1.9, -0.4, 1), (3.3, -1.5, 3), (-3.3, -1.7, 2), (-0.9, -2.0, 4)])
+            }
+            buildReceive()
+        }
+        switch mode {
+        case 0: buildListen()
+        case 1: buildStorm()
+        case 2: buildThunder()
+        case 3: buildRing()
+        default: buildCross()
+        }
+        buildStars()
+        facing = GlowKit.current; GlowKit.current = []
         built = true
         sub = content.subscribe(to: SceneEvents.Update.self) { [weak self] ev in
             guard let self else { return }
-            MainActor.assumeIsolated { if self.running { self.t += Float(ev.deltaTime) }; self.now += Float(ev.deltaTime); self.update(Float(ev.deltaTime)) }
+            MainActor.assumeIsolated {
+                if self.running { self.t += Float(ev.deltaTime) }
+                if !self.reduce { self.now += Float(ev.deltaTime) }
+                self.update(Float(ev.deltaTime))
+            }
         }
         update(0)
         // The real texture arrives in the background; the globe shows plain ocean blue until then.
@@ -229,41 +417,47 @@ final class GPSScene: ObservableObject {
     // MARK: Earth
 
     private func makeEarth() -> Entity {
-        let seg = 96, rg = 48
-        var pos: [SIMD3<Float>] = [], nor: [SIMD3<Float>] = [], uv: [SIMD2<Float>] = [], idx: [UInt32] = []
-        for j in 0...rg {
-            let lat = Float.pi * (0.5 - Float(j) / Float(rg))
-            for i in 0...seg {
-                let lon = 2 * Float.pi * Float(i) / Float(seg)
-                let d = SIMD3<Float>(cos(lat) * cos(lon), sin(lat), cos(lat) * sin(lon))
-                pos.append(d * R); nor.append(d); uv.append([Float(i) / Float(seg), Float(j) / Float(rg)])
-            }
-        }
-        for j in 0..<rg { for i in 0..<seg {
-            let a = UInt32(j * (seg + 1) + i), b = a + 1, c = a + UInt32(seg + 1), d = c + 1
-            idx += [a, c, b, b, c, d]
-        } }
-        var md = MeshDescriptor(name: "earth")
-        md.positions = MeshBuffer(pos); md.normals = MeshBuffer(nor); md.textureCoordinates = MeshBuffer(uv)
-        md.primitives = .triangles(idx)
-        let mesh = try! MeshResource.generate(from: [md])
-        let e = ModelEntity(mesh: mesh, materials: [lit(0x2a7fc4)])
+        let e = ModelEntity(mesh: GlowKit.earthMesh, materials: [lit(0x2a7fc4)])
         e.position = C
         e.orientation = simd_quatf(angle: -.pi / 2, axis: [1, 0, 0])
         earthModel = e
         if let t = EarthAssets.texture { var pbr = PhysicallyBasedMaterial(); pbr.baseColor = .init(texture: .init(t)); pbr.roughness = 0.95; e.model?.materials = [pbr] }
-        var am = UnlitMaterial(color: UIColor(hex: 0x6fb4ff)); am.faceCulling = .front
+        var am = UnlitMaterial(color: UIColor(hex: mode == 1 ? 0x4a5f9a : 0x6fb4ff)); am.faceCulling = .front
         let atmo = model(.generateSphere(radius: R * 1.06), am)
-        atmo.components.set(OpacityComponent(opacity: 0.22))
+        atmo.components.set(OpacityComponent(opacity: 0.2))
         let root = Entity(); root.addChild(e); atmo.position = C; root.addChild(atmo)
         return root
     }
 
     // MARK: scenery
 
-    private func buildScenery() {
+    private func makeHouse(_ v: Int) -> Entity {
+        let wallC: [UInt32] = [0xe6d9bf, 0xd8b4a0, 0xb9cde0, 0xe9d38f, 0xcfd9c0]
+        let roofC: [UInt32] = [0xb5533c, 0x56688a, 0x7a4a3a, 0x9a3f4d, 0x4f6f5a]
+        let dims: [(Float, Float, Float)] = [(0.55, 0.34, 0.42), (0.74, 0.4, 0.5), (0.46, 0.5, 0.4), (0.62, 0.3, 0.46), (0.5, 0.38, 0.44)]
+        let (w, h, d) = dims[v % 5], rh = 0.18 + w * 0.17
+        let e = Entity()
+        e.addChild(model(.generateBox(width: w, height: h, depth: d), lit(wallC[v % 5]), at: [0, h / 2, 0]))
+        e.addChild(model(prismMesh(w + 0.18, rh, d + 0.16), lit(roofC[v % 5], rough: 0.8), at: [0, h - 0.015, 0]))
+        e.addChild(model(.generateBox(width: 0.07, height: rh * 0.9, depth: 0.07), lit(0x6b4a40), at: [w * (v % 2 == 0 ? 0.24 : -0.24), h + rh * 0.4, -d * 0.12]))
+        let door = model(.generateBox(width: 0.1, height: 0.2, depth: 0.016), lit(0x5a3524), at: [-w * 0.24, 0.1, d / 2 + 0.006])
+        e.addChild(door)
+        e.addChild(model(.generateSphere(radius: 0.008), lit(0xe8c36a, rough: 0.4, metal: true), at: [-w * 0.24 + 0.032, 0.1, d / 2 + 0.018]))
+        let wx = w * 0.22, wy = h * 0.58
+        e.addChild(model(.generateBox(width: 0.14, height: 0.14, depth: 0.012), lit(0x3a2a24), at: [wx, wy, d / 2 + 0.003]))
+        e.addChild(model(.generateBox(width: 0.105, height: 0.105, depth: 0.012), glow(0xffc864), at: [wx, wy, d / 2 + 0.01]))
+        e.addChild(model(.generateBox(width: 0.012, height: 0.105, depth: 0.014), lit(0x3a2a24), at: [wx, wy, d / 2 + 0.012]))
+        e.addChild(model(.generateBox(width: 0.1, height: 0.1, depth: 0.012), glow(0xffb84d), at: [w / 2 + 0.004, wy, 0.0]).also { $0.orientation = simd_quatf(angle: .pi / 2, axis: [0, 1, 0]) })
+        let halo = Fx(.radial, 0xffb347, billboard: true, parent: e); halo.e.position = [wx, wy, d / 2 + 0.05]; halo.e.scale = .init(repeating: 0.6); halo.show(0.45)
+        let spill = Fx(.radial, 0xffa63d, mesh: GlowKit.flat, parent: e); spill.e.position = [wx, 0.02, d / 2 + 0.4]; spill.e.scale = [1.5, 1, 1.1]; spill.show(0.5)
+        e.scale = .init(repeating: [1.1, 1.3, 1.0, 1.2, 1.15][v % 5])
+        return e
+    }
+
+    private func buildScenery(personDX: Float, houses: [(Float, Float, Int)]) {
         for (x, z, s) in [(-2.4, -0.7, 1.0), (-1.1, -1.7, 0.8), (2.2, -1.2, 1.1), (0.6, -2.0, 0.9), (-3.4, 0.5, 0.8),
                           (3.6, -0.2, 0.9), (-0.6, -3.0, 0.9), (1.5, -2.8, 0.8), (-2.6, 1.0, 0.8), (2.6, 1.0, 0.7)] as [(Float, Float, Float)] {
+            if abs(x - personDX) < 0.5 && abs(z) < 0.8 { continue }
             let t = Entity()
             t.addChild(model(.generateCylinder(height: 0.2, radius: 0.045), lit(0x5a3b24), at: [0, 0.1, 0]))
             t.addChild(model(.generateCone(height: 0.5, radius: 0.24), lit(0x1f6b44), at: [0, 0.4, 0]))
@@ -271,17 +465,7 @@ final class GPSScene: ObservableObject {
             t.scale = .init(repeating: s * 1.1)
             stand(t, x, z)
         }
-        for (x, z) in houses {
-            let h = Entity()
-            h.addChild(model(.generateBox(width: 0.55, height: 0.34, depth: 0.42), lit(0xe6d9bf), at: [0, 0.17, 0]))
-            for s in [-1, 1] as [Float] {
-                let r = model(.generateBox(width: 0.34, height: 0.03, depth: 0.5), lit(0xb5533c), at: [s * 0.13, 0.47, 0])
-                r.orientation = simd_quatf(angle: -s * 0.75, axis: [0, 0, 1]); h.addChild(r)
-            }
-            h.addChild(model(.generateBox(width: 0.11, height: 0.11, depth: 0.02), glow(0xffd36a), at: [0.1, 0.18, 0.22]))
-            h.scale = .init(repeating: 1.15)
-            stand(h, x, z, spin: x * 0.15)
-        }
+        for (x, z, v) in houses { stand(makeHouse(v), x, z, spin: x * 0.12) }
         let p = Entity()
         let skin = lit(0xf0c3a0), shirt = lit(0xff6b4a), pants = lit(0x2d3a63)
         p.addChild(limb([-0.055, 0.30, 0], [-0.06, 0.05, 0], 0.048, pants))
@@ -300,13 +484,39 @@ final class GPSScene: ObservableObject {
         let phone = model(.generateBox(width: 0.08, height: 0.135, depth: 0.014), glow(0x9fe6ff), at: [0.325, 0.82, 0])
         phone.orientation = simd_quatf(angle: -0.35, axis: [0, 0, 1]); p.addChild(phone)
         let g = Entity(); g.position = [0.34, 0.9, 0.1]
-        g.components.set(PointLightComponent(color: UIColor(hex: 0x9fe6ff), intensity: 4000, attenuationRadius: 2.5))
+        g.components.set(PointLightComponent(color: UIColor(hex: 0x9fe6ff), intensity: 3000, attenuationRadius: 2.5))
         p.addChild(g); phoneGlow = g
         p.scale = .init(repeating: 1.5)
-        stand(p, 0, 0)
+        stand(p, personDX, 0)
+        personPos = p.position; up = simd_normalize(personPos - C)
+        phoneW = personPos + p.orientation.act([0.49, 1.23, 0.05])
     }
 
-    // MARK: satellite
+    /// Glow pieces on the person: end flare for arriving signals, converging "listening" ring, ground ripple.
+    private func buildReceive() {
+        phoneFlare = Fx(.radial, 0x9fe6ff, billboard: true, parent: world)
+        listenRing = Fx(.ribbon, 0xbff2ff, mesh: GlowKit.annulus, billboard: true, parent: world)
+        ripple = Fx(.ribbon, 0x9fe6ff, mesh: GlowKit.annulus, parent: world)
+    }
+    private func flareAt(_ k: Float, base: Float = 0.3) {   // k 0...1 intensity of the arrival flare
+        phoneFlare.e.position = phoneW
+        phoneFlare.e.scale = .init(repeating: 0.7 + 1.0 * k)
+        phoneFlare.show(base + (1 - base) * k)
+        phoneGlow.components.set(PointLightComponent(color: UIColor(hex: 0x9fe6ff), intensity: 1800 + 6000 * k, attenuationRadius: 2.5))
+    }
+    private func ground(_ k: Float, _ o: Float) {   // flat ripple spreading on the ground around the person
+        guard o > 0.03 else { ripple.hide(); return }
+        ripple.e.position = personPos + up * 0.04
+        ripple.e.orientation = simd_quatf(from: [0, 0, 1], to: up)
+        ripple.e.scale = .init(repeating: 0.2 + k * 1.3); ripple.show(o)
+    }
+    private func listen(_ p: Float) {   // ring contracting onto the phone: "ear"
+        guard p > 0.001 && p < 0.999 else { listenRing.hide(); return }
+        listenRing.e.position = phoneW; listenRing.e.scale = .init(repeating: 0.85 * (1 - p) + 0.12)
+        listenRing.show(0.9 * sin(p * .pi))
+    }
+
+    // MARK: satellites
 
     private func makeSat(beaconHex: UInt32) -> (Entity, ModelEntity) {
         let s = Entity()
@@ -323,105 +533,127 @@ final class GPSScene: ObservableObject {
         let b = model(.generateSphere(radius: 0.07), glow(beaconHex), at: [0, -0.5, 0]); s.addChild(b)
         return (s, b)
     }
-
-    private func buildSatellite() {
-        let (s, b) = makeSat(beaconHex: 0x7fd8ff)
-        sat.addChild(s); beacon = b
-        sat.scale = .init(repeating: 0.8)
-        let l = Entity(); l.position = [0, -0.9, 0.8]
-        l.components.set(PointLightComponent(color: UIColor(hex: 0x7fd8ff), intensity: 6000, attenuationRadius: 5))
-        sat.addChild(l); satLight = l
-        satSprite = sprite(0x9fe6ff, size: 1.3); satSprite.position = [0, -0.5, 0.1]; sat.addChild(satSprite)
+    private func addSat(at p: SIMD3<Float>, scale: Float, beacon: UInt32 = 0x7fd8ff) {
+        let root = Entity(), (s, b) = makeSat(beaconHex: beacon)
+        root.addChild(s); root.scale = .init(repeating: scale); root.position = p
+        let fl = Fx(.radial, 0x9fe6ff, billboard: true, parent: root); fl.e.position = [0, -0.5, 0.1]; fl.show(0.7)
+        world.addChild(root); sats.append((root, b, fl)); satBase.append(p)
     }
+    private func satTip(_ i: Int) -> SIMD3<Float> { sats[i].root.position + sats[i].root.orientation.act([0, -0.5 * satScale * (mode == 2 ? 1.9 : 1), 0]) }
 
-    private func sprite(_ hex: UInt32, size: Float) -> ModelEntity {
-        var m = UnlitMaterial()
-        if let tex = EarthAssets.glowTex { m.color = .init(tint: UIColor(hex: hex), texture: .init(tex)) } else { m.color = .init(tint: UIColor(hex: hex).withAlphaComponent(0.2)) }
-        m.blending = .transparent(opacity: .init(floatLiteral: 1))
-        let e = ModelEntity(mesh: .generatePlane(width: size, height: size), materials: [m])
-        e.components.set(BillboardComponent()); setOpacity(e, 0.7)
-        return e
-    }
+    // MARK: per-mode pieces
 
-    // MARK: beams
-
-    private func buildBeams(_ content: RealityViewCameraContent) {
-        let cone = MeshResource.generateCone(height: 1, radius: 1)
-        // layered translucent cones: bright thin core inside a wider soft halo = luminous beam
-        main = BeamRig(mesh: cone, color: 0x8fe0ff, widths: [1.0, 0.62, 0.3], weights: [0.35, 0.5, 0.8], parent: Entity())
-        content.add(main.root)
-        for _ in houses { let b = BeamRig(mesh: cone, color: 0x7fd8ff, widths: [1.0, 0.55], weights: [0.4, 0.7], parent: Entity()); side.append(b); content.add(b.root) }
-        var pos: [SIMD3<Float>] = [], idx: [UInt32] = []
-        let n = 48
-        for i in 0..<n { let a = 2 * Float.pi * Float(i) / Float(n); pos.append([cos(a) * 0.82, sin(a) * 0.82, 0]); pos.append([cos(a), sin(a), 0]) }
-        for i in 0..<n { let a = UInt32(i * 2), b = UInt32(((i + 1) % n) * 2); idx += [a, a + 1, b, b, a + 1, b + 1] }
-        var md = MeshDescriptor(name: "ring"); md.positions = MeshBuffer(pos); md.primitives = .triangles(idx)
-        let ringMesh = try! MeshResource.generate(from: [md])
-        for _ in 0..<5 { let r = model(ringMesh, glow(0xbff2ff, culling: false)); setOpacity(r, 0); rings.append(r); content.add(r) }
-        groundRing = model(ringMesh, glow(0x9fe6ff, culling: false)); setOpacity(groundRing, 0); content.add(groundRing)
-        for _ in 0..<44 {
-            let s = model(.generateSphere(radius: 0.028), glow(0xfff0b0)); content.add(s)
-            sparks.append((s, .random(in: 0...1), .random(in: 0...6.28), .random(in: 0.2...1)))
+    private func buildListen() {
+        for p in [SIMD3<Float>(-2.5, 6.9, -0.8), [0.1, 7.9, -1.2], [2.7, 6.6, -0.6]] { addSat(at: p, scale: satScale) }
+        for i in 0..<3 {
+            beams.append(Beam(hex: 0x8fe0ff, parent: world))
+            shout.append(Fx(.ribbon, 0xffd96b, mesh: GlowKit.annulus, count: 2, billboard: true, parent: world))
+            comet.append((Fx(.radial, 0x9fe6ff, parent: world), Fx(.radial, 0xffffff, parent: world)))
+            _ = i
         }
-        phoneSprite = sprite(0x9fe6ff, size: 1.0); content.add(phoneSprite)
     }
 
-    private func buildStars(_ content: RealityViewCameraContent) {
+    private func buildStorm() {
+        let cloud = Entity(); cloud.position = [-2.7, 5.0, -0.8]
+        for (x, y, z, r) in [(0, 0, 0, 1.1), (-0.95, -0.2, 0.2, 0.8), (0.95, -0.15, 0, 0.85), (-0.3, 0.45, 0, 0.8), (0.5, 0.4, 0.1, 0.7), (-1.55, -0.35, 0, 0.55), (1.55, -0.3, 0, 0.55)] as [(Float, Float, Float, Float)] {
+            let m = model(.generateSphere(radius: r), cloudDark, at: [x, y, z]); m.scale = [1.15, 0.7, 0.9]
+            cloud.addChild(m); cloudParts.append(m)
+        }
+        world.addChild(cloud)
+        boltBase = groundPoint(-3.0)
+        let bx = boltBase.x, zb: Float = 0.5
+        let ys: [Float] = [4.5, 3.5, 2.6, 1.6, 0.7, -0.2], xo: [Float] = [0.3, -0.3, 0.3, -0.25, 0.3, -0.2]
+        var pts: [SIMD3<Float>] = (0..<6).map { [bx + xo[$0], ys[$0], zb] }
+        pts.append([bx, boltBase.y + 0.03, zb])
+        var segs: [(SIMD3<Float>, SIMD3<Float>)] = []
+        for i in 0..<(pts.count - 1) { segs.append((pts[i], pts[i + 1])) }
+        let b1: SIMD3<Float> = [bx + 0.9, 2.5, zb], b2: SIMD3<Float> = [bx + 0.8, 1.7, zb], c1: SIMD3<Float> = [bx - 0.7, 1.7, zb], c2: SIMD3<Float> = [bx - 0.85, 1.0, zb]
+        segs.append((pts[2], b1)); segs.append((b1, b2)); segs.append((pts[3], c1)); segs.append((c1, c2))
+        for (a, b) in segs { bolt.append((a, b, Fx(.ribbon, 0xffffff, parent: world), Fx(.ribbon, 0xaab4ff, parent: world))) }
+        skyGlow = Fx(.radial, 0x9aa4ff, billboard: true, parent: world); skyGlow.e.position = [-2.7, 3.6, -2]; skyGlow.e.scale = .init(repeating: 11)
+        waveRings = Fx(.ribbon, 0x8fd0ff, mesh: GlowKit.annulus, count: 3, billboard: true, parent: world)
+        for i in 0..<64 {
+            let f = Fx(.ribbon, 0xb7c9ff, parent: world)
+            rain.append((f, Float.random(in: (-4.3)...(-1.2)), Float.random(in: 0.8...1.4), Float(i) / 64)); f.show(0.4)
+        }
+        for _ in 0..<3 { bracket.append(Fx(.ribbon, 0xffffff, parent: world)) }
+        ripple.hide()
+    }
+
+    private func buildThunder() {
+        addSat(at: [0, 6.3, -0.3], scale: satScale * 1.9)
+        beams.append(Beam(hex: 0x8fe0ff, parent: world))
+        pulseCore = model(.generateSphere(radius: 0.1), glow(0xfff6d0)); world.addChild(pulseCore)
+        pulseFlare = Fx(.radial, 0xffd24a, billboard: true, parent: pulseCore); pulseFlare.e.scale = .init(repeating: 1.5)
+        for _ in 0..<5 { trail.append(Fx(.radial, 0xffd24a, parent: world)) }
+        for _ in 0..<3 { dimLine.append(Fx(.ribbon, 0xffffff, parent: world)) }
+    }
+
+    private func newRing(psi: Float, s: SIMD3<Float>, hex: UInt32, height: Float, scale: Float) -> RingRig {
+        let r = RingRig(psi: psi, hex: hex, s: s)
+        let (body, b) = makeSat(beaconHex: hex)
+        r.sat.addChild(body); r.beacon = b
+        r.sat.position = C + s * (R + height); r.sat.orientation = r.q0; r.sat.scale = .init(repeating: scale)
+        r.flare = Fx(.radial, hex, billboard: true, parent: r.sat); r.flare.e.position = [0, -0.5, 0.1]; r.flare.show(0.6)
+        world.addChild(r.sat)
+        r.core = Fx(.ribbon, hex, mesh: GlowKit.chunk(psi: psi, width: 0.1, dTheta: 2 * .pi / Float(SEGS)), count: SEGS, parent: world)
+        r.halo = Fx(.ribbon, hex, mesh: GlowKit.chunk(psi: psi, width: 0.45, dTheta: 2 * .pi / Float(SEGS)), count: SEGS, parent: world)
+        for (j, (c, h)) in zip(r.core.ents, r.halo.ents).enumerated() {
+            let q = r.q0 * simd_quatf(angle: Float(j) / Float(SEGS) * 2 * .pi, axis: [0, 1, 0])
+            c.position = C; c.orientation = q; h.position = C; h.orientation = q
+        }
+        r.core.setLevel(0.95); r.halo.setLevel(0.4)
+        r.head = Fx(.radial, hex, billboard: true, parent: world); r.head.e.scale = .init(repeating: 0.9)
+        return r
+    }
+    private func reveal(_ r: RingRig, _ frac: Float, _ lvl: Float) {
+        r.core.setLevel(0.95 * lvl); r.halo.setLevel(0.4 * lvl)
+        let c = lvl > 0.02 ? Int(frac * Float(SEGS)) : 0
+        if c != r.shown { for j in 0..<SEGS { r.core.ents[j].isEnabled = j < c; r.halo.ents[j].isEnabled = j < c }; r.shown = c }
+        if frac > 0.001 && frac < 0.999 && lvl > 0.5 { r.head.e.position = r.point(frac * 2 * .pi, R + 0.1, c: C); r.head.show(0.9) } else { r.head.hide() }
+    }
+
+    private func buildRing() {
+        let r = newRing(psi: 0.5, s: [0, 1, 0], hex: 0x5aa9ff, height: 6.4, scale: 0.6)
+        rigs = [r]
+        var best: Float = -9
+        for k in 0..<72 { let th = Float(k) / 72 * 2 * .pi; let z = r.point(th, R, c: C).z; if z > best { best = z; labelTheta = th } }
+        dot = model(.generateSphere(radius: 0.1), glow(0xffe3d6)); world.addChild(dot)
+        dotGlow = Fx(.radial, 0xff6b4a, billboard: true, parent: dot); dotGlow.e.scale = .init(repeating: 1.5)
+        for _ in 0..<5 { dotTrail.append(Fx(.radial, 0xff6b4a, billboard: true, parent: world)) }
+    }
+
+    private func buildCross() {
+        let defs: [(Float, Float, UInt32)] = [(0.34, 150 * .pi / 180, 0x5aa9ff), (0.31, 30 * .pi / 180, 0x5ee0a0), (0.36, 270 * .pi / 180, 0xff7ad9)]
+        for d in defs { rigs.append(newRing(psi: d.0, s: [sin(d.0) * cos(d.1), cos(d.0), sin(d.0) * sin(d.1)], hex: d.2, height: 1.3, scale: 0.0001)) }
+        let P: SIMD3<Float> = [0, 1, 0]
+        let n = simd_normalize(simd_cross(rigs[0].s, rigs[1].s))
+        mirror = P - 2 * simd_dot(P, n) * n
+        markYou = model(.generateSphere(radius: 0.09), glow(0xffffff), at: C + P * (R + 0.1)); markMirror = model(.generateSphere(radius: 0.09), glow(0xffffff), at: C + mirror * (R + 0.1))
+        markYouG = Fx(.radial, 0xffffff, billboard: true, parent: markYou); markYouG.e.scale = .init(repeating: 1.1)
+        markMirrorG = Fx(.radial, 0xffffff, billboard: true, parent: markMirror); markMirrorG.e.scale = .init(repeating: 1.1)
+        markYouG.show(0.7); markMirrorG.show(0.7)
+        world.addChild(markYou); world.addChild(markMirror)
+        let pm = SimpleMaterial(color: UIColor(hex: 0xff6b4a), roughness: 0.5, isMetallic: false)
+        pin.addChild(model(.generateSphere(radius: 0.2), pm, at: [0, 0.74, 0]))
+        let tip = model(.generateCone(height: 0.48, radius: 0.13), pm, at: [0, 0.24, 0]); tip.orientation = simd_quatf(angle: .pi, axis: [1, 0, 0]); pin.addChild(tip)
+        world.addChild(pin)
+        ripple = Fx(.ribbon, 0xff9a80, mesh: GlowKit.annulus, parent: world)
+    }
+
+    private func buildStars() {
+        if mode == 1 { return }
         for i in 0..<110 {
             let m = model(.generateSphere(radius: Float.random(in: 0.012...0.04)), glow(i % 9 == 0 ? 0xffe3a8 : 0xffffff))
             m.position = [Float.random(in: -14...14), Float.random(in: -1...17), -14]
-            content.add(m); stars.append((m, Float.random(in: 0...6.28)))
+            world.addChild(m); stars.append((m, Float.random(in: 0...6.28)))
         }
-        for i in 0..<90 {   // below the globe, seen from above in cards 3 and 4
+        for i in 0..<90 {   // below the globe, seen from above in cards 4 and 5
             let m = model(.generateSphere(radius: Float.random(in: 0.015...0.05)), glow(i % 9 == 0 ? 0xffe3a8 : 0xffffff))
             m.position = [Float.random(in: -12...12), -14, Float.random(in: -12...12)]
             starsTop.addChild(m)
         }
-        content.add(starsTop); starsTop.isEnabled = mode >= 2
-    }
-
-    // MARK: card 2 pieces
-
-    private func buildDelay(_ content: RealityViewCameraContent) {
-        pulse.addChild(model(.generateSphere(radius: 0.13), glow(0xfff4c4)))
-        pulseGlow = sprite(0xffd24a, size: 1.1); pulse.addChild(pulseGlow)
-        content.add(pulse)
-        for i in 0..<6 { let m = model(.generateSphere(radius: 0.09 - Float(i) * 0.011), glow(0xffd24a)); content.add(m); trail.append(m) }
-        for _ in 0..<3 { let m = model(.generateCylinder(height: 1, radius: 1), glow(0xffffff)); setOpacity(m, 0); content.add(m); dimParts.append(m) }
-    }
-
-    // MARK: cards 3 and 4 pieces
-
-    private func buildTriangulation(_ content: RealityViewCameraContent) {
-        let defs: [(Float, Float, UInt32)] = [(0.30, 150 * .pi / 180, 0x5aa9ff), (0.27, 30 * .pi / 180, 0x5ee0a0), (0.33, 270 * .pi / 180, 0xff7ad9)]
-        let n = mode == 2 ? 2 : 3
-        for k in 0..<n {
-            var d = Tri(psi: defs[k].0, phi: defs[k].1, col: defs[k].2)
-            d.s = [sin(d.psi) * cos(d.phi), cos(d.psi), sin(d.psi) * sin(d.phi)]
-            let (s, b) = makeSat(beaconHex: d.col)
-            d.sat.addChild(s); d.beacon = b
-            d.sat.position = C + d.s * (R + 1.7); d.sat.orientation = simd_quatf(from: [0, 1, 0], to: d.s); d.sat.scale = .zero
-            content.add(d.sat)
-            let e1 = simd_normalize((P - d.s * cos(d.psi)) / sin(d.psi)), e2 = simd_cross(d.s, e1)
-            let mat = glow(d.col)
-            for j in 0..<SEG {
-                let th = Float(j) / Float(SEG) * 2 * .pi
-                let p = C + (d.s * cos(d.psi) + (e1 * cos(th) + e2 * sin(th)) * sin(d.psi)) * (R + 0.07)
-                let dot = model(.generateSphere(radius: 0.045), mat, at: p); dot.isEnabled = false; content.add(dot); d.dots.append(dot)
-            }
-            d.line = model(.generateCylinder(height: 1, radius: 1), glow(d.col)); setOpacity(d.line, 0); content.add(d.line)
-            tri.append(d)
-        }
-        let nAB = simd_normalize(simd_cross(tri[0].s, tri[1].s))
-        mirror = P - 2 * simd_dot(P, nAB) * nAB
-        let wp = { (v: SIMD3<Float>) in self.C + v * (self.R + 0.1) }
-        markYou = model(.generateSphere(radius: 0.1), glow(0xffffff), at: wp(P)); markMirror = model(.generateSphere(radius: 0.1), glow(0xffffff), at: wp(mirror))
-        content.add(markYou); content.add(markMirror)
-        let pm = SimpleMaterial(color: UIColor(hex: 0xff6b4a), roughness: 0.5, isMetallic: false)
-        pin.addChild(model(.generateSphere(radius: 0.17), pm, at: [0, 0.62, 0]))
-        let tip = model(.generateCone(height: 0.4, radius: 0.11), pm, at: [0, 0.2, 0]); tip.orientation = simd_quatf(angle: .pi, axis: [1, 0, 0]); pin.addChild(tip)
-        content.add(pin)
-        pinFlat = groundRing
+        world.addChild(starsTop); starsTop.isEnabled = mode >= 3
     }
 
     // MARK: frame
@@ -439,154 +671,244 @@ final class GPSScene: ObservableObject {
         return SceneLabel(id: id, text: text, x: x, y: y, dx: dx, dy: dy, opacity: ok ? Double(max(0, min(1, o))) : 0, you: you)
     }
 
-    private var built = false
     func update(_ dt: Float) {
         guard built else { return }
-        let a: SIMD3<Float>
-        var lbls: [SceneLabel] = []
-        var clk: (String, Double)? = nil
         let drift: Float = reduce ? 0 : 1
-
-        // satellite (modes 0, 1)
-        if mode < 2 {
-            let th = sin(now * 0.12) * (mode == 0 ? 0.06 : 0.02) * drift - 0.02
-            let orbit = R + 6.4
-            sat.position = C + [sin(th) * orbit, cos(th) * orbit, -0.6]
-            sat.orientation = simd_quatf(angle: -th, axis: [0, 0, 1]) * simd_quatf(angle: sin(now * 0.18) * 0.08 * drift, axis: [0, 1, 0])
-            beacon.scale = .init(repeating: 0.8 + 0.4 * sin(now * 6))
-            a = sat.position + sat.orientation.act([0, -0.5 * 0.8, 0])
-        } else { a = .zero }
-        local.isEnabled = true; sat.isEnabled = mode < 2
+        var lbls: [SceneLabel] = [], clk: ClockInfo? = nil
 
         // camera
-        let pb: Float = mode >= 2 ? smooth(0.2, 2.6, t) : 0
-        let camA: SIMD3<Float> = [sin(now * 0.1) * 0.3 * drift, 3.3, 11.5], tgtA: SIMD3<Float> = [0, 3, 0]
-        let camB: SIMD3<Float> = [0, 11.5, 5.5], tgtB: SIMD3<Float> = [0, -0.2, 0]
-        camPos = camA + (camB - camA) * pb; camTarget = tgtA + (tgtB - tgtA) * pb
+        switch mode {
+        case 0, 2:
+            camPos = [sin(now * 0.1) * 0.3 * drift, 3.8, 12.5]; camTarget = [0, 3.6, 0]
+        case 1:
+            camPos = [-1.1 + sin(now * 0.1) * 0.2 * drift, 2.9, 13.2]; camTarget = [-1.1, 2.0, 0]
+        case 3:   // the swing: orbit up and over the globe (pivot = the point under the satellite)
+            let pb = smooth(0.5, 3.4, t), e = mix(atan2(3.8, 12.5), atan2(14.5, 1.4), pb), r = mix(13.06, 14.57, pb)
+            camPos = [0, sin(e) * r, cos(e) * r]; camTarget = mix3([0, 3.6, 0], [0, 0, 0], pb)
+        default:
+            camPos = [0, 14.5, 1.4]; camTarget = .zero
+        }
         camera.look(at: camTarget, from: camPos, relativeTo: nil)
-        local.scale = .init(repeating: mode >= 2 ? max(0.001, 1 - smooth(0.5, 1.6, t)) : 1)
-        if mode >= 2 { local.isEnabled = pb < 0.7 }
-        for s in stars { s.e.components.set(OpacityComponent(opacity: 0.55 + 0.45 * sin(now * 1.6 + s.ph))) }
+        let camQ = camera.orientation(relativeTo: nil)
+        for e in facing { e.setOrientation(camQ, relativeTo: nil) }
+        for s in stars { s.e.scale = .init(repeating: 0.8 + 0.25 * sin(now * 1.6 + s.ph)) }
 
-        // defaults off
-        main.set(0); side.forEach { $0.set(0) }
-        rings.forEach { $0.isEnabled = false }; sparks.forEach { $0.e.isEnabled = false }
-        phoneSprite.isEnabled = false; satSprite.isEnabled = mode < 2; setOpacity(groundRing, 0)
-        satLight.isEnabled = mode < 2
-        if mode == 1 { pulse.isEnabled = false; trail.forEach { $0.isEnabled = false } }
-
-        if mode == 0 { runBroadcast(a) }
-        if mode == 1 { (lbls, clk) = runDelay(a) }
-        if mode >= 2 { lbls = runTriangulation() }
-
+        switch mode {
+        case 0: lbls = runListen()
+        case 1: (lbls, clk) = runStorm()
+        case 2: (lbls, clk) = runThunder()
+        case 3: lbls = runRing()
+        default: lbls = runCross()
+        }
         if labels != lbls { labels = lbls }
-        if let c = clk { if clock?.text != c.0 || clock?.opacity != c.1 { clock = (c.0, c.1) } } else if clock != nil { clock = nil }
+        if clock != clk { clock = clk }
     }
 
-    private func beamParts(_ a: SIMD3<Float>, _ b: SIMD3<Float>, radius: Float, sparksOn: Bool, ringsOn: Bool, rate: Float = 0.33) {
-        let d = b - a, len = simd_length(d), dir = d / len
-        let q = simd_quatf(from: [0, 0, 1], to: dir)
-        if ringsOn {
-            for (i, r) in rings.enumerated() {
-                let k = (now * rate + Float(i) / Float(rings.count)).truncatingRemainder(dividingBy: 1)
-                r.isEnabled = true; r.position = a + dir * len * k; r.orientation = q
-                r.scale = .init(repeating: 0.02 + radius * 0.9 * k); setOpacity(r, sin(k * .pi) * 0.7)
+    // MARK: card 1: it only listens
+
+    private func runListen() -> [SceneLabel] {
+        let period: Float = 3.6, offs: [Float] = [0.3, 1.5, 2.7]
+        var lbls: [SceneLabel] = []
+        var hit: Float = 0, lis: Float = 0
+        for i in 0..<3 {
+            let root = sats[i].root
+            root.position = satBase[i] + [0, sin(now * 0.5 + Float(i) * 2) * 0.05, 0]
+            root.orientation = simd_quatf(angle: sin(now * 0.3 + Float(i)) * 0.05, axis: [0, 0, 1])
+            let a = satTip(i)
+            let k: Float = t < offs[i] ? -1 : (t - offs[i]).truncatingRemainder(dividingBy: period)
+            beams[i].aim(a, phoneW, cam: camPos, o: 0.4 * ramp(t, offs[i] - 0.2, offs[i] + 0.6), now: now, phase: Float(i) * 2)
+            // shout: two soft rings expand in every direction from the satellite
+            let sh = shout[i]
+            for (j, ring) in sh.ents.enumerated() {
+                let kk = (k - Float(j) * 0.4) / 2.3
+                if k < 0 || kk <= 0 || kk >= 1 { ring.isEnabled = false; continue }
+                ring.isEnabled = true; ring.position = a + [0, 0.1, 0]; ring.scale = .init(repeating: 0.12 + 2.3 * (1 - pow(1 - kk, 2)))
             }
+            let kr = max(0, min(0.99, k / 2.3))
+            sh.setLevel(k < 0 || k > 2.3 ? 0 : 0.85 * (1 - kr) + 0.1)
+            // flare at the satellite when it shouts
+            let burst: Float = k >= 0 ? exp(-k * 3) : 0
+            sats[i].flare.e.scale = .init(repeating: 1.0 + 2.0 * burst); sats[i].flare.show(0.5 + 0.5 * burst)
+            // a pulse drops from the satellite to the listener
+            let kp = (k - 0.15) / 1.4
+            if k >= 0 && kp > 0 && kp < 1 {
+                let p = mix3(a, phoneW, kp), d = simd_normalize(phoneW - a)
+                placeAlong(comet[i].outer.e, from: p - d * 0.7, to: p + d * 0.1, width: 0.5, cam: camPos); comet[i].outer.show(0.9)
+                placeAlong(comet[i].inner.e, from: p - d * 0.3, to: p + d * 0.05, width: 0.16, cam: camPos); comet[i].inner.show(1)
+            } else { comet[i].outer.hide(); comet[i].inner.hide() }
+            if k >= 1.55 && k < 2.4 { hit = max(hit, 1 - (k - 1.55) / 0.85) }
+            if k >= 0.95 && k < 1.6 { lis = ramp(k, 0.95, 1.6) }
+            // clock stamp "12:00:00" on each shout
+            let o = k < 0 ? 0 : smooth(0, 0.18, k) * (1 - smooth(1.9, 2.5, k))
+            lbls.append(label("clk\(i)", "12:00:00", at: a, dy: 40, o))
         }
-        if sparksOn {
-            let u = q.act([1, 0, 0]), v = q.act([0, 1, 0])
-            for s in sparks {
-                let k = (s.t + now * 0.14).truncatingRemainder(dividingBy: 1), rr = radius * 0.8 * k * s.r
-                s.e.isEnabled = true
-                s.e.position = a + dir * len * k + u * cos(s.a + now * 1.5) * rr + v * sin(s.a + now * 1.5) * rr
-                s.e.scale = .init(repeating: sin(k * .pi) + 0.1)
-            }
-        }
+        flareAt(hit, base: 0.25); listen(lis); ground(0, 0)
+        lbls.append(label("hear", "Just listening", at: phoneW, dx: 78, dy: 30, smooth(2.0, 2.6, t)))
+        return lbls
     }
 
-    private func runBroadcast(_ a: SIMD3<Float>) {
-        let ph = t.truncatingRemainder(dividingBy: 7.2), mix = smooth(3.4, 4.2, ph)
-        let pulseT = 0.75 + 0.25 * sin(now * 0.33 * 2 * .pi)
-        main.aim(from: a, to: phoneW, radius: 0.2); main.set((0.16 + 0.22 * mix) * pulseT * 1.4)
-        for (i, sb) in side.enumerated() {
-            let g = dirAt(houses[i].0, houses[i].1)
-            sb.aim(from: a, to: C + g * R + [0, 0.3, 0], radius: 0.4); sb.set(0.12 * (1 - mix))
-        }
-        beamParts(a, phoneW, radius: 0.2, sparksOn: true, ringsOn: true)
-        phoneSprite.isEnabled = true; phoneSprite.position = phoneW
-        let gp = 0.5 + 0.5 * sin(now * 0.33 * 2 * .pi); phoneSprite.scale = .init(repeating: 0.9 + 0.5 * gp + 0.5 * mix)
-        let gk = (now * 0.33).truncatingRemainder(dividingBy: 1)
-        groundRing.position = [0, 0.03, 0]; groundRing.orientation = simd_quatf(angle: -.pi / 2, axis: [1, 0, 0])
-        groundRing.scale = .init(repeating: 0.2 + gk * 1.4); setOpacity(groundRing, (1 - gk) * 0.5)
-        phoneGlow.components.set(PointLightComponent(color: UIColor(hex: 0x9fe6ff), intensity: 2500 + 5000 * (max(0, sin(now * 0.33 * 2 * .pi)) + mix * 0.6), attenuationRadius: 2.5))
-        satSprite.scale = .init(repeating: 0.9 + 0.2 * sin(now * 6))
-    }
+    // MARK: card 2: late boom, far storm
 
-    private func runDelay(_ a: SIMD3<Float>) -> ([SceneLabel], (String, Double)?) {
-        let T: Float = 9.6, ph = t.truncatingRemainder(dividingBy: T), f = 1 - ramp(ph, 9, 9.5)
-        let d = phoneW - a, len = simd_length(d), dir = d / len
-        main.aim(from: a, to: phoneW, radius: 0.16); main.set(0.22 * f)
-        let k = ramp(ph, 1.6, 3.6), fly = k > 0 && k < 1
-        pulse.isEnabled = ph < 9; pulse.position = a + dir * len * k
-        pulse.scale = .init(repeating: k >= 1 ? 1 + 0.25 * sin(now * 8) : 1)
-        for (i, m) in trail.enumerated() { m.isEnabled = fly; m.position = a + dir * len * max(0, k - Float(i + 1) * 0.035) }
-        phoneSprite.isEnabled = k >= 1 && f > 0; phoneSprite.position = phoneW; phoneSprite.scale = .init(repeating: 0.9 + 0.3 * sin(now * 8))
-        let ek = k >= 1 ? ((ph - 3.6).truncatingRemainder(dividingBy: 1.4)) / 1.4 : 0
-        groundRing.position = [0, 0.03, 0]; groundRing.orientation = simd_quatf(angle: -.pi / 2, axis: [1, 0, 0])
-        groundRing.scale = .init(repeating: 0.2 + ek * 1.4); setOpacity(groundRing, k >= 1 ? (1 - ek) * 0.5 * f : 0)
-        phoneGlow.components.set(PointLightComponent(color: UIColor(hex: 0x9fe6ff), intensity: k >= 1 ? 6000 + 2000 * sin(now * 8) : 1500, attenuationRadius: 2.5))
-        // dimension line left of the beam
-        let dk = smooth(5.0, 5.8, ph), off: SIMD3<Float> = [-1.7, 0, 0]
-        let A = a + off, B = phoneW + off
-        let lineD = B - A
-        dimParts[0].position = (A + B) / 2; dimParts[0].orientation = simd_quatf(from: [0, 1, 0], to: lineD / simd_length(lineD)); dimParts[0].scale = [0.012, simd_length(lineD), 0.012]
-        for (i, p) in [A, B].enumerated() { let m = dimParts[i + 1]; m.position = p; m.orientation = simd_quatf(angle: .pi / 2, axis: [0, 0, 1]); m.scale = [0.012, 0.4, 0.012] }
-        dimParts.forEach { setOpacity($0, 0.85 * dk * f) }
+    private func runStorm() -> ([SceneLabel], ClockInfo?) {
+        let T: Float = 11.2, ph = t.truncatingRemainder(dividingBy: T), f = 1 - ramp(ph, 10.5, 11.1)
+        let fs: Float = 1.2, dt = ph - fs
+        var I: Float = 0
+        if dt >= 0 { if dt < 0.1 { I = 1 } else if dt < 0.16 { I = 0.7 } else if dt < 0.36 { I = 1 } else { I = max(0.45 * (1 - (dt - 0.36) / 0.8), 0) + 0 } }
+        let bright = I > 0.45
+        if bright != cloudIsBright { cloudIsBright = bright; for c in cloudParts { c.model?.materials = [bright ? cloudBright : cloudDark] } }
+        sunL.light.intensity = 1300 + 3800 * I
+        skyGlow.show(0.5 * I)
+        for s in bolt {
+            placeAlong(s.core.e, from: s.a, to: s.b, width: 0.13 * (0.5 + 0.5 * I), cam: camPos); s.core.show(I)
+            placeAlong(s.halo.e, from: s.a, to: s.b, width: 0.6 * (0.5 + 0.5 * I), cam: camPos); s.halo.show(0.65 * I)
+        }
+        // rain
+        for r in rain {
+            let k = (now * r.sp * 0.5 + r.ph).truncatingRemainder(dividingBy: 1), y = 4.2 - k * 5.2
+            r.f.e.isEnabled = true; r.f.e.position = [r.x + (4.2 - y) * 0.1, y, 0.3]
+            r.f.e.orientation = simd_quatf(angle: 0.1, axis: [0, 0, 1]); r.f.e.scale = [0.025, 0.55, 1]
+        }
+        // sound wave crawls from the strike across the ground to the person
+        let ws: Float = 1.6, wd: Float = 3.2, pa = ws + wd, pr = (ph - ws) / wd
+        let D = personPos.x - boltBase.x
+        waveRings.setLevel(0.9 * f)
+        for (i, ring) in waveRings.ents.enumerated() {
+            let p = pr - Float(i) * 0.1
+            if ph < ws || p <= 0 || p >= 1.3 || f < 0.05 { ring.isEnabled = false; continue }
+            ring.isEnabled = true
+            ring.position = [boltBase.x, boltBase.y + 0.05 + (personPos.y - boltBase.y) * min(p, 1), 0.1]; ring.scale = [D * p, D * p * 0.5, 1]
+        }
+        let rA = ph - pa
+        flareAt(rA >= 0 ? 1 - ramp(rA, 0, 1.3) : 0, base: 0.2 * 0)
+        if rA < 0 { phoneFlare.hide() }
+        listen(rA >= -0.4 && rA < 0.4 ? ramp(rA, -0.4, 0.4) : 0)
+        ground(ramp(rA, 0, 1.5), rA >= 0 ? 0.6 * (1 - ramp(rA, 0, 1.5)) * f : 0)
+        // bracket: 3 s = about 1 km
+        let bk = smooth(6.2, 6.9, ph) * f, by: Float = 2.5, x0 = boltBase.x, x1 = personPos.x
+        if bk > 0.04 {
+            placeAlong(bracket[0].e, from: [x0, by, 0], to: [x1, by, 0], width: 0.04, cam: camPos)
+            placeAlong(bracket[1].e, from: [x0, by - 0.3, 0], to: [x0, by + 0.3, 0], width: 0.04, cam: camPos)
+            placeAlong(bracket[2].e, from: [x1, by - 0.3, 0], to: [x1, by + 0.3, 0], width: 0.04, cam: camPos)
+            bracket.forEach { $0.show(0.9 * bk) }
+        } else { bracket.forEach { $0.hide() } }
         var l: [SceneLabel] = []
-        l.append(label("sent", "Sent 0.00 s", at: a, dx: 0, dy: -38, (ph < 3.6 ? 1 : 0) * f))
-        l.append(label("arr", "Arrives 0.07 s", at: phoneW, dx: 82, dy: -4, (ph > 3.7 ? 1 : 0) * f))
-        l.append(label("dist", "About 20,000 km", at: (A + B) / 2, dx: -6, dy: 0, dk * f))
-        return (l, (String(format: "%.2f s", 0.07 * k), Double(f)))
+        l.append(label("flash", "Flash", at: [boltBase.x, 3.0, 0], dx: 52, dy: 0, ramp(ph, fs, fs + 0.1) * (1 - ramp(ph, fs + 0.8, fs + 1.1)) * f))
+        l.append(label("boom", "Boom, 3 s later", at: personPos + up * 1.7, dy: -6, ramp(ph, pa, pa + 0.25) * f))
+        l.append(label("km", "3 s = about 1 km", at: [(x0 + x1) / 2, by, 0], bk))
+        let sec = ph < fs ? 0 : min(1, max(0, pr)) * 3.0
+        return (l, ph >= fs ? ClockInfo(title: "Seconds since flash", text: String(format: "%.1f s", sec), opacity: Double(f)) : nil)
     }
 
-    private func runTriangulation() -> [SceneLabel] {
-        let ins: [Float] = mode == 2 ? [0.6, 2.8] : [0.5, 2.1, 3.7]
-        let sweepDur: Float = 1.7, total: Float = mode == 2 ? 9.5 : 11.5
-        let ph = t.truncatingRemainder(dividingBy: total), f = 1 - ramp(ph, total - 0.8, total - 0.1)
-        for i in 0..<tri.count {
+    // MARK: card 3: very fast thunderclap
+
+    private func runThunder() -> ([SceneLabel], ClockInfo?) {
+        let T: Float = 10.5, ph = t.truncatingRemainder(dividingBy: T), f = 1 - ramp(ph, 9.6, 10.2)
+        let fs: Float = 0.5
+        let root = sats[0].root
+        root.position = satBase[0] + [0, sin(now * 0.5) * 0.04, 0]; root.orientation = .init(angle: 0, axis: [0, 0, 1])
+        let a = satTip(0), d = simd_normalize(phoneW - a), len = simd_length(phoneW - a)
+        let burst: Float = ph >= fs ? exp(-(ph - fs) * 3) : 0
+        sats[0].flare.e.scale = .init(repeating: 1.0 + 2.2 * burst); sats[0].flare.show(0.5 + 0.5 * burst)
+        beams[0].aim(a, phoneW, cam: camPos, o: 0.35 * ramp(ph, fs, fs + 0.7) * f, now: now)
+        let k = ramp(ph, 1.4, 3.4), fly = k > 0 && k < 1
+        pulseCore.isEnabled = ph >= fs && f > 0.02
+        pulseCore.position = a + d * len * k
+        pulseCore.scale = .init(repeating: (k >= 1 ? 1 + 0.2 * sin(now * 9) : 1) * max(0.01, f))
+        pulseFlare.show(0.9 * f)
+        for (i, tr) in trail.enumerated() {
+            if fly {
+                let p = a + d * len * max(0, k - Float(i) * 0.035)
+                placeAlong(tr.e, from: p - d * 0.4, to: p, width: 0.42 - Float(i) * 0.06, cam: camPos); tr.show(0.7 - Float(i) * 0.1)
+            } else { tr.hide() }
+        }
+        let rA = ph - 3.4
+        flareAt(rA >= 0 ? (0.6 + 0.4 * sin(now * 8)) * (1 - ramp(rA, 0.5, 5)) * f + 0.15 * f : 0)
+        if rA < 0 { phoneFlare.hide() }
+        if f < 0.05 { phoneFlare.hide() }
+        listen(rA >= -0.5 && rA < 0.3 ? ramp(rA, -0.5, 0.3) : 0)
+        ground(ramp(rA, 0, 1.5), rA >= 0 && rA < 1.5 ? 0.6 * (1 - ramp(rA, 0, 1.5)) * f : 0)
+        // measuring line, left of the beam
+        let dk = smooth(4.7, 5.5, ph) * f, lx: Float = -1.75
+        if dk > 0.04 {
+            let A: SIMD3<Float> = [lx, a.y, 0], B: SIMD3<Float> = [lx, phoneW.y, 0]
+            placeAlong(dimLine[0].e, from: A, to: B, width: 0.04, cam: camPos)
+            placeAlong(dimLine[1].e, from: A + [-0.25, 0, 0], to: A + [0.25, 0, 0], width: 0.04, cam: camPos)
+            placeAlong(dimLine[2].e, from: B + [-0.25, 0, 0], to: B + [0.25, 0, 0], width: 0.04, cam: camPos)
+            dimLine.forEach { $0.show(0.9 * dk) }
+        } else { dimLine.forEach { $0.hide() } }
+        var l: [SceneLabel] = []
+        l.append(label("sent", "Sent 0.00 s", at: a, dx: 86, dy: -2, smooth(fs, fs + 0.3, ph) * f))
+        l.append(label("lands", "Lands 0.07 s", at: phoneW, dx: 88, dy: -2, smooth(3.4, 3.7, ph) * f))
+        l.append(label("dist", "About 20,200 km", at: [lx, (a.y + phoneW.y) / 2, 0], dk))
+        return (l, ph >= fs ? ClockInfo(title: "Clock since sent", text: String(format: "%.2f s", 0.07 * k), opacity: Double(f)) : nil)
+    }
+
+    // MARK: card 4: one distance, one ring
+
+    private func runRing() -> [SceneLabel] {
+        let r = rigs[0], pb = smooth(0.5, 3.4, t)
+        let H = mix(6.4, 3.4, pb)
+        r.sat.position = C + r.s * (R + H)
+        // the street scene shrinks away as the camera rises
+        let sc = 1 - smooth(0.8, 2.0, t)
+        local.scale = .init(repeating: max(0.001, sc)); local.isEnabled = sc > 0.01
+        let ring = ramp(t, 2.6, 4.6)
+        r.beacon.scale = .init(repeating: 0.8 + 0.4 * sin(now * 6))
+        let burst: Float = t > 2.6 ? exp(-(t - 2.6) * 2.5) : 0
+        r.flare.e.scale = .init(repeating: 1 + 1.6 * burst); r.flare.show(0.5 + 0.5 * burst)
+        reveal(r, ring, 1)
+        flareAt(0); phoneFlare.hide(); phoneGlow.components.set(PointLightComponent(color: UIColor(hex: 0x9fe6ff), intensity: 3000 * sc, attenuationRadius: 2.5))
+        beams.forEach { $0.hide() }
+        // a dot circling the ring: you could be anywhere on it
+        let dk = smooth(4.6, 5.2, t)
+        let th = (t - 4.6) * 0.9
+        let p = r.point(th, R + 0.14, c: C)
+        dot.isEnabled = dk > 0.02; dot.position = p; dot.scale = .init(repeating: dk)
+        dotGlow.show(0.9 * dk)
+        for (i, d) in dotTrail.enumerated() {
+            d.e.position = r.point(th - Float(i + 1) * 0.1, R + 0.12, c: C); d.e.scale = .init(repeating: 0.55 - Float(i) * 0.09); d.show(dk * (0.6 - Float(i) * 0.1))
+        }
+        return [label("any", "Anywhere on this ring", at: r.point(labelTheta, R, c: C), dy: 30, smooth(4.9, 5.5, t))]
+    }
+
+    // MARK: card 5: rings meet at one spot
+
+    private func runCross() -> [SceneLabel] {
+        let total: Float = 13.4, ph = t.truncatingRemainder(dividingBy: total), f = 1 - ramp(ph, total - 0.9, total - 0.1)
+        let ins: [Float] = [0.4, 2.0, 5.6], sweepDur: Float = 1.5
+        for (i, r) in rigs.enumerated() {
             let sIn = smooth(ins[i], ins[i] + 0.6, ph) * f
-            tri[i].sat.scale = .init(repeating: 0.6 * sIn); tri[i].sat.isEnabled = sIn > 0.001
-            tri[i].beacon.scale = .init(repeating: 0.8 + 0.4 * sin(now * 6 + Float(i)))
-            let sw = ramp(ph, ins[i] + 0.6, ins[i] + 0.6 + sweepDur)
-            let cnt = Int(smooth(0, 1, sw) * Float(SEG))
-            if mode >= 2 && (cnt != shown[i] || f < 1 || ph < 0.1) {
-                let c = f < 1 ? Int(Float(cnt) * f) : cnt
-                if c != shown[i] { for j in 0..<SEG { tri[i].dots[j].isEnabled = j < c }; shown[i] = c }
-            }
-            let tip = tri[i].sat.position + tri[i].sat.orientation.act([0, -0.5 * 0.6, 0])
-            let to: SIMD3<Float> = [0, 0.3, 0], dd = to - tip, L = simd_length(dd)
-            tri[i].line.position = tip + dd / 2; tri[i].line.orientation = simd_quatf(from: [0, 1, 0], to: dd / L); tri[i].line.scale = [0.01, L, 0.01]
-            setOpacity(tri[i].line, sw >= 1 ? 0.5 * f : 0)
+            r.sat.scale = .init(repeating: max(0.0001, 0.55 * sIn)); r.sat.isEnabled = sIn > 0.01
+            r.beacon.scale = .init(repeating: 0.8 + 0.4 * sin(now * 6 + Float(i)))
+            let sw = ramp(ph, ins[i] + 0.5, ins[i] + 0.5 + sweepDur)
+            reveal(r, smooth(0, 1, sw), f)
+            let burst: Float = ph > ins[i] + 0.5 ? exp(-(ph - ins[i] - 0.5) * 2.5) : 0
+            r.flare.e.scale = .init(repeating: 1 + 1.4 * burst); r.flare.show((0.5 + 0.5 * burst) * sIn)
         }
-        let nT = tri.count, lastDone = ins[nT - 1] + 0.6 + sweepDur
-        let pk = 0.8 + 0.35 * sin(now * 7)
-        let pinAt = lastDone + 0.4
-        let two = ins[1] + 0.6 + sweepDur
-        markYou.isEnabled = ph > two && mode == 2 || (mode == 3 && ph > two)
-        markMirror.isEnabled = ph > two && (mode == 2 || ph < lastDone + 1.0)
-        markYou.scale = .init(repeating: pk * f)
-        markMirror.scale = .init(repeating: pk * (mode == 3 ? 1 - ramp(ph, lastDone, lastDone + 1.0) : 1) * f)
+        let two = ins[1] + 0.5 + sweepDur, lastDone = ins[2] + 0.5 + sweepDur
+        let pk = 0.85 + 0.3 * sin(now * 7)
+        let youK = ph > two ? 1 : 0, missK = 1 - ramp(ph, lastDone, lastDone + 1.0)
+        markYou.isEnabled = ph > two && f > 0.02; markMirror.isEnabled = ph > two && missK > 0.01 && f > 0.02
+        markYou.scale = .init(repeating: pk * f * Float(youK)); markMirror.scale = .init(repeating: pk * missK * f)
+        // pin lands on the spot that fits all three
+        let pinAt = lastDone + 0.9
+        let pinK = smooth(pinAt, pinAt + 0.6, ph) * f
+        pin.isEnabled = pinK > 0.001; pin.scale = .init(repeating: max(0.001, pinK))
+        pin.position = [0, 0.06 + (1 - pinK) * 1.6 + sin(now * 3) * 0.02, 0]
+        if pinK > 0.9 { markYou.isEnabled = false }
+        let gk = max(0, (ph - pinAt - 0.5).truncatingRemainder(dividingBy: 1.4)) / 1.4
+        if pinK > 0.9 {
+            ripple.e.position = [0, 0.1, 0]; ripple.e.orientation = simd_quatf(angle: -.pi / 2, axis: [1, 0, 0])
+            ripple.e.scale = .init(repeating: 0.25 + gk * 1.1); ripple.show((1 - gk) * 0.7 * f)
+        } else { ripple.hide() }
         var l: [SceneLabel] = []
-        if mode == 3 {
-            let pinK = smooth(pinAt, pinAt + 0.6, ph) * f
-            pin.isEnabled = pinK > 0.001; pin.scale = .init(repeating: pinK)
-            pin.position = [0, 0.1 + (1 - pinK) * 1.4 + sin(now * 3) * 0.03, 0]
-            if pinK > 0.9 { markYou.isEnabled = false }
-            let gk = max(0, (ph - pinAt - 0.4).truncatingRemainder(dividingBy: 1.4)) / 1.4
-            groundRing.position = [0, 0.04, 0]; groundRing.orientation = simd_quatf(angle: -.pi / 2, axis: [1, 0, 0])
-            groundRing.scale = .init(repeating: 0.25 + gk * 1.1); setOpacity(groundRing, pinK > 0.9 ? (1 - gk) * 0.55 * f : 0)
-            l.append(label("you", "You", at: [0, 1.45, 0], dy: -4, ramp(ph, pinAt + 0.3, pinAt + 0.7) * f, you: true))
-        } else { pin.isEnabled = false }
+        l.append(label("two", "Two spots", at: C + mirror * (R + 0.1), dy: -26, smooth(two, two + 0.4, ph) * (1 - ramp(ph, ins[2], ins[2] + 0.4)) * f))
+        l.append(label("miss", "Misses", at: C + mirror * (R + 0.1), dy: -26, smooth(lastDone, lastDone + 0.3, ph) * (1 - ramp(ph, lastDone + 0.9, lastDone + 1.4)) * f))
+        l.append(label("you", "You", at: [0, 1.75, 0], dy: -8, ramp(ph, pinAt + 0.3, pinAt + 0.7) * f, you: true))
         return l
     }
+}
+
+private extension ModelEntity {
+    func also(_ f: (ModelEntity) -> Void) -> ModelEntity { f(self); return self }
 }

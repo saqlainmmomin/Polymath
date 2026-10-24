@@ -2,21 +2,35 @@ import SwiftUI
 import RealityKit
 
 /// Picture panel for a GPS card: same panel treatment as the shared VisualPanel (2pt corners, rule stroke), 3D scene inside.
+/// Only the card on screen gets a live RealityView: with one per lazily built card, the newest view stalled (frozen, black globe) while the others kept rendering.
 struct GPSPicture: View {
     let mode: Int
     let active: Bool
+
+    var body: some View {
+        ZStack {
+            LinearGradient(colors: [Color(red: 0.02, green: 0.03, blue: 0.10), Color(red: 0.08, green: 0.11, blue: 0.27)], startPoint: .top, endPoint: .bottom)
+            if active { GPSLive(mode: mode) }
+        }
+        .clipShape(RoundedRectangle(cornerRadius: 2))
+        .overlay(RoundedRectangle(cornerRadius: 2).stroke(T.rule, lineWidth: 1))
+    }
+}
+
+/// The scene itself, created fresh each time its card becomes the current one.
+private struct GPSLive: View {
+    let mode: Int
     @StateObject private var scene: GPSScene
     @Environment(\.accessibilityReduceMotion) private var reduce
 
-    init(mode: Int, active: Bool) {
-        self.mode = mode; self.active = active
+    init(mode: Int) {
+        self.mode = mode
         _scene = StateObject(wrappedValue: GPSScene(mode: mode))
     }
 
     var body: some View {
         GeometryReader { geo in
             ZStack {
-                LinearGradient(colors: [Color(red: 0.02, green: 0.03, blue: 0.10), Color(red: 0.08, green: 0.11, blue: 0.27)], startPoint: .top, endPoint: .bottom)
                 RealityView { content in await scene.build(content) }
                 ForEach(scene.labels) { l in
                     Text(l.text).font(T.mono(11)).textCase(.uppercase).tracking(0.9)
@@ -29,19 +43,16 @@ struct GPSPicture: View {
                 }
                 if let clock = scene.clock {
                     VStack(alignment: .leading, spacing: 4) {
-                        Text("Clock since sent").font(T.mono(10)).textCase(.uppercase).tracking(0.9).foregroundStyle(.white.opacity(0.65))
+                        Text(clock.title).font(T.mono(10)).textCase(.uppercase).tracking(0.9).foregroundStyle(.white.opacity(0.65))
                         Text(clock.text).font(T.mono(17)).foregroundStyle(.white)
                     }
                     .opacity(clock.opacity)
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading).padding(14)
                 }
             }
-            .onAppear { scene.aspect = Float(geo.size.width / max(geo.size.height, 1)); scene.setActive(active, reduce: reduce) }
+            .onAppear { scene.aspect = Float(geo.size.width / max(geo.size.height, 1)); scene.setActive(true, reduce: reduce) }
             .onChange(of: geo.size) { _, s in scene.aspect = Float(s.width / max(s.height, 1)) }
         }
-        .clipShape(RoundedRectangle(cornerRadius: 2))
-        .overlay(RoundedRectangle(cornerRadius: 2).stroke(T.rule, lineWidth: 1))
-        .onChange(of: active) { _, a in scene.setActive(a, reduce: reduce) }
-        .onChange(of: reduce) { _, r in scene.setActive(active, reduce: r) }
+        .onChange(of: reduce) { _, r in scene.setActive(true, reduce: r) }
     }
 }
