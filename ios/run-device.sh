@@ -5,7 +5,7 @@
 set -e
 cd "$(dirname "$0")"
 BUNDLE="com.saqlainmomin.polymath"
-DEVICE="${DEVICE:-DE6AEE49-69A8-5206-9951-3C99441BDB29}"   # Saqlain's iphone (list: xcrun devicectl list devices)
+DEVICE="${DEVICE:-00008120-001A7188026BC01E}"   # Saqlain's iphone (list: xcrun devicectl list devices)
 TEAM="${TEAM:-$(cat .team 2>/dev/null)}"
 [ -n "$TEAM" ] || { echo "No team id: put it in ios/.team or set TEAM=<id>"; exit 1; }
 TOPIC="$1"; CARD="$2"
