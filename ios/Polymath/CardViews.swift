@@ -39,9 +39,6 @@ private struct Lead: View {
     }
 }
 
-/// Hook: a build may replace a card's picture (the RealityKit spike does). Nil in the normal app.
-enum PictureHook { static var make: ((Topic, Int, Bool) -> AnyView?)? }
-
 struct StandardCard: View {
     let topic: Topic
     let card: Card
@@ -54,7 +51,7 @@ struct StandardCard: View {
             // Card 1's headline is the topic's question; the card's own title becomes the setup line under it.
             Lead(headline: opener ? topic.title : (card.title ?? ""), setup: opener ? card.title : nil, opener: opener)
             Group {
-                if let custom = PictureHook.make?(topic, index, isActive) { custom } else { VisualPanel(visual: card.visual, active: isActive) }
+                if let custom = Pictures.view(topic: topic, index: index, active: isActive) { custom } else { VisualPanel(visual: card.visual, active: isActive) }
             }
                 .padding(.horizontal, 16).padding(.top, 14)
                 .frame(maxHeight: .infinity)

@@ -1,5 +1,7 @@
 # Direction: native iOS app, hybrid visuals ("option 5")
 
+> **Update 2026-10-25: live 3D dropped.** A live RealityKit view per card made scrolling laggy and the primitive-built 3D looked rough. The shipped GPS pictures are flat 2D scenes in one SwiftUI `Canvas` (`ios/Polymath/FlatGPS.swift`, registered in `Pictures.swift`): smooth scrolling, haptics, tap to replay. The RealityKit spike was removed; it lives in git history (commit before the "single Polymath app" commit). If 3D returns, use it only as a pre-rendered loop or on a tap, never live while scrolling. The rest of this file is the original reasoning.
+
 Decided 2026-10-24 by the owner. Read `PRODUCT.md` first; this changes how we ship and what the visuals look like, not the product goal (curiosity, effortless, broad appeal).
 
 ## Decision

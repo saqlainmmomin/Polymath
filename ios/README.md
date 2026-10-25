@@ -1,6 +1,6 @@
-# Polymath for iOS (wireframe)
+# Polymath for iOS
 
-A SwiftUI app that has the real structure and the real content of the web build, with each picture shown as a labelled placeholder. Purpose: judge navigation, card anatomy, spacing and the interaction cue on a real iPhone screen before porting any visuals. Direction and decisions: `tasks/direction-ios-option5.md`, `tasks/todo.md` (Phase 4).
+One SwiftUI app (`Polymath`). It has the real structure and content of the web build. The GPS topic has real animated pictures (flat 2D scenes in a SwiftUI `Canvas`, with haptics and tap to replay: `Polymath/FlatGPS.swift`, picked per card in `Polymath/Pictures.swift`). Every other topic still shows each picture as a labelled placeholder. Original wireframe purpose: judge navigation, card anatomy, spacing and the interaction cue on a real iPhone screen before porting any visuals. Direction and decisions: `tasks/direction-ios-option5.md`, `tasks/todo.md` (Phase 4).
 
 ## Run it
 ```
@@ -27,7 +27,7 @@ Topic files in `../topics/*.js` stay the source of truth. `node ../tools/export-
 
 ## What is real, what is a placeholder
 Real: the feed (swipe up = next topic, sideways = next card), card anatomy (headline above, picture panel fills, paragraph below; card 1 = the topic question at 33pt), small orientation title on later cards, page dots with the "Swipe" nudge, guess and "Go deeper" cards, Index sheet, light/dark tokens, the interaction cue (same timing as web: in after 0.7s, away after about 6s or on first touch, off for the session once any picture is touched).
-Placeholder: every picture (shows its type, cycles its step notes, lists its labels). System serif and monospaced fonts stand in for Newsreader and IBM Plex Mono. No app icon. Bundle id `com.saqlainmomin.polymath` is a placeholder.
+Placeholder: every picture outside the GPS topic (shows its type, cycles its step notes, lists its labels). System serif and monospaced fonts stand in for Newsreader and IBM Plex Mono. No app icon. Bundle id `com.saqlainmomin.polymath` is a placeholder.
 
 ## Screens
 `wireframe/`: 01 opener, 02 card with the cue, 03 opener in dark mode, 04 Go deeper, 05 Index.

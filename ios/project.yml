@@ -29,34 +29,3 @@ targets:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.saqlainmomin.polymath
         TARGETED_DEVICE_FAMILY: "1"
-  PolymathSpike:
-    type: application
-    platform: iOS
-    deploymentTarget: "18.0"
-    sources:
-      - path: Polymath
-        excludes: [PolymathApp.swift, Info.plist, Resources]
-      - path: Spike/Sources
-    postCompileScripts:
-      - name: Bundle GPS-only topics.json
-        basedOnDependencyAnalysis: false
-        script: |
-          python3 - <<PY
-          import json, os
-          d = json.load(open("${SRCROOT}/Polymath/Resources/topics.json"))
-          d["topics"] = [t for t in d["topics"] if t["id"] == "gps"]
-          json.dump(d, open(os.path.join("${TARGET_BUILD_DIR}", "${UNLOCALIZED_RESOURCES_FOLDER_PATH}", "topics.json"), "w"))
-          PY
-    info:
-      path: Spike/Info.plist
-      properties:
-        CFBundleDisplayName: Polymath Spike
-        UILaunchScreen: {}
-        UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait]
-        UIApplicationSceneManifest:
-          UIApplicationSupportsMultipleScenes: false
-    settings:
-      base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.saqlainmomin.polymath.spike
-        ENABLE_USER_SCRIPT_SANDBOXING: NO
-        TARGETED_DEVICE_FAMILY: "1"

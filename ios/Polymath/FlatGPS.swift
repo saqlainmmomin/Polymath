@@ -648,25 +648,3 @@ struct FlatMeet: View {
 extension Color {
     init(hex: UInt32) { self.init(red: Double((hex >> 16) & 0xFF) / 255, green: Double((hex >> 8) & 0xFF) / 255, blue: Double(hex & 0xFF) / 255) }
 }
-
-/// Logs frame cadence to the console: avg fps and the count of frames over 1.5x the display interval.
-final class FrameMeter {
-    private var link: CADisplayLink?
-    private var last = 0.0, frames = 0, slow = 0, start = 0.0
-    func start(label: String) {
-        let l = CADisplayLink(target: Proxy { [weak self] d in self?.tick(d, label) }, selector: #selector(Proxy.fire(_:)))
-        l.add(to: .main, forMode: .common); link = l
-    }
-    private func tick(_ d: CADisplayLink, _ label: String) {
-        let now = d.timestamp
-        if start == 0 { start = now; last = now; return }
-        frames += 1
-        if now - last > d.duration * 1.5 { slow += 1 }
-        last = now
-        if now - start >= 4 {
-            NSLog("FRAMEMETER %@ fps=%.1f slow=%d/%d", label, Double(frames) / (now - start), slow, frames)
-            start = now; frames = 0; slow = 0
-        }
-    }
-    private final class Proxy: NSObject { let f: (CADisplayLink) -> Void; init(_ f: @escaping (CADisplayLink) -> Void) { self.f = f }; @objc func fire(_ d: CADisplayLink) { f(d) } }
-}
