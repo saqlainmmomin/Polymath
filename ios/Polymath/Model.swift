@@ -12,7 +12,7 @@ struct Topic: Decodable, Identifiable {
     var contentCardCount: Int { cards.filter { $0.type != "more" }.count }
 }
 
-/// One struct for every card type ("card", "guess", "more"); fields not used by a type are nil.
+/// One struct for every card type ("card", "guess", "bridge", "more"); fields not used by a type are nil.
 struct Card: Decodable {
     let type: String
     let title: String?

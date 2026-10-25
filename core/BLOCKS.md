@@ -35,6 +35,8 @@ Every card except `more` should read in about 30 words of text. Keep to it: the 
 `{ type:'guess', title, options:[2-3 strings], answer, why, visual? }`. `title` is the question, set above the picture like any headline. `answer` is the index of the right option. `why` is 1-2 sentences. Unscored and nothing is stored: tapping any option underlines the right one in accent with a mono "THIS ONE", dims the others and fades in `why`. With `visual`, the panel (smaller, 36%) shows "Pick an answer to see it" first and the visual fades in after the tap; its animation only starts then.
 
 ### `more` (last card of every topic)
+`{ type:'bridge', text }`. A text-only pause between two content cards: no headline, no picture, the text set big (24px) in the middle of the card. Not counted toward the 6 content cards.
+
 `{ type:'more', links:[topic ids], note? }`. Shows "Go deeper" and one row per linked topic (title and card count come from the topic files; ids not in the build are skipped). Tapping a row slides that topic in as the next vertical slot and scrolls to it. A mono hint "Swipe up for something new" sits at the bottom (library build only).
 
 Fallback: when `links` is empty, or none of its ids exists in the build (and the topic itself is never offered), `more` offers up to 3 OTHER topics of the library instead, topics with the same `theme` first, then any, in library order, under the same "Go deeper" heading. If there is nothing to offer at all (a one-topic build), the card shows just the `note` (if any) and the "Swipe up for something new" hint, centred on the card instead of a near-empty screen. So `links: []` is fine, and a topic does not need to list every neighbour.

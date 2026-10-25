@@ -1012,6 +1012,13 @@
     return el;
   };
 
+  // bridge: a text-only pause between two cards that closes one idea and sets up the next. No headline, no picture.
+  R.bridge = function (c) {
+    const el = cardEl({ title: c.text.split(/[.?!]/)[0] }, 'bridge');
+    el.append(h('div', { class: 'txt' }, h('p', { text: c.text })));
+    return el;
+  };
+
   // guess: unscored. Tapping an option marks the right one, dims the rest, fades in `why`, and reveals the visual (if any).
   R.guess = function (c) {
     const el = cardEl(c, 'guess' + (c.visual ? ' hasvis' : ''));

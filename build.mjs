@@ -15,7 +15,7 @@ const read = f => fs.readFileSync(path.join(root, f), 'utf8');
 
 const FONTS = 'https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap';
 // Library: topic ids, one per topic (topics/<id>.js). Title, kind, theme and card count come from the topic file. Old small topics: archive-v3-small/.
-const LIBRARY = ['car-engine', 'bike-gears', 'ice-floats', 'sky-blue', 'gps', 'card-payment'];
+const LIBRARY = ['car-engine', 'bike-gears', 'ice-floats', 'sky-blue', 'gps', 'card-payment', 'shazam'];
 
 // TMH is a stub: topic-local blocks only assign functions to TMH.blocks, nothing runs at load.
 function loadTopic(name) {
@@ -33,6 +33,13 @@ function loadTopic(name) {
 function lint(name, EX) {
   const warn = m => console.warn(`warning: topics/${name}.js: ${m}`);
   const words = s => (s || '').trim().split(/\s+/).filter(Boolean).length;
+  // write-explainer rules: every sentence 15 words or fewer, at most 7 sentences a card.
+  const sentenceRules = (i, s) => {
+    const ss = s.match(/[^.?!]+[.?!]*/g) || [];
+    const long = ss.filter(x => words(x) > 15);
+    if (long.length) warn(`card ${i + 1}: ${long.length} sentence(s) over 15 words ("${long[0].trim().slice(0, 50)}…")`);
+    if (ss.length > 7) warn(`card ${i + 1} has ${ss.length} sentences; keep it to 7`);
+  };
   const body = EX.cards.filter(c => c.type === 'card' || c.type === 'guess');
   if (!/\?$/.test(EX.title) || words(EX.title) > 12) warn(`title should be one question of at most 12 words ("${EX.title}")`);
   if (EX.cards[0].type !== 'card') warn('card 1 must be a plain card (the opener: the title is its headline)');
@@ -42,11 +49,16 @@ function lint(name, EX) {
   if (EX.kind === 'full' && body.length < 3) warn('kind "full" means 3 to 6 content cards');
   EX.cards.forEach((c, i) => {
     if (c.type !== 'card') return;
-    const n = words(c.text) + words(c.takeaway);
     if (!c.text) warn(`card ${i + 1} has no text`);
-    if (n > 32) warn(`card ${i + 1} has ${n} words of text; keep it to about 30`);
+    sentenceRules(i, [c.text, c.takeaway].filter(Boolean).join(' '));
     if (i > 0 && words(c.title) > 9) warn(`card ${i + 1} headline is ${words(c.title)} words; keep it to about 8`);
     if (!c.visual) warn(`card ${i + 1} has no visual`);
+  });
+  EX.cards.forEach((c, i) => {
+    if (c.type !== 'bridge') return;
+    if (!c.text) warn(`card ${i + 1} (bridge) has no text`);
+    sentenceRules(i, c.text || '');
+    if (i === 0 || i === EX.cards.length - 1) warn(`card ${i + 1}: a bridge sits between two content cards`);
   });
 }
 const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');

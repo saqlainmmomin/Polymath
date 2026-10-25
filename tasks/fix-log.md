@@ -107,3 +107,8 @@ What the reviewers caught that the writers' own checks did not:
 - **Handoffs:** every card must end by raising the next headline's question; "go deeper" notes work best as a hook, not a recap.
 - **Process:** SendMessage to the writer with ONE merged fix list per topic worked better than separate review dumps; a cold second pass after fixes caught what the first fixes missed (gps method line, sky-blue reason, bike-gears proportionality).
 Lint (`build.mjs`) now enforces: question title of at most 12 words, 1-6 content cards, about 30 words a card, a visual on every card.
+
+## shazam (2026-10-25, first draft, no review yet)
+Built from `tasks/shazam-dissection.md` plus Per Thirty Six's explainer. Native iOS scenes in `ios/Polymath/FlatShazam.swift` (note pads with real sound, noise-cutoff slider, one-by-one vs index toggle, card 1 tune + crowd murmur).
+Tester feedback (a first-time reader, via the owner): card 2 "sounds like a poem, gives me nothing to work with"; card 3 "faint speckle" meant nothing, so card 4 would not land either. Fix: rewrote every card at explain-like-I'm-5 level, each card says what the picture shows *before* asking for a tap ("Tap A, then A minor, and watch one line become three"); picture labels de-jargoned (pitch → height / higher notes, speckle → dim dots, wave → what the mic hears, offsets → timing check).
+Lesson: a reader who already knows the topic (the owner, the writer) cannot judge clarity. Test with someone who has never read about it. Cards 3-5 now run 37-41 words, over budget on purpose; trim only if clarity survives.

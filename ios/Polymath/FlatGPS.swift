@@ -44,6 +44,7 @@ struct FlatPicture: View {
     var cues: [Cue] = []
     var replayOnTap = false     // tap restarts the card's story; otherwise the scene gets seconds-since-tap
     var sky: [UInt32] = [Pal.skyTop, Pal.skyMid, Pal.skyLow]
+    var onStart: (() -> Void)? = nil   // runs once each time the story starts (card appears or is tapped to replay)
     let label: String
     let draw: (inout GraphicsContext, CGSize, Double, Double?) -> Void
 
@@ -77,6 +78,7 @@ struct FlatPicture: View {
 
     private func runCues() async {
         guard active, !reduce, !cues.isEmpty else { return }
+        onStart?()
         var base = start
         let sorted = cues.sorted { $0.at < $1.at }
         while !Task.isCancelled {

@@ -12,6 +12,7 @@ struct CardView: View {
         switch card.type {
         case "more": MoreCard(topic: topic, card: card, jump: jump)
         case "guess": GuessCard(card: card, isActive: isActive)
+        case "bridge": BridgeCard(card: card)
         default: StandardCard(topic: topic, card: card, index: index, opener: index == 0, isActive: isActive)
         }
     }
@@ -49,14 +50,15 @@ struct StandardCard: View {
     var body: some View {
         VStack(spacing: 0) {
             // Card 1's headline is the topic's question; the card's own title becomes the setup line under it.
+            // Text first, then the picture: the reader gets the idea before they watch or touch it.
             Lead(headline: opener ? topic.title : (card.title ?? ""), setup: opener ? card.title : nil, opener: opener)
+            paragraph
+                .padding(.horizontal, 20).padding(.top, 10)
             Group {
                 if let custom = Pictures.view(topic: topic, index: index, active: isActive) { custom } else { VisualPanel(visual: card.visual, active: isActive) }
             }
-                .padding(.horizontal, 16).padding(.top, 14)
+                .padding(.horizontal, 16).padding(.top, 16).padding(.bottom, 24)   // room for the cue pill that straddles the picture's bottom edge
                 .frame(maxHeight: .infinity)
-            paragraph
-                .padding(.horizontal, 20).padding(.top, 30).padding(.bottom, 14)   // room for the cue pill that straddles the picture's bottom edge
         }
     }
 
@@ -66,6 +68,18 @@ struct StandardCard: View {
         return t.font(T.serif(17)).lineSpacing(5).foregroundStyle(T.ink)
             .frame(maxWidth: .infinity, alignment: .leading)
             .fixedSize(horizontal: false, vertical: true)
+    }
+}
+
+/// A text-only pause between two cards: closes one idea and sets up the next. No headline, no picture.
+struct BridgeCard: View {
+    let card: Card
+    var body: some View {
+        Text(card.text ?? "")
+            .font(T.serif(24)).lineSpacing(7).tracking(-0.2).foregroundStyle(T.ink)
+            .fixedSize(horizontal: false, vertical: true)
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+            .padding(.horizontal, 28)
     }
 }
 

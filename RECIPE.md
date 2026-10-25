@@ -31,19 +31,21 @@ The title is the topic's question, shown huge on card 1. It is the first thing r
 | Why an engine works in four strokes | How does a car engine actually work? |
 
 ## 3. Card anatomy (one system, every card)
-Three zones, no dead space: **headline above, picture in the middle, short paragraph below.** The picture takes whatever height is left.
+Three zones, no dead space: **headline, then the short paragraph, then the picture** (owner, 2026-10-25: read the idea first, then watch it; the iOS app already does this). The picture takes whatever height is left. Spend the words on the idea, never on describing the interaction.
 - **Card 1 (opener).** The topic question is the headline (33px). The card's own `title` is optional and becomes a smaller setup line under it (one line of stakes). The picture shows the mystery at once. The paragraph gives the first piece of the answer.
 - **Cards 2-N.** `title` is the headline (about 8 words, 26px): a statement or question that tells the reader what to watch. `text` proves it in 1-2 short sentences. Optional bold `takeaway` on the card where the idea lands, nowhere else.
 - **Thread:** the end of each paragraph raises the question the next headline answers. The reader should want the next card.
-- Budget (lint): about 30 words of text per card, headline about 8 words, a visual on every card.
+- Budget (lint, owner 2026-10-25): sentences of 15 words or fewer, at most 7 sentences per card, headline about 8 words, a visual on every card (bridges excepted). Short sentences beat a low word count.
+- **Bridge (`type: 'bridge'`, owner 2026-10-25):** a text-only card, no headline or picture, set big. Use it where an idea needs closing in words before the next card builds on it (e.g. "one peak is common, a pair is specific" before the pairing card). About 35 words; it does not count toward the 6.
 - The last content card lands the idea in one sentence a friend would repeat, then `more` offers where to go next.
 
 ## 4. Writing it so it doesn't put the reader off
+**Use the `write-explainer` skill** (`.claude/skills/write-explainer/`): Simplified Technical English at about 80%, written for a 10-year-old, every slide standalone, every slide ending on a hook the next slide answers, picture labels in the text's words. The rules below still hold.
 Most failures so far were textbook sentences and too much per card. Rewrite until these hold:
 - **Open with something felt or seen,** never a definition. Not "Water is made of tiny pieces called molecules." but "Water's tiny building blocks slide past each other."
 - **One idea per card.** If a card needs "also", split it or cut it.
 - **Plain words first, term second.** Use a technical word only if the reader needs it again in this topic, and define it in the same sentence. At most one new term per card.
-- **Short sentences:** about 12 words, active voice, "you" and "your" freely. No semicolons, colon lists, brackets or em dashes. No "not X but Y".
+- **Short sentences:** 15 words at most, active voice, "you" and "your" freely. No semicolons, colon lists, brackets or em dashes. No "not X but Y".
 - **One number per card,** rounded, with something to hold it against ("about a tenth bigger: a full glass of ice is a bit more than a glass of water").
 - **Show, don't assert.** If the picture can show the cause, the text only points at it. Mechanisms asserted in words don't land.
 - **Warm, a little playful, never smug.** Write like a smart friend, not a teacher. Read each card aloud; if you would never say it to a friend, rewrite it.
