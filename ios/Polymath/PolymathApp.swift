@@ -4,12 +4,16 @@ import SwiftUI
 struct PolymathApp: App {
     @State private var store = Store()
     @State private var session = Session()
+    @State private var profile = Profile()
 
     var body: some Scene {
         WindowGroup {
-            FeedView()
-                .environment(store)
-                .environment(session)
+            Group {
+                if profile.onboarded { FeedView() } else { OnboardingView() }
+            }
+            .environment(store)
+            .environment(session)
+            .environment(profile)
         }
     }
 }
