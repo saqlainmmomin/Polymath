@@ -20,7 +20,7 @@
       { id: 'c', shape: 'rect', x: 10, y: 24, w: 70, h: 4, style: 'spark', hidden: true },
       { shape: 'text', x: 92, y: 14, text: 'High' }, { shape: 'text', x: 92, y: 80, text: 'Low' }
     ],
-    steps: [{ note: 'One note: one bright stripe' }, { show: ['b', 'c'], note: 'A chord: several at once' }] };
+    steps: [{ note: 'One note: one bright line' }, { show: ['b', 'c'], note: 'A chord: several at once' }] };
 
   const clip = { type: 'diagram', view: [100, 96], tip: false,
     parts: [
@@ -36,17 +36,17 @@
       { id: 's2', shape: 'dot', x: 48, y: 58, r: 2.5, style: 'spark', hidden: true },
       { id: 's3', shape: 'dot', x: 74, y: 24, r: 2.5, style: 'spark', hidden: true }
     ],
-    steps: [{ note: 'The whole sound picture' }, { hide: ['f'], show: ['s1', 's2', 's3'], note: 'Only the brightest spots stay' }] };
+    steps: [{ note: 'The whole sound picture' }, { hide: ['f'], show: ['s1', 's2', 's3'], note: 'Only the peaks stay' }] };
 
   const pairs = { type: 'diagram', view: [100, 96], tip: false,
     parts: [
-      { id: 'a', shape: 'dot', x: 20, y: 50, r: 3, style: 'accent', label: 'Anchor', labelAt: [6, 70] },
+      { id: 'a', shape: 'dot', x: 20, y: 50, r: 3, style: 'accent', label: 'Peak', labelAt: [6, 70] },
       { id: 'b', shape: 'dot', x: 50, y: 30, r: 2.5, style: 'spark' },
       { id: 'c', shape: 'dot', x: 64, y: 62, r: 2.5, style: 'spark' },
       { id: 'l1', shape: 'line', from: [20, 50], to: [50, 30], style: 'thin', hidden: true },
       { id: 'l2', shape: 'line', from: [20, 50], to: [64, 62], style: 'thin', hidden: true }
     ],
-    steps: [{ note: 'One dot is too common' }, { show: ['l1', 'l2'], note: 'Each pair becomes a code' }] };
+    steps: [{ note: 'One peak is too common' }, { show: ['l1', 'l2'], note: 'Each pair becomes a code' }] };
 
   const lookup = { type: 'diagram', view: [100, 96], tip: false,
     parts: [
@@ -64,25 +64,26 @@
     theme: 'internet',
     cards: [
       { type: 'card',
-        title: 'Any song, out of millions, in any language.',
-        text: 'Hold your phone up and it names the song in seconds, even with people talking over it. How?',
+        title: 'Any song. Out of millions. In a few seconds.',
+        text: 'You are in a noisy café. People talk. Cups clink. Music plays somewhere. You hold up your phone, and Shazam tells you the name of the song. How? First, Shazam turns the sound into a picture.',
         visual: listen },
-      { type: 'card', title: 'First, Shazam turns sound into a 3D chart',
-        text: 'Time runs along the bottom. Frequency, how high a note is, runs up the side. Brightness shows how loud each note is.',
+      { type: 'card', title: 'Shazam turns sound into a chart',
+        text: 'Time goes from left to right. High notes go near the top. Low notes go near the bottom. This height is called frequency. A loud note shows bright. A quiet note shows dim. So what does your noisy café look like on this chart?',
         visual: stack },
-      { type: 'card', title: 'Your clip becomes a chart like this',
-        text: 'Tap Shazam and your phone records a few seconds of the room, song and chatter together. That recording becomes this chart.',
+      { type: 'card', title: 'Your café becomes a chart too',
+        text: 'When you tap Shazam, your phone records a few seconds of sound. This short recording is your clip. It has the song in it, and also the talking and the cups. Shazam turns the whole clip into one chart. The song makes bright lines. The noise makes faint dots everywhere. Shazam cannot keep all those dots.',
         visual: clip },
-      { type: 'card', title: 'Then Shazam throws most of it away',
-        text: 'Searching every point would be far too slow, even for a computer. So Shazam keeps only the peaks, the loudest points. Faint chatter vanishes.',
+      { type: 'card', title: 'Shazam keeps only the loudest points',
+        text: 'Shazam cannot compare every dot with millions of songs. That is too slow, even for a computer. So Shazam keeps only the loudest points on the chart. These points are called peaks. The faint noise disappears. Only the music\'s peaks stay. But one peak alone does not tell Shazam much.',
         visual: peaks },
       { type: 'bridge',
-        text: 'One peak isn\'t much use: thousands of songs have a 1,200 Hz note. But 1,200 Hz, then 2,400 Hz exactly 0.3 seconds later? That\'s rare.' },
-      { type: 'card', title: 'So Shazam pairs peaks into codes',
-        text: 'Each peak is paired with a few just after it. Each pair becomes three numbers: both frequencies and the time between them. That\'s a code.',
+        text: 'One peak is just one note at one moment. Thousands of songs have that same note. But two peaks together are much rarer. Picture a 1,200 Hz note, then a 2,400 Hz note exactly 0.3 seconds later. Hz measures how high a note is. Very few songs have that exact pair. So Shazam uses pairs of peaks.' },
+      { type: 'card', title: 'Two peaks make a code',
+        text: 'Shazam joins each peak to a few peaks that come just after it. For each pair, it writes down three numbers. The first two numbers say how high each note is. The third number is the time between them. These three numbers make one code. Now Shazam must find the song that has your codes.',
         visual: pairs },
-      { type: 'card', title: 'Then it looks the codes up',
-        text: 'Instead of reading every song, Shazam flips the question: which songs contain this code? Like a book\'s index, each code jumps straight to its songs. The one that keeps turning up is yours.',
+      { type: 'card', title: 'Shazam looks up each code, like a book\'s index',
+        text: 'Shazam does not check millions of songs one by one. That takes days. A book\'s index shows every page that has a word. Shazam\'s list shows every song that has a code. One song comes up again and again, at the same times as your clip. That song is the answer.',
+        takeaway: 'Shazam never hears the whole song, only pairs of loud notes.',
         visual: lookup },
       { type: 'more', links: ['ice-floats'], note: 'In 2002 Shazam wasn\'t an app. You dialled 2580, held your phone to the speaker, and got the song\'s name by text.' }
     ]

@@ -278,6 +278,53 @@ enum Kit {
 
 // MARK: - Card 1: satellites broadcast, the phone only listens
 
+// MARK: - Card 1: a blue dot on your map; signals only come in
+
+struct FlatBlueDot: View {
+    let active: Bool
+    var body: some View {
+        FlatPicture(active: active, period: 6, still: 2.4, cues: [], label: "A phone shows a map with a pulsing blue dot: you. Faint signals come down into the phone from the sky. Nothing goes up.") { ctx, s, t, _ in
+            Kit.stars(&ctx, s, t)
+            // the phone, big, with a street map on its screen
+            let pw = min(s.width * 0.52, s.height * 0.34), ph = pw * 1.9
+            let body = CGRect(x: s.width / 2 - pw / 2, y: s.height * 0.86 - ph, width: pw, height: ph)
+            let scr = body.insetBy(dx: pw * 0.07, dy: pw * 0.1)
+            // signals falling in from the sky, landing on the phone
+            for i in 0..<5 {
+                let k = ((t * 0.45 + Double(i) / 5).truncatingRemainder(dividingBy: 1))
+                let x = body.minX + body.width * [0.2, 0.75, 0.4, 0.88, 0.1][i]
+                let y0 = s.height * 0.04, y1 = body.minY - 4
+                let y = y0 + (y1 - y0) * k * k
+                var p = Path(); p.move(to: CGPoint(x: x, y: max(y0, y - 22))); p.addLine(to: CGPoint(x: x, y: y))
+                ctx.stroke(p, with: .linearGradient(Gradient(colors: [Pal.signal.opacity(0), Pal.signal.opacity(0.85 * (1 - k * 0.3))]), startPoint: CGPoint(x: x, y: y - 22), endPoint: CGPoint(x: x, y: y)), style: StrokeStyle(lineWidth: 2, lineCap: .round))
+            }
+            ctx.fill(Path(roundedRect: body, cornerRadius: pw * 0.16), with: .color(Color(hex: 0x1A2148)))
+            ctx.stroke(Path(roundedRect: body, cornerRadius: pw * 0.16), with: .color(Color(hex: 0xC9D2F5).opacity(0.7)), lineWidth: 1.6)
+            ctx.drawLayer { l in
+                l.clip(to: Path(roundedRect: scr, cornerRadius: 8))
+                l.fill(Path(scr), with: .color(Color(hex: 0xEDE6D6)))
+                l.fill(Path(CGRect(x: scr.minX, y: scr.minY + scr.height * 0.62, width: scr.width, height: scr.height * 0.2)), with: .color(Color(hex: 0xC9DDB4)))   // a park
+                var roads = Path()
+                for f in [0.22, 0.5, 0.78] { roads.move(to: CGPoint(x: scr.minX + scr.width * f, y: scr.minY)); roads.addLine(to: CGPoint(x: scr.minX + scr.width * f, y: scr.maxY)) }
+                for f in [0.18, 0.42, 0.88] { roads.move(to: CGPoint(x: scr.minX, y: scr.minY + scr.height * f)); roads.addLine(to: CGPoint(x: scr.maxX, y: scr.minY + scr.height * f)) }
+                l.stroke(roads, with: .color(.white), lineWidth: 5)
+                l.stroke(roads, with: .color(Color(hex: 0xD8CFBC)), lineWidth: 0.6)
+            }
+            // the blue dot: you
+            let dot = CGPoint(x: scr.minX + scr.width * 0.5, y: scr.minY + scr.height * 0.42)
+            let pulse = (t / 1.6).truncatingRemainder(dividingBy: 1)
+            let rr = 6 + pulse * 18
+            ctx.fill(Path(ellipseIn: CGRect(x: dot.x - rr, y: dot.y - rr, width: 2 * rr, height: 2 * rr)), with: .color(Color(hex: 0x2F7BFF).opacity(0.35 * (1 - pulse))))
+            ctx.fill(Path(ellipseIn: CGRect(x: dot.x - 7.5, y: dot.y - 7.5, width: 15, height: 15)), with: .color(.white))
+            ctx.fill(Path(ellipseIn: CGRect(x: dot.x - 5.5, y: dot.y - 5.5, width: 11, height: 11)), with: .color(Color(hex: 0x2F7BFF)))
+            Kit.chip(&ctx, "YOU ARE HERE", CGPoint(x: dot.x, y: dot.y + 14), anchor: .top, color: .white, size: 8)
+            Kit.chip(&ctx, "YOUR PHONE · LISTENING", CGPoint(x: s.width / 2, y: s.height * 0.94), color: .white)
+        }
+    }
+}
+
+// MARK: - Card 2: satellites keep calling out where they are and the time
+
 struct FlatBroadcast: View {
     let active: Bool
     var body: some View {
@@ -330,7 +377,7 @@ struct FlatBroadcast: View {
             }
             Kit.phone(&ctx, phone, u, t, glow: arrive)
 
-            Kit.chip(&ctx, "SATELLITES", CGPoint(x: sats[1].x, y: sats[1].y + 9 * u), color: .white.opacity(0.85))
+            Kit.chip(&ctx, "SATELLITE", CGPoint(x: sats[1].x, y: sats[1].y + 9 * u), color: .white.opacity(0.85))
             Kit.chip(&ctx, "YOUR PHONE · LISTENING", CGPoint(x: phone.x, y: s.height * 0.915), color: .white)
             Kit.chip(&ctx, "WHERE I AM", CGPoint(x: 12, y: 14), anchor: .topLeading, color: Pal.signal, size: 9, glyph: .pin)
             Kit.chip(&ctx, "TIME SENT", CGPoint(x: 12, y: 38), anchor: .topLeading, color: Pal.signal, size: 9, glyph: .clock)
@@ -515,9 +562,9 @@ struct FlatDelay: View {
             Kit.satellite(&ctx, sat, u, t)
             Kit.phone(&ctx, phone, u, t, glow: t >= t1 ? max(0, 1 - (t - t1) / 0.8) : 0)
 
-            Kit.chip(&ctx, "SENT 0.00 s", CGPoint(x: sat.x + 18 * u, y: sat.y), anchor: .leading, color: Pal.signal, alpha: prog(t, t0 - 0.1, t0 + 0.3) * fadeOut, glyph: .clock)
-            Kit.chip(&ctx, "ARRIVED 0.07 s", CGPoint(x: phone.x + 11 * u, y: phone.y), anchor: .leading, color: Pal.coral, alpha: prog(t, t1, t1 + 0.3) * fadeOut, glyph: .clock)
-            Kit.chip(&ctx, "SLOWED WAY DOWN", CGPoint(x: 12, y: 14), anchor: .topLeading, color: .white.opacity(0.8), alpha: prog(t, 0.6, 1.0) * (1 - prog(t, t1 + 0.4, t1 + 0.8)))
+            Kit.chip(&ctx, "TIME SENT 0.00 s", CGPoint(x: sat.x + 18 * u, y: sat.y), anchor: .leading, color: Pal.signal, alpha: prog(t, t0 - 0.1, t0 + 0.3) * fadeOut, glyph: .clock)
+            Kit.chip(&ctx, "TIME ARRIVED 0.07 s", CGPoint(x: phone.x + 11 * u, y: phone.y), anchor: .leading, color: Pal.coral, alpha: prog(t, t1, t1 + 0.3) * fadeOut, glyph: .clock)
+            Kit.chip(&ctx, "SHOWN MUCH SLOWER", CGPoint(x: 12, y: 14), anchor: .topLeading, color: .white.opacity(0.8), alpha: prog(t, 0.6, 1.0) * (1 - prog(t, t1 + 0.4, t1 + 0.8)))
             Kit.chip(&ctx, "0.07 s TRIP  =  20,200 KM AWAY", CGPoint(x: s.width / 2, y: s.height * 0.915), color: .white, alpha: prog(t, 5.0, 5.6) * fadeOut)
         }
     }
@@ -637,7 +684,7 @@ struct FlatMeet: View {
             let cap: String; let cp: Double
             if t < 1.9 { cap = "1 SATELLITE  →  A RING OF PLACES"; cp = prog(t, 0.2, 0.6) * (1 - prog(t, 1.6, 1.9)) }
             else if t < 4.6 { cap = "2 SATELLITES  →  TWO POSSIBLE PLACES"; cp = prog(t, 2.0, 2.4) * (1 - prog(t, 4.3, 4.6)) }
-            else if t < 6.8 { cap = "3 SATELLITES  →  ONLY ONE FITS"; cp = prog(t, 4.7, 5.1) * (1 - prog(t, 6.5, 6.8)) }
+            else if t < 6.8 { cap = "3 SATELLITES  →  ONE PLACE FITS"; cp = prog(t, 4.7, 5.1) * (1 - prog(t, 6.5, 6.8)) }
             else if t < 8.5 { cap = "THAT PLACE IS YOU"; cp = prog(t, 6.9, 7.3) * (1 - prog(t, 8.2, 8.5)) }
             else { cap = "REAL PHONES USE 4 OR MORE"; cp = prog(t, 8.7, 9.1) * fade }
             Kit.chip(&ctx, cap, CGPoint(x: s.width / 2, y: s.height - 14), anchor: .bottom, color: (t >= 6.8 && t < 8.5) ? Pal.coral : .white, alpha: cp)

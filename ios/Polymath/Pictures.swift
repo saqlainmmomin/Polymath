@@ -14,13 +14,25 @@ enum Pictures {
             default: return nil
             }
         }
+        if topic.id == "moon-tides" {
+            switch index {
+            case 0: return AnyView(TidesBeach(active: active))
+            case 1: return AnyView(TidesPull(active: active))
+            case 2: return AnyView(TidesTwo(active: active))
+            case 3: return AnyView(TidesSpin(active: active))
+            case 5: return AnyView(TidesSun(active: active))      // card 4 is a text-only bridge
+            case 6: return AnyView(TidesCoast(active: active))
+            default: return nil
+            }
+        }
         guard topic.id == "gps" else { return nil }
         switch index {
-        case 0: return AnyView(FlatBroadcast(active: active))
-        case 1: return AnyView(FlatStorm(active: active))
-        case 2: return AnyView(FlatDelay(active: active))
-        case 3: return AnyView(FlatRing(active: active))
-        case 4: return AnyView(FlatMeet(active: active))
+        case 0: return AnyView(FlatBlueDot(active: active))
+        case 1: return AnyView(FlatBroadcast(active: active))
+        case 2: return AnyView(FlatStorm(active: active))
+        case 3: return AnyView(FlatDelay(active: active))
+        case 4: return AnyView(FlatRing(active: active))
+        case 5: return AnyView(FlatMeet(active: active))
         default: return nil
         }
     }

@@ -1,4 +1,4 @@
-// How does your phone know where you are? 5 cards: it only listens, a storm shows time tells distance, signal delay = distance, one ring, rings meet at one spot.
+// How does your phone know where you are? 6 cards (write-explainer copy, 2026-10-25): it only listens, satellites call out place and time, a storm shows a delay is a distance, signal delay = distance, one ring, rings meet at one spot.
 (function () {
   // Ground: an arc (big circle top) hatched, closed across the bottom of the box.
   const arc = [];
@@ -13,6 +13,14 @@
   ];
 
   // Card 1 scene: three satellites shout the time in every direction, the phone only listens (spark dots travel down to it, none leave it).
+  const bluedot = { type: 'diagram', view: [100, 96], tip: false,
+    parts: [
+      { id: 'ph', shape: 'rect', x: 34, y: 14, w: 32, h: 62, style: 'thin' },
+      { id: 'd', shape: 'dot', x: 50, y: 42, r: 3, style: 'blue', label: 'You are here', labelAt: [50, 54] },
+      { id: 's', shape: 'arrow', from: [50, 0], to: [50, 12], style: 'accent', label: 'Your phone · listening', labelAt: [50, 88] }
+    ],
+    steps: [{ note: 'A blue dot shows where you are' }, { note: 'Your phone only listens' }] };
+
   const broadcast = { type: 'diagram', view: [100, 96],
     parts: [
       ground,
@@ -114,22 +122,25 @@
     theme: 'internet',
     cards: [
       { type: 'card',
-        title: 'It never calls a satellite. It just listens.',
-        text: 'Satellites keep broadcasting two things: where they are, and the exact time they sent the signal. Your phone only listens, then works out where it is.',
+        title: 'It finds you within a few metres, anywhere on Earth.',
+        text: 'Open a map on your phone. A blue dot shows where you stand. Your phone never sends a message to space to find you. It only listens. So what is it listening to?',
+        visual: bluedot },
+      { type: 'card', title: 'Satellites keep calling out the time',
+        text: 'About 30 GPS satellites circle Earth, high in space. A satellite is a machine that orbits our planet. Each one carries a very exact clock. Each one sends a radio signal, again and again. The signal says, "This is where I am, and this is the time now." How can a time tell your phone how far away something is? A storm shows you.',
         visual: broadcast },
-      { type: 'card', title: 'A storm shows how a delay becomes distance',
-        text: 'Lightning and thunder start together, but light arrives at once and sound crawls. Every 3 seconds between flash and boom is about 1 km. GPS also turns a delay into a distance.',
+      { type: 'card', title: 'A storm turns a delay into a distance',
+        text: 'Lightning and thunder happen at the same moment. You see the flash at once. The sound of the thunder travels much more slowly. So you hear it later. Count the seconds between the flash and the boom. Every 3 seconds means the storm is about 1 kilometre away. GPS uses the same trick, but with a signal that travels much faster.',
         visual: thunder },
-      { type: 'card', title: 'A satellite signal is a very fast thunderclap',
-        text: 'Each signal has the time it was sent. A signal moves at the speed of light. From straight above (20,200 kilometers), it takes about 0.07 seconds. Your phone measures this time. The time gives the distance.',
+      { type: 'card', title: 'The satellite signal works like a very fast thunderclap',
+        text: 'A satellite signal travels at the speed of light. From straight above, it takes about 0.07 seconds to reach you. The signal says what time it left. Your phone notes what time it arrived. The gap between the two times tells your phone the distance. But knowing a distance is not the same as knowing a place.',
         visual: delay },
       { type: 'card', title: 'One distance gives a ring of places',
-        text: 'Look at a map from above. You are on the ground. The satellite is a known distance away. You can be at any place that is this far from the satellite. These places make a ring.',
+        text: 'Look at a map from above. A friend says, "I am 1 kilometre from the school." Your friend can be anywhere on a ring around the school. GPS has the same problem. One satellite gives one distance. One distance gives a ring of possible places. So how does your phone pick the one right place on the ring?',
         visual: ring1 },
       { type: 'card', title: 'More satellites give one place',
-        text: 'Two satellites give two rings. The rings cross at two places. A third ring usually goes through only one of them.', takeaway: 'That place is you.',
+        text: 'A second satellite gives a second ring. The two rings cross at two places. A third satellite gives a third ring. Usually, only one of the two crossing places is on it.', takeaway: 'That place is you.',
         visual: circle3 },
-      { type: 'more', links: ['card-payment'], note: "Timing must be exact: a thousandth of a second off is a 300 km mistake. Phone clocks are cheap, so a fourth satellite helps: four signals together solve your 3D position and the clock error." }
+      { type: 'more', links: ['card-payment'], note: 'The timing must be perfect. If the time is wrong by one thousandth of a second, your phone is 300 kilometres off. Phone clocks are not that exact. So your phone listens to a fourth satellite too. The extra satellite lets it correct its own clock.' }
     ]
   };
 })();

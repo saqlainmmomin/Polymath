@@ -15,7 +15,7 @@ const read = f => fs.readFileSync(path.join(root, f), 'utf8');
 
 const FONTS = 'https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap';
 // Library: topic ids, one per topic (topics/<id>.js). Title, kind, theme and card count come from the topic file. Old small topics: archive-v3-small/.
-const LIBRARY = ['car-engine', 'bike-gears', 'ice-floats', 'sky-blue', 'gps', 'card-payment', 'shazam'];
+const LIBRARY = ['car-engine', 'bike-gears', 'ice-floats', 'sky-blue', 'gps', 'card-payment', 'shazam', 'moon-tides'];
 
 // TMH is a stub: topic-local blocks only assign functions to TMH.blocks, nothing runs at load.
 function loadTopic(name) {
@@ -35,7 +35,7 @@ function lint(name, EX) {
   const words = s => (s || '').trim().split(/\s+/).filter(Boolean).length;
   // write-explainer rules: every sentence 15 words or fewer, at most 7 sentences a card.
   const sentenceRules = (i, s) => {
-    const ss = s.match(/[^.?!]+[.?!]*/g) || [];
+    const ss = s.trim().split(/(?<=[.?!]["'”’)]?)\s+/).filter(Boolean);   // split after . ? ! plus a closing quote, so 0.3 stays whole
     const long = ss.filter(x => words(x) > 15);
     if (long.length) warn(`card ${i + 1}: ${long.length} sentence(s) over 15 words ("${long[0].trim().slice(0, 50)}…")`);
     if (ss.length > 7) warn(`card ${i + 1} has ${ss.length} sentences; keep it to 7`);

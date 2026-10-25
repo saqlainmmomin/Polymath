@@ -155,7 +155,7 @@ struct ShazamHear: View {
                 for j in 1...6 { sq.addLine(to: CGPoint(x: x - Double(j) * 4, y: y + (j % 2 == 0 ? -3 : 3))) }
                 ctx.stroke(sq, with: .color(Color(hex: 0x9AA3C7).opacity((1 - k) * 0.65 * fade)), lineWidth: 1.3)
             }
-            Kit.chip(&ctx, "CHATTER", CGPoint(x: s.width - 8, y: ph.minY), anchor: .trailing, color: Color(hex: 0x9AA3C7), size: 7, alpha: 0.9 * fade)
+            Kit.chip(&ctx, "TALKING", CGPoint(x: s.width - 8, y: ph.minY), anchor: .trailing, color: Color(hex: 0x9AA3C7), size: 7, alpha: 0.9 * fade)
             // the phone
             ctx.fill(Path(roundedRect: ph, cornerRadius: ph.width * 0.16), with: .color(Color(hex: 0x1A2148)))
             ctx.stroke(Path(roundedRect: ph, cornerRadius: ph.width * 0.16), with: .color(Color(hex: 0xC9D2F5).opacity(0.7)), lineWidth: 1.6)
@@ -461,7 +461,7 @@ struct ShazamClip: View {
         }
         ctx.stroke(Path(CGRect(x: W.minX, y: W.midY, width: W.width, height: 0)), with: .color(.white.opacity(0.12)), lineWidth: 1)
         ctx.stroke(wave, with: .color(Pal.ice.opacity(fade)), lineWidth: 1.4)
-        Kit.chip(&ctx, "YOUR PHONE'S RECORDING", CGPoint(x: W.minX, y: W.minY - 6), anchor: .leading, color: Pal.ice, size: 7)
+        Kit.chip(&ctx, "YOUR CLIP", CGPoint(x: W.minX, y: W.minY - 6), anchor: .leading, color: Pal.ice, size: 7)
         // the same recording as a chart
         let box = CGRect(x: 30, y: W.maxY + 34, width: s.width - 44, height: s.height - W.maxY - 88)
         ctx.fill(Path(box), with: .color(Pal.night.opacity(0.5)))
@@ -480,7 +480,7 @@ struct ShazamClip: View {
         }
         axes(&ctx, box)
         let done = shown >= Double(Song.cols)
-        let cap = done ? "MUSIC = BRIGHT LINES · CHATTER = FAINT SPECKLE" : "THE SAME SOUND, AS A CHART"
+        let cap = done ? "SONG = BRIGHT LINES · NOISE = FAINT DOTS" : "YOUR CLIP, AS A CHART"
         caption(&ctx, s, cap, (done ? pr(t, len + 0.1, len + 0.4) : pr(t, 0.1, 0.4)) * fade, color: done ? Pal.signal : .white, y: box.maxY + 44)
     }
 }
@@ -499,7 +499,7 @@ struct ShazamPeaks: View {
             VStack(spacing: 4) {
                 Canvas { ctx, s in draw(&ctx, s) }
                 HStack(spacing: 8) {
-                    Text("EVERYTHING").font(T.mono(9)).foregroundStyle(.white.opacity(0.75))
+                    Text("ALL DOTS").font(T.mono(9)).foregroundStyle(.white.opacity(0.75))
                     Slider(value: Binding(get: { level }, set: { level = $0; if !touched { touched = true; Haptic.fire(.soft) } }), in: 0...1)
                         .tint(Pal.signal)
                     Text("PEAKS ONLY").font(T.mono(9)).foregroundStyle(Pal.signal)
@@ -539,10 +539,10 @@ struct ShazamPeaks: View {
         }
         for st in Song.stars { star(&ctx, cellCentre(box, st.c, st.r), 3.4 * pop(morph), alpha: min(1, morph * 1.6)) }
         axes(&ctx, box)
-        let (txt, col): (String, Color) = level < 0.25 ? ("EVERY SOUND, LOUD OR FAINT", .white)
-            : level < 0.55 ? ("FAINT SOUNDS DISAPPEAR", .white)
-            : level < 0.85 ? ("ONLY THE LOUDEST PEAKS LEFT", Pal.signal)
-            : ("KEEP THE PEAKS, THROW THE REST AWAY", Pal.signal)
+        let (txt, col): (String, Color) = level < 0.25 ? ("THOUSANDS OF DOTS", .white)
+            : level < 0.55 ? ("THE FAINT NOISE DISAPPEARS", .white)
+            : level < 0.85 ? ("ONLY THE PEAKS STAY", Pal.signal)
+            : ("PEAKS = THE LOUDEST POINTS", Pal.signal)
         Kit.chip(&ctx, txt, CGPoint(x: box.midX + 10, y: box.minY + 8), anchor: .top, color: col, size: 9)
     }
 }
@@ -716,7 +716,7 @@ struct ShazamLookup: View {
             }
             let checked = min(6, si + (t >= 6 * perSong ? 1 : 0))
             Kit.chip(&ctx, "CHECKED \(checked) OF 50,000,000…", CGPoint(x: rightX + rightW / 2, y: rightRect(5).maxY + 14), size: 7, alpha: 0.85)
-            caption(&ctx, s, t < 6 * perSong ? "SONG BY SONG, CODE BY CODE" : "THIS WOULD TAKE DAYS", t < 6 * perSong ? pr(t, 0.1, 0.4) : 1, color: t < 6 * perSong ? .white : Pal.coral)
+            caption(&ctx, s, t < 6 * perSong ? "SONG BY SONG, CODE BY CODE" : "THIS TAKES DAYS", t < 6 * perSong ? pr(t, 0.1, 0.4) : 1, color: t < 6 * perSong ? .white : Pal.coral)
         } else {
             // INDEX (modelled on Per Thirty Six's explainer): each code's line lists every song that has it, and when.
             // One song keeps turning up (green), and its times minus the clip's times all give the same offset.
@@ -765,7 +765,7 @@ struct ShazamLookup: View {
                 var l = ctx
                 l.opacity = oa
                 l.fill(Path(roundedRect: ob, cornerRadius: 6), with: .color(.white.opacity(0.05)))
-                l.draw(l.resolve(Text("TIMING CHECK: SONG TIME − CLIP TIME").font(T.mono(7)).tracking(0.8).foregroundColor(.white.opacity(0.6))), at: CGPoint(x: ob.minX + 8, y: ob.minY + 11), anchor: .leading)
+                l.draw(l.resolve(Text("DO THE TIMES MATCH YOUR CLIP?").font(T.mono(7)).tracking(0.8).foregroundColor(.white.opacity(0.6))), at: CGPoint(x: ob.minX + 8, y: ob.minY + 11), anchor: .leading)
             }
             for (i, q) in pairs.enumerated() {
                 let la = pr(t, offStart + Double(i) * 0.45, offStart + Double(i) * 0.45 + 0.3)
@@ -779,8 +779,8 @@ struct ShazamLookup: View {
             }
             let done = offStart + Double(pairs.count) * 0.45 + 0.3
             let (cap, ca, cc): (String, Double, Color) = t < offStart ? ("EACH CODE LISTS EVERY SONG THAT HAS IT", pr(t, 0.1, 0.4), .white)
-                : t < done ? ("DO THE TIMES AGREE?", pr(t, offStart, offStart + 0.3), .white)
-                : ("ALL CODES: SONG E, SAME OFFSET ✓", pr(t, done, done + 0.3), match)
+                : t < done ? ("NOW SHAZAM CHECKS THE TIMES", pr(t, offStart, offStart + 0.3), .white)
+                : ("SONG E, AT THE SAME TIMES ✓", pr(t, done, done + 0.3), match)
             caption(&ctx, s, cap, ca, color: cc)
         }
     }
