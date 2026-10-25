@@ -1,4 +1,4 @@
-// How does your phone know where you are? 5 cards: it only listens, late thunder = far storm, signal delay = distance, one ring, rings meet at one spot.
+// How does your phone know where you are? 5 cards: it only listens, a storm shows time tells distance, signal delay = distance, one ring, rings meet at one spot.
 (function () {
   // Ground: an arc (big circle top) hatched, closed across the bottom of the box.
   const arc = [];
@@ -21,7 +21,7 @@
       { id: 'none', shape: 'text', x: 27, y: 68, text: 'No reply', hidden: true }
     ],
     steps: [
-      { note: 'Satellites shout the time' },
+      { note: 'Satellites broadcast signals' },
       { focus: ['ph', 'ground', 'none'], show: ['none'], note: 'Your phone only listens' }
     ],
     flows: [
@@ -115,21 +115,21 @@
     cards: [
       { type: 'card',
         title: 'It never calls a satellite. It just listens.',
-        text: 'Satellites high above keep shouting two things: the exact time they sent it, and where they are. Your phone only listens, then works out where you are.',
+        text: 'Satellites keep broadcasting two things: where they are, and the exact time they sent the signal. Your phone only listens, then works out where it is.',
         visual: broadcast },
-      { type: 'card', title: 'A late boom means a far storm',
-        text: 'You see lightning at once, but thunder is slow. Count the seconds between flash and boom. Every 3 seconds is about 1 km away.',
+      { type: 'card', title: 'A storm shows how a delay becomes distance',
+        text: 'Lightning and thunder start together, but light arrives at once and sound crawls. Every 3 seconds between flash and boom is about 1 km. GPS also turns a delay into a distance.',
         visual: thunder },
-      { type: 'card', title: 'A satellite is a very fast thunderclap',
-        text: 'Each shout says when it was sent. Signals travel at light speed, 300,000 km a second, so from straight overhead (20,200 km) one lands 0.07 seconds late. Your phone checks that gap.',
+      { type: 'card', title: 'A satellite signal is a very fast thunderclap',
+        text: 'Each signal has the time it was sent. A signal moves at the speed of light. From straight above (20,200 kilometers), it takes about 0.07 seconds. Your phone measures this time. The time gives the distance.',
         visual: delay },
-      { type: 'card', title: 'One distance leaves a whole ring of places',
-        text: 'Seen from above, a signal this late could have reached any place that far from the satellite. On a map, those places form a ring.',
+      { type: 'card', title: 'One distance gives a ring of places',
+        text: 'Look at a map from above. You are on the ground. The satellite is a known distance away. You can be at any place that is this far from the satellite. These places make a ring.',
         visual: ring1 },
-      { type: 'card', title: 'More satellites shrink the ring to one spot',
-        text: 'Two rings cross in two spots. A third ring misses one of them.', takeaway: 'The spot left is you.',
+      { type: 'card', title: 'More satellites give one place',
+        text: 'Two satellites give two rings. The rings cross at two places. A third ring usually goes through only one of them.', takeaway: 'That place is you.',
         visual: circle3 },
-      { type: 'more', links: ['card-payment'], note: "Timing must be exact: a thousandth of a second off is a 300 km mistake. Phones use a fourth satellite to fix their cheap clock, so three give the 3D spot and the fourth corrects the time." }
+      { type: 'more', links: ['card-payment'], note: "Timing must be exact: a thousandth of a second off is a 300 km mistake. Phone clocks are cheap, so a fourth satellite helps: four signals together solve your 3D position and the clock error." }
     ]
   };
 })();
