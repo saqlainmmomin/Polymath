@@ -15,7 +15,7 @@ const read = f => fs.readFileSync(path.join(root, f), 'utf8');
 
 const FONTS = 'https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap';
 // Library: topic ids, one per topic (topics/<id>.js). Title, kind, theme and card count come from the topic file. Old small topics: archive-v3-small/.
-const LIBRARY = ['car-engine', 'bike-gears', 'ice-floats', 'sky-blue', 'gps', 'card-payment', 'shazam', 'moon-tides'];
+const LIBRARY = ['car-engine', 'bike-gears', 'feel-wet', 'sky-blue', 'gps', 'card-payment', 'shazam', 'moon-tides'];
 
 // TMH is a stub: topic-local blocks only assign functions to TMH.blocks, nothing runs at load.
 function loadTopic(name) {

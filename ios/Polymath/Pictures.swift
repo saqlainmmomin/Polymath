@@ -25,6 +25,15 @@ enum Pictures {
             default: return nil
             }
         }
+        if topic.id == "feel-wet" {
+            switch index {
+            case 0: return AnyView(WetNoSensor(active: active))
+            case 1: return AnyView(WetCooling(active: active))
+            case 2: return AnyView(WetGuess(active: active))
+            case 3: return AnyView(WetBag(active: active))
+            default: return nil
+            }
+        }
         guard topic.id == "gps" else { return nil }
         switch index {
         case 0: return AnyView(FlatBlueDot(active: active))
