@@ -18,13 +18,18 @@ enum Launch {
 
 @Observable final class Store {
     let topics: [Topic]
+    private let shades: [String: Int]
 
     init() {
         let url = Bundle.main.url(forResource: "topics", withExtension: "json")!
         var all = (try! JSONDecoder().decode(Library.self, from: Data(contentsOf: url))).topics.shuffled()
         if let first = Launch.topic, let i = all.firstIndex(where: { $0.id == first }) { all.insert(all.remove(at: i), at: 0) }
         topics = all
+        // Each topic keeps one gradient across launches (sorted by id, not by the shuffled order); all differ while there are fewer topics than gradients.
+        shades = Dictionary(uniqueKeysWithValues: all.map(\.id).sorted().enumerated().map { ($1, $0) })
     }
+
+    func shade(_ t: Topic) -> Int { shades[t.id] ?? 0 }
 
     func topic(_ id: String) -> Topic? { topics.first { $0.id == id } }
 

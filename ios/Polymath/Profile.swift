@@ -41,3 +41,19 @@ enum Subject {
         ("Art", "paintpalette", Color(hex: 0xF0507A)), ("Language", "character.bubble", Color(hex: 0x3BA6A0)), ("Law", "scalemass", Color(hex: 0x7A6A55)), ("Sport", "figure.run", Color(hex: 0xE5503C)),
     ]
 }
+
+/// Liked and saved topics, by id, kept on the device.
+@Observable final class Shelf {
+    private static let likedKey = "shelf.liked", savedKey = "shelf.saved"
+    private(set) var liked: Set<String>
+    private(set) var saved: Set<String>
+
+    init() {
+        let d = UserDefaults.standard
+        liked = Set(d.stringArray(forKey: Self.likedKey) ?? [])
+        saved = Set(d.stringArray(forKey: Self.savedKey) ?? [])
+    }
+
+    func toggleLike(_ id: String) { liked.formSymmetricDifference([id]); UserDefaults.standard.set(Array(liked), forKey: Self.likedKey) }
+    func toggleSave(_ id: String) { saved.formSymmetricDifference([id]); UserDefaults.standard.set(Array(saved), forKey: Self.savedKey) }
+}

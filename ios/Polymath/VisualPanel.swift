@@ -12,8 +12,7 @@ struct VisualPanel: View {
 
     var body: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: 2).fill(T.panel)
-            RoundedRectangle(cornerRadius: 2).stroke(T.rule, lineWidth: 1)
+            RoundedRectangle(cornerRadius: 20, style: .continuous).fill(S.veil)
             if let v = visual { placeholder(v) }
         }
         .overlay(alignment: .bottom) {

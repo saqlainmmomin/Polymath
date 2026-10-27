@@ -58,140 +58,119 @@ private struct NameStep: View {
     }
 }
 
-/// Watches the enclosing UIScrollView's offset frame by frame (SwiftUI's own scroll preferences only report when scrolling settles).
-private struct ScrollWatcher: UIViewRepresentable {
-    let onOffset: (CGFloat) -> Void
-    func makeCoordinator() -> Coordinator { Coordinator() }
-    func makeUIView(context: Context) -> UIView { UIView() }
-    func updateUIView(_ view: UIView, context: Context) {
-        context.coordinator.onOffset = onOffset
-        guard context.coordinator.observation == nil else { return }
-        DispatchQueue.main.async {
-            var v: UIView? = view
-            while let cur = v, !(cur is UIScrollView) { v = cur.superview }
-            guard let sv = v as? UIScrollView else { return }
-            context.coordinator.origin = sv.contentOffset.y
-            context.coordinator.observation = sv.observe(\.contentOffset, options: [.new]) { sv, _ in
-                context.coordinator.onOffset(sv.contentOffset.y - context.coordinator.origin)
-            }
-        }
-    }
-    final class Coordinator { var onOffset: (CGFloat) -> Void = { _ in }; var origin: CGFloat = 0; var observation: NSKeyValueObservation? }
-}
-
-/// Choices ride a circular arc on the right: the row at the middle of the screen sits furthest in, rows toward the top and bottom swing out to the corners.
+/// Lunagraph "Interest Picker": a two-column grid of tiles (icon over label), with a count and Continue pinned at the bottom.
 private struct InterestsStep: View {
     let name: String
     @Binding var picked: Set<String>
     let back: () -> Void
     let done: () -> Void
-    private let minimum = 3
-    private let rowHeight: CGFloat = 96
-    private let radius: CGFloat = 400
-    private let tick = UISelectionFeedbackGenerator()
-    @State private var lastIndex = -1
+    private let maximum = 7
+
+    // Zinc greys from the design, inverted for dark mode.
+    private let bg = Color(light: 0xFFFFFF, dark: 0x09090B)
+    private let title = Color(light: 0x18181B, dark: 0xF4F4F5)
+    private let body2 = Color(light: 0x71717A, dark: 0xA1A1AA)
+    private let label = Color(light: 0x3F3F46, dark: 0xD4D4D8)
+    private let faint = Color(light: 0xA1A1AA, dark: 0x71717A)
+    private let border = Color(light: 0xE4E4E7, dark: 0x27272A)
+    private let off = Color(light: 0xF4F4F5, dark: 0x18181B)
 
     var body: some View {
-        GeometryReader { geo in
-            let w = geo.size.width, h = geo.size.height
-            let cy = h * 0.55                    // the row at rest here is "in front of you"
-            let restX = w * 0.60                 // its icon centre
-            let railX = restX + 62               // where the rail passes at cy
-            ZStack {
-                Circle().stroke(T.rule, lineWidth: 1).frame(width: radius * 2, height: radius * 2)
-                    .position(x: railX + radius, y: cy).allowsHitTesting(false)
-                Capsule().fill(T.ink).frame(width: 7, height: 34).position(x: railX, y: cy).allowsHitTesting(false)
-                ScrollView {
-                    VStack(spacing: 0) {
-                        ForEach(Subject.all, id: \.name) { s in
-                            WheelRow(subject: s, on: picked.contains(s.name), trailing: w - restX - 33, cy: cy, radius: radius) {
-                                if picked.contains(s.name) { picked.remove(s.name) } else { picked.insert(s.name) }
-                                UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-                            }
-                            .frame(height: rowHeight)
-                        }
-                    }
-                    .scrollTargetLayout()
-                    .background(ScrollWatcher { offset in
-                        // The row on the middle at rest is index 2; each rowHeight of scroll moves one row through it.
-                        let i = 2 + Int((offset / rowHeight).rounded())
-                        guard i != lastIndex else { return }
-                        if lastIndex != -1, Subject.all.indices.contains(i) { tick.selectionChanged(); tick.prepare() }
-                        lastIndex = i
-                    })
+        ScrollView {
+            VStack(alignment: .leading, spacing: 24) {
+                VStack(alignment: .leading, spacing: 8) {
+                    Button(action: back) { Image(systemName: "chevron.left").font(.system(size: 17, weight: .semibold)).foregroundStyle(body2).frame(width: 44, height: 44, alignment: .leading) }
+                        .accessibilityLabel("Back")
+                    Text("Tell us your interests, \(name.trimmingCharacters(in: .whitespaces))").font(.system(size: 24, weight: .medium, design: .rounded)).foregroundStyle(title)
+                        .fixedSize(horizontal: false, vertical: true)
+                    Text("Pick up to \(maximum) topics. We'll fill your feed with them.").font(.system(size: 16, design: .rounded)).foregroundStyle(body2)
+                        .lineSpacing(3).fixedSize(horizontal: false, vertical: true)
                 }
-                .coordinateSpace(name: "wheel")
-                .scrollTargetBehavior(.viewAligned)
-                .contentMargins(.top, cy - 2.5 * rowHeight, for: .scrollContent)      // rows 0 and 1 sit above the middle, row 2 on it
-                .contentMargins(.bottom, h - cy - rowHeight / 2, for: .scrollContent)
-                .scrollIndicators(.hidden)
+                LazyVGrid(columns: [GridItem(.flexible(), spacing: 12), GridItem(.flexible(), spacing: 12)], spacing: 12) {
+                    ForEach(Subject.all, id: \.name) { s in
+                        let on = picked.contains(s.name)
+                        Tile(subject: s, on: on, full: !on && picked.count >= maximum, label: label, faint: faint, border: border) { toggle(s.name) }
+                    }
+                }
             }
-            .overlay(alignment: .top) { header }
-            .overlay(alignment: .bottom) {
-                PrimaryButton(title: picked.count >= minimum ? "Start exploring" : "Pick \(minimum - picked.count) more",
-                              enabled: picked.count >= minimum, action: done)
-                    .padding(.horizontal, 24).padding(.bottom, 16)
-            }
-            .onAppear { tick.prepare() }
+            .padding(.horizontal, 21)
         }
+        .scrollIndicators(.hidden)
+        .safeAreaInset(edge: .bottom, spacing: 0) { bottomBar }
+        .background(bg.ignoresSafeArea())
     }
 
-    private var header: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            Button(action: back) { Image(systemName: "chevron.left").font(.system(size: 17, weight: .semibold)).foregroundStyle(T.ink2).frame(width: 44, height: 44, alignment: .leading) }
-                .accessibilityLabel("Back")
-            Text("Hi \(name.trimmingCharacters(in: .whitespaces)). What pulls you in?").font(T.serif(30, .medium)).foregroundStyle(T.ink).padding(.top, 6).fixedSize(horizontal: false, vertical: true)
-            Text("Scroll, tap \(minimum) or more").monoLabel().foregroundStyle(T.ink2).padding(.top, 10)
+    private func toggle(_ s: String) {
+        if picked.contains(s) { picked.remove(s) }
+        else if picked.count < maximum { picked.insert(s) }
+        else { UINotificationFeedbackGenerator().notificationOccurred(.warning); return }
+        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+    }
+
+    private var bottomBar: some View {
+        HStack {
+            (Text("\(picked.count)").foregroundStyle(picked.isEmpty ? faint : title) + Text("/\(maximum) selected"))
+                .font(.system(size: 16, weight: .medium, design: .rounded)).foregroundStyle(label)
+                .contentTransition(.numericText()).animation(.snappy, value: picked.count)
+            Spacer()
+            Button(action: done) {
+                Text("Continue").font(.system(size: 17, weight: .medium, design: .rounded))
+                    .foregroundStyle(picked.isEmpty ? faint : bg)
+                    .frame(width: 170, height: 52)
+                    .background(Capsule().fill(picked.isEmpty ? off : title))
+            }
+            .disabled(picked.isEmpty)
+            .animation(.easeOut(duration: 0.2), value: picked.isEmpty)
         }
-        .padding(.horizontal, 24).padding(.bottom, 26)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .background(LinearGradient(stops: [.init(color: T.paper, location: 0), .init(color: T.paper, location: 0.78), .init(color: T.paper.opacity(0), location: 1)], startPoint: .top, endPoint: .bottom))
+        .padding(.horizontal, 21).padding(.top, 14).padding(.bottom, 8)
+        .background(alignment: .top) {
+            // Tiles fade out under the bar instead of being cut off.
+            LinearGradient(colors: [bg.opacity(0), bg], startPoint: .top, endPoint: .bottom).frame(height: 64).offset(y: -64)
+                .allowsHitTesting(false)
+        }
+        .background(bg.ignoresSafeArea(edges: .bottom))
     }
 }
 
-/// One choice: label left, app-icon style tile right. Picked = label in a chip, tile ringed with a tick.
-private struct WheelRow: View {
+/// One choice: a coloured line icon over its name. Picked = tinted fill, coloured outline and a tick.
+private struct Tile: View {
     let subject: (name: String, icon: String, color: Color)
     let on: Bool
-    let trailing: CGFloat
-    let cy: CGFloat
-    let radius: CGFloat
+    let full: Bool
+    let label: Color
+    let faint: Color
+    let border: Color
     let tap: () -> Void
 
     var body: some View {
         Button(action: tap) {
-            HStack(spacing: 14) {
-                Text(subject.name).font(T.serif(on ? 21 : 19, on ? .semibold : .medium)).foregroundStyle(on ? T.ink : T.ink2)
-                    .padding(.horizontal, on ? 14 : 0).padding(.vertical, on ? 7 : 0)
-                    .background { if on { Capsule().fill(T.panel).overlay(Capsule().stroke(T.rule, lineWidth: 1)) } }
-                    .visualEffect { [cy, radius] c, proxy in   // the label leans along the arc; the tile stays upright
-                        let dy = max(-radius * 0.95, min(radius * 0.95, proxy.frame(in: .named("wheel")).midY - cy))
-                        return c.rotationEffect(.degrees(-Double(asin(dy / radius)) * 180 / .pi * 0.9), anchor: .trailing)
-                    }
-                // A soft grey blob with a thin coloured line icon; picked, it tints and gets a coloured outline.
-                ZStack {
-                    RoundedRectangle(cornerRadius: 28, style: .continuous)
-                        .fill(on ? subject.color.opacity(0.14) : T.ink.opacity(0.055))
-                    RoundedRectangle(cornerRadius: 28, style: .continuous)
-                        .stroke(subject.color.opacity(on ? 1 : 0), lineWidth: 1.5)
-                    Image(systemName: subject.icon).font(.system(size: 27, weight: .light)).foregroundStyle(subject.color)
+            VStack(spacing: 8) {
+                Image(systemName: subject.icon).font(.system(size: 24, weight: on ? .regular : .light)).foregroundStyle(subject.color)
+                    .frame(height: 28)
+                Text(subject.name).font(.system(size: 16, weight: on ? .semibold : .regular, design: .rounded))
+                    .foregroundStyle(full ? faint : label)
+            }
+            .frame(maxWidth: .infinity).frame(height: 100)
+            .background(RoundedRectangle(cornerRadius: 16, style: .continuous).fill(subject.color.opacity(on ? 0.1 : 0)))
+            .overlay(RoundedRectangle(cornerRadius: 16, style: .continuous).strokeBorder(on ? subject.color : border, lineWidth: on ? 1.5 : 1))
+            .overlay(alignment: .topTrailing) {
+                if on {
+                    Image(systemName: "checkmark.circle.fill").font(.system(size: 18)).foregroundStyle(subject.color)
+                        .padding(8).transition(.scale.combined(with: .opacity))
                 }
-                .frame(width: on ? 80 : 72, height: on ? 66 : 62)
             }
-            .contentShape(Rectangle())
-            .visualEffect { [cy, radius] c, proxy in    // swing round the arc, shrink and fade away from the middle
-                let dy = max(-radius * 0.95, min(radius * 0.95, proxy.frame(in: .named("wheel")).midY - cy))
-                let swing = radius - (radius * radius - dy * dy).squareRoot()
-                let t = abs(dy) / radius
-                return c.offset(x: swing).scaleEffect(1 - 0.3 * t, anchor: .trailing).opacity(max(0.05, 1 - 0.95 * pow(t, 1.5)))
-            }
-            .padding(.trailing, trailing)
-            .frame(maxWidth: .infinity, alignment: .trailing)
+            .contentShape(RoundedRectangle(cornerRadius: 16))
         }
-        .buttonStyle(.plain)
-        .animation(.spring(response: 0.35, dampingFraction: 0.7), value: on)
+        .buttonStyle(Press())
+        .animation(.spring(response: 0.3, dampingFraction: 0.7), value: on)
         .accessibilityLabel(subject.name)
         .accessibilityAddTraits(on ? .isSelected : [])
+    }
+}
+
+private struct Press: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label.scaleEffect(configuration.isPressed ? 0.96 : 1).animation(.easeOut(duration: 0.15), value: configuration.isPressed)
     }
 }
 

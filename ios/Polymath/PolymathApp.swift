@@ -5,6 +5,7 @@ struct PolymathApp: App {
     @State private var store = Store()
     @State private var session = Session()
     @State private var profile = Profile()
+    @State private var shelf = Shelf()
 
     var body: some Scene {
         WindowGroup {
@@ -14,6 +15,7 @@ struct PolymathApp: App {
             .environment(store)
             .environment(session)
             .environment(profile)
+            .environment(shelf)
         }
     }
 }
