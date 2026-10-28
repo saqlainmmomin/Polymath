@@ -9,6 +9,8 @@ enum T {
     static let ink2   = Color(light: 0x5C5449, dark: 0xA79E90)
     static let rule   = Color(light: 0xD9D0C0, dark: 0x3A342C)
     static let accent = Color(light: 0xB4532A, dark: 0xE2804F)
+    /// Colour for words a card marks (`marks`), matched by the same thing in its picture.
+    static let mark = Color(hex: 0xF08A24)
     static let blue   = Color(light: 0x3F7DB2, dark: 0x6FAAE0)
     static let heat   = Color(light: 0xE06B22, dark: 0xFF9040)
     static let green  = Color(light: 0x4E9A4C, dark: 0x7CCB74)
@@ -45,50 +47,71 @@ enum S {
     static let text  = Color(light: 0x18181B, dark: 0xF4F4F5)
     static let text2 = Color(light: 0x52525B, dark: 0xA1A1AA)
     static let faint = Color(light: 0x8B8279, dark: 0x8A847C)
-    static let dotOn  = Color(light: 0x27272A, dark: 0xE4E4E7)
-    static let dotOff = Color(light: 0xA1A1AA, dark: 0x52525B)
     static let line   = Color(light: 0x000000, dark: 0xFFFFFF).opacity(0.08)
     /// Frosted white over the gradient: a picture's panel, a button's fill.
     static let veil   = Color(UIColor { $0.userInterfaceStyle == .dark ? UIColor.white.withAlphaComponent(0.06) : UIColor.white.withAlphaComponent(0.35) })
     static func rounded(_ size: CGFloat, _ weight: Font.Weight = .regular) -> Font { .system(size: size, weight: weight, design: .rounded) }
 
-    /// Top and bottom colours of a topic's background. The first four are the design's; the rest follow the same recipe
-    /// (two pale neighbouring hues). Dark mode turns each pastel into a deep shade of the same hue.
-    static let gradients: [(UInt32, UInt32)] = [
-        (0xE3F1FB, 0xDDF3E8), (0xFDEFD9, 0xF8D8E2), (0xECE6FB, 0xF7E1F0), (0xFFF3D6, 0xFDE2CF),
-        (0xDFF5F2, 0xE4ECFB), (0xFCE4EC, 0xEDE4FB), (0xEAF6DC, 0xFFF4D2), (0xE2E9FB, 0xF3E3FA),
-        (0xFFE8DC, 0xFFF1D6), (0xDDF1F8, 0xE9E3FA), (0xF4F0DC, 0xDDF3E6), (0xF9E1F0, 0xFFE9D9),
+    /// Top and bottom colours of a topic's background, light then dark. Light: two clearly different pastels (sky to pink, yellow to coral) so the gradient reads.
+    /// Dark: a near-black jewel tone at the top, a brighter different hue below (navy to teal, wine to crimson), never brown or olive (owner, 2026-10-27).
+    static let gradients: [(light: (UInt32, UInt32), dark: (UInt32, UInt32))] = [
+        ((0xA9D8FF, 0xFFC6E0), (0x0A1F45, 0x0F5A55)), ((0xFFC59A, 0xC9B5FF), (0x3D0F2A, 0x8A2A3A)),
+        ((0xBBA8FF, 0xFFC9A8), (0x1B1245, 0x6A1F6E)), ((0xFFE27A, 0xFF9F9F), (0x241650, 0x9A3A50)),
+        ((0x8FE8DA, 0xB4A8FF), (0x042F38, 0x2A2F80)), ((0xFFB0CF, 0xA9C8FF), (0x4A0A30, 0x2E2580)),
+        ((0xC2EE8F, 0x8FDDEB), (0x08302A, 0x2A6A3A)), ((0xA9BAFF, 0xFFB3E6), (0x0F1848, 0x5A1A7A)),
+        ((0xFFB49A, 0xFFE98A), (0x300A2A, 0xA0402E)), ((0x9FDCF5, 0xC4A3FF), (0x08243F, 0x3A2590)),
+        ((0x8FE6C8, 0xFFE48A), (0x042E35, 0x2A5E2A)), ((0xFFB8DE, 0xFFD49A), (0x3E0E3A, 0x8A2E40)),
     ]
 
+    /// The shade number of blueprint paper (Shazam): deep navy in light and dark alike, so its topic is always shown dark. The grid is drawn on top by `PaperGrid`.
+    static let paper = -1
+
     static func background(_ i: Int) -> LinearGradient {
-        let (top, bottom) = gradients[i % gradients.count]
-        // 170deg in CSS: top, leaning slightly left, to bottom. In dark mode the top is a little darker than the bottom, for depth.
-        return LinearGradient(colors: [Color(light: top, dark: deep(top, lightness: 0.15)), Color(light: bottom, dark: deep(bottom, lightness: 0.21))],
+        if i == paper {
+            let flat = BP.paper
+            return LinearGradient(colors: [flat, flat], startPoint: .top, endPoint: .bottom)
+        }
+        let g = gradients[i % gradients.count]
+        // 170deg in CSS: top, leaning slightly left, to bottom.
+        return LinearGradient(colors: [Color(light: g.light.0, dark: g.dark.0), Color(light: g.light.1, dark: g.dark.1)],
                               startPoint: UnitPoint(x: 0.41, y: 0), endPoint: UnitPoint(x: 0.59, y: 1))
     }
+}
 
-    /// The pastel's hue at a fixed saturation and a low lightness, so sky blue becomes navy and peach becomes rust.
-    private static func deep(_ hex: UInt32, lightness l: Double) -> UInt32 {
-        let r = Double((hex >> 16) & 0xFF) / 255, g = Double((hex >> 8) & 0xFF) / 255, b = Double(hex & 0xFF) / 255
-        let mx = max(r, g, b), mn = min(r, g, b), d = mx - mn
-        var h = 0.0
-        if d > 0 {
-            if mx == r { h = ((g - b) / d).truncatingRemainder(dividingBy: 6) }
-            else if mx == g { h = (b - r) / d + 2 }
-            else { h = (r - g) / d + 4 }
-            h = (h * 60 + 360).truncatingRemainder(dividingBy: 360)
+/// Colours for a picture drawn straight onto a topic's gradient (no panel behind it): line colour, a quieter version, and one accent,
+/// all taken from that gradient so they read on it in light and dark. Cards put it in the environment as `\.stage`.
+struct StagePalette {
+    let ink: Color
+    let soft: Color
+    let accent: Color
+}
+
+private struct StageKey: EnvironmentKey { static let defaultValue = S.stage(0) }
+extension EnvironmentValues {
+    var stage: StagePalette { get { self[StageKey.self] } set { self[StageKey.self] = newValue } }
+}
+
+extension S {
+    /// Light: a deep tone of the gradient's top hue for lines and a strong shade of its bottom hue for the accent.
+    /// Dark: cream warmed by the bottom colour for lines and a light tint of its hue for the accent.
+    static func stage(_ i: Int) -> StagePalette {
+        if i == paper {
+            let ink = Color(hex: 0xEAF0FF)
+            return StagePalette(ink: ink, soft: ink.opacity(0.45), accent: Color(hex: 0xF2C14E))
         }
-        let sat = 0.5
-        let c = (1 - abs(2 * l - 1)) * sat, x = c * (1 - abs((h / 60).truncatingRemainder(dividingBy: 2) - 1)), m = l - c / 2
-        let (r1, g1, b1): (Double, Double, Double) = switch h {
-            case ..<60: (c, x, 0)
-            case ..<120: (x, c, 0)
-            case ..<180: (0, c, x)
-            case ..<240: (0, x, c)
-            case ..<300: (x, 0, c)
-            default: (c, 0, x)
+        let g = gradients[i % gradients.count]
+        func hsb(_ hex: UInt32) -> (h: CGFloat, s: CGFloat, b: CGFloat) {
+            var h: CGFloat = 0, s: CGFloat = 0, b: CGFloat = 0
+            UIColor(hex: hex).getHue(&h, saturation: &s, brightness: &b, alpha: nil)
+            return (h, s, b)
         }
-        func ch(_ v: Double) -> UInt32 { UInt32(((v + m) * 255).rounded()) }
-        return ch(r1) << 16 | ch(g1) << 8 | ch(b1)
+        let topL = hsb(g.light.0), botL = hsb(g.light.1), botD = hsb(g.dark.1)
+        let ink = Color(UIColor { $0.userInterfaceStyle == .dark
+            ? UIColor(hue: botD.h, saturation: 0.10, brightness: 1.0, alpha: 1)
+            : UIColor(hue: topL.h, saturation: 0.45, brightness: 0.20, alpha: 1) })
+        let accent = Color(UIColor { $0.userInterfaceStyle == .dark
+            ? UIColor(hue: botD.h, saturation: 0.50, brightness: 1.0, alpha: 1)
+            : UIColor(hue: botL.h, saturation: 0.85, brightness: 0.62, alpha: 1) })
+        return StagePalette(ink: ink, soft: ink.opacity(0.5), accent: accent)
     }
 }

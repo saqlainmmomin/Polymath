@@ -11,6 +11,7 @@ struct FeedView: View {
     @State private var axis: Axis?
     @State private var showIndex = Launch.showIndex
     @State private var showProfile = false
+    @Environment(\.colorScheme) private var scheme
 
     var body: some View {
         // Each topic fills the whole screen and pads itself by the real safe-area insets, read here before they are ignored.
@@ -19,9 +20,11 @@ struct FeedView: View {
             ZStack {
                 ForEach(window, id: \.offset) { i, t in
                     TopicView(topic: t, isCurrent: i == index, jump: go(to:))
+                        .environment(\.colorScheme, store.isPaper(t) ? .dark : scheme)   // blueprint paper is always blue, so its text is light
                         .padding(.top, geo.safeAreaInsets.top)
                         .padding(.bottom, geo.safeAreaInsets.bottom)
                         .frame(width: geo.size.width, height: h)
+                        .background { if store.isPaper(t) { PaperGrid() } }
                         .background(S.background(store.shade(t)))
                         .offset(y: CGFloat(i - index) * h + drag)
                 }
@@ -37,6 +40,7 @@ struct FeedView: View {
             Avatar(name: profile.name) { showProfile = true }.padding(.trailing, 16).padding(.top, 2)
         }
         .background(S.background(store.topics.indices.contains(index) ? store.shade(store.topics[index]) : 0).ignoresSafeArea())
+        .preferredColorScheme(store.topics.indices.contains(index) && store.isPaper(store.topics[index]) ? .dark : nil)   // status bar and avatar match the blue
         .sheet(isPresented: $showIndex) {
             IndexView { id in showIndex = false; go(to: id) }
                 .presentationDetents([.large])

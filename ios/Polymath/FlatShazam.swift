@@ -1,787 +1,632 @@
 import SwiftUI
-import AVFoundation
 
-// Shazam topic: six flat Canvas scenes. First draft v2, 2026-10-25.
-// One made-up "song" drives cards 3-6, so the stars, codes and lookups all come from the same picture.
-// Cards 2, 3 and 5 are hands-on (note pads with real sound, a noise cutoff slider, a search-mode toggle) and play a demo when untouched.
+// "How can your phone name a song from a few noisy seconds?" pictures, drawn as blueprint technical illustrations (2026-10-28).
+// Each card is one picture on blueprint paper: one chalk-ink colour, one mustard accent (music, and the codes), thin even lines,
+// flat tints, mono uppercase labels that use the slide text's own words. Built from the shared pieces in Blueprint.swift.
+// A picture starts once its card has settled, plays one action (about 2-3.4 s), then holds; tap replays, Reduce Motion shows the end state.
+// Card 1 is the exception: its sounds keep flowing until the song is found. Drawn in a 343 x 340 design space (card 1: 330 x 340);
+// keep clear of the bottom-right corner (x > 285, y > 255), where like and save sit.
 
-private func cl(_ x: Double) -> Double { min(1, max(0, x)) }
-private func pr(_ t: Double, _ a: Double, _ b: Double) -> Double { cl((t - a) / (b - a)) }
-private func eo(_ x: Double) -> Double { 1 - pow(1 - x, 3) }
-private func eio(_ x: Double) -> Double { x < 0.5 ? 4 * x * x * x : 1 - pow(-2 * x + 2, 3) / 2 }
-private func pop(_ x: Double) -> Double { let c1 = 1.70158, c3 = c1 + 1; return x <= 0 ? 0 : 1 + c3 * pow(x - 1, 3) + c1 * pow(x - 1, 2) }
+// MARK: - Blueprint cards 1-3 share a 343 x 340 design space (keep clear of x > 285, y > 255, where like and save sit)
 
-private let deep: [UInt32] = [0x060A20, 0x0A1132, 0x0D1640]
+private let bpSize = CGSize(width: 343, height: 340)
 
-// MARK: - The song (cards 3-6)
-
-private enum Song {
-    static let rows = 24
-    static let melody = [4, 9, 6, 12, 10, 5, 14, 8]
-
-    /// Repeatable 0...1 noise for a cell.
-    static func h(_ a: Int, _ b: Int) -> Double {
-        var x = UInt32(truncatingIfNeeded: a &* 374_761_393 &+ b &* 668_265_263 &+ 1_442_695_041)
-        x = (x ^ (x >> 13)) &* 1_274_126_177
-        x ^= x >> 16
-        return Double(x & 0xFFFF) / 65535
-    }
-
-    /// Loudness of pitch row `r` (0 = lowest) at time column `c`.
-    static func amp(_ c: Int, _ r: Int, chord: Bool, noise: Double) -> Double {
-        let n = melody[(c / 5) % melody.count]
-        let env = 1 - 0.45 * Double(c % 5) / 5
-        var v = 0.0
-        func band(_ row: Int, _ g: Double) { let d = Double(r - row); v = max(v, g * exp(-d * d / 0.45)) }
-        band(n, env)
-        band(n + 8, 0.55 * env)
-        if chord { band(n + 3, 0.8 * env); band(n + 6, 0.65 * env) }
-        return min(1, v + noise * h(c, r))
-    }
-
-    // A noisy bar: 30 columns, chords on every other note, lots of faint speckle.
-    static let cols = 30
-    static let grid: [[Double]] = (0..<cols).map { c in (0..<rows).map { r in amp(c, r, chord: (c / 5) % 2 == 1, noise: 0.42) } }
-    static let pw = 5, ph = 6   // patch size in cells
-
-    /// The brightest cell in each patch, if it is bright enough: the "stars".
-    static let stars: [(c: Int, r: Int)] = {
-        var out: [(c: Int, r: Int)] = []
-        for pc in stride(from: 0, to: cols, by: pw) {
-            for prow in stride(from: 0, to: rows, by: ph) {
-                var best = (c: pc, r: prow), bv = -1.0
-                for c in pc..<min(cols, pc + pw) { for r in prow..<min(rows, prow + ph) where grid[c][r] > bv { bv = grid[c][r]; best = (c, r) } }
-                if bv > 0.62 { out.append(best) }
-            }
-        }
-        return out
-    }()
-    static func isStar(_ c: Int, _ r: Int) -> Bool { stars.contains { $0.c == c && $0.r == r } }
-    static func seconds(_ c: Int) -> String { String(format: "%.1fs", Double(c) * 0.1) }
-    /// The frequency a pitch row stands for, rounded to 10 Hz (row 0 = 200 Hz, doubling every 6 rows).
-    static func hz(_ r: Int) -> Int { Int((200 * pow(2, Double(r) / 6) / 10).rounded()) * 10 }
+/// A fixed pseudo-random number 0...1 for a cell or dot, so pictures never shimmer between frames.
+private func hash2(_ a: Int, _ b: Int) -> Double {
+    let v = sin(Double(a) * 12.9898 + Double(b) * 78.233) * 43758.5453
+    return abs(v - v.rounded(.down))
 }
 
-/// Dark plum → raspberry → orange → cream: warm, so the charts read cheerful rather than cold.
-private func heat(_ a: Double) -> Color {
-    let stops: [(Double, (Double, Double, Double))] = [(0, (0.14, 0.07, 0.22)), (0.35, (0.78, 0.24, 0.47)), (0.7, (1.0, 0.62, 0.30)), (1, (1.0, 0.95, 0.78))]
-    let x = cl(a)
-    for i in 1..<stops.count where x <= stops[i].0 {
-        let (a0, c0) = stops[i - 1], (a1, c1) = stops[i]
-        let k = (x - a0) / (a1 - a0)
-        return Color(red: c0.0 + (c1.0 - c0.0) * k, green: c0.1 + (c1.1 - c0.1) * k, blue: c0.2 + (c1.2 - c0.2) * k)
-    }
-    return .white
-}
+/// The loudest dots, as (column, row) cells of the time-pitch chart; row 0 is the highest note. Cards 2 and 3 both draw these.
+private let peakCells: [(c: Int, r: Int)] = [(1, 5), (2, 2), (4, 8), (5, 4), (7, 1), (8, 6), (10, 3), (11, 8), (13, 5), (14, 2)]
 
-private func star(_ ctx: inout GraphicsContext, _ p: CGPoint, _ r: Double, _ color: Color = Pal.signal, alpha: Double = 1) {
-    guard alpha > 0.01, r > 0.1 else { return }
-    ctx.fill(Path(ellipseIn: CGRect(x: p.x - r * 3, y: p.y - r * 3, width: r * 6, height: r * 6)),
-             with: .radialGradient(Gradient(colors: [color.opacity(0.45 * alpha), .clear]), center: p, startRadius: 0, endRadius: r * 3))
-    ctx.fill(Path(ellipseIn: CGRect(x: p.x - r, y: p.y - r, width: 2 * r, height: 2 * r)), with: .color(color.opacity(alpha)))
-    ctx.fill(Path(ellipseIn: CGRect(x: p.x - r * 0.45, y: p.y - r * 0.45, width: r * 0.9, height: r * 0.9)), with: .color(.white.opacity(alpha)))
-}
+// MARK: - Card 1: a café corner; chatter comes from the left tables, music from the speaker on the right, both flow into the phone
 
-private func cellRect(_ box: CGRect, _ c: Int, _ r: Int) -> CGRect {
-    let cw = box.width / Double(Song.cols), ch = box.height / Double(Song.rows)
-    return CGRect(x: box.minX + Double(c) * cw, y: box.maxY - Double(r + 1) * ch, width: cw, height: ch)
-}
-private func cellCentre(_ box: CGRect, _ c: Int, _ r: Int) -> CGPoint { let q = cellRect(box, c, r); return CGPoint(x: q.midX, y: q.midY) }
-
-private func caption(_ ctx: inout GraphicsContext, _ s: CGSize, _ text: String, _ a: Double, color: Color = .white, y: Double? = nil) {
-    Kit.chip(&ctx, text, CGPoint(x: s.width / 2, y: y ?? (s.height - 12)), anchor: .bottom, color: color, size: 10, alpha: a)
-}
-
-/// Axis hints for the star map: PITCH up the left, TIME along the bottom.
-private func axes(_ ctx: inout GraphicsContext, _ box: CGRect, alpha: Double = 0.8) {
-    var p = Path()
-    p.move(to: CGPoint(x: box.minX - 4, y: box.maxY + 4)); p.addLine(to: CGPoint(x: box.minX - 4, y: box.minY))
-    p.move(to: CGPoint(x: box.minX - 4, y: box.maxY + 4)); p.addLine(to: CGPoint(x: box.maxX, y: box.maxY + 4))
-    ctx.stroke(p, with: .color(.white.opacity(0.3 * alpha)), lineWidth: 1)
-    Kit.chip(&ctx, "FREQUENCY ↑", CGPoint(x: box.minX, y: box.minY - 2), anchor: .bottomLeading, size: 7, alpha: alpha)
-    Kit.chip(&ctx, "TIME →", CGPoint(x: box.maxX, y: box.maxY + 6), anchor: .topTrailing, size: 7, alpha: alpha)
-}
-
-/// The panel every hands-on card sits in: same look as FlatPicture.
-private struct Panel<C: View>: View {
-    @ViewBuilder var content: C
-    var body: some View {
-        content
-            .background(LinearGradient(colors: deep.map { Color(hex: $0) }, startPoint: .top, endPoint: .bottom))
-            .clipShape(RoundedRectangle(cornerRadius: 2))
-            .overlay(RoundedRectangle(cornerRadius: 2).stroke(T.rule, lineWidth: 1))
-    }
-}
-
-/// Dark pill button used on the pictures.
-private struct Pill: View {
-    let label: String
-    let on: Bool
-    let action: () -> Void
-    var body: some View {
-        Button(action: action) {
-            Text(label).font(T.mono(10)).tracking(0.8)
-                .foregroundStyle(on ? Color(hex: 0x0A1132) : .white)
-                .padding(.horizontal, 10).padding(.vertical, 7)
-                .frame(maxWidth: .infinity)
-                .background(Capsule().fill(on ? Pal.signal : Pal.night.opacity(0.7)))
-                .overlay(Capsule().stroke(.white.opacity(on ? 0 : 0.3), lineWidth: 1))
-        }
-        .buttonStyle(.plain)
-    }
-}
-
-// MARK: - Card 1: the feat (no trick revealed)
-
-struct ShazamHear: View {
+struct ShazamListen: View {
     let active: Bool
-    var body: some View {
-        FlatPicture(active: active, period: 10, still: 7.5, cues: [Cue(5.4, .success)], replayOnTap: true, sky: deep, onStart: playScene,
-                    label: "Music and loud chatter pour into a phone. Its screen races through millions of songs, then stops on one: song found, in seconds.") { ctx, s, t, _ in
-            let fade = 1 - pr(t, 9.5, 10)
-            let ph = CGRect(x: s.width * 0.5 - s.height * 0.2, y: s.height * 0.13, width: s.height * 0.4, height: s.height * 0.64)
-            // music from the left (warm arcs), chatter from the right (grey squiggles)
-            for i in 0..<5 {
-                let k = ((t * 0.55 + Double(i) / 5).truncatingRemainder(dividingBy: 1))
-                let rad = 10 + k * (ph.minX - 10)
-                var arc = Path(); arc.addArc(center: CGPoint(x: 0, y: ph.midY), radius: rad, startAngle: .degrees(-38), endAngle: .degrees(38), clockwise: false)
-                ctx.stroke(arc, with: .color(Pal.signal.opacity((1 - k) * 0.9 * fade)), lineWidth: 2.2)
-            }
-            Kit.chip(&ctx, "MUSIC", CGPoint(x: 8, y: ph.minY), anchor: .leading, color: Pal.signal, size: 7, alpha: 0.9 * fade)
-            for i in 0..<7 {
-                let k = ((t * 0.7 + Double(i) / 7).truncatingRemainder(dividingBy: 1))
-                let x = s.width - k * (s.width - ph.maxX) - 6, y = s.height * (0.2 + 0.09 * Double(i))
-                var sq = Path(); sq.move(to: CGPoint(x: x, y: y))
-                for j in 1...6 { sq.addLine(to: CGPoint(x: x - Double(j) * 4, y: y + (j % 2 == 0 ? -3 : 3))) }
-                ctx.stroke(sq, with: .color(Color(hex: 0x9AA3C7).opacity((1 - k) * 0.65 * fade)), lineWidth: 1.3)
-            }
-            Kit.chip(&ctx, "TALKING", CGPoint(x: s.width - 8, y: ph.minY), anchor: .trailing, color: Color(hex: 0x9AA3C7), size: 7, alpha: 0.9 * fade)
-            // the phone
-            ctx.fill(Path(roundedRect: ph, cornerRadius: ph.width * 0.16), with: .color(Color(hex: 0x1A2148)))
-            ctx.stroke(Path(roundedRect: ph, cornerRadius: ph.width * 0.16), with: .color(Color(hex: 0xC9D2F5).opacity(0.7)), lineWidth: 1.6)
-            let scr = ph.insetBy(dx: ph.width * 0.1, dy: ph.height * 0.09)
-            // racing list of songs, slowing to a stop on one
-            let stopAt = 5.2
-            let sp = t < stopAt ? t : stopAt
-            let travel = 70 * sp - 6.7 * sp * sp     // decelerates to zero at stopAt
-            let rowH = scr.height / 5
-            ctx.drawLayer { l in
-                l.clip(to: Path(roundedRect: scr, cornerRadius: 6))
-                let first = Int(floor(travel))
-                for k in first..<(first + 7) {
-                    let y = scr.minY + (Double(k) - travel) * rowH + rowH * 2
-                    let r = CGRect(x: scr.minX + 4, y: y + 3, width: scr.width - 8, height: rowH - 6)
-                    let isHit = t >= stopAt && abs(r.midY - scr.midY) < rowH / 2
-                    l.fill(Path(roundedRect: r, cornerRadius: 4), with: .color(isHit ? Pal.coral.opacity(0.85) : Color(hex: 0x2B3570)))
-                    l.fill(Path(roundedRect: CGRect(x: r.minX + 6, y: r.midY - 6, width: 12, height: 12), cornerRadius: 2), with: .color(.white.opacity(isHit ? 0.9 : 0.3)))
-                    l.fill(Path(roundedRect: CGRect(x: r.minX + 24, y: r.midY - 5, width: r.width * (0.35 + 0.3 * Song.h(k, 3)), height: 3), cornerRadius: 1.5), with: .color(.white.opacity(isHit ? 0.9 : 0.35)))
-                    l.fill(Path(roundedRect: CGRect(x: r.minX + 24, y: r.midY + 2, width: r.width * (0.2 + 0.25 * Song.h(k, 9)), height: 3), cornerRadius: 1.5), with: .color(.white.opacity(isHit ? 0.7 : 0.22)))
-                }
-            }
-            let count = Int(pow(min(t, stopAt) / stopAt, 2.2) * 48_000_000)
-            if t > 0.4 && t < stopAt { Kit.chip(&ctx, "SEARCHED \(count.formatted())", CGPoint(x: ph.midX, y: ph.minY - 8), anchor: .bottom, size: 8, alpha: pr(t, 0.4, 0.8)) }
-            let found = pop(pr(t, stopAt, stopAt + 0.5))
-            if found > 0 { Kit.chip(&ctx, "SONG FOUND", CGPoint(x: ph.midX, y: ph.minY - 8), anchor: .bottom, color: Pal.coral, size: 10 * max(0.6, found), alpha: min(1, found) * fade) }
-            if t < 2.4 { caption(&ctx, s, "A NOISY CAFÉ. A FEW SECONDS.", pr(t, 0.2, 0.6) * (1 - pr(t, 2.1, 2.4))) }
-            else if t < stopAt { caption(&ctx, s, "MILLIONS OF SONGS TO CHECK", pr(t, 2.5, 2.9) * (1 - pr(t, stopAt - 0.3, stopAt))) }
-            else { caption(&ctx, s, "FOUND. BUT HOW?", pr(t, stopAt + 0.2, stopAt + 0.6) * fade, color: Pal.coral) }
-        }
-        .onChange(of: active) { _, a in if !a { Synth.shared.stop() } }
-    }
-}
-
-extension ShazamHear {
-    /// About five seconds of a made-up tune in a noisy room, then a bright chime as the song is found.
-    func playScene() {
-        let syn = Synth.shared
-        syn.stop()
-        let A4 = 440.0, C5 = 523.25, D5 = 587.33, E5 = 659.25, G4 = 392.0, G5 = 783.99
-        let tune = [A4, C5, E5, D5, C5, A4, G4, A4, C5, E5, G5, E5, D5, C5, D5, E5]
-        let bass = [220.0, 174.61, 261.63, 196.0]
-        for (i, f) in tune.enumerated() { syn.play([f], after: 0.25 + Double(i) * 0.31) }
-        for (i, f) in bass.enumerated() { syn.play([f], after: 0.25 + Double(i) * 1.24) }
-        syn.chatter(5.2)
-        for (i, f) in [1046.5, 1318.5, 1568.0].enumerated() { syn.play([f], after: 5.25 + Double(i) * 0.09) }
-    }
-}
-
-// MARK: - Card 2: play notes and chords, watch the wave and the pitches
-
-/// Tiny sine synth for the note pads: each note is a pitch plus two quieter overtones, plucked and fading.
-private final class Synth {
-    static let shared = Synth()
-    private let engine = AVAudioEngine()
-    private var node: AVAudioSourceNode?
-    private let lock = NSLock()
-    private var voices: [(f: Double, start: Double)] = []
-    private var noiseFrom = 0.0, noiseTo = 0.0
-    private var sampleTime: Double = 0
-    private var sr: Double = 44_100
-
-    /// Pluck `freqs` together, `after` seconds from now.
-    func play(_ freqs: [Double], after: Double = 0) {
-        if node == nil { start() }
-        lock.lock()
-        let now = sampleTime / sr
-        voices = voices.filter { now - $0.start < 2.5 } + freqs.map { (f: $0, start: now + after) }
-        lock.unlock()
-    }
-
-    /// A muffled crowd murmur for `seconds`.
-    func chatter(_ seconds: Double) {
-        if node == nil { start() }
-        lock.lock(); noiseFrom = sampleTime / sr; noiseTo = noiseFrom + seconds; lock.unlock()
-    }
-
-    func stop() {
-        lock.lock(); voices = []; noiseTo = 0; lock.unlock()
-    }
-
-    private func start() {
-        try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [.mixWithOthers])
-        try? AVAudioSession.sharedInstance().setActive(true)
-        sr = engine.outputNode.outputFormat(forBus: 0).sampleRate
-        if sr <= 0 { sr = 44_100 }
-        guard let fmt = AVAudioFormat(standardFormatWithSampleRate: sr, channels: 1) else { return }
-        var seed: UInt32 = 22_695_477, lp = 0.0, lp2 = 0.0
-        let n = AVAudioSourceNode { [unowned self] _, _, frameCount, abl -> OSStatus in
-            let buffers = UnsafeMutableAudioBufferListPointer(abl)
-            self.lock.lock()
-            let vs = self.voices
-            let nf = self.noiseFrom, nt = self.noiseTo
-            var st = self.sampleTime
-            self.lock.unlock()
-            for frame in 0..<Int(frameCount) {
-                let t = st / self.sr
-                var v = 0.0
-                for voice in vs {
-                    let d = t - voice.start
-                    guard d >= 0, d < 2.5 else { continue }
-                    let env = min(1, d / 0.008) * exp(-d * 1.8)
-                    let w = 2 * Double.pi * voice.f * d
-                    v += env * (sin(w) + 0.4 * sin(2 * w) + 0.18 * sin(3 * w))
-                }
-                if t >= nf && t < nt {
-                    seed = seed &* 1_664_525 &+ 1_013_904_223
-                    let x = Double(seed >> 8) / Double(1 << 24) - 0.5
-                    lp += 0.06 * (x - lp); lp2 += 0.06 * (lp - lp2)          // two low-pass passes: murmur, not hiss
-                    let swell = 0.6 + 0.4 * sin(2 * Double.pi * 1.7 * t) * sin(2 * Double.pi * 0.43 * t)
-                    let edge = min(1, (t - nf) / 0.4, (nt - t) / 0.4)
-                    v += lp2 * 9 * swell * edge
-                }
-                let sample = Float(v * 0.14)
-                for b in buffers { b.mData?.assumingMemoryBound(to: Float.self)[frame] = sample }
-                st += 1
-            }
-            self.lock.lock(); self.sampleTime = st; self.lock.unlock()
-            return noErr
-        }
-        engine.attach(n)
-        engine.connect(n, to: engine.mainMixerNode, format: fmt)
-        node = n
-        try? engine.start()
-    }
-}
-
-private struct Sound { let name: String; let detail: String; let freqs: [Double] }
-private let pads: [Sound] = [
-    Sound(name: "A", detail: "1 NOTE = 1 LINE", freqs: [220.0]),
-    Sound(name: "C", detail: "1 NOTE = 1 LINE", freqs: [261.63]),
-    Sound(name: "E", detail: "1 NOTE = 1 LINE", freqs: [329.63]),
-    Sound(name: "A MINOR", detail: "3 NOTES = 3 LINES", freqs: [220.0, 261.63, 329.63]),
-    Sound(name: "B MINOR", detail: "3 NOTES = 3 LINES", freqs: [246.94, 293.66, 369.99]),
-    Sound(name: "C MAJOR", detail: "3 NOTES = 3 LINES", freqs: [261.63, 329.63, 392.0])
-]
-
-struct ShazamStack: View {
-    let active: Bool
-    @State private var ref = Date()
-    @State private var played: [(t: Double, pad: Int)] = []
-    @State private var touched = false
-    @Environment(\.accessibilityReduceMotion) private var reduce
-
-    private let demoGap = 2.6
-    private let demoOrder = [0, 3, 1, 5, 2, 4]
-
-    private func events(_ now: Double) -> [(t: Double, pad: Int)] {
-        if touched { return played }
-        let k = Int(now / demoGap)
-        return (max(0, k - 2)...k).map { (t: Double($0) * demoGap, pad: demoOrder[$0 % demoOrder.count]) }
-    }
 
     var body: some View {
-        Panel {
-            VStack(spacing: 8) {
-                TimelineView(.animation(paused: !active || reduce)) { tl in
-                    Canvas { ctx, s in draw(&ctx, s, now: reduce ? demoGap * 3.4 : tl.date.timeIntervalSince(ref)) }
+        BlueprintStage(active: active, length: 3.4, tick: 3.0,
+                       label: "A cutaway café. One person sits alone at a small table in the middle, holding up a phone that is listening. At the tables on either side, two people chat, with speech bubbles above them, and broken grey rings of sound drift to the phone. Speakers high on the two back walls send gold music notes and smooth waves to the same phone. A ring fills around the phone and a measuring line grows along the floor, for a few seconds. Then a gold tag with a note pops up: the song was found.",
+                       draw: { c, t, pal, clock in Self.draw(&c, t, pal, clock) }, size: CGSize(width: 330, height: 340))
+    }
+
+    private static let iso = Iso(origin: BP.pt(157.6, 146), scale: 16)
+    private static let zf = 0.8, seatZ = 2.2, tableZ = 2.8
+    private static let ex = SIMD3(1.0, 0, 0), ey = SIMD3(0, 1.0, 0), ez = SIMD3(0, 0, 1.0)
+
+    private static func quad(_ pts: [CGPoint]) -> Path { var q = Path(); q.addLines(pts); q.closeSubpath(); return q }
+
+    /// A chair with legs, a seat and a back on one side (`back` 0: toward -y, 1: toward -x). (x, y) is the middle of the seat.
+    private static func chair(_ c: inout GraphicsContext, _ x: Double, _ y: Double, back: Int, ink: Color) {
+        var legs = Path()
+        for (dx, dy) in [(-0.5, -0.5), (0.5, -0.5), (-0.5, 0.5), (0.5, 0.5)] { legs.move(to: iso.p(x + dx, y + dy, zf)); legs.addLine(to: iso.p(x + dx, y + dy, seatZ - 0.18)) }
+        c.stroke(legs, with: .color(ink), style: StrokeStyle(lineWidth: 2, lineCap: .round))
+        if back == 0 { bpSlab(&c, iso, x: x - 0.6, y: y - 0.8, z: seatZ, w: 1.2, d: 0.16, h: 1.7, ink: ink) }
+        else { bpSlab(&c, iso, x: x - 0.8, y: y - 0.6, z: seatZ, w: 0.16, d: 1.2, h: 1.7, ink: ink) }
+        bpSlab(&c, iso, x: x - 0.6, y: y - 0.6, z: seatZ - 0.18, w: 1.2, d: 1.2, h: 0.18, ink: ink)
+    }
+
+    /// A small square café table whose corner is (x, y) and side `s`.
+    private static func table(_ c: inout GraphicsContext, _ x: Double, _ y: Double, s: Double, ink: Color) {
+        bpSlab(&c, iso, x: x + s / 2 - 0.5, y: y + s / 2 - 0.5, z: zf, w: 1, d: 1, h: 0.1, ink: ink)
+        bpSlab(&c, iso, x: x + s / 2 - 0.15, y: y + s / 2 - 0.15, z: zf + 0.1, w: 0.3, d: 0.3, h: 1.7, ink: ink)
+        bpSlab(&c, iso, x: x, y: y, z: tableZ - 0.2, w: s, d: s, h: 0.2, ink: ink)
+    }
+
+    /// A cup on a table at (x, y), with two curls of steam.
+    private static func cup(_ c: inout GraphicsContext, _ x: Double, _ y: Double, ink: Color, clock: Double) {
+        bpSlab(&c, iso, x: x, y: y, z: tableZ, w: 0.5, d: 0.5, h: 0.55, ink: ink)
+        let top = iso.p(x + 0.25, y + 0.25, tableZ + 0.55)
+        for k in 0..<2 {
+            var w = Path()
+            for i in 0...8 { let f = Double(i) / 8; let q = BP.pt(top.x + (Double(k) - 0.5) * 5 + sin(clock * 1.6 + Double(k) * 2.2 + f * 5) * 2.2, top.y - 2 - f * 12); if i == 0 { w.move(to: q) } else { w.addLine(to: q) } }
+            c.stroke(w, with: .color(ink.opacity(0.45)), style: StrokeStyle(lineWidth: 1, lineCap: .round))
+        }
+    }
+
+    /// A speech bubble: rounded box, a tail whose tip sits `tail` points from its left edge, and three dots that take turns to swell.
+    private static func bubble(_ c: inout GraphicsContext, _ r: CGRect, tail: Double, ink: Color, clock: Double) {
+        let k = 8.0
+        var path = Path()
+        path.move(to: BP.pt(r.minX + k, r.minY))
+        path.addArc(tangent1End: BP.pt(r.maxX, r.minY), tangent2End: BP.pt(r.maxX, r.maxY), radius: k)
+        path.addArc(tangent1End: BP.pt(r.maxX, r.maxY), tangent2End: BP.pt(r.minX, r.maxY), radius: k)
+        path.addLine(to: BP.pt(r.minX + tail + 7, r.maxY)); path.addLine(to: BP.pt(r.minX + tail, r.maxY + 8)); path.addLine(to: BP.pt(r.minX + tail - 5, r.maxY))
+        path.addArc(tangent1End: BP.pt(r.minX, r.maxY), tangent2End: BP.pt(r.minX, r.minY), radius: k)
+        path.addArc(tangent1End: BP.pt(r.minX, r.minY), tangent2End: BP.pt(r.maxX, r.minY), radius: k)
+        path.closeSubpath()
+        c.fill(path, with: .color(BP.paper)); c.fill(path, with: .color(ink.opacity(0.08)))
+        c.stroke(path, with: .color(ink), style: StrokeStyle(lineWidth: BP.edge, lineJoin: .round))
+        for i in -1...1 {
+            let rad = 2.0 + 0.8 * max(0, sin(clock * 5 - Double(i) * 1.3))
+            c.fill(Path(ellipseIn: CGRect(x: r.midX + Double(i) * 8 - rad, y: r.midY - rad, width: 2 * rad, height: 2 * rad)), with: .color(ink.opacity(0.7)))
+        }
+    }
+
+    /// 1 while a speaker's bubble is up (it is up 2.4 s of every 4, offset by `phase`), eased at both ends.
+    private static func speaking(_ clock: Double, _ phase: Double) -> Double {
+        let m = (clock + phase).truncatingRemainder(dividingBy: 4)
+        return BP.pr(m, 0, 0.2) * (1 - BP.pr(m, 2.2, 2.4))
+    }
+
+    private static func draw(_ c: inout GraphicsContext, _ t: Double, _ pal: StagePalette, _ clock: Double) {
+        c.translateBy(x: -6.5, y: 0)                         // trims the side margin so the room fills the stage
+        let ink = pal.ink
+        func ps(_ a: Double, _ b: Double) -> Double { BP.eout(BP.pr(t, a, b)) }
+        func wall(_ pts: [CGPoint], tint: Double, p: Double) {
+            let q = quad(pts); c.fill(q, with: .color(ink.opacity(tint * p))); bpTrace(&c, q, p: p, color: ink)
+        }
+
+        // the room, a cutaway box: floor slab with a thick front edge, checker tiles, two back walls
+        let pRoom = ps(0, 0.9)
+        wall([iso.p(0, 0, zf), iso.p(0, 10, zf), iso.p(0, 10, zf + 7.5), iso.p(0, 0, zf + 7.5)], tint: 0.05, p: pRoom)
+        wall([iso.p(0, 0, zf), iso.p(12, 0, zf), iso.p(12, 0, zf + 7.5), iso.p(0, 0, zf + 7.5)], tint: 0.09, p: pRoom)
+        bpSlab(&c, iso, x: 0, y: 0, z: 0, w: 12, d: 10, h: zf, ink: ink, p: pRoom)
+        for i in 0..<6 { for j in 0..<5 where (i + j) % 2 == 0 {
+            let x = Double(i) * 2, y = Double(j) * 2
+            c.fill(quad([iso.p(x, y, zf), iso.p(x + 2, y, zf), iso.p(x + 2, y + 2, zf), iso.p(x, y + 2, zf)]), with: .color(ink.opacity(0.07 * pRoom)))
+        } }
+        let pDeco = ps(0.4, 1.1)
+        bpGroup(&c, alpha: pDeco) { g in
+            // stipple along the foot of the left wall, and on a rug under the middle table
+            for i in 0..<18 { for j in 0..<3 {
+                let q = iso.p(0, 0.3 + Double(i) * 0.55 + hash2(i, j) * 0.3, zf + 0.25 + Double(j) * 0.4 + hash2(j, i + 7) * 0.2)
+                g.fill(Path(ellipseIn: CGRect(x: q.x - 0.8, y: q.y - 0.8, width: 1.6, height: 1.6)), with: .color(ink.opacity(0.4)))
+            } }
+            for i in 0..<7 { for j in 0..<7 {
+                let q = iso.p(4.6 + Double(i) * 0.6 + hash2(i + 20, j) * 0.3, 5.0 + Double(j) * 0.6 + hash2(j + 20, i) * 0.3, zf)
+                g.fill(Path(ellipseIn: CGRect(x: q.x - 0.9, y: q.y - 0.9, width: 1.8, height: 1.8)), with: .color(ink.opacity(0.4)))
+            } }
+            g.stroke(quad([iso.p(4.4, 4.8, zf), iso.p(8.6, 4.8, zf), iso.p(8.6, 9.2, zf), iso.p(4.4, 9.2, zf)]), with: .color(ink.opacity(0.5)), style: StrokeStyle(lineWidth: 0.8, dash: [3, 3]))
+            // window on the left wall, near the back
+            let win = quad([iso.p(0, 0.8, 4.4), iso.p(0, 3.4, 4.4), iso.p(0, 3.4, 6.4), iso.p(0, 0.8, 6.4)])
+            g.fill(win, with: .color(BP.paper)); g.fill(win, with: .color(ink.opacity(0.06)))
+            var fr = win; fr.move(to: iso.p(0, 2.1, 4.4)); fr.addLine(to: iso.p(0, 2.1, 6.4)); fr.move(to: iso.p(0, 0.8, 5.4)); fr.addLine(to: iso.p(0, 3.4, 5.4))
+            g.stroke(fr, with: .color(ink), style: StrokeStyle(lineWidth: 1.3, lineJoin: .round))
+            // menu board on the right wall: an outline with a light tint and a few short ink lines
+            let board = quad([iso.p(5.6, 0, 5.2), iso.p(8.4, 0, 5.2), iso.p(8.4, 0, 7.0), iso.p(5.6, 0, 7.0)])
+            g.fill(board, with: .color(BP.paper)); g.fill(board, with: .color(ink.opacity(0.12)))
+            g.stroke(board, with: .color(ink), style: StrokeStyle(lineWidth: 1.4, lineJoin: .round))
+            var ln = Path()
+            for (z, a, b) in [(6.5, 5.9, 7.6), (6.1, 5.9, 6.9), (5.7, 5.9, 7.3)] { ln.move(to: iso.p(a, 0, z)); ln.addLine(to: iso.p(b, 0, z)) }
+            g.stroke(ln, with: .color(ink), style: StrokeStyle(lineWidth: 1.3, lineCap: .round))
+            // pendant lamp, hanging above our person's table
+            var cord = Path(); cord.move(to: BP.pt(165, 0)); cord.addLine(to: BP.pt(165, 50))
+            let shade = quad([BP.pt(154, 66), BP.pt(176, 66), BP.pt(171, 50), BP.pt(159, 50)])
+            g.stroke(cord, with: .color(ink), lineWidth: BP.hair)
+            g.fill(shade, with: .color(BP.paper)); g.fill(shade, with: .color(ink.opacity(0.18)))
+            g.stroke(shade, with: .color(ink), style: StrokeStyle(lineWidth: BP.edge, lineJoin: .round))
+            let bulb = Path(ellipseIn: CGRect(x: 161.5, y: 66, width: 7, height: 5))
+            g.fill(bulb, with: .color(BP.paper)); g.stroke(bulb, with: .color(ink), lineWidth: BP.hair)
+        }
+
+        // two speakers high at the far ends of the back walls: the music
+        let spkL = SIMD3(0.7, 9.0, 7.0), spkR = SIMD3(10.4, 0.7, 7.0)
+        bpGroup(&c, alpha: ps(0.5, 1.1)) { g in
+            bpSlab(&g, iso, x: 0, y: 9.0, z: 7.0, w: 0.7, d: 1.0, h: 1.2, ink: ink)
+            bpTrace(&g, bpFacePath(iso, o: spkL, ux: ey, vx: ez, u: 0.15, v: 0.1, w: 0.7, h: 0.7, r: 0.35), p: 1, color: ink)
+            bpTrace(&g, bpFacePath(iso, o: spkL, ux: ey, vx: ez, u: 0.35, v: 0.85, w: 0.3, h: 0.3, r: 0.15), p: 1, color: ink, width: BP.hair)
+            bpSlab(&g, iso, x: 10.4, y: 0, z: 7.0, w: 1.1, d: 0.7, h: 1.2, ink: ink)
+            bpTrace(&g, bpFacePath(iso, o: spkR, ux: ex, vx: ez, u: 0.2, v: 0.1, w: 0.7, h: 0.7, r: 0.35), p: 1, color: ink)
+            bpTrace(&g, bpFacePath(iso, o: spkR, ux: ex, vx: ez, u: 0.4, v: 0.85, w: 0.3, h: 0.3, r: 0.15), p: 1, color: ink, width: BP.hair)
+        }
+
+        // the left table: two people chatting (the second one gestures)
+        let tl = (x: 2.8, y: 6.8), trc = (x: 10.3, y: 2.0)
+        let l1 = iso.p(1.6, 8.0, seatZ), l2 = iso.p(4.0, 5.6, seatZ), r1 = iso.p(9.4, 2.7, seatZ), r2 = iso.p(11.2, 1.3, seatZ)
+        let vL1 = speaking(clock, 0), vL2 = speaking(clock, 2), vR1 = speaking(clock, 3.5), vR2 = speaking(clock, 1.5)
+        func hand(_ tc: (x: Double, y: Double), _ dx: Double, _ dy: Double, _ side: Double) -> CGPoint {
+            iso.p(tc.x + dx * 0.4 - side * 0.3 * dy, tc.y + dy * 0.4 + side * 0.3 * dx, tableZ)
+        }
+        bpGroup(&c, alpha: ps(0.5, 1.1)) { g in
+            chair(&g, 1.6, 8.0, back: 1, ink: ink); chair(&g, 4.0, 5.6, back: 0, ink: ink)
+            bpPerson(&g, base: l1, facing: 1, ink: ink, shirt: 0.16, hair: 1, talk: vL1 > 0.5)
+            bpPerson(&g, base: l2, facing: -1, ink: ink, shirt: 0.28, hair: 0, talk: vL2 > 0.5)
+            table(&g, tl.x - 0.9, tl.y - 0.9, s: 1.8, ink: ink)
+            cup(&g, tl.x - 0.25, tl.y - 0.25, ink: ink, clock: clock)
+            for s in [-1.0, 1.0] { bpArm(&g, from: BP.pt(l1.x, l1.y - 24), elbow: BP.pt(l1.x + 10, l1.y - 6 + s * 2), to: hand(tl, -1.2, 1.2, s), ink: ink) }
+            bpArm(&g, from: BP.pt(l2.x, l2.y - 24), elbow: BP.pt(l2.x - 14, l2.y - 8), to: hand(tl, 1.2, -1.2, 1), ink: ink)
+            let wave = sin(clock * 3.2) * 3
+            bpArm(&g, from: BP.pt(l2.x, l2.y - 24), elbow: BP.pt(l2.x - 12, l2.y - 14), to: BP.pt(l2.x - 24 + wave, l2.y - 40 + wave), ink: ink)
+
+            // the right table: another pair (the first one gestures, the second holds a cup)
+            chair(&g, 9.4, 2.7, back: 1, ink: ink); chair(&g, 11.2, 1.3, back: 0, ink: ink)
+            bpPerson(&g, base: r1, facing: 1, ink: ink, shirt: 0.3, hair: 0, talk: vR1 > 0.5)
+            bpPerson(&g, base: r2, facing: -1, ink: ink, shirt: 0.14, hair: 1, talk: vR2 > 0.5)
+            table(&g, trc.x - 0.7, trc.y - 0.7, s: 1.4, ink: ink)
+            cup(&g, trc.x - 0.25, trc.y - 0.25, ink: ink, clock: clock + 1)
+            bpArm(&g, from: BP.pt(r1.x, r1.y - 24), elbow: BP.pt(r1.x + 10, r1.y - 6), to: hand(trc, -1.0, 1.0, 1), ink: ink)
+            bpArm(&g, from: BP.pt(r1.x, r1.y - 24), elbow: BP.pt(r1.x + 14, r1.y - 16), to: BP.pt(r1.x + 24 + sin(clock * 3.6 + 1) * 3, r1.y - 38), ink: ink)
+            bpArm(&g, from: BP.pt(r2.x, r2.y - 24), elbow: BP.pt(r2.x - 12, r2.y - 8), to: hand(trc, 1.0, -1.0, -1), ink: ink)
+        }
+
+        let b = iso.p(6.3, 5.3, seatZ), phone = BP.pt(b.x + 28, b.y - 56)
+        // once the song is found (3.0 s) the waves into the phone fade out over 0.4 s and stop; the talking carries on
+        let wf = 1 - BP.pr(t, 3.0, 3.4)
+
+        // speech bubbles, taking turns
+        for (p, ctr, v, tail) in [(l1, 1.0, vL1, 20.0), (l2, 1.0, vL2, 20.0), (r1, 1.0, vR1, 20.0), (r2, 1.0, vR2, 20.0)] {
+            _ = ctr
+            let s = BP.mix(0.7, 1, v)
+            guard v > 0.01 else { continue }
+            var g = c; g.opacity = v
+            let o = BP.pt(p.x, p.y - 58)                         // bottom middle, above the head
+            g.translateBy(x: o.x, y: o.y); g.scaleBy(x: s, y: s); g.translateBy(x: -o.x, y: -o.y)
+            bubble(&g, CGRect(x: p.x - 20, y: p.y - 80, width: 40, height: 22), tail: tail, ink: ink, clock: clock)
+        }
+
+        // chatter: bold broken grey arcs from the two side tables toward the phone
+        if clock > 0.9 && wf > 0.01 {
+            for (src, life, vis) in [(BP.pt(l2.x, l2.y - 69), 1.9, max(vL2, vL1)), (BP.pt(r1.x, r1.y - 69), 1.5, max(vR1, vR2))] {
+                let far = hypot(phone.x - src.x, phone.y - src.y) - 9, dir = atan2(phone.y - src.y, phone.x - src.x)
+                for j in 0..<3 {
+                    let u = (clock - 0.9) / life - Double(j) / 3
+                    guard u >= 0 else { continue }
+                    let k = u - u.rounded(.down), rad = BP.mix(23, far, k), alpha = BP.pr(k, 0, 0.12) * (1 - BP.pr(k, 0.8, 1)) * BP.mix(0.6, 1, vis) * wf
+                    var arc = Path()
+                    for i in 0...14 { let a = dir - 0.42 + 0.84 * Double(i) / 14; let q = BP.pt(src.x + rad * cos(a), src.y + rad * sin(a)); if i == 0 { arc.move(to: q) } else { arc.addLine(to: q) } }
+                    c.stroke(arc, with: .color(ink.opacity(0.95 * alpha)), style: StrokeStyle(lineWidth: 2, lineCap: .butt, dash: [6, 3]))
                 }
-                VStack(spacing: 6) {
-                    ForEach(0..<2, id: \.self) { row in
-                        HStack(spacing: 6) {
-                            ForEach(0..<3, id: \.self) { col in
-                                let i = row * 3 + col
-                                Pill(label: pads[i].name, on: last == i) { tap(i) }
-                            }
-                        }
+            }
+        }
+
+        // our person, alone at the small middle table, holding a phone up
+        bpGroup(&c, alpha: ps(0.6, 1.2)) { g in
+            chair(&g, 6.3, 5.3, back: 0, ink: ink)
+            bpPerson(&g, base: b, facing: 0, ink: ink, shirt: 0.34, hair: 0, talk: false)
+            table(&g, 5.7, 6.2, s: 1.6, ink: ink)
+            cup(&g, 6.9, 6.7, ink: ink, clock: clock + 2)
+            bpArm(&g, from: BP.pt(b.x - 11, b.y - 24), elbow: BP.pt(b.x - 20, b.y - 6), to: iso.p(6.1, 6.7, tableZ), ink: ink)
+            bpArm(&g, from: BP.pt(b.x + 11, b.y - 24), elbow: BP.pt(b.x + 25, b.y - 14), to: BP.pt(b.x + 27, b.y - 43), ink: ink)
+            let body = Path(roundedRect: CGRect(x: phone.x - 6.5, y: phone.y - 11, width: 13, height: 22), cornerRadius: 3)
+            g.fill(body, with: .color(BP.paper)); g.stroke(body, with: .color(ink), lineWidth: 1.6)
+            g.fill(Path(roundedRect: CGRect(x: phone.x - 4.8, y: phone.y - 8.6, width: 9.6, height: 15.6), cornerRadius: 1.8), with: .color(ink.opacity(0.1)))
+            for k in 0..<2 {
+                let f = (clock * 0.8 + Double(k) / 2).truncatingRemainder(dividingBy: 1), r = 1.2 + 3.6 * f
+                g.stroke(Path(ellipseIn: CGRect(x: phone.x - r, y: phone.y - 1 - r, width: 2 * r, height: 2 * r)), with: .color(pal.accent.opacity(BP.pr(clock, 0.9, 1.3) * (1 - f))), lineWidth: 1.2)
+            }
+            g.fill(Path(ellipseIn: CGRect(x: phone.x - 1.6, y: phone.y - 2.6, width: 3.2, height: 3.2)), with: .color(pal.accent))
+        }
+
+        // the few seconds: a measuring line just outside the front-left edge of the floor, with extension lines, growing left to right
+        let fill = BP.eio(BP.pr(t, 0.9, 3.0))
+        let ext = BP.pr(t, 0.7, 1.0)
+        for x in [2.0, 12.0] { bpGuide(&c, iso.p(x, 10.2, 0), iso.p(x, 11.7, 0), p: ext, color: ink) }
+        let tk = iso.p(0, 0.4, 0), t0 = iso.p(0, 0, 0)
+        bpDimension(&c, from: iso.p(2, 11.4, 0), to: iso.p(12, 11.4, 0), tick: BP.pt(tk.x - t0.x, tk.y - t0.y), text: "", labelWidth: 0, ink: ink, p: fill)
+        bpText(&c, "A FEW SECONDS", BP.pt(70, 312), ink: ink, alpha: BP.pr(t, 0.9, 1.3))
+
+        // music: smooth gold waves and notes from the far end of each back wall into the phone, along curved paths that stay over the tables
+        if clock > 0.9 && wf > 0.01 {
+            let routes = [(BP.pt(44, 106), BP.pt(64, 24), BP.pt(phone.x - 3, phone.y - 12), 0.0), (BP.pt(288, 118), BP.pt(270, 40), BP.pt(phone.x + 5, phone.y - 12), 0.25)]
+            for (p0, p1, p2, off) in routes {
+                var pts: [CGPoint] = [], cum: [Double] = [0]
+                for i in 0...60 {
+                    let u = Double(i) / 60, v = 1 - u
+                    pts.append(BP.pt(v * v * p0.x + 2 * u * v * p1.x + u * u * p2.x, v * v * p0.y + 2 * u * v * p1.y + u * u * p2.y))
+                    if i > 0 { cum.append(cum[i - 1] + hypot(pts[i].x - pts[i - 1].x, pts[i].y - pts[i - 1].y)) }
+                }
+                let len = cum.last!
+                func at(_ d: Double) -> (CGPoint, CGPoint) {
+                    var i = 1; while i < 60 && cum[i] < d { i += 1 }
+                    let seg = max(0.001, cum[i] - cum[i - 1]), f = BP.cl((d - cum[i - 1]) / seg), a = pts[i - 1], b2 = pts[i]
+                    return (BP.pt(a.x + (b2.x - a.x) * f, a.y + (b2.y - a.y) * f), BP.pt((b2.x - a.x) / seg, (b2.y - a.y) / seg))
+                }
+                for j in 0..<2 {
+                    let u = (clock - 0.9) / 2.2 - Double(j) / 2 - off
+                    guard u >= 0 else { continue }
+                    let k = u - u.rounded(.down), alpha = BP.pr(k, 0, 0.1) * (1 - BP.pr(k, 0.85, 1)) * wf, pos = k * len
+                    var w = Path(); var first = true
+                    for d in stride(from: max(0, pos - 16), through: min(len, pos + 16), by: 1) {
+                        let (q, n) = at(d), off2 = 3.8 * sin(d * 2 * .pi / 13)
+                        let pt2 = BP.pt(q.x - n.y * off2, q.y + n.x * off2)
+                        if first { w.move(to: pt2); first = false } else { w.addLine(to: pt2) }
                     }
+                    c.stroke(w, with: .color(pal.accent.opacity(alpha)), style: StrokeStyle(lineWidth: 2.2, lineCap: .round, lineJoin: .round))
+                    let (q, n) = at(pos)
+                    var g = c; g.opacity = alpha
+                    bpNote(&g, BP.pt(q.x + n.y * 11, q.y - n.x * 11), s: 10, color: pal.accent)
                 }
-                .padding(.horizontal, 10).padding(.bottom, 10)
             }
         }
-        .onChange(of: active) { _, a in if a && !touched { ref = Date() } }
-        .accessibilityElement(children: .contain)
-        .accessibilityLabel("Note pads. Tap a note or a chord to hear it and see its wave and its pitches. A single note draws one bright line with fainter overtones above it; a chord draws several.")
-    }
 
-    private var last: Int? { touched ? played.last?.pad : nil }
+        // found it: a gold tag with a note pops above the phone once the ring is full
+        let pop = BP.pr(t, 3.0, 3.3)
+        if pop > 0.001 {
+            let s = BP.eout(pop) * (1 + 0.18 * sin(pop * .pi)), tip = BP.pt(phone.x, phone.y - 16 - 7 * BP.eout(pop))
+            var g = c; g.translateBy(x: tip.x, y: tip.y); g.scaleBy(x: s, y: s)
+            var tag = Path(roundedRect: CGRect(x: -13, y: -24, width: 26, height: 19), cornerRadius: 6)
+            tag.move(to: BP.pt(-4, -5)); tag.addLine(to: BP.pt(0, 0)); tag.addLine(to: BP.pt(4, -5)); tag.closeSubpath()
+            g.fill(tag, with: .color(pal.accent))
+            g.translateBy(x: -2, y: -9)
+            bpNote(&g, BP.pt(0, 0), s: 9, color: BP.paper)
+        }
 
-    private func tap(_ i: Int) {
-        if !touched { touched = true; played = [] }
-        played.append((t: Date().timeIntervalSince(ref), pad: i))
-        if played.count > 12 { played.removeFirst(played.count - 12) }
-        Synth.shared.play(pads[i].freqs)
-        Haptic.fire(.light)
-    }
-
-    private func draw(_ ctx: inout GraphicsContext, _ s: CGSize, now: Double) {
-        let evs = events(now)
-        let env: (Double) -> Double = { d in d < 0 ? 0 : min(1, d / 0.03) * exp(-d * 1.1) }
-        let rowsN = 30
-        func row(_ f: Double) -> Double { log2(f / 150) / log2(1300.0 / 150) * Double(rowsN) }
-        // wave
-        let W = CGRect(x: 14, y: 22, width: s.width - 28, height: s.height * 0.26)
-        let S = CGRect(x: 40, y: W.maxY + 26, width: s.width - 54, height: s.height - W.maxY - 34)
-        var wave = Path()
-        let live = evs.filter { env(now - $0.t) > 0.02 }
-        let norm = max(1.0, Double(live.reduce(0) { $0 + pads[$1.pad].freqs.count }) * 0.9)
-        for i in 0...160 {
-            let x = Double(i) / 160
-            let tt = x * 0.022 + now * 0.0004
-            var v = 0.0
-            for e in live {
-                let a = env(now - e.t)
-                for f in pads[e.pad].freqs { let w = 2 * Double.pi * f * tt; v += a * (sin(w) + 0.4 * sin(2 * w) + 0.18 * sin(3 * w)) / 1.58 }
-            }
-            let p = CGPoint(x: W.minX + x * W.width, y: W.midY - v / norm * W.height * 0.46)
-            if i == 0 { wave.move(to: p) } else { wave.addLine(to: p) }
-        }
-        ctx.stroke(Path(CGRect(x: W.minX, y: W.midY, width: W.width, height: 0)), with: .color(.white.opacity(0.12)), lineWidth: 1)
-        ctx.stroke(wave, with: .color(Pal.ice), lineWidth: 1.8)
-        Kit.chip(&ctx, "WHAT THE MIC HEARS", CGPoint(x: W.minX, y: W.minY - 6), anchor: .leading, color: Pal.ice, size: 7)
-        if let e = evs.last, env(now - e.t) > 0.05 {
-            Kit.chip(&ctx, "\(pads[e.pad].name): \(pads[e.pad].detail)", CGPoint(x: W.maxX, y: W.minY - 6), anchor: .trailing, color: Pal.signal, size: 8, alpha: pr(now - e.t, 0, 0.15))
-        }
-        // pitches over time
-        let window = 4.0, colsN = 48
-        let cw = S.width / Double(colsN), ch = S.height / Double(rowsN)
-        ctx.fill(Path(S), with: .color(Pal.night.opacity(0.6)))
-        for ci in 0..<colsN {
-            let tau = now - window + (Double(ci) + 0.5) * (window / Double(colsN))
-            for r in 0..<rowsN {
-                var v = 0.0
-                for e in evs where tau >= e.t {
-                    let a = env(tau - e.t)
-                    guard a > 0.02 else { continue }
-                    for f in pads[e.pad].freqs {
-                        for (hk, ha) in [(1.0, 1.0), (2.0, 0.5), (3.0, 0.28)] { let d = Double(r) + 0.5 - row(f * hk); v += a * ha * exp(-d * d / 0.35) }
-                    }
-                }
-                v = min(1, v + 0.05 * Song.h(ci + Int(now / (window / Double(colsN))), r))
-                guard v > 0.07 else { continue }
-                ctx.fill(Path(CGRect(x: S.minX + Double(ci) * cw, y: S.maxY - Double(r + 1) * ch, width: cw + 0.5, height: ch + 0.5)), with: .color(heat(v)))
-            }
-        }
-        ctx.stroke(Path(S), with: .color(.white.opacity(0.22)), lineWidth: 1)
-        Kit.chip(&ctx, "EACH NOTE = A LINE · BRIGHTER = LOUDER", CGPoint(x: S.minX, y: S.minY - 6), anchor: .leading, color: Pal.signal, size: 7)
-        Kit.chip(&ctx, "FREQUENCY ↑", CGPoint(x: S.minX + 4, y: S.minY + 14), anchor: .leading, size: 7, alpha: 0.85)
-        Kit.chip(&ctx, "TIME →", CGPoint(x: S.maxX - 2, y: S.maxY - 8), anchor: .trailing, size: 7, alpha: 0.85)
-        if !touched { Kit.chip(&ctx, "TAP A NOTE OR CHORD", CGPoint(x: S.midX, y: S.midY), color: .white, size: 9, alpha: 0.55 + 0.25 * sin(now * 2)) }
+        // leader labels, in open space: CHATTER points at whichever left-table bubble is up, MUSIC at the right speaker
+        let wl = vL2 / max(0.001, vL1 + vL2), tl1 = BP.pt(l1.x, l1.y - 80), tl2 = BP.pt(l2.x, l2.y - 80)
+        bpLeader(&c, anchor: BP.mixp(tl1, tl2, wl), elbow: BP.pt(114, 97), tail: -1, text: "CHATTER", ink: ink, p: BP.pr(t, 1.0, 1.5))
+        bpLeader(&c, anchor: iso.p(10.95, 0.35, 8.2), elbow: BP.pt(300, 58), tail: -10, text: "MUSIC", ink: ink, p: BP.pr(t, 1.1, 1.6))
     }
 }
 
-// MARK: - Card 3: your clip, played and drawn as the same chart card 4 then strips down
+// MARK: - Card 2: a sound becomes a time-pitch chart; the dim dots empty out and only the loudest stay
 
-struct ShazamClip: View {
+struct ShazamDraw: View {
     let active: Bool
-    @State private var ref = Date()
-    @State private var touched = false
-    @Environment(\.accessibilityReduceMotion) private var reduce
-
-    private let len = Double(Song.cols) * 0.1     // 3 s: one column per tenth of a second
-    private let loop = 6.0                         // untouched: draw silently, hold, repeat
 
     var body: some View {
-        Panel {
-            VStack(spacing: 8) {
-                TimelineView(.animation(paused: !active || reduce)) { tl in
-                    Canvas { ctx, s in
-                        let el = tl.date.timeIntervalSince(ref)
-                        draw(&ctx, s, t: reduce ? len : touched ? el : el.truncatingRemainder(dividingBy: loop))
-                    }
+        BlueprintStage(active: active, length: 3.4, tick: 2.1,
+                       label: "A phone on the left sends a strip of sound across the top. Under it a chart with time along the bottom and high notes going up fills with many small squares, bigger where the sound is louder. Then the dim ones empty out and a few of the loudest become solid gold dots. A dashed box around one shows it is brighter than everything right around it.",
+                       draw: { c, t, pal, _ in Self.draw(&c, t, pal) }, size: bpSize)
+    }
+
+    private static let cols = 15, rows = 11
+    private static func x(_ i: Int) -> Double { 52 + 15.5 * Double(i) }
+    private static func y(_ j: Int) -> Double { 134 + 15 * Double(j) }
+    private static func isPeak(_ i: Int, _ j: Int) -> Bool { peakCells.contains { $0.c == i && $0.r == j } }
+    private static func loud(_ i: Int, _ j: Int) -> Double {
+        if isPeak(i, j) { return 1 }
+        if peakCells.contains(where: { abs($0.c - i) <= 1 && abs($0.r - j) <= 1 }) { return 0.42 + 0.18 * hash2(i, j) }
+        return 0.08 + 0.34 * hash2(i, j)
+    }
+
+    private static func draw(_ c: inout GraphicsContext, _ t: Double, _ pal: StagePalette) {
+        let ink = pal.ink
+        let a = BP.eout(BP.pr(t, 0, 0.5)), fade = BP.eio(BP.pr(t, 2.0, 2.6)), hot = BP.eout(BP.pr(t, 2.1, 2.7))
+
+        // the phone, with a few sound arcs leaving it
+        let iso = Iso(origin: BP.pt(14, 66), scale: 13)
+        bpSlab(&c, iso, x: 0, y: 0, z: 0, w: 1.8, d: 0.3, h: 3.6, ink: ink, p: a)
+        bpTrace(&c, bpFacePath(iso, o: SIMD3(0, 0.3, 0), ux: SIMD3(1, 0, 0), vx: SIMD3(0, 0, 1), u: 0.2, v: 0.4, w: 1.4, h: 2.8, r: 0.2), p: a, color: ink, width: BP.hair)
+        for k in 0..<2 {
+            var arc = Path()
+            for i in 0...8 { let ang = -0.7 + 1.4 * Double(i) / 8; let q = BP.pt(40 + Double(k) * 5 + cos(ang) * 3, 46 + sin(ang) * (8 + Double(k) * 4)); if i == 0 { arc.move(to: q) } else { arc.addLine(to: q) } }
+            bpTrace(&c, arc, p: BP.pr(t, 0.3 + Double(k) * 0.1, 0.7), color: ink)
+        }
+
+        // axes
+        let ax = BP.pr(t, 0.1, 0.6)
+        var axes = Path()
+        axes.move(to: BP.pt(40, 296)); axes.addLine(to: BP.pt(40, 122)); axes.move(to: BP.pt(34, 129)); axes.addLine(to: BP.pt(40, 121)); axes.addLine(to: BP.pt(46, 129))
+        axes.move(to: BP.pt(40, 296)); axes.addLine(to: BP.pt(282, 296)); axes.move(to: BP.pt(274, 290)); axes.addLine(to: BP.pt(282, 296)); axes.addLine(to: BP.pt(274, 302))
+        for i in 0..<cols { axes.move(to: BP.pt(x(i), 296)); axes.addLine(to: BP.pt(x(i), 299)) }
+        for j in 0..<rows { axes.move(to: BP.pt(40, y(j))); axes.addLine(to: BP.pt(37, y(j))) }
+        bpTrace(&c, axes, p: ax, color: ink)
+        bpText(&c, "TIME", BP.pt(161, 318), ink: ink, alpha: ax)
+        bpText(&c, "HIGH NOTES", BP.pt(46, 112), ink: ink, alpha: ax, anchor: .leading)
+
+        // the strip of sound and the chart fill together, left to right; a dashed scan line travels with them
+        for i in 0..<cols {
+            let start = 0.5 + 0.09 * Double(i), s = BP.eout(BP.pr(t, start, start + 0.35))
+            guard s > 0.01 else { continue }
+            let env = (0..<rows).map { loud(i, $0) }.max()! * 0.6 + 0.3 * hash2(i, 99)
+            let h = (4 + 22 * env) * s
+            var bar = Path(); bar.move(to: BP.pt(x(i), 46 - h / 2)); bar.addLine(to: BP.pt(x(i), 46 + h / 2))
+            c.stroke(bar, with: .color(ink.opacity(0.75)), style: StrokeStyle(lineWidth: 3, lineCap: .round))
+            for j in 0..<rows {
+                let v = loud(i, j), side = (2.5 + 9 * v) * s, peak = isPeak(i, j)
+                let r = CGRect(x: x(i) - side / 2, y: y(j) - side / 2, width: side, height: side)
+                if peak {
+                    c.fill(Path(r), with: .color(ink.opacity((0.2 + 0.5 * v) * (1 - hot))))
+                    let rad = BP.mix(side / 2, 5.5, hot)
+                    c.fill(Path(ellipseIn: CGRect(x: x(i) - rad, y: y(j) - rad, width: 2 * rad, height: 2 * rad)), with: .color(pal.accent.opacity(hot)))
+                    let rr = 9.0
+                    c.stroke(Path(ellipseIn: CGRect(x: x(i) - rr, y: y(j) - rr, width: 2 * rr, height: 2 * rr)), with: .color(pal.accent.opacity(0.8 * hot)), lineWidth: BP.hair)
+                } else {
+                    let sh = side * BP.mix(1, 0.7, fade), q = CGRect(x: x(i) - sh / 2, y: y(j) - sh / 2, width: sh, height: sh)
+                    c.fill(Path(q), with: .color(ink.opacity((0.2 + 0.5 * v) * (1 - fade))))
+                    c.stroke(Path(q), with: .color(ink.opacity(0.3 * fade)), lineWidth: 0.8)
                 }
-                Pill(label: touched ? "▶  PLAY AGAIN" : "▶  PLAY THE CLIP", on: !touched) { play() }
-                    .padding(.horizontal, 60).padding(.bottom, 10)
             }
         }
-        .onChange(of: active) { _, a in if a { ref = Date() } else { Synth.shared.stop() } }
-        .accessibilityElement(children: .contain)
-        .accessibilityLabel("A three-second recording of a café: a tune with people talking over it. As it plays, it is drawn as a chart. The tune makes bright lines, the chatter makes faint speckle everywhere.")
-    }
+        let scanT = BP.pr(t, 0.5, 0.5 + 0.09 * Double(cols - 1) + 0.35)
+        if scanT > 0.001 && scanT < 0.999 {
+            let sx = BP.mix(x(0), x(cols - 1), scanT)
+            bpGuide(&c, BP.pt(sx, 70), BP.pt(sx, 294), color: ink.opacity(0.35))
+        }
 
-    private func play() {
-        touched = true
-        ref = Date()
-        let syn = Synth.shared
-        syn.stop()
-        // the same notes the chart shows: one note per half second, a chord on every other one
-        for k in 0..<(Song.cols / 5) {
-            let n = Song.melody[k % Song.melody.count]
-            let rows = k % 2 == 1 ? [n, n + 3, n + 6] : [n]
-            syn.play(rows.map { Double(Song.hz($0)) }, after: Double(k) * 0.5)
-        }
-        syn.chatter(len)
-        Haptic.fire(.light)
-    }
-
-    private func draw(_ ctx: inout GraphicsContext, _ s: CGSize, t: Double) {
-        let shown = min(Double(Song.cols), t / 0.1)
-        let fade = touched ? 1 : 1 - pr(t, loop - 0.4, loop)
-        // what the mic picked up: a jagged wave, loud where the notes start
-        let W = CGRect(x: 30, y: 22, width: s.width - 44, height: s.height * 0.16)
-        var wave = Path()
-        let steps = 180
-        for i in 0...steps {
-            let x = Double(i) / Double(steps)
-            let c = x * Double(Song.cols)
-            guard c <= shown else { break }
-            let env = 0.25 + 0.75 * exp(-(c.truncatingRemainder(dividingBy: 5)) * 0.45)
-            let v = env * sin(x * 260) * 0.7 + (Song.h(i, 7) - 0.5) * 0.6
-            let p = CGPoint(x: W.minX + x * W.width, y: W.midY - v * W.height * 0.5)
-            if i == 0 { wave.move(to: p) } else { wave.addLine(to: p) }
-        }
-        ctx.stroke(Path(CGRect(x: W.minX, y: W.midY, width: W.width, height: 0)), with: .color(.white.opacity(0.12)), lineWidth: 1)
-        ctx.stroke(wave, with: .color(Pal.ice.opacity(fade)), lineWidth: 1.4)
-        Kit.chip(&ctx, "YOUR CLIP", CGPoint(x: W.minX, y: W.minY - 6), anchor: .leading, color: Pal.ice, size: 7)
-        // the same recording as a chart
-        let box = CGRect(x: 30, y: W.maxY + 34, width: s.width - 44, height: s.height - W.maxY - 88)
-        ctx.fill(Path(box), with: .color(Pal.night.opacity(0.5)))
-        for c in 0..<Song.cols where Double(c) < shown {
-            let a = cl(shown - Double(c)) * fade
-            for r in 0..<Song.rows {
-                let v = Song.grid[c][r]
-                guard v > 0.08 else { continue }
-                ctx.fill(Path(cellRect(box, c, r).insetBy(dx: -0.3, dy: -0.3)), with: .color(heat(v).opacity(a)))
-            }
-        }
-        if shown < Double(Song.cols) && t > 0 {
-            let x = box.minX + box.width * shown / Double(Song.cols)
-            var head = Path(); head.move(to: CGPoint(x: x, y: W.minY)); head.addLine(to: CGPoint(x: x, y: box.maxY))
-            ctx.stroke(head, with: .color(Pal.coral.opacity(0.8)), lineWidth: 1.5)
-        }
-        axes(&ctx, box)
-        let done = shown >= Double(Song.cols)
-        let cap = done ? "SONG = BRIGHT LINES · NOISE = FAINT DOTS" : "YOUR CLIP, AS A CHART"
-        caption(&ctx, s, cap, (done ? pr(t, len + 0.1, len + 0.4) : pr(t, 0.1, 0.4)) * fade, color: done ? Pal.signal : .white, y: box.maxY + 44)
+        // one loud dot and the dashed neighbourhood it beats
+        let (pc, pr) = (10, 3), cx = x(pc), cy = y(pr)
+        var box = Path(); box.addRect(CGRect(x: cx - 23, y: cy - 22, width: 46, height: 44))
+        bpTrace(&c, box, p: BP.pr(t, 2.6, 3.0), color: pal.accent, width: 1.2, dash: [4, 3])
+        bpLeader(&c, anchor: BP.pt(cx + 23, cy - 22), elbow: BP.pt(246, 98), tail: 0, text: "BRIGHTER THAN\nEVERYTHING\nRIGHT AROUND\nTHEM", ink: ink, p: BP.pr(t, 2.8, 3.4))
     }
 }
 
-// MARK: - Card 4: raise the cutoff until only the peaks are left
+// MARK: - Card 3: one loud dot joins the few just after it; each pair is written down as note, note, gap
 
-struct ShazamPeaks: View {
+struct ShazamPair: View {
     let active: Bool
-    @State private var level = 0.0
-    @State private var touched = false
-    @State private var t0 = Date()
-    @Environment(\.accessibilityReduceMotion) private var reduce
 
     var body: some View {
-        Panel {
-            VStack(spacing: 4) {
-                Canvas { ctx, s in draw(&ctx, s) }
-                HStack(spacing: 8) {
-                    Text("ALL DOTS").font(T.mono(9)).foregroundStyle(.white.opacity(0.75))
-                    Slider(value: Binding(get: { level }, set: { level = $0; if !touched { touched = true; Haptic.fire(.soft) } }), in: 0...1)
-                        .tint(Pal.signal)
-                    Text("PEAKS ONLY").font(T.mono(9)).foregroundStyle(Pal.signal)
-                }
-                .padding(.horizontal, 12).padding(.bottom, 8)
-            }
-        }
-        .task(id: "\(active)-\(touched)-\(reduce)") {
-            guard active, !touched else { return }
-            if reduce { level = 1; return }
-            t0 = Date()
-            while !Task.isCancelled && !touched {
-                let t = Date().timeIntervalSince(t0).truncatingRemainder(dividingBy: 10)
-                level = eio(pr(t, 1.2, 6.5)) * (1 - pr(t, 9.3, 10))
-                try? await Task.sleep(for: .milliseconds(33))
-            }
-        }
-        .accessibilityElement(children: .contain)
-        .accessibilityLabel("The sound picture of a noisy bar, full of faint speckle. A slider raises a cutoff: faint noise disappears first, then fainter music, until only the loudest points, the peaks, are left.")
+        BlueprintStage(active: active, length: 3.8, tick: 3.5,
+                       label: "The same loud dots spread across the page. One is marked as one note, with a dashed zone after it. Measuring lines join it to three dots in the zone, and the gap along the bottom is marked. Then each pair is written into a table as note, note and gap, the picked pair in gold.",
+                       draw: { c, t, pal, _ in Self.draw(&c, t, pal) }, size: bpSize)
     }
 
-    private func draw(_ ctx: inout GraphicsContext, _ s: CGSize) {
-        let box = CGRect(x: 30, y: 22, width: s.width - 44, height: s.height - 52)
-        let thr = level * 1.02
-        let morph = pr(level, 0.6, 0.9)
-        for c in 0..<Song.cols {
-            for r in 0..<Song.rows {
-                let a = Song.grid[c][r]
-                if Song.isStar(c, r) {
-                    if morph < 1 { ctx.fill(Path(cellRect(box, c, r).insetBy(dx: -0.3, dy: -0.3)), with: .color(heat(a).opacity(1 - morph))) }
-                    continue
-                }
-                let alpha = cl((a - thr) / 0.06)
-                guard alpha > 0.02 else { continue }
-                ctx.fill(Path(cellRect(box, c, r).insetBy(dx: -0.3, dy: -0.3)), with: .color(heat(a).opacity(alpha)))
-            }
+    private static func at(_ k: Int) -> CGPoint { BP.pt(36 + 20.5 * Double(peakCells[k].c), 40 + 17 * Double(peakCells[k].r)) }
+    private static let anchor = 3, after = [4, 5, 6], chosen = 5
+    private static let cols: [Double] = [16, 102, 188, 274]
+    private static let top = 250.0, rowH = 26.0
+
+    private static func draw(_ c: inout GraphicsContext, _ t: Double, _ pal: StagePalette) {
+        let ink = pal.ink, a = at(anchor)
+        let dim = BP.eio(BP.pr(t, 0.9, 1.3))
+
+        // the loud dots
+        for k in peakCells.indices {
+            let s = BP.eout(BP.pr(t, 0.05 + 0.06 * Double(k), 0.4 + 0.06 * Double(k)))
+            let p = at(k), r = 4.6 * s, inZone = k == anchor || after.contains(k)
+            let al = inZone ? 1 : BP.mix(1, 0.45, dim)
+            let e = Path(ellipseIn: CGRect(x: p.x - r, y: p.y - r, width: 2 * r, height: 2 * r))
+            c.fill(e, with: .color(BP.paper.opacity(s))); c.fill(e, with: .color(ink.opacity(0.18 * al)))
+            c.stroke(e, with: .color(ink.opacity(al)), lineWidth: BP.edge)
         }
-        for st in Song.stars { star(&ctx, cellCentre(box, st.c, st.r), 3.4 * pop(morph), alpha: min(1, morph * 1.6)) }
-        axes(&ctx, box)
-        let (txt, col): (String, Color) = level < 0.25 ? ("THOUSANDS OF DOTS", .white)
-            : level < 0.55 ? ("THE FAINT NOISE DISAPPEARS", .white)
-            : level < 0.85 ? ("ONLY THE PEAKS STAY", Pal.signal)
-            : ("PEAKS = THE LOUDEST POINTS", Pal.signal)
-        Kit.chip(&ctx, txt, CGPoint(x: box.midX + 10, y: box.minY + 8), anchor: .top, color: col, size: 9)
+        // one note, and the dashed zone just after it
+        let pa = BP.pr(t, 0.7, 1.1)
+        c.stroke(Path(ellipseIn: CGRect(x: a.x - 9, y: a.y - 9, width: 18, height: 18)), with: .color(pal.accent.opacity(pa)), lineWidth: 1.6)
+        var zone = Path(); zone.addRect(CGRect(x: 156, y: 34, width: 106, height: 126))
+        bpTrace(&c, zone, p: BP.pr(t, 0.6, 1.1), color: ink, width: BP.hair, dash: [4, 4])
+        bpLeader(&c, anchor: BP.pt(a.x - 4, a.y - 7), elbow: BP.pt(120, 50), tail: -10, text: "ONE NOTE", ink: ink, p: BP.pr(t, 1.0, 1.5))
+
+        // dimension lines to the dots just after it; the picked pair is gold and labelled
+        for (n, k) in after.enumerated() {
+            let b = at(k), len = hypot(b.x - a.x, b.y - a.y), ux = (b.x - a.x) / len, uy = (b.y - a.y) / len
+            let from = BP.pt(a.x + ux * 7, a.y + uy * 7), to = BP.pt(b.x - ux * 7, b.y - uy * 7)
+            let isPick = k == chosen
+            bpDimension(&c, from: from, to: to, tick: BP.pt(-uy * 3.5, ux * 3.5), text: isPick ? "A PAIR" : "", labelWidth: isPick ? 44 : 0,
+                        ink: isPick ? pal.accent : ink.opacity(0.75), p: BP.eio(BP.pr(t, 1.3 + 0.3 * Double(n), 1.7 + 0.3 * Double(n))))
+        }
+        // the gap of the picked pair: along the time axis
+        let b = at(chosen), pg = BP.pr(t, 1.9, 2.4)
+        bpGuide(&c, BP.pt(a.x, a.y + 9), BP.pt(a.x, 176), p: pg, color: ink.opacity(0.6))
+        bpGuide(&c, BP.pt(b.x, b.y + 9), BP.pt(b.x, 176), p: pg, color: ink.opacity(0.6))
+        bpDimension(&c, from: BP.pt(a.x, 176), to: BP.pt(b.x, 176), tick: BP.pt(0, 4), text: "GAP", labelWidth: 30, ink: ink, p: BP.eio(BP.pr(t, 2.0, 2.5)))
+
+        // the table: a header row, then one row per pair, each written as note, note, gap
+        let pt0 = BP.pr(t, 2.0, 2.5), rows = Double(after.count)
+        let frame = CGRect(x: cols[0], y: top - 20, width: cols[3] - cols[0], height: 20 + rowH * rows)
+        if pt0 > 0.001 {
+            c.fill(Path(CGRect(x: cols[0], y: top - 20, width: cols[3] - cols[0], height: 20)), with: .color(ink.opacity(0.14 * pt0)))
+            var grid = Path(); grid.addRect(frame)
+            grid.move(to: BP.pt(cols[0], top)); grid.addLine(to: BP.pt(cols[3], top))
+            for x in cols[1...2] { grid.move(to: BP.pt(x, top - 20)); grid.addLine(to: BP.pt(x, frame.maxY)) }
+            for r in 1..<after.count { grid.move(to: BP.pt(cols[0], top + rowH * Double(r))); grid.addLine(to: BP.pt(cols[3], top + rowH * Double(r))) }
+            bpTrace(&c, grid, p: pt0, color: ink, width: 1.2)
+            for (i, h) in ["NOTE", "NOTE", "GAP"].enumerated() { bpText(&c, h, BP.pt((cols[i] + cols[i + 1]) / 2, top - 10), ink: ink, alpha: BP.pr(pt0, 0.6, 1)) }
+            bpText(&c, "CODE", BP.pt(cols[0], top - 30), ink: ink, alpha: BP.pr(pt0, 0.6, 1), anchor: .leading)
+        }
+        for (n, k) in after.enumerated() {
+            let q = BP.eio(BP.pr(t, 2.4 + 0.3 * Double(n), 3.0 + 0.3 * Double(n)))
+            guard q > 0.001 else { continue }
+            let pick = k == chosen, col = pick ? pal.accent : ink, b = at(k)
+            let rowTop = top + rowH * Double(n)
+            if pick { c.fill(Path(CGRect(x: cols[0], y: rowTop, width: cols[3] - cols[0], height: rowH)), with: .color(pal.accent.opacity(0.14 * q))) }
+            func cell(_ p: CGPoint, _ colIdx: Int) -> CGPoint { BP.pt((cols[colIdx] + cols[colIdx + 1]) / 2, rowTop + 5 + (p.y - 40) / 170 * (rowH - 10)) }
+            for (src, i) in [(a, 0), (b, 1)] {
+                let p = BP.mixp(src, cell(src, i), q), r = BP.mix(4.6, 3.2, q)
+                c.fill(Path(ellipseIn: CGRect(x: p.x - r, y: p.y - r, width: 2 * r, height: 2 * r)), with: .color(col))
+            }
+            let gx = (b.x - a.x) / 102.5 * 60, cy = rowTop + rowH / 2, mid = (cols[2] + cols[3]) / 2, ga = BP.pr(q, 0.6, 1)
+            var g = Path()
+            g.move(to: BP.pt(mid - gx / 2, cy)); g.addLine(to: BP.pt(mid + gx / 2, cy))
+            for s in [-1.0, 1.0] { g.move(to: BP.pt(mid + s * gx / 2, cy - 4)); g.addLine(to: BP.pt(mid + s * gx / 2, cy + 4)) }
+            c.stroke(g, with: .color(col.opacity(ga)), style: StrokeStyle(lineWidth: 1.4, lineCap: .round))
+        }
     }
 }
 
-// MARK: - Card 4: two stars and their gap make a code
+// MARK: - Card 4: a filing cabinet of drawers, like a book's index; your code goes to one drawer, which opens onto every song with that code
 
-private enum Pairs {
-    static let zoneC = 12, zoneR = 10   // partners: 3-12 columns after the anchor, 3-10 rows away, so the two labels never collide
-    static func partners(_ a: (c: Int, r: Int)) -> [(c: Int, r: Int)] {
-        Array(Song.stars.filter { $0.c >= a.c + 3 && $0.c <= a.c + zoneC && abs($0.r - a.r) >= 3 && abs($0.r - a.r) <= zoneR }.sorted { $0.c < $1.c }.prefix(2))
-    }
-    static let anchors: [(c: Int, r: Int)] = {
-        var out: [(c: Int, r: Int)] = []
-        for s in Song.stars.sorted(by: { $0.c < $1.c }) where partners(s).count >= 1 {
-            if let last = out.last, s.c - last.c < 5 { continue }
-            out.append(s)
-            if out.count == 4 { break }
-        }
-        return out
-    }()
-    static func code(_ a: (c: Int, r: Int), _ p: (c: Int, r: Int)) -> String { "\(Song.hz(a.r))·\(Song.hz(p.r))·\(Song.seconds(p.c - a.c))" }
-    static func spoken(_ a: (c: Int, r: Int), _ p: (c: Int, r: Int)) -> String { "\(Song.hz(a.r)) HZ · \(Song.hz(p.r)) HZ · \(Song.seconds(p.c - a.c))" }
-    /// Every (anchor, partner) pair used on cards 4 and 5, in order.
-    static let all: [(a: (c: Int, r: Int), p: (c: Int, r: Int))] = Array(anchors.flatMap { a in partners(a).map { (a: a, p: $0) } }.prefix(5))
-    /// One pair per anchor, so every code on card 5 comes from a different moment of the clip.
-    static let lookup: [(a: (c: Int, r: Int), p: (c: Int, r: Int))] = anchors.compactMap { a in partners(a).first.map { (a: a, p: $0) } }
-}
-
-struct ShazamPairs: View {
+struct ShazamIndex: View {
     let active: Bool
-    var body: some View {
-        let beat = 3.4
-        let n = max(1, Pairs.all.count)
-        let period = beat * Double(n) + 1.0
-        return FlatPicture(active: active, period: period, still: beat * 0.85, cues: (0..<n).map { Cue(Double($0) * beat + 0.5, .soft) }, replayOnTap: true, sky: deep,
-                    label: "The peaks on the chart, frequency going up and time going across. Two peaks are picked. Each has a frequency and a time. Together they make a code of three numbers: the first frequency, the second frequency, and the seconds between them.") { ctx, s, t, _ in
-            let fade = 1 - pr(t, period - 0.6, period)
-            let box = CGRect(x: 30, y: 26, width: s.width - 44, height: s.height - 78)
-            for (i, st) in Song.stars.enumerated() {
-                star(&ctx, cellCentre(box, st.c, st.r), 2.4 * (0.85 + 0.15 * sin(t * 2 + Double(i))), alpha: 0.6 * fade)
-            }
-            axes(&ctx, box, alpha: fade)
-            guard !Pairs.all.isEmpty else { return }
-            let k = min(Int(t / beat), Pairs.all.count - 1)
-            let lt = t - Double(k) * beat
-            // earlier pairs stay as faint lines
-            for j in 0..<k {
-                let q = Pairs.all[j]
-                var p = Path(); p.move(to: cellCentre(box, q.a.c, q.a.r)); p.addLine(to: cellCentre(box, q.p.c, q.p.r))
-                ctx.stroke(p, with: .color(Pal.coral.opacity(0.3 * fade)), lineWidth: 1)
-            }
-            let q = Pairs.all[k]
-            let ap = cellCentre(box, q.a.c, q.a.r), pp = cellCentre(box, q.p.c, q.p.r)
-            let out = 1 - pr(lt, beat - 0.3, beat)
-            // note 1
-            let g1 = pop(pr(lt, 0.1, 0.5))
-            Kit.ring(&ctx, ap, 8, Pal.coral, alpha: min(1, g1) * out * fade, width: 1.5)
-            star(&ctx, ap, 3.4 * g1, Pal.coral, alpha: fade)
-            let up = pp.y < ap.y
-            Kit.chip(&ctx, "\(Song.hz(q.a.r)) HZ, AT \(Song.seconds(q.a.c))", CGPoint(x: min(max(ap.x, box.minX + 58), box.maxX - 58), y: up ? ap.y + 12 : ap.y - 12), anchor: up ? .top : .bottom, color: Pal.coral, size: 7, alpha: pr(lt, 0.3, 0.6) * out * fade)
-            // note 2
-            let g2 = pop(pr(lt, 0.9, 1.3))
-            Kit.ring(&ctx, pp, 8, Pal.signal, alpha: min(1, g2) * out * fade, width: 1.5)
-            star(&ctx, pp, 3.2 * max(1, g2), Pal.signal, alpha: fade)
-            Kit.chip(&ctx, "\(Song.hz(q.p.r)) HZ, AT \(Song.seconds(q.p.c))", CGPoint(x: min(max(pp.x, box.minX + 58), box.maxX - 58), y: up ? pp.y - 12 : pp.y + 12), anchor: up ? .bottom : .top, color: Pal.signal, size: 7, alpha: pr(lt, 1.1, 1.4) * out * fade)
-            // the gap between them, along the time axis
-            let gw = eo(pr(lt, 1.5, 2.0))
-            if gw > 0 {
-                let y = box.maxY + 4
-                var gap = Path(); gap.move(to: CGPoint(x: ap.x, y: y)); gap.addLine(to: CGPoint(x: ap.x + (pp.x - ap.x) * gw, y: y))
-                ctx.stroke(gap, with: .color(.white.opacity(0.9 * out * fade)), lineWidth: 2.5)
-                for x in [ap.x, pp.x] { var d = Path(); d.move(to: CGPoint(x: x, y: y)); d.addLine(to: CGPoint(x: x, y: (x == ap.x ? ap.y : pp.y))); ctx.stroke(d, with: .color(.white.opacity(0.25 * out * fade)), style: StrokeStyle(lineWidth: 1, dash: [2, 3])) }
-                var link = Path(); link.move(to: ap); link.addLine(to: CGPoint(x: ap.x + (pp.x - ap.x) * gw, y: ap.y + (pp.y - ap.y) * gw))
-                ctx.stroke(link, with: .color(Pal.coral.opacity(0.9 * fade)), lineWidth: 1.6)
-                Kit.chip(&ctx, "TIME BETWEEN: \(Song.seconds(q.p.c - q.a.c))", CGPoint(x: (ap.x + pp.x) / 2, y: y + 4), anchor: .top, size: 7, alpha: pr(lt, 1.8, 2.1) * out * fade)
-            }
-            let codeA = pr(lt, 2.1, 2.4) * out
-            caption(&ctx, s, codeA > 0 ? "CODE:  \(Pairs.spoken(q.a, q.p))" : "PICK TWO PEAKS", codeA > 0 ? codeA * fade : pr(lt, 0, 0.3) * (1 - pr(lt, 0.8, 1.0)) * fade, color: codeA > 0 ? Pal.coral : .white)
-        }
-    }
-}
-
-// MARK: - Card 5: one song at a time vs an index
-
-struct ShazamLookup: View {
-    let active: Bool
-    @State private var mode = 0          // 0 = one by one, 1 = index
-    @State private var t0 = Date()
-    @State private var touched = false
-    @Environment(\.accessibilityReduceMotion) private var reduce
-
-    private let runLen = [8.0, 8.5]
 
     var body: some View {
-        Panel {
-            VStack(spacing: 0) {
-                HStack(spacing: 8) {
-                    Pill(label: "ONE BY ONE", on: mode == 0) { pick(0) }
-                    Pill(label: "INDEX", on: mode == 1) { pick(1) }
-                }
-                .padding(.horizontal, 12).padding(.top, 10)
-                TimelineView(.animation(paused: !active || reduce)) { tl in
-                    Canvas { ctx, s in
-                        let el = tl.date.timeIntervalSince(t0)
-                        let t = reduce ? runLen[mode] - 0.5 : min(el, runLen[mode] - 0.01)
-                        draw(&ctx, s, t)
-                    }
-                }
-            }
-        }
-        .onChange(of: active) { _, a in if a { t0 = Date(); if !touched { mode = 0 } } }
-        .task(id: "\(active)-\(touched)-\(mode)") {
-            // untouched: run one by one, then the index, then repeat
-            guard active, !touched, !reduce else { return }
-            try? await Task.sleep(for: .seconds(runLen[mode] + 1.2))
-            if !Task.isCancelled && !touched { mode = 1 - mode; t0 = Date() }
-        }
-        .accessibilityElement(children: .contain)
-        .accessibilityLabel("Your clip's codes on the left. One by one: each song is checked against every code in turn, far too slowly for millions of songs. Index: each code is looked up and lists every song that contains it, with the time. One song, song E, appears for every code, and its times minus the clip's times all give the same offset, so it is the match.")
+        BlueprintStage(active: active, length: 3.4, tick: 2.4,
+                       label: "A filing cabinet of drawers, like the index of a book. A small code in gold slides along a dashed line to one drawer, the drawer pulls out, and a card lists every song with that code, each with the moment it turns up: Song A at 0:49, Song B at 1:43, Song C at 2:35.",
+                       draw: { c, t, pal, _ in Self.draw(&c, t, pal) }, size: bpSize)
     }
 
-    private func pick(_ m: Int) {
-        touched = true
-        mode = m
-        t0 = Date()
-        Haptic.fire(.light)
+    private static let iso = Iso(origin: BP.pt(110, 228), scale: 15)
+    private static let W = 3.2, D = 7.4, H = 8.0, rowH = 1.6
+    private static let ex = SIMD3(1.0, 0, 0), ey = SIMD3(0, 1.0, 0), ez = SIMD3(0, 0, 1.0)
+    private static let songs = ["SONG A \u{00B7} 0:49", "SONG B \u{00B7} 1:43", "SONG C \u{00B7} 2:35"]
+
+    /// A drawer front on a face of the cabinet: a rounded panel, a handle, and a label slot with two short lines in it.
+    private static func front(_ c: inout GraphicsContext, o: SIMD3<Double>, ux: SIMD3<Double>, w: Double, hh: Double, ink: Color, p: Double, slot: Bool = true) {
+        bpTrace(&c, bpFacePath(iso, o: o, ux: ux, vx: ez, u: 0, v: 0, w: w, h: hh, r: 0.12), p: p, color: ink, width: 1.2)
+        bpTrace(&c, bpFacePath(iso, o: o, ux: ux, vx: ez, u: w / 2 - 0.5, v: 0.22, w: 1.0, h: 0.2, r: 0.1), p: p, color: ink, width: 1.2)
+        guard slot else { return }
+        bpTrace(&c, bpFacePath(iso, o: o, ux: ux, vx: ez, u: w / 2 - 0.9, v: hh - 0.6, w: 1.8, h: 0.4, r: 0.08), p: p, color: ink.opacity(0.7), width: BP.hair)
     }
 
-    private var codes: [String] { Array(Pairs.lookup.prefix(4)).map { Pairs.code($0.a, $0.p) } }
+    private static func draw(_ c: inout GraphicsContext, _ t: Double, _ pal: StagePalette) {
+        let ink = pal.ink
+        func ps(_ a: Double, _ b: Double) -> Double { BP.eout(BP.pr(t, a, b)) }
+        let pCab = ps(0, 0.9)
 
-    private func draw(_ ctx: inout GraphicsContext, _ s: CGSize, _ t: Double) {
-        let cs = codes
-        let leftX = 12.0, colW = s.width * 0.36
-        let top = 30.0
-        let rowH = min(30.0, (s.height - top - 44) / 6.5)
-        if mode == 0 { Kit.chip(&ctx, "YOUR CODES", CGPoint(x: leftX + 4, y: top - 14), anchor: .leading, color: Pal.coral, size: 7) }
-        func codeRect(_ i: Int) -> CGRect { CGRect(x: leftX, y: top + Double(i) * (rowH + 6), width: colW, height: rowH) }
-        let rightX = leftX + colW + 18, rightW = s.width - rightX - 12
-        func rightRect(_ i: Int) -> CGRect { CGRect(x: rightX, y: top + Double(i) * (rowH + 4), width: rightW, height: rowH) }
+        // the cabinet: a tall box of drawers, five rows, two columns on the right face and one on the left
+        bpSlab(&c, iso, x: 0, y: 0, z: 0, w: W, d: D, h: H, ink: ink, p: pCab)
+        for i in 0..<5 { for j in 0..<12 {
+            let q = iso.p(0.4 + Double(i) * 0.6 + hash2(i, j) * 0.15, 0.3 + Double(j) * 0.6 + hash2(j, i + 5) * 0.15, H)
+            c.fill(Path(ellipseIn: CGRect(x: q.x - 0.8, y: q.y - 0.8, width: 1.6, height: 1.6)), with: .color(ink.opacity(0.35 * pCab)))
+        } }
+        let hh = rowH - 0.24, z0c = H - rowH * 2 + 0.12                    // the chosen drawer: column 0, row 1
+        for r in 0..<5 {
+            let z0 = H - rowH * Double(r + 1) + 0.12, pd = ps(0.2 + 0.08 * Double(r), 0.8 + 0.08 * Double(r))
+            front(&c, o: SIMD3(0.15, D, z0), ux: ex, w: W - 0.3, hh: hh, ink: ink, p: pd)
+            for col in 0..<2 where !(col == 0 && r == 1) {
+                front(&c, o: SIMD3(W, 3.7 * Double(col) + 0.15, z0), ux: ey, w: 3.4, hh: hh, ink: ink, p: pd)
+            }
+        }
 
-        if mode == 0 {
-            // ONE BY ONE: walk every song, comparing it with every code
-            let perSong = 1.25, perCode = perSong / Double(max(1, cs.count) + 1)
-            let si = min(5, Int(t / perSong))
-            let ci = Int((t - Double(si) * perSong) / perCode)
-            for i in 0..<cs.count {
-                let r = codeRect(i)
-                let lit = t < 6 * perSong && i == ci
-                ctx.fill(Path(roundedRect: r, cornerRadius: 5), with: .color(lit ? Pal.coral.opacity(0.35) : Pal.night.opacity(0.7)))
-                ctx.stroke(Path(roundedRect: r, cornerRadius: 5), with: .color(Pal.coral.opacity(0.6)), lineWidth: 1)
-                ctx.draw(ctx.resolve(Text(cs[i]).font(T.mono(9)).foregroundColor(.white)), at: CGPoint(x: r.midX, y: r.midY))
+        // your code, in a frame at the top left, and a dashed guide down to the chosen drawer
+        let chip = CGRect(x: 18, y: 40, width: 104, height: 34), ctr = BP.pt(70, 57)
+        let pChip = ps(0.3, 0.8)
+        bpGroup(&c, alpha: pChip) { g in
+            g.fill(Path(roundedRect: chip, cornerRadius: 8), with: .color(BP.paper)); g.fill(Path(roundedRect: chip, cornerRadius: 8), with: .color(ink.opacity(0.08)))
+            g.stroke(Path(roundedRect: chip, cornerRadius: 8), with: .color(ink), lineWidth: BP.edge)
+            bpCode(&g, ctr, width: 56, a: -0.1, b: 0.08, r: 4, color: pal.accent)
+        }
+        bpText(&c, "CODE", BP.pt(18, 30), ink: ink, alpha: pChip, anchor: .leading)
+
+        let slide = BP.eio(BP.pr(t, 1.5, 2.2)) * 3.5
+        func glyphAt(_ s: Double) -> CGPoint { iso.p(W + 0.12 + s, 1.85, z0c + hh * 0.55) }
+        let g0 = glyphAt(0)
+        bpGuide(&c, BP.pt(70, 76), BP.pt(g0.x, g0.y - 8), p: BP.pr(t, 0.8, 1.2), color: pal.accent)
+        bpGuide(&c, BP.pt(g0.x + 6, g0.y), BP.pt(glyphAt(4.3).x + 6, glyphAt(4.3).y), p: BP.pr(t, 1.3, 1.8), color: pal.accent)
+
+        // the chosen drawer slides out along the dashed guide, carrying the code
+        bpSlab(&c, iso, x: W, y: 0.15, z: z0c, w: 0.12 + slide, d: 3.4, h: hh, ink: ink, p: ps(0.3, 0.9))
+        let fo = SIMD3(W + 0.12 + slide, 0.15, z0c)
+        bpTrace(&c, bpFacePath(iso, o: fo, ux: ey, vx: ez, u: 1.2, v: 0.22, w: 1.0, h: 0.2, r: 0.1), p: ps(0.3, 0.9), color: ink, width: 1.2)
+        let tr = BP.eio(BP.pr(t, 0.9, 1.5))
+        if t > 0.9 {
+            let at = t < 1.5 ? BP.mixp(ctr, g0, tr) : glyphAt(slide)
+            bpCode(&c, at, width: BP.mix(56, 26, tr), a: -0.1, b: 0.08, r: BP.mix(4, 2.6, tr), color: pal.accent)
+        }
+
+        // the card of songs: every song with this code and the moment it turns up; none stands out
+        let panel = CGRect(x: 198, y: 92, width: 130, height: 96), pp = BP.pr(t, 2.1, 2.6)
+        if pp > 0.001 {
+            var frame = Path(roundedRect: panel, cornerRadius: 6)
+            for k in 1..<3 { frame.move(to: BP.pt(panel.minX, panel.minY + 32 * Double(k))); frame.addLine(to: BP.pt(panel.maxX, panel.minY + 32 * Double(k))) }
+            c.fill(Path(roundedRect: panel, cornerRadius: 6), with: .color(BP.paper.opacity(pp))); c.fill(Path(roundedRect: panel, cornerRadius: 6), with: .color(ink.opacity(0.08 * pp)))
+            bpTrace(&c, frame, p: pp, color: ink)
+        }
+        bpText(&c, "EVERY SONG", BP.pt(202, 56), ink: ink, alpha: pp, anchor: .leading)
+        bpText(&c, "WITH THAT CODE", BP.pt(202, 69), ink: ink, alpha: pp, anchor: .leading)
+        let gs = glyphAt(3.5)
+        for (i, s) in songs.enumerated() {
+            let q = BP.eout(BP.pr(t, 2.2 + 0.15 * Double(i), 2.6 + 0.15 * Double(i))), y = panel.minY + 16 + 32 * Double(i) + (1 - q) * 14
+            var l = Path(); l.move(to: BP.pt(gs.x + 16, gs.y - 2)); l.addLine(to: BP.pt(204, panel.minY + 16 + 32 * Double(i)))
+            bpTrace(&c, l, p: BP.pr(t, 2.3 + 0.1 * Double(i), 2.8 + 0.1 * Double(i)), color: pal.accent.opacity(0.8), width: BP.hair)
+            bpCode(&c, BP.pt(218, y), width: 18, a: [-0.1, 0.1, 0.0][i], b: [0.08, -0.08, 0.1][i], r: 2.2, color: pal.accent, alpha: q)
+            bpText(&c, s, BP.pt(236, y), ink: ink, alpha: q, anchor: .leading)
+        }
+        let pm = BP.pr(t, 2.6, 3.0)      // under the times column, clear of the drawer
+        bpText(&c, "THE MOMENT", BP.pt(panel.maxX, 204), ink: ink, alpha: pm, anchor: .trailing)
+        bpText(&c, "IT TURNS UP", BP.pt(panel.maxX, 217), ink: ink, alpha: pm, anchor: .trailing)
+    }
+}
+
+// MARK: - Card 5: your codes drop onto three songs; in the right one they land in the same order and spacing
+
+struct ShazamMatch: View {
+    let active: Bool
+
+    var body: some View {
+        BlueprintStage(active: active, length: 3.2, tick: 2.6,
+                       label: "Three song timelines stacked like an exploded drawing, with the strip of your few seconds above them. Your three gold codes drop onto each song. On Song A and Song C they land scattered at uneven spacing. On Song B they land in the same order and the same distance apart, in a straight line under dashed guides. Song B is then outlined in gold with a note tag and the others dim.",
+                       draw: { c, t, pal, _ in Self.draw(&c, t, pal) }, size: bpSize)
+    }
+
+    private static let iso = Iso(origin: BP.pt(100, 185), scale: 14)
+    private static let L = 12.0, d = 2.6
+    private static let zC = 0.0, zB = 3.6, zA = 7.2, zR = 10.8
+    private static let recX = [5.7, 6.8, 8.4]
+    private static let pitch: [(Double, Double)] = [(-0.1, 0.08), (0.1, -0.08), (0.0, 0.1)]
+    private static let destA = [(1.4, 0.7), (3.8, 2.0), (10.3, 0.8)], destC = [(2.5, 2.0), (3.2, 0.6), (9.7, 1.9)]
+
+    /// One song strip with timeline ticks along its front edge.
+    private static func strip(_ c: inout GraphicsContext, z: Double, x0: Double = 0, len: Double = L, ink: Color, p: Double) {
+        bpSlab(&c, iso, x: x0, y: 0, z: z, w: len, d: d, h: 0.4, ink: ink, p: p)
+        var ticks = Path()
+        for k in 1..<Int(len) { let x = x0 + Double(k); ticks.move(to: iso.p(x, d, z + 0.4)); ticks.addLine(to: iso.p(x, d - 0.4, z + 0.4)) }
+        bpTrace(&c, ticks, p: p, color: ink.opacity(0.6), width: 0.8)
+    }
+
+    private static func draw(_ c: inout GraphicsContext, _ t: Double, _ pal: StagePalette) {
+        let ink = pal.ink
+        func ps(_ a: Double, _ b: Double) -> Double { BP.eout(BP.pr(t, a, b)) }
+        let e = BP.eio(BP.pr(t, 2.5, 3.0)), dim = BP.mix(1, 0.42, e)
+
+        // the layers, bottom to top; the two wrong songs dim at the end
+        bpGroup(&c, alpha: dim) { g in strip(&g, z: zC, ink: ink, p: ps(0, 0.5)) }
+        strip(&c, z: zB, ink: ink, p: ps(0.1, 0.6))
+        bpGroup(&c, alpha: e) { g in bpSlab(&g, iso, x: 0, y: 0, z: zB, w: L, d: d, h: 0.4, ink: pal.accent, p: 1) }
+        bpGroup(&c, alpha: dim) { g in strip(&g, z: zA, ink: ink, p: ps(0.2, 0.7)) }
+        strip(&c, z: zR, x0: 5, len: 4, ink: ink, p: ps(0.3, 0.8))
+
+        // dashed vertical alignment guides down from your codes, and a straight guide along the right song
+        let pg = BP.pr(t, 0.9, 1.4)
+        for x in recX { bpGuide(&c, iso.p(x, d / 2, zR + 0.4), iso.p(x, d / 2, 0.4), p: pg, color: ink.opacity(0.7)) }
+        bpGuide(&c, iso.p(4.8, d / 2, zB + 0.4), iso.p(9.3, d / 2, zB + 0.4), p: BP.pr(t, 2.2, 2.6), color: pal.accent)
+
+        // your three codes on their strip, then dropping onto each song
+        let pr0 = BP.pr(t, 0.6, 0.9)
+        for i in 0..<3 { bpCode(&c, iso.p(recX[i], d / 2, zR + 0.4), width: 16, a: pitch[i].0, b: pitch[i].1, r: 2.2, color: pal.accent, alpha: pr0) }
+        for (z, start, dest, al) in [(zA, 1.1, destA, dim), (zC, 1.4, destC, dim), (zB, 1.7, recX.map { ($0, d / 2) }, 1.0)] {
+            for i in 0..<3 {
+                let q = BP.eio(BP.pr(t, start + 0.1 * Double(i), start + 0.6 + 0.1 * Double(i)))
+                guard q > 0.001 else { continue }
+                let x = BP.mix(recX[i], dest[i].0, q), y = BP.mix(d / 2, dest[i].1, q), zz = BP.mix(zR + 0.4, z + 0.4, q * q)
+                bpCode(&c, iso.p(x, y, zz), width: 13, a: pitch[i].0, b: pitch[i].1, r: 1.9, color: pal.accent, alpha: al)
             }
-            Kit.chip(&ctx, "EVERY SONG", CGPoint(x: rightX + 4, y: top - 14), anchor: .leading, size: 7)
-            for i in 0..<6 {
-                let r = rightRect(i)
-                let cur = i == si && t < 6 * perSong
-                let done = i < si || t >= 6 * perSong
-                ctx.fill(Path(roundedRect: r, cornerRadius: 5), with: .color(Color(hex: 0x1A2148).opacity(0.9)))
-                ctx.stroke(Path(roundedRect: r, cornerRadius: 5), with: .color(cur ? Pal.signal : Color(hex: 0xC9D2F5).opacity(0.3)), lineWidth: cur ? 2 : 1)
-                ctx.draw(ctx.resolve(Text("SONG \(i + 1)").font(T.mono(9)).foregroundColor(.white.opacity(0.85))), at: CGPoint(x: r.minX + 8, y: r.midY), anchor: .leading)
-                // one little box per code: checked, no match
-                for k in 0..<cs.count {
-                    let bx = CGRect(x: r.maxX - 10 - Double(cs.count - k) * 11, y: r.midY - 4, width: 8, height: 8)
-                    let checked = done || (cur && k < ci)
-                    ctx.fill(Path(roundedRect: bx, cornerRadius: 1.5), with: .color(checked ? Pal.coral : .white.opacity(0.12)))
-                }
-                if cur && ci < cs.count {
-                    var p = Path(); p.move(to: CGPoint(x: codeRect(ci).maxX, y: codeRect(ci).midY)); p.addLine(to: CGPoint(x: r.minX, y: r.midY))
-                    ctx.stroke(p, with: .color(Pal.signal.opacity(0.8)), style: StrokeStyle(lineWidth: 1.2, dash: [3, 3]))
-                }
-            }
-            let checked = min(6, si + (t >= 6 * perSong ? 1 : 0))
-            Kit.chip(&ctx, "CHECKED \(checked) OF 50,000,000…", CGPoint(x: rightX + rightW / 2, y: rightRect(5).maxY + 14), size: 7, alpha: 0.85)
-            caption(&ctx, s, t < 6 * perSong ? "SONG BY SONG, CODE BY CODE" : "THIS TAKES DAYS", t < 6 * perSong ? pr(t, 0.1, 0.4) : 1, color: t < 6 * perSong ? .white : Pal.coral)
-        } else {
-            // INDEX (modelled on Per Thirty Six's explainer): each code's line lists every song that has it, and when.
-            // One song keeps turning up (green), and its times minus the clip's times all give the same offset.
-            let match = Color(hex: 0x7CE0C3)
-            let pairs = Array(Pairs.lookup.prefix(4))
-            let base = 47.0
-            let decoys = [["H @ 1:45", "L @ 1:49"], ["F @ 2:35", "J @ 0:04"], ["C @ 1:43", "B @ 0:49"], ["K @ 2:58", "H @ 2:08"]]
-            let greenSlot = [2, 1, 0, 1]
-            func mmss(_ x: Double) -> String { let m = Int(x) / 60; return String(format: "%d:%04.1f", m, x - Double(m * 60)) }
-            let gap = 5.0, rowsTop = 8.0
-            let offH = 22.0 + Double(pairs.count) * 17
-            let rowH = min(54.0, (s.height - rowsTop - offH - 40 - gap * Double(pairs.count)) / Double(max(1, pairs.count)))
-            let per = 1.0
-            for (i, q) in pairs.enumerated() {
-                let r = CGRect(x: 10, y: rowsTop + Double(i) * (rowH + gap), width: s.width - 20, height: rowH)
-                let on = pr(t, 0.3 + Double(i) * per, 0.6 + Double(i) * per)
-                ctx.fill(Path(roundedRect: r, cornerRadius: 6), with: .color(Pal.night.opacity(0.55)))
-                ctx.stroke(Path(roundedRect: r, cornerRadius: 6), with: .color(match.opacity(0.2 + 0.35 * on)), lineWidth: 1)
-                let cr = CGRect(x: r.minX + 6, y: r.midY - 13, width: s.width * 0.25, height: 26)
-                ctx.fill(Path(roundedRect: cr, cornerRadius: 4), with: .color(Color(hex: 0x05070F)))
-                ctx.draw(ctx.resolve(Text(Pairs.code(q.a, q.p)).font(T.mono(7.5)).foregroundColor(on > 0 ? match : .white.opacity(0.7))), at: CGPoint(x: cr.midX, y: cr.midY))
-                ctx.draw(ctx.resolve(Text("→").font(T.mono(9)).foregroundColor(.white.opacity(0.4 + 0.4 * on))), at: CGPoint(x: cr.maxX + 8, y: cr.midY))
-                let clipT = Double(q.a.c) * 0.1
-                let hit = "E @ " + mmss(base + clipT)
-                var chips = decoys[i % decoys.count]
-                chips.insert(hit, at: min(greenSlot[i % greenSlot.count], chips.count))
-                let ax = cr.maxX + 14, aw = r.maxX - 4 - ax
-                let w = (aw - 6) / 3
-                for (k, c) in chips.enumerated() {
-                    let appear = pr(t, 0.45 + Double(i) * per + Double(k) * 0.08, 0.7 + Double(i) * per + Double(k) * 0.08)
-                    guard appear > 0 else { continue }
-                    let isHit = c == hit && t > 0.85 + Double(i) * per
-                    let chip = CGRect(x: ax + Double(k) * (w + 3), y: r.midY - 12, width: w, height: 24)
-                    var l = ctx
-                    l.opacity = appear
-                    l.fill(Path(roundedRect: chip, cornerRadius: 4), with: .color(isHit ? match.opacity(0.25) : .white.opacity(0.06)))
-                    if isHit { l.stroke(Path(roundedRect: chip, cornerRadius: 4), with: .color(match), lineWidth: 1.2) }
-                    l.draw(l.resolve(Text("SONG " + c).font(T.mono(6.5)).foregroundColor(isHit ? match : .white.opacity(0.55))), at: CGPoint(x: chip.midX, y: chip.midY))
-                }
-            }
-            // time offsets: the song's time minus the clip's time
-            let ob = CGRect(x: 10, y: rowsTop + Double(pairs.count) * (rowH + gap) + 2, width: s.width - 20, height: offH)
-            let offStart = 0.4 + Double(pairs.count) * per
-            let oa = pr(t, offStart - 0.3, offStart)
-            if oa > 0 {
-                var l = ctx
-                l.opacity = oa
-                l.fill(Path(roundedRect: ob, cornerRadius: 6), with: .color(.white.opacity(0.05)))
-                l.draw(l.resolve(Text("DO THE TIMES MATCH YOUR CLIP?").font(T.mono(7)).tracking(0.8).foregroundColor(.white.opacity(0.6))), at: CGPoint(x: ob.minX + 8, y: ob.minY + 11), anchor: .leading)
-            }
-            for (i, q) in pairs.enumerated() {
-                let la = pr(t, offStart + Double(i) * 0.45, offStart + Double(i) * 0.45 + 0.3)
-                guard la > 0 else { continue }
-                let clipT = Double(q.a.c) * 0.1
-                let y = ob.minY + 26 + Double(i) * 17
-                var l = ctx
-                l.opacity = la
-                l.draw(l.resolve(Text("SONG E @ \(mmss(base + clipT))  −  CLIP @ \(String(format: "%.1f", clipT))s").font(T.mono(8.5)).foregroundColor(.white.opacity(0.8))), at: CGPoint(x: ob.minX + 8, y: y), anchor: .leading)
-                l.draw(l.resolve(Text("= 47s").font(T.mono(8.5)).foregroundColor(match)), at: CGPoint(x: ob.maxX - 8, y: y), anchor: .trailing)
-            }
-            let done = offStart + Double(pairs.count) * 0.45 + 0.3
-            let (cap, ca, cc): (String, Double, Color) = t < offStart ? ("EACH CODE LISTS EVERY SONG THAT HAS IT", pr(t, 0.1, 0.4), .white)
-                : t < done ? ("NOW SHAZAM CHECKS THE TIMES", pr(t, offStart, offStart + 0.3), .white)
-                : ("SONG E, AT THE SAME TIMES ✓", pr(t, done, done + 0.3), match)
-            caption(&ctx, s, cap, ca, color: cc)
+        }
+
+        // labels: songs on the left, the recording and the verdicts on the right
+        let lp = BP.pr(t, 0.9, 1.4)
+        for (name, z) in [("SONG A", zA), ("SONG B", zB), ("SONG C", zC)] {
+            let a = iso.p(0, d, z + 0.4)
+            bpLeader(&c, anchor: a, elbow: BP.pt(a.x - 10, a.y), tail: -4, text: name, ink: ink, p: lp)
+        }
+        bpLeader(&c, anchor: iso.p(7, 0, zR + 0.4), elbow: BP.pt(196, 44), tail: 10, text: "THOSE FEW SECONDS", ink: ink, p: lp)
+        let ra = iso.p(L, 0, zC + 0.4), rb = iso.p(L, 0, zB + 0.4)
+        bpLeader(&c, anchor: ra, elbow: BP.pt(ra.x + 6, ra.y), tail: 0, text: "WRONG SONGS:\nSCATTERED", ink: ink, p: BP.pr(t, 1.9, 2.3))
+        bpLeader(&c, anchor: rb, elbow: BP.pt(rb.x + 6, rb.y), tail: 0, text: "RIGHT SONG:\nSAME ORDER", ink: ink, p: BP.pr(t, 2.5, 2.9))
+
+        // found: a gold tag with a note pops up by the right song
+        let pop = BP.pr(t, 2.7, 3.0)
+        if pop > 0.001 {
+            let s = BP.eout(pop) * (1 + 0.18 * sin(pop * .pi)), tip = BP.pt(252, 199)
+            var g = c; g.translateBy(x: tip.x, y: tip.y); g.scaleBy(x: s, y: s)
+            var tag = Path(roundedRect: CGRect(x: -13, y: -24, width: 26, height: 19), cornerRadius: 6)
+            tag.move(to: BP.pt(-4, -5)); tag.addLine(to: BP.pt(0, 0)); tag.addLine(to: BP.pt(4, -5)); tag.closeSubpath()
+            g.fill(tag, with: .color(pal.accent))
+            g.translateBy(x: -2, y: -9)
+            bpNote(&g, BP.pt(0, 0), s: 9, color: BP.paper)
         }
     }
 }

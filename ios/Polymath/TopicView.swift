@@ -29,7 +29,7 @@ struct TopicView: View {
         }
         .contentShape(Rectangle())
         .simultaneousGesture(swipe)
-        .overlay(alignment: .bottomTrailing) { actions.padding(.trailing, 16).padding(.bottom, 52) }
+        .overlay(alignment: .bottomTrailing) { actions.padding(.trailing, 26).padding(.bottom, 64) }   // 10pt inside the picture's corner
         .onAppear {
             if Launch.topic == topic.id, let n = Launch.card, n < topic.cards.count { card = n }
         }
@@ -61,7 +61,7 @@ struct TopicView: View {
     }
 
     private var actions: some View {
-        VStack(spacing: 12) {
+        VStack(spacing: 10) {
             GlassButton(symbol: "heart", on: shelf.liked.contains(topic.id), tint: Color(hex: 0xF43F5E), label: "Like") { shelf.toggleLike(topic.id) }
             GlassButton(symbol: "bookmark", on: shelf.saved.contains(topic.id), tint: S.text, label: "Save") { shelf.toggleSave(topic.id) }
         }
@@ -72,7 +72,11 @@ struct TopicView: View {
         return ZStack {
             HStack(spacing: 6) {
                 ForEach(0..<topic.cards.count, id: \.self) { i in
-                    Capsule().fill(i == cur ? S.dotOn : S.dotOff).frame(width: i == cur ? 22 : 6, height: 6)
+                    if i == cur {
+                        Capsule().fill(.white).frame(width: 22, height: 6).shadow(color: .black.opacity(0.18), radius: 1.5, y: 0.5)
+                    } else {
+                        Capsule().fill(.white.opacity(0.18)).frame(width: 6, height: 6).modifier(DotGlass())
+                    }
                 }
             }
             .animation(.easeOut(duration: 0.25), value: cur)
@@ -84,7 +88,7 @@ struct TopicView: View {
     }
 }
 
-/// 48pt Liquid Glass circle (Apple's interactive glass effect on iOS 26+, the hand-made glass before) with an outline icon; on, the icon fills with its tint.
+/// 40pt Liquid Glass circle (Apple's interactive glass effect on iOS 26+, the hand-made glass before) with an outline icon; on, the icon fills with its tint.
 struct GlassButton: View {
     let symbol: String
     let on: Bool
@@ -98,11 +102,11 @@ struct GlassButton: View {
             action()
         } label: {
             Image(systemName: on ? symbol + ".fill" : symbol)
-                .font(.system(size: 21, weight: .regular))
+                .font(.system(size: 18, weight: .regular))
                 .foregroundStyle(on ? tint : S.text)
                 .contentTransition(.symbolEffect(.replace))
                 .symbolEffect(.bounce, value: on)
-                .frame(width: 48, height: 48)
+                .frame(width: 40, height: 40)
         }
         .modifier(NativeGlass())
         .accessibilityLabel(label)
@@ -129,9 +133,20 @@ struct Avatar: View {
 private struct NativeGlass: ViewModifier {
     func body(content: Content) -> some View {
         if #available(iOS 26, *) {
-            content.buttonStyle(.plain).glassEffect(.regular.interactive(), in: .circle)   // the effect, not .glass style, so the circle stays exactly 48pt
+            content.buttonStyle(.plain).glassEffect(.regular.interactive(), in: .circle)   // the effect, not .glass style, so the circle stays exactly its frame size
         } else {
             content.buttonStyle(.plain).glass()
+        }
+    }
+}
+
+/// A see-through page dot: clear Liquid Glass where the system has it, so the gradient shows through; frosted material before.
+private struct DotGlass: ViewModifier {
+    func body(content: Content) -> some View {
+        if #available(iOS 26, *) {
+            content.glassEffect(.clear, in: .capsule)
+        } else {
+            content.background(.ultraThinMaterial, in: Capsule()).overlay(Capsule().strokeBorder(.white.opacity(0.5), lineWidth: 0.5))
         }
     }
 }

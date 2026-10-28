@@ -18,6 +18,8 @@ struct Card: Decodable {
     let title: String?
     let text: String?
     let takeaway: String?
+    let hook: String?        // last line, set apart in bold so the pull to the next card is easy to find
+    let marks: [String]?     // words coloured T.mark, the same colour as that thing in the picture
     let options: [String]?
     let answer: Int?
     let why: String?
