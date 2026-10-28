@@ -1,70 +1,63 @@
 ---
 name: write-explainer
-description: Write or rewrite the reader-facing copy of a Tell Me How / Polymath topic (headlines, card text, bridges, hooks, picture labels) so a 10-year-old can follow it. Uses Simplified Technical English (ASD-STE100) at about 80% strength, standalone slides and hook endings. Use when drafting a new topic, rewriting an existing one, or doing a copy pass on picture labels.
+description: Write or rewrite the reader-facing copy of a Tell Me How / Polymath topic (headlines, card text, hooks, picture labels) so a newcomer gets it on one read. Spine-first: facts sheet, then one spoken paragraph the owner approves, then slides cut from it, then a human cold read. Use when drafting a new topic, rewriting an existing one, or doing a copy pass on picture labels.
 ---
 
-# Write an explainer
+# Write an explainer (spine-first, v2 2026-10-27)
 
-Owner-approved 2026-10-25 after three test topics (Shazam, Moon/tides, GPS). Worked example: `examples/gps.md`.
+Why this order: in rounds one to five, slides were written first and then patched line by line. Fact-check hedges were pasted in as copy ("higher sunlight"), hooks stopped matching the next headline, and the structure kept moving after the sentences were polished. The fix is to settle the facts, then the whole explanation, then cut it into slides. Each stage has a gate; never go back to an earlier stage by patching a later one.
 
 ## Who reads it
-A 10-year-old, or a curious adult with no background, swiping a phone feed. Topics arrive in random order, so nothing may depend on another topic.
+A curious adult or a 10-year-old with no background, swiping a phone feed, reading once. Topics arrive in random order, so a topic defines its own words.
 
-## Steps
-1. **Check the title is literally true.** Fix the question if its premise is wrong (the Moon causes tides, not waves) and tell the owner why. The title is a plain question a friend would ask, 12 words or fewer.
-2. **Build the spine.** List every idea the reader must hold to get the answer, from zero. One idea per slide. At most 6 content slides. Where one idea needs closing in words before the next builds on it, add a bridge.
-3. **Write each slide** with the parts in the output format below.
-4. **Write the picture labels** in the same words as the text.
-5. **Run the checklist.** Then show the copy in chat. Change no code or topic files until the owner approves the copy.
+## Stage 1: facts sheet (separate fact-checker agent, before any writing)
+The checker writes `tasks/<topic>/facts.md`: is the title literally true; the answer in one sentence; 8 to 12 safe claims, each one plain true sentence with a source; myths to avoid; at most one good number with an everyday comparison; 2 or 3 analogies judged for whether they mislead. The writer uses only these claims. A claim that needs a caveat is rewritten until it is simply true, never hedged.
 
-## Sentence rules (STE at about 80%)
-- One idea per sentence. 15 words at most.
-- Active voice, simple present tense ("Shazam keeps", not "is kept" or "will be keeping").
-- **One word, one meaning,** for the whole topic. Pick the word once and never swap it (for example, "clip" is only ever your recording, "song" is only ever a song in the library, and "peak" is only ever a loud point). Never use synonyms for variety ("landmark", "star" and "dot" all for "peak" is a fail).
-- Common words. No idioms, no phrasal verbs where a plain verb exists, no "-ing" words used as nouns.
-- At most 7 sentences per slide.
-- **The relaxed 20%:** a few technical words are allowed (frequency, peak, Hz, index) when the reader needs them again, each explained in plain words on the same slide. A warm, friendly tone is allowed; it must not read like a manual.
+## Stage 2: the paragraph (owner gate)
+Write the whole answer as **one spoken paragraph, about 100 to 150 words**, as you would tell a friend across a table. It opens with the surprise, walks the reasoning in order, uses at most one analogy, and ends on the line a friend would repeat. Mark where each slide will start with `[1]`, `[2]`… (at most 6). Then hand the paragraph alone to a fresh subagent and ask it to say the answer back in one sentence and quote any phrase it had to guess at; fix those.
 
-## Slide rules
-- **Every slide stands alone.** If a slide uses a word, it explains it on that slide, even if an earlier slide already did. No slide may need a later slide to make sense.
-- **Every slide ends with a hook** that the very next slide answers (not two slides later). It is a question, a gap ("But one peak alone does not tell Shazam much.") or a promise ("A storm shows you.").
-- **Explain the idea, not the interaction.** Never write "drag the slider" or "tap below"; the cue pill already says it. Say what the picture proves.
-- **Say what the picture shows before the reader acts on it.** Axes, colours and what bright or dim means go in the text.
-- **Don't repeat the headline** in the text.
-- **One number per slide,** rounded, with something to hold it against ("16 metres, taller than a four-storey building").
-- **Open from something seen or felt** (a noisy café, a storm, a beach), never from a definition.
-- **The last content slide lands the whole idea** in one bold line a friend would repeat.
+Show the owner the title, the setup line and the paragraph, nothing else. **All structural change happens here:** order, which ideas, which analogy, what to cut. Do not write slides until the owner approves the paragraph.
 
-## Bridges
-A bridge (`type: 'bridge'`) is a text-only slide: no headline, no picture, text set large. Use one to close an idea in words before the next slide builds on it (for example, "one peak is common, but a pair is rare" before the slide that pairs peaks). Same sentence rules, about 35 words, ends with a hook. A bridge does not count toward the 6 content slides.
+## Stage 3: slice (owner gate)
+Cut the approved paragraph at its marks. Each slice becomes one slide.
+- **Text** is that slice, lightly expanded only to say what the picture shows. Do not add new ideas.
+- **Headline** reuses words from its own slice. Never coin a new phrase for a headline.
+- **Hook** asks the question the next slide's headline answers, using that headline's key word.
 
-## Picture labels
-- Same words as the text: if the text says "peaks", the slider says "PEAKS ONLY", never "BRIGHTEST".
-- Short noun phrases or tiny sentences, in capitals on screen.
-- No idioms ("SLOWED WAY DOWN" → "SHOWN MUCH SLOWER"), no unexplained terms ("OFFSET").
-- Axis labels on every chart ("FREQUENCY ↑", "TIME →").
+Then write the **spine**: title → hook 1 → headline 2 → hook 2 → headline 3 … → bold line, one per line. Read it aloud as a story. If any hook and the next headline don't share a key word, or a headline means nothing on its own, fix the slice, not just the line. Show the owner the spine first, then the slides.
 
-## Output format (one block per slide)
+## Stage 4: fact recheck
+The fact checker compares the slides with `facts.md` and flags only meaning changes. Fix a flag by going back to the sheet's own plain sentence, not by inserting new wording.
+
+## Stage 5: human cold read (decides "done")
+Two people who have never seen the topic read it once on a phone, then say the answer in one sentence and point at the line where they slowed down. If both can say it, the topic is done. A model's read never counts as cold, and the owner's reads after the first one don't count either.
+
+## Editing after any gate
+Every edit, however small, regenerates the spine and rereads the slide before and after the edited one. Never change a line without reading the hook that leads into it and the headline it leads to.
+
+## The rules that matter (meaning, not counting)
+1. **Say it like a friend.** Mixed sentence lengths, linked with "but" and "so", contractions allowed. Voice bar: `examples/sky-blue-opener.md`.
+2. **Headlines decode cold.** Read alone, a stranger can picture it. "More pairs means a higher chance of a match", not "253 small chances make a coin flip".
+3. **Never state the obvious or pad** ("tiny machines, too small to see"). Every sentence moves the idea.
+4. **One word, one meaning** for the whole topic. No synonyms for variety.
+5. **One analogy at most,** picturable in one image, and still right when the reader takes the obvious next thought.
+6. **Plain words.** Use a technical term only if the topic needs it again, and define it once in plain words. Never define everyday words. No acronyms, no brackets.
+7. **One number per slide,** rounded, against something familiar. Never make the reader do sums.
+8. **Slide 1 is the surprise and one question,** no spoilers. If the thing has a name (the birthday paradox), ask directly and name it.
+9. **The title is a plain, literally true question,** with no premise the reader doesn't hold.
+10. **Explain the idea, not the interaction,** and picture labels use the text's exact words. On screen the card shows the headline, then the text, then the picture below it, so the text tells the reader what to watch and the picture proves it.
+
+Counts (title 12 words, sentences about 8 to 18 words and none over 20, at most 7 sentences a slide, at most 6 slides) are checked by `./build.sh` lint. Stay inside them, but don't write to them.
+
+## Output formats
+Stage 2: **Title**, **Setup**, **Paragraph** with `[n]` marks, then one line: the slide most likely to lose a reader.
+Stage 3: the **Spine** list, then one block per slide:
 ```
 ### Slide N
-**Headline:** (slide 1: the topic question)
-**Setup:** (slide 1 only: one line of stakes)
-**Text:** sentences
-**Hook:** last sentence, answered by the next slide
-**Picture:** one line on what it shows (new topics)
+**Headline:**
+**Text:**
+**Hook:**   (last slide: **Bold:** instead)
+**Picture:** one line on what it shows
 **Picture labels:** LABEL · LABEL
 ```
-Bridges have only **Text** and **Hook**. End with a short note listing: numbers to fact check, the slide most likely to lose a cold reader, and any rule you bent and why.
-
-## Checklist before showing the owner
-- [ ] Every sentence is 15 words or fewer, active voice, and holds one idea.
-- [ ] Each key word means one thing for the whole topic; no synonyms for variety.
-- [ ] Every technical word is explained on each slide that uses it.
-- [ ] Each slide makes sense if read alone.
-- [ ] Each hook is answered by the very next slide.
-- [ ] No sentence describes the interaction.
-- [ ] The picture labels use the text's words.
-- [ ] The title and every claim are literally true; the numbers are listed for the fact checker.
-- [ ] 6 content slides or fewer; bridges only where an idea needs closing.
-
-After approval, the production line in `RECIPE.md` §8 still applies: a cold newcomer reviewer, then a fact checker, then a phone check. Judge clarity with someone who has never read about the topic; the writer and the owner cannot.
+Then a **Go deeper** line taken from the facts sheet.

@@ -1008,14 +1008,14 @@
     el.append(
       h('header', { class: 'lead' }, h('h2', { text: opener ? building.title : c.title }), opener && c.title ? h('p', { class: 'setup', text: c.title }) : null),
       panelOf(el, c.visual),
-      h('div', { class: 'txt' }, h('p', {}, c.text, c.takeaway ? [' ', h('b', { class: 'take', text: c.takeaway })] : null)));
+      h('div', { class: 'txt' }, h('p', {}, c.text, c.takeaway ? [' ', h('b', { class: 'take', text: c.takeaway })] : null), c.hook ? h('p', { class: 'hook', text: c.hook }) : null));
     return el;
   };
 
   // bridge: a text-only pause between two cards that closes one idea and sets up the next. No headline, no picture.
   R.bridge = function (c) {
     const el = cardEl({ title: c.text.split(/[.?!]/)[0] }, 'bridge');
-    el.append(h('div', { class: 'txt' }, h('p', { text: c.text })));
+    el.append(h('div', { class: 'txt' }, h('p', { text: c.text }), c.hook ? h('p', { class: 'hook', text: c.hook }) : null));
     return el;
   };
 

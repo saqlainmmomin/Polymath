@@ -200,6 +200,9 @@ h2 { margin: 0 0 10px; font-weight: 500; font-size: 28px; line-height: 1.18; let
 .panel.wait canvas { opacity: 0; }
 .panel.wait::after { content: attr(data-hint); position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: var(--ink2); text-align: center; padding: 0 20px; }
 
+/* hook: the card's last line, set apart so the pull to the next card is easy to find */
+.txt p.hook { margin-top: 10px; font-weight: 600; }
+
 /* bridge: text only, set big in the middle of the card */
 .bridge .txt { justify-content: center; padding: 24px 28px; }
 .bridge .txt p { font-size: 24px; line-height: 1.45; letter-spacing: -.01em; text-wrap: pretty; }

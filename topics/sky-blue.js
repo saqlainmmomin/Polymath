@@ -1,4 +1,5 @@
-// Why is the sky blue, but red at sunset? 4 cards: (1) same sun, two skies, (2) air bounces short blue ripples far more than long red ones, (3) bounced blue reaches you from everywhere, (4) at sunset light crosses far more air, the blue is bounced away and red is left.
+// Why is the sky blue, but red at sunset? 5 cards: the Sun looks yellow but the sky looks blue; sunlight is every colour, as waves; air particles bounce short blue waves far more than long red ones; bounced blue reaches you from everywhere; a low Sun sends light through ~40x more air, so the blue is gone and red is left.
+// Copy: slide 1 written by the owner 2026-10-26, the rest redrafted in that voice (pending approval). The iOS app will draw these natively; these web diagrams are simple stand-ins.
 (function () {
   const r1 = n => Math.round(n * 10) / 10;
   // wavy line from a to b: wavelength wl, amplitude amp, 6 points per wave
@@ -12,7 +13,7 @@
     return pts;
   };
 
-  // Card 1: the mystery at once. Same sun, a blue sky at noon and a red one at sunset.
+  // Card 1: the mystery at once. A yellow sun in a blue sky, and a low sun in an orange and red one.
   const twoSkies = { type: 'diagram', view: [100, 96],
     parts: [
       { id: 'skyL', shape: 'rect', x: 3, y: 6, w: 45, h: 76, style: 'blue' },
@@ -24,7 +25,7 @@
       { id: 'ts', shape: 'text', x: 74.5, y: 14, text: 'Sunset' }
     ] };
 
-  // Card 3: one sunbeam through air; blue bits bounce off sideways, one reaches your eye.
+  // Card 4: one sunbeam through air; blue bits bounce off sideways, one reaches your eye.
   const beam = { type: 'diagram', view: [100, 96],
     parts: [
       { id: 'air', shape: 'rect', x: 6, y: 30, w: 88, h: 48, style: 'blue', fill: false, label: 'Air', labelAt: [97, 22] },
@@ -41,14 +42,28 @@
     ],
     steps: [
       { note: 'Sunlight: a mix of colours' },
-      { show: ['a1', 'a2', 'b1', 'b2', 'c1'], focus: ['a1', 'a2', 'b1', 'b2', 'c1', 'sl', 'air'], note: 'Air scatters blue every way' },
+      { show: ['a1', 'a2', 'b1', 'b2', 'c1'], focus: ['a1', 'a2', 'b1', 'b2', 'c1', 'sl', 'air'], note: 'Air bounces blue every way' },
       { show: ['c2'], focus: ['c2', 'c1', 'a1', 'a2', 'b1', 'b2', 'eye'], note: 'Some reaches your eye' }
     ] };
 
-  // Card 2: short blue ripple is bounced off course by air specks, long red ripple slips through.
+  // Card 2: sunlight is every colour; red is a long wave, blue a short one.
+  const colours = { type: 'diagram', view: [100, 96],
+    parts: [
+      { id: 'sun', shape: 'circle', x: 12, y: 18, r: 8, style: 'spark', label: 'Sunlight', labelAt: [12, 34] },
+      { id: 'beam', shape: 'arrow', from: [22, 18], to: [54, 18], style: 'spark' },
+      { id: 'cr', shape: 'arrow', from: [54, 18], to: [92, 6], style: 'heat' },
+      { id: 'cg', shape: 'arrow', from: [54, 18], to: [92, 18], style: 'green' },
+      { id: 'cb', shape: 'arrow', from: [54, 18], to: [92, 30], style: 'blue' },
+      { id: 'tr', shape: 'text', x: 28, y: 52, text: 'Red: long wave' },
+      { id: 'wr', shape: 'path', points: wave([6, 62], [94, 62], 14, 4.5), smooth: true, style: 'heat' },
+      { id: 'tb', shape: 'text', x: 28, y: 76, text: 'Blue: short wave' },
+      { id: 'wb', shape: 'path', points: wave([6, 86], [94, 86], 7, 3), smooth: true, style: 'blue' }
+    ] };
+
+  // Card 3: short blue wave is bounced off course by air particles, long red ripple slips through.
   const specks = [];
   [[43, 24], [50, 31], [57, 26], [45, 34], [55, 20], [47, 62], [54, 69], [58, 63], [43, 70], [51, 59]].forEach((p, i) =>
-    specks.push({ id: 'k' + i, shape: 'dot', x: p[0], y: p[1], r: 1.8, ...(i === 8 ? { label: 'Gas specks', labelAt: [3, 86] } : {}) }));
+    specks.push({ id: 'k' + i, shape: 'dot', x: p[0], y: p[1], r: 1.8, ...(i === 8 ? { label: 'Gas particles', labelAt: [3, 86] } : {}) }));
   const ripples = { type: 'diagram', view: [100, 96],
     parts: [
       { id: 'col', shape: 'rect', x: 38, y: 6, w: 24, h: 84, style: 'blue', fill: false, label: 'Air', labelAt: [97, 84] },
@@ -63,11 +78,11 @@
     ],
     steps: [
       { note: 'Both enter the air' },
-      { show: ['ro'], focus: ['ri', 'ro', 'tr', 'col'], note: 'Long red slips through' },
-      { show: ['bo1', 'bo2'], focus: ['bi', 'bo1', 'bo2', 'tb', 'col'], note: 'Short blue gets scattered' }
+      { show: ['ro'], focus: ['ri', 'ro', 'tr', 'col'], note: 'Long red mostly slips past' },
+      { show: ['bo1', 'bo2'], focus: ['bi', 'bo1', 'bo2', 'tb', 'col'], note: 'Short blue gets bounced' }
     ] };
 
-  // Card 4: noon = short trip through air; sunset = long trip, blue bounced away, light turns red.
+  // Card 5: noon = short trip through air; sunset = long trip, blue bounced away, light turns red.
   const sunset = { type: 'diagram', view: [100, 96],
     parts: [
       { id: 'air', shape: 'rect', x: 18, y: 52, w: 76, h: 28, style: 'blue', fill: false, label: 'Air', labelAt: [52, 42] },
@@ -85,31 +100,32 @@
     steps: [
       { note: 'Noon: a short trip through air' },
       { show: ['sunS', 'sb'], focus: ['sunS', 'sb', 'nb', 'air', 'eye'], note: 'Sunset: a much longer trip' },
-      { show: ['u1', 'u2', 'u3'], restyle: { sb: 'heat' }, focus: ['sb', 'u1', 'u2', 'u3', 'eye'], note: 'Blue flung off, red gets through' }
+      { show: ['u1', 'u2', 'u3'], restyle: { sb: 'heat' }, focus: ['sb', 'u1', 'u2', 'u3', 'eye'], note: 'Blue bounced away, red gets through' }
     ] };
 
   window.EXPLAINER = {
     id: 'sky-blue',
-    title: 'Why is the sky blue, but red at sunset?',
+    title: 'Why is the sky blue at noon and red at sunset?',
     kind: 'full',
     theme: 'nature',
     cards: [
-      { type: 'card', title: 'The same sun paints two different skies.',
-        text: 'Sunlight is every colour mixed together. So something in the air must be sorting them.',
+      { type: 'card', title: "It's the same sky and the same Sun.",
+        text: "Sunlight looks yellow, but it's really all colours mixed together. Air looks clear, but it isn't quite. So how does clear air turn sunlight into a blue sky, and later an orange one?",
         visual: twoSkies },
-      { type: 'card', title: 'Air scatters blue light far more than red',
-        text: 'Light travels in waves: blue short and tightly packed, red long and lazy. The shorter the wave, the more tiny gas specks scatter it in new directions.',
-        takeaway: 'Long waves roll past.',
+      { type: 'card', title: 'Sunlight is every colour at once',
+        text: 'After rain, a rainbow shows what is hiding in sunlight: every colour, mixed together. Light travels in tiny waves, and each colour has its own length. Red waves are long and stretched out. Blue waves are short and close together. So what does the air do to these waves?',
+        visual: colours },
+      { type: 'card', title: 'Clear air still bounces blue light',
+        text: "Air looks like nothing, but it's made of gases. The gases are tiny particles, too small to see. Sunlight hits them all the time, and each hit sends the light off in a new direction. Short blue waves bounce much more often than long red ones: about 5 times as much. So where does all that bounced blue go?",
         visual: ripples },
-      { type: 'card', title: 'Scattered blue reaches you from everywhere',
-        text: 'Scattered blue flies off in every direction, so some always reaches your eyes, wherever you look.',
-        takeaway: 'That is the blue sky. So why red at sunset?',
+      { type: 'card', title: 'Bounced blue comes at you from everywhere',
+        text: "Particles fill the whole sky, not only the part near the Sun. Each one bounces some blue toward your eyes, so you see blue wherever you look. The sky has no blue of its own. It's sunlight, bounced toward you by the air. So why does that blue sky turn orange at sunset?",
         visual: beam },
       { type: 'card', title: 'At sunset, light crosses far more air',
-        text: 'Air wraps round Earth like a skin. A low sun shines sideways through far more of it, flinging blue away and leaving red and orange to reach you.',
-        takeaway: 'Same trick, longer trip.',
+        text: 'Air is a thin layer around Earth. When the Sun is overhead, its light takes a short path down through the layer. At sunset, the Sun is near the horizon, so its light must cross the layer sideways. That is a much longer trip, through about 40 times more air. On the way, the particles bounce away most of the blue, so mostly red and orange reaches your eyes.',
+        takeaway: 'Short trip: blue sky; long trip: red sunset.',
         visual: sunset },
-      { type: 'more', links: ['ice-floats'], note: 'Violet scatters even more, but the sun gives off less of it and our eyes notice it less, so we see blue.' }
+      { type: 'more', links: ['moon-tides'], note: 'The Sun looks yellow because the air has already bounced some blue out of its light. Violet bounces even more than blue, but the Sun gives out less violet and our eyes see it poorly, so the sky looks blue, not violet.' }
     ]
   };
 })();

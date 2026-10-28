@@ -45,6 +45,10 @@ struct FlatPicture: View {
     var replayOnTap = false     // tap restarts the card's story; otherwise the scene gets seconds-since-tap
     var sky: [UInt32] = [Pal.skyTop, Pal.skyMid, Pal.skyLow]
     var onStart: (() -> Void)? = nil   // runs once each time the story starts (card appears or is tapped to replay)
+    /// Calm mode: with a label, the picture stays still on `idle` until the reader taps the pill, then plays from 0 to `end` once and holds there.
+    var playOnce: String? = nil
+    var idle: Double = 0
+    var end: Double? = nil
     let label: String
     let draw: (inout GraphicsContext, CGSize, Double, Double?) -> Void
 
@@ -52,32 +56,57 @@ struct FlatPicture: View {
     @State private var start = Date()
     @State private var run = 0
     @State private var tapAt: Date?
+    @State private var played: Date?     // calm mode: when the reader last pressed play
+
+    private var stop: Double { end ?? still }
 
     var body: some View {
-        TimelineView(.animation(paused: !active || reduce)) { tl in
+        TimelineView(.animation(paused: !active || reduce || (playOnce != nil && (played.map { Date().timeIntervalSince($0) > stop + 0.2 } ?? true)))) { tl in
             Canvas { ctx, size in
                 let el = max(0, tl.date.timeIntervalSince(start))
-                let t = reduce ? still : el.truncatingRemainder(dividingBy: period)
+                let t: Double
+                if playOnce != nil { t = reduce ? stop : played.map { min(stop, max(0, tl.date.timeIntervalSince($0))) } ?? idle }
+                else { t = reduce ? still : el.truncatingRemainder(dividingBy: period) }
                 draw(&ctx, size, t, tapAt.map { tl.date.timeIntervalSince($0) })
             }
         }
-        .background(LinearGradient(colors: sky.map { Color(hex: $0) }, startPoint: .top, endPoint: .bottom))
-        .clipShape(RoundedRectangle(cornerRadius: 2))
-        .overlay(RoundedRectangle(cornerRadius: 2).stroke(T.rule, lineWidth: 1))
+        .padding(.bottom, playOnce == nil ? 0 : 50)   // calm mode: the play pill gets its own strip, never covering the picture
+        .background { if !sky.isEmpty { LinearGradient(colors: sky.map { Color(hex: $0) }, startPoint: .top, endPoint: .bottom) } }   // empty `sky`: transparent, drawn onto the screen
+        .clipShape(RoundedRectangle(cornerRadius: sky.isEmpty ? 0 : 2))
+        .overlay { if !sky.isEmpty { RoundedRectangle(cornerRadius: 2).stroke(T.rule, lineWidth: 1) } }
+        .overlay(alignment: .bottom) {
+            if let p = playOnce {
+                Button { play() } label: {
+                    Text((played == nil ? "▶  " + p : "▶  PLAY AGAIN")).font(T.mono(10)).tracking(0.8)
+                        .foregroundStyle(played == nil ? Color(hex: 0x0A1132) : .white)
+                        .padding(.horizontal, 16).padding(.vertical, 8)
+                        .background(Capsule().fill(played == nil ? Pal.signal : Pal.night.opacity(0.75)))
+                        .overlay(Capsule().stroke(.white.opacity(played == nil ? 0 : 0.3), lineWidth: 1))
+                }
+                .buttonStyle(.plain).padding(.bottom, 12)
+            }
+        }
         .contentShape(Rectangle())
         .onTapGesture {
+            if playOnce != nil { play(); return }
             Haptic.fire(.soft)
             if replayOnTap { start = Date(); run += 1 } else { tapAt = Date() }
         }
-        .onChange(of: active) { _, a in if a { start = Date(); run += 1 } }
+        .onChange(of: active) { _, a in if a { start = Date(); if playOnce == nil { run += 1 } else { played = nil } } }
         .task(id: "\(active)-\(run)-\(reduce)") { await runCues() }
-        .accessibilityElement()
+        .accessibilityElement(children: .contain)
         .accessibilityLabel(label)
-        .accessibilityHint("Tap to replay")
+        .accessibilityHint(playOnce == nil ? "Tap to replay" : "Tap to play")
+    }
+
+    private func play() {
+        Haptic.fire(.soft)
+        played = Date(); start = Date(); run += 1
     }
 
     private func runCues() async {
         guard active, !reduce, !cues.isEmpty else { return }
+        if playOnce != nil && played == nil { return }   // calm mode: no sound or haptics until the reader asks
         onStart?()
         var base = start
         let sorted = cues.sorted { $0.at < $1.at }
@@ -88,6 +117,7 @@ struct FlatPicture: View {
                 if Task.isCancelled { return }
                 Haptic.fire(c.kind)
             }
+            if playOnce != nil { return }   // calm mode plays once
             base = base.addingTimeInterval(period)
         }
     }

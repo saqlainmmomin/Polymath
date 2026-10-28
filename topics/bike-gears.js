@@ -1,5 +1,8 @@
-// Big topic: bike first, car at the end. Replaces spanner, two-gears and why-gears.
-// 1 hill (effort gauge, bike), 2 long spanner, 3 meshing gears count laps, 4 same push, 3x further out, 5 bike easy/fast gear, 6 car gearbox picks a pair.
+// How do the gears on your bike work? 5 cards: the same hill feels easy after a gear change; the back wheel has a stack of rings and the
+// gear lever slides the chain between them (gear 1 = biggest back ring); a smaller back ring spins the wheel more per pedal turn
+// (30 links: 30-tooth ring once, 10-tooth ring 3 times); on a hill, short steps are easier (same lift, more turns, lighter push); pick the gear for the road.
+// Copy rewritten 2026-10-26 after owner feedback (numbered gears, no spanner/teeth/car slides). The iOS app draws every card natively
+// (ios/Polymath/FlatBike.swift); these web diagrams are simple stand-ins.
 (function () {
   // ---- Card 1: a bike on a hill. Hard gear: big leg effort, bike crawls. Easy gear: small effort, bike climbs. ----
   // Hill surface y = 92 - 0.4 x. Local bike coords: a along the slope (uphill), b away from it, scaled by K.
@@ -34,47 +37,7 @@
       { hide: ['eh'], show: ['ee'], move: Object.fromEntries(bikeIds.map(id => [id, [22, -8.8]])), note: 'Other gear: light push, keeps climbing' }
     ] };
 
-  // ---- Card 2: long spanner. ----
-  const ang = d => d * Math.PI / 180;
-  const arc = (r, a1) => { const pts = []; for (let k = 0; k <= 8; k++) { const a = ang(a1 * k / 8); pts.push([36 + r * Math.cos(a), 44 - r * Math.sin(a)]); } return pts; };
-  const spanner = { type: 'diagram', view: [100, 88],
-    parts: [
-      { id: 'arcS', shape: 'path', points: arc(18, 40), style: 'thin', dash: true, hidden: true, label: 'Short', labelAt: [72, 28] },
-      { id: 'arcL', shape: 'path', points: arc(54, 40), style: 'thin', dash: true, hidden: true, label: 'Long', labelAt: [98, 6] },
-      { id: 'short', shape: 'rect', x: 36, y: 41.5, w: 18, h: 5, style: 'ink' },
-      { id: 'long', shape: 'rect', x: 36, y: 41.5, w: 54, h: 5, style: 'ink', hidden: true },
-      { id: 'bolt', shape: 'circle', x: 36, y: 44, r: 6.5, style: 'hatch', label: 'Bolt', labelAt: [6, 76] },
-      { id: 'p1', shape: 'arrow', from: [54, 74], to: [54, 50], style: 'accent', label: 'Push', labelAt: [64, 82] },
-      { id: 'p2', shape: 'arrow', from: [90, 74], to: [90, 50], style: 'accent', hidden: true, label: 'Same push', labelAt: [62, 82] }
-    ],
-    steps: [
-      { note: 'Short spanner: hard to turn' },
-      { hide: ['short', 'p1'], show: ['long', 'p2'], note: 'Long spanner: easier to turn' },
-      { show: ['arcS', 'arcL'], focus: ['arcS', 'arcL', 'long', 'bolt', 'p2'], note: 'Your hand: much further' }
-    ] };
-
-  // ---- Card 4: two gears touching at one point; a spanner drawn on each gear (bolt at its middle, handle end at the contact). Same push; 1x vs 3x. ----
-  const lever = { type: 'diagram', view: [100, 96],
-    parts: [
-      { id: 'gs', shape: 'circle', x: 25, y: 50, r: 9, style: 'thin', fill: false, label: 'Small gear', labelAt: [2, 20] },
-      { id: 'gb', shape: 'circle', x: 61, y: 50, r: 27, style: 'thin', fill: false, label: 'Big gear', labelAt: [98, 14] },
-      { id: 'cs', shape: 'dot', x: 25, y: 50, r: 1.6 },
-      { id: 'cb', shape: 'dot', x: 61, y: 50, r: 1.6 },
-      { id: 'rs', shape: 'rect', x: 25, y: 48.25, w: 9, h: 3.5, style: 'ink', hidden: true },
-      { id: 'rb', shape: 'rect', x: 34, y: 48.25, w: 27, h: 3.5, style: 'ink', hidden: true },
-      { id: 'bs', shape: 'circle', x: 25, y: 50, r: 2.6, style: 'hatch', hidden: true },
-      { id: 'bb', shape: 'circle', x: 61, y: 50, r: 2.6, style: 'hatch', hidden: true },
-      { id: 'ts', shape: 'text', x: 29.5, y: 45.5, text: '1x', hidden: true },
-      { id: 'tb', shape: 'text', x: 47.5, y: 45.5, text: '3x', hidden: true },
-      { id: 'a1', shape: 'arrow', from: [34, 84], to: [34, 55], style: 'accent', label: 'Same push', labelAt: [2, 92] }
-    ],
-    steps: [
-      { note: 'Teeth push where they touch' },
-      { show: ['rs', 'bs', 'ts'], focus: ['rs', 'bs', 'ts', 'gs', 'cs', 'a1'], note: 'Small gear: a short spanner' },
-      { show: ['rs', 'bs', 'ts', 'rb', 'bb', 'tb'], focus: ['rs', 'bs', 'ts', 'rb', 'bb', 'tb', 'gb', 'cb', 'a1'], note: 'Big gear: a spanner 3x longer' }
-    ] };
-
-  // ---- Card 5: bicycle front gear (accent, driver) and back gear (driven), 1 : 3 in size, chain as two dashed tangents. ----
+  // ---- Cards 2 and 3 (stand-in): bicycle front gear (accent, driver) and back gear (driven), 1 : 3 in size, chain as two dashed tangents. ----
   const bike = { type: 'diagram', view: [100, 90],
     parts: [
       { id: 'cS', shape: 'line', from: [22.1, 38.3], to: [70.4, 24.8], dash: true, label: 'Chain', labelAt: [98, 8] },
@@ -95,41 +58,27 @@
 
   window.EXPLAINER = {
     id: 'bike-gears',
-    title: 'Why does a slower gear make a steep hill easier?',
+    title: 'How do the gears on your bike work?',
     kind: 'full',
     theme: 'machines',
     cards: [
-      { type: 'card',
-        title: 'Same hill, same legs, different gear.',
-        text: 'Shifting gear changes how your pedals drive the wheel. In one gear you stand on the pedals and barely move. In another, the same hill is easy.',
+      { type: 'card', title: 'Same hill, same legs.',
+        text: "On a steep hill, you push as hard as you can and barely move, but change gear and the same hill feels easy. Your legs aren't stronger, and the hill isn't flatter. So what does the gear lever change? To find out, look at the back wheel.",
         visual: hill },
-      { type: 'card',
-        title: 'A longer spanner turns a stuck bolt',
-        text: 'Turning force is how hard the bolt gets twisted. Push twice as far out, get twice the twist. The price: your hand travels further for the same turn.',
-        visual: spanner },
-      { type: 'card',
-        title: 'One big-gear turn costs 3 small-gear turns',
-        text: 'Gears are wheels with teeth. The small gear\'s teeth push the big gear round, like a spanner on a bolt. 36 teeth to 12 means 3 small turns per big one.',
-        visual: { type: 'gears', driving: 12, driven: 36, phase: 0.6, interactive: true, count: true, labels: { driver: 'Small', driven: 'Big', teeth: '{n} teeth', laps: 'Turns' } } },
-      { type: 'card',
-        title: 'The big gear is a spanner 3 times longer',
-        text: 'The teeth meet at each gear\'s edge with the same push. The big gear\'s edge is 3 times as far from its middle as the small one\'s: 3 times the turning force.',
-        visual: lever },
-      { type: 'card',
-        title: 'That is your bike\'s easy gear on the hill',
-        text: 'A chain links the small front gear you pedal to the big back one. Say 3 pedal turns give 1 wheel turn, each push worth 3. A hill needs force, not speed.',
+      { type: 'card', title: 'The back wheel has a stack of rings',
+        text: 'A geared bike has a stack of rings on its back wheel. Each ring has teeth, and each is a different size. The chain loops from the pedal ring to one of the back rings. The gear lever slides the chain from one back ring to another. Say the bike has 7 gears. Gear 1 uses the biggest back ring, and gear 7 uses the smallest. So why does the size of the back ring change how the pedals feel?',
         visual: bike },
-      { type: 'card',
-        title: 'A car needs its easy gear to start',
-        text: 'A stopped car is heavy to get rolling, so it starts in an easy pair of gears. Cruising uses faster pairs. A gearbox holds them all.',
-        takeaway: 'Gears trade speed for turning force.',
-        visual: { type: 'gears', interactive: true, tip: 'Tap 1st, 3rd, 5th',
-          sets: [ { label: 'Gearbox', spin: 0.2, rpmStart: 400, gears: [
-            { name: '1st', driving: 12, driven: 36 },
-            { name: '3rd', driving: 20, driven: 28 },
-            { name: '5th', driving: 24, driven: 16 } ] } ],
-          labels: { driver: 'Engine side', driven: 'Output side', teeth: '', gear: 'Gear {n}' } } },
-      { type: 'more', links: ['car-engine'] }
+      { type: 'card', title: 'A smaller back ring spins the wheel more',
+        text: 'The chain is a loop of links, and each link fits one tooth. Say the pedal ring has 30 teeth. One pedal turn pulls 30 links past. In gear 1, the back ring has 30 teeth, so 30 links turn it once. In gear 7, the back ring has only 10 teeth. 10 fits into 30 three times, so the same pedal turn spins the wheel 3 times. So what does a wheel that spins less, or more, do to your legs?',
+        visual: bike },
+      { type: 'card', title: 'Short steps are easier uphill',
+        text: 'On stairs, you can take one step at a time or leap three at once. Either way you rise to the same top, but leaping makes your legs burn. A hill works the same way: you must lift yourself to the top either way. In gear 1, each pedal turn moves you a short way, so you pedal more turns with a light push each. In gear 7, each pedal turn moves you 3 times as far, so each push is 3 times harder. So how do you choose?',
+        visual: hill },
+      { type: 'card', title: 'Pick the gear that fits the road',
+        text: 'On a steep hill, use gear 1, so each push stays light. On flat ground, nothing pulls you back, so a light push already works and a higher gear lets each turn carry you further. Downhill, gravity helps, so gear 7 suits you. Riders shift often, so that pedalling never feels too hard or too fast.',
+        takeaway: 'Low gear number: easy push, slow ride. High gear number: hard push, fast ride.',
+        visual: hill },
+      { type: 'more', links: ['car-engine'], note: 'Most bikes also have two or three rings at the pedals. Shifting those makes the same kind of change, only bigger.' }
     ]
   };
 })();

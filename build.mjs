@@ -15,7 +15,7 @@ const read = f => fs.readFileSync(path.join(root, f), 'utf8');
 
 const FONTS = 'https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap';
 // Library: topic ids, one per topic (topics/<id>.js). Title, kind, theme and card count come from the topic file. Old small topics: archive-v3-small/.
-const LIBRARY = ['car-engine', 'bike-gears', 'feel-wet', 'sky-blue', 'gps', 'card-payment', 'shazam', 'moon-tides'];
+const LIBRARY = ['car-engine', 'bike-gears', 'feel-wet', 'sky-blue', 'gps', 'card-payment', 'shazam', 'moon-tides', 'birthday', 'seasons', 'superglue'];
 
 // TMH is a stub: topic-local blocks only assign functions to TMH.blocks, nothing runs at load.
 function loadTopic(name) {
@@ -50,14 +50,14 @@ function lint(name, EX) {
   EX.cards.forEach((c, i) => {
     if (c.type !== 'card') return;
     if (!c.text) warn(`card ${i + 1} has no text`);
-    sentenceRules(i, [c.text, c.takeaway].filter(Boolean).join(' '));
+    sentenceRules(i, [c.text, c.takeaway, c.hook].filter(Boolean).join(' '));
     if (i > 0 && words(c.title) > 9) warn(`card ${i + 1} headline is ${words(c.title)} words; keep it to about 8`);
     if (!c.visual) warn(`card ${i + 1} has no visual`);
   });
   EX.cards.forEach((c, i) => {
     if (c.type !== 'bridge') return;
     if (!c.text) warn(`card ${i + 1} (bridge) has no text`);
-    sentenceRules(i, c.text || '');
+    sentenceRules(i, [c.text, c.hook].filter(Boolean).join(' '));
     if (i === 0 || i === EX.cards.length - 1) warn(`card ${i + 1}: a bridge sits between two content cards`);
   });
 }

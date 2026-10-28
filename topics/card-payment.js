@@ -1,5 +1,15 @@
-// Standard: what happens in the two seconds after a tap. Card 1 = a message hops terminal -> shop's bank -> network -> your bank and back; card 2 = why a network sits in the middle; card 3 = your bank decides and sets the amount aside; card 4 = the real money moves later.
+// How does tapping a card send money from your bank to the shop? The tap only sends a message (about 2 seconds); the money moves later. Copy approved 2026-10-26 in the new voice; the iOS app draws every card natively (ios/Polymath/FlatPay.swift), these diagrams are stand-ins. Older summary: what happens in the two seconds after a tap. Card 1 = a message hops terminal -> shop's bank -> network -> your bank and back; card 2 = why a network sits in the middle; card 3 = your bank decides and sets the amount aside; card 4 = the real money moves later.
 (function () {
+  // Slide 1: the tap sends a message; the money stays put.
+  const tap = { type: 'diagram', view: [100, 96],
+    parts: [
+      { id: 'card', shape: 'rect', x: 4, y: 30, w: 30, h: 20, style: 'spark', text: 'CARD' },
+      { id: 'rd', shape: 'rect', x: 56, y: 24, w: 36, h: 32, style: 'thin', text: 'CARD READER' },
+      { id: 'msg', shape: 'arrow', from: [74, 24], to: [74, 8], style: 'accent', hidden: true, label: 'Message', labelAt: [98, 6] },
+      { id: 'cash', shape: 'circle', x: 19, y: 78, r: 8, style: 'accent', text: 'MONEY' }
+    ],
+    steps: [{ note: 'You tap your card' }, { move: { card: [20, 0] }, show: ['msg'], note: 'A message goes out; the money stays put' }] };
+
   // Four places in a loop. The message goes out along the accent lane and the yes comes back along the green lane.
   const hops = { type: 'diagram', view: [100, 96],
     parts: [
@@ -104,22 +114,25 @@
 
   window.EXPLAINER = {
     id: 'card-payment',
-    title: 'What happens in the two seconds after you tap your card?',
+    title: 'How does a card tap move your money to a shop?',
     kind: 'full',
     theme: 'money',
     cards: [
-      { type: 'card', title: "Message first. The shop's money later.",
-        text: "The tap sends a short message toward your bank, through the shop's bank and a card network. Your bank answers yes or no, and the answer hops back.",
+      { type: 'card', title: 'You tap, it beeps, and you walk away.',
+        text: "Tapping your card feels like paying, but the money doesn't move yet. The card reader, the machine you tap on, only sends a short message asking your bank: can this card pay? So how does that message find your bank and come back with a yes?",
+        visual: tap },
+      { type: 'card', title: 'The message travels through four places',
+        text: "The card reader sends the message to the shop's bank, where the shop keeps its money. That bank passes it to a card network, a company such as Visa that connects banks. The network passes it to your bank, where you keep your money. Your bank answers yes or no, and the answer travels back the same way. So why doesn't the shop's bank just ask your bank itself?",
         visual: hops },
-      { type: 'card', title: 'Why does the message detour through a network?',
-        text: "Without one, each shop's bank would need a link to every customer's bank, thousands in all. Card networks like Visa connect the banks that belong to them, so a tap reaches yours.",
+      { type: 'card', title: 'One network saves banks from linking to each other',
+        text: 'A link is a line a message can travel along. Picture 10 banks that must all reach each other. Joining every pair needs 45 links. With a network in the middle, each bank needs only one link to it: 10 in all. Real life has thousands of banks, so the network saves a huge number of links. At last the message reaches the bank that knows your account, so what does it do?',
         visual: network },
-      { type: 'card', title: 'How does your bank decide so fast?',
-        text: 'A computer checks the card is real and you can pay. If yes, it holds that amount, so you cannot spend it twice. The shop is not paid yet.',
+      { type: 'card', title: 'Your bank checks two things, then sets money aside',
+        text: "A computer at your bank checks two things: is the card real, and is there enough money in your account? If both answers are yes, the bank sets the price aside. The money stays in your account for now, but you can't spend it twice. Say you pay 20 from 50: you can spend only 30. So when does the shop get paid?",
         visual: decide },
-      { type: 'card', title: 'So when does the shop actually get paid?',
-        text: 'Paying tap by tap would be slow and costly. So banks batch payments, like counting the till at closing time.',
-        takeaway: 'The shop is paid in one to a few working days.',
+      { type: 'card', title: 'The shop gets its money later, all at once',
+        text: "Moving money for every single tap would be slow and expensive. So banks collect many payments, add them up, and move the money all at once. The shop gets its money 1 to 3 working days after your tap. Weekends don't count.",
+        takeaway: 'The tap is a yes today; the money follows later.',
         visual: later },
       { type: 'more', links: ['gps'], note: 'Another thing that feels instant but takes a trip: your phone finding where you are.' }
     ]

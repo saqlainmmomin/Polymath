@@ -24,12 +24,71 @@ enum Pictures {
             default: return nil
             }
         }
+        if topic.id == "sky-blue" {
+            switch index {
+            case 0: return AnyView(SkyTwo(active: active))
+            case 1: return AnyView(SkyColours(active: active))
+            case 2: return AnyView(SkyBounce(active: active))
+            case 3: return AnyView(SkyEverywhere(active: active))
+            case 4: return AnyView(SkySunset(active: active))
+            default: return nil
+            }
+        }
+        if topic.id == "card-payment" {
+            switch index {
+            case 0: return AnyView(PayTap(active: active))
+            case 1: return AnyView(PayHops(active: active))
+            case 2: return AnyView(PayNetwork(active: active))
+            case 3: return AnyView(PayDecide(active: active))
+            case 4: return AnyView(PayLater(active: active))
+            default: return nil
+            }
+        }
+        if topic.id == "bike-gears" {
+            switch index {
+            case 0: return AnyView(BikeHill(active: active))
+            case 1: return AnyView(BikeRings(active: active))
+            case 2: return AnyView(BikeCount(active: active))
+            case 3: return AnyView(BikeSteps(active: active))
+            case 4: return AnyView(BikeRoads(active: active))
+            default: return nil
+            }
+        }
         if topic.id == "feel-wet" {
             switch index {
             case 0: return AnyView(WetNoSensor(active: active))
             case 1: return AnyView(WetCooling(active: active))
             case 2: return AnyView(WetGuess(active: active))
             case 3: return AnyView(WetBag(active: active))
+            default: return nil
+            }
+        }
+        if topic.id == "birthday" {
+            switch index {
+            case 0: return AnyView(BirthRoom(active: active))
+            case 1: return AnyView(BirthYours(active: active))
+            case 2: return AnyView(BirthPairs(active: active))
+            case 3: return AnyView(BirthRooms(active: active))
+            case 4: return AnyView(BirthCurve(active: active))
+            default: return nil
+            }
+        }
+        if topic.id == "seasons" {
+            switch index {
+            case 0: return AnyView(SeasonsFar(active: active))
+            case 1: return AnyView(SeasonsSteps(active: active))
+            case 2: return AnyView(SeasonsLean(active: active))
+            case 3: return AnyView(SeasonsTorch(active: active))
+            case 4: return AnyView(SeasonsDay(active: active))
+            default: return nil
+            }
+        }
+        if topic.id == "superglue" {
+            switch index {
+            case 0: return AnyView(GlueTube(active: active))
+            case 1: return AnyView(GlueTwo(active: active))
+            case 2: return AnyView(GlueFilm(active: active))
+            case 3: return AnyView(GlueCap(active: active))
             default: return nil
             }
         }
