@@ -431,14 +431,15 @@
   },
   {
    "id": "bike-gears",
-   "title": "How do the gears on your bike work?",
+   "title": "Why does one gear click make the same hill feel easier?",
    "kind": "full",
    "theme": "machines",
    "cards": [
     {
      "type": "card",
      "title": "Same hill, same legs.",
-     "text": "On a steep hill, you push as hard as you can and barely move, but change gear and the same hill feels easy. Your legs aren't stronger, and the hill isn't flatter. So what does the gear lever change? To find out, look at the back wheel.",
+     "text": "On a steep hill you push as hard as you can and barely move. Click the gear lever once and the same hill feels easier. Your legs aren't stronger, and the hill isn't flatter.",
+     "hook": "So what does the lever change at the back wheel?",
      "visual": {
       "type": "diagram",
       "view": [
@@ -468,7 +469,12 @@
          ]
         ],
         "closed": true,
-        "style": "hatch"
+        "style": "hatch",
+        "label": "Same hill",
+        "labelAt": [
+         98,
+         88
+        ]
        },
        {
         "id": "wr",
@@ -632,12 +638,12 @@
         "shape": "text",
         "x": 26,
         "y": 5,
-        "text": "HOW HARD YOU PUSH"
+        "text": "PUSH"
        }
       ],
       "steps": [
        {
-        "note": "One gear: hard push, crawling"
+        "note": "You push as hard as you can and barely move"
        },
        {
         "hide": [
@@ -688,7 +694,7 @@
           -8.8
          ]
         },
-        "note": "Other gear: light push, keeps climbing"
+        "note": "Click the gear lever: the same hill feels easier"
        }
       ],
       "tip": null
@@ -696,8 +702,9 @@
     },
     {
      "type": "card",
-     "title": "The back wheel has a stack of rings",
-     "text": "A geared bike has a stack of rings on its back wheel. Each ring has teeth, and each is a different size. The chain loops from the pedal ring to one of the back rings. The gear lever slides the chain from one back ring to another. Say the bike has 7 gears. Gear 1 uses the biggest back ring, and gear 7 uses the smallest. So why does the size of the back ring change how the pedals feel?",
+     "title": "A smaller back ring spins the wheel more for each pedal turn",
+     "text": "The chain runs from the pedal ring to a stack of rings on the back wheel. The lever slides it onto another ring. Each link fits one tooth, so a ring with fewer teeth turns more times for the same length of chain.",
+     "hook": "So how far does one pedal turn carry you?",
      "visual": {
       "type": "diagram",
       "view": [
@@ -706,15 +713,15 @@
       ],
       "parts": [
        {
-        "id": "cS",
+        "id": "cb1",
         "shape": "line",
         "from": [
          22.1,
-         38.3
+         31.1
         ],
         "to": [
-         70.4,
-         24.8
+         73.2,
+         24.2
         ],
         "dash": true,
         "label": "Chain",
@@ -724,28 +731,28 @@
         ]
        },
        {
-        "id": "cS2",
+        "id": "cb2",
         "shape": "line",
         "from": [
          22.1,
-         51.7
+         58.9
         ],
         "to": [
-         70.4,
-         65.2
+         73.2,
+         65.8
         ],
         "dash": true
        },
        {
-        "id": "cH",
+        "id": "cs1",
         "shape": "line",
         "from": [
-         29.7,
-         24.8
+         25.9,
+         31.1
         ],
         "to": [
-         77.9,
-         38.3
+         76.9,
+         38.1
         ],
         "dash": true,
         "hidden": true,
@@ -756,68 +763,54 @@
         ]
        },
        {
-        "id": "cH2",
+        "id": "cs2",
         "shape": "line",
         "from": [
-         29.7,
-         65.2
+         25.9,
+         58.9
         ],
         "to": [
-         77.9,
-         51.7
+         76.9,
+         51.9
         ],
         "dash": true,
         "hidden": true
        },
        {
-        "id": "ringS",
+        "id": "pedal",
         "shape": "circle",
         "x": 24,
         "y": 45,
-        "r": 7,
+        "r": 14,
         "style": "accent",
-        "label": "Front: 3 turns",
+        "label": "Pedal ring",
         "labelAt": [
          2,
          12
         ]
        },
        {
-        "id": "ringB",
-        "shape": "circle",
-        "x": 24,
-        "y": 45,
-        "r": 21,
-        "style": "accent",
-        "hidden": true,
-        "label": "Front: 1 turn",
-        "labelAt": [
-         2,
-         12
-        ]
-       },
-       {
-        "id": "cogB",
+        "id": "backBig",
         "shape": "circle",
         "x": 76,
         "y": 45,
         "r": 21,
         "style": "thin",
-        "label": "Back: 1 turn",
+        "label": "Bigger back ring",
         "labelAt": [
          98,
          82
         ]
        },
        {
-        "id": "cogS",
+        "id": "backSmall",
         "shape": "circle",
         "x": 76,
         "y": 45,
         "r": 7,
         "style": "thin",
         "hidden": true,
-        "label": "Back: 3 turns",
+        "label": "Smaller back ring",
         "labelAt": [
          98,
          82
@@ -839,22 +832,20 @@
       ],
       "steps": [
        {
-        "note": "Easy: 3 pedal turns, 1 wheel turn"
+        "note": "The chain runs from the pedal ring to a back ring"
        },
        {
+        "note": "The lever slides the chain onto another ring",
         "hide": [
-         "ringS",
-         "cogB",
-         "cS",
-         "cS2"
+         "cb1",
+         "cb2",
+         "backBig"
         ],
         "show": [
-         "ringB",
-         "cogS",
-         "cH",
-         "cH2"
-        ],
-        "note": "Fast: 1 pedal turn, 3 wheel turns"
+         "cs1",
+         "cs2",
+         "backSmall"
+        ]
        }
       ],
       "tip": null
@@ -862,25 +853,298 @@
     },
     {
      "type": "card",
-     "title": "A smaller back ring spins the wheel more",
-     "text": "The chain is a loop of links, and each link fits one tooth. Say the pedal ring has 30 teeth. One pedal turn pulls 30 links past. In gear 1, the back ring has 30 teeth, so 30 links turn it once. In gear 7, the back ring has only 10 teeth. 10 fits into 30 three times, so the same pedal turn spins the wheel 3 times. So what does a wheel that spins less, or more, do to your legs?",
+     "title": "A smaller back ring carries you farther with each pedal turn",
+     "text": "More wheel turns means each pedal turn carries you farther. With a bigger back ring, each turn takes you a shorter way.",
+     "hook": "So why does a shorter way per turn make the hill feel easier?",
      "visual": {
       "type": "diagram",
       "view": [
        100,
        90
       ],
+      "tip": null,
       "parts": [
        {
-        "id": "cS",
+        "id": "road",
+        "shape": "rect",
+        "x": 0,
+        "y": 70,
+        "w": 100,
+        "h": 20,
+        "style": "hatch"
+       },
+       {
+        "id": "start",
+        "shape": "line",
+        "from": [
+         6,
+         36
+        ],
+        "to": [
+         6,
+         70
+        ],
+        "style": "thin"
+       },
+       {
+        "id": "far",
+        "shape": "arrow",
+        "from": [
+         6,
+         52
+        ],
+        "to": [
+         92,
+         52
+        ],
+        "style": "accent",
+        "label": "Farther",
+        "labelAt": [
+         98,
+         30
+        ]
+       },
+       {
+        "id": "near",
+        "shape": "arrow",
+        "from": [
+         6,
+         52
+        ],
+        "to": [
+         34,
+         52
+        ],
+        "style": "accent",
+        "hidden": true,
+        "label": "A shorter way",
+        "labelAt": [
+         98,
+         30
+        ]
+       }
+      ],
+      "steps": [
+       {
+        "note": "One pedal turn, smaller back ring: farther"
+       },
+       {
+        "hide": [
+         "far"
+        ],
+        "show": [
+         "near"
+        ],
+        "note": "One pedal turn, bigger back ring: a shorter way"
+       }
+      ]
+     }
+    },
+    {
+     "type": "card",
+     "title": "A shorter way per turn means a lighter push, and more turns to the top",
+     "text": "Think of walking up a steep path. Long strides are hard heaves, short quick steps are light, and you reach the same top either way. A pedal turn is like a stride, and the hill is the same height in every gear. So each turn lifts you only a little way up, and the push can be light.",
+     "hook": "But what about on flat road?",
+     "visual": {
+      "type": "diagram",
+      "view": [
+       100,
+       90
+      ],
+      "tip": null,
+      "parts": [
+       {
+        "id": "top",
+        "shape": "line",
+        "from": [
+         91,
+         18
+        ],
+        "to": [
+         91,
+         76
+        ],
+        "style": "thin",
+        "dash": true,
+        "label": "Same top",
+        "labelAt": [
+         98,
+         10
+        ]
+       },
+       {
+        "id": "tl",
+        "shape": "text",
+        "x": 8,
+        "y": 24,
+        "text": "LONG STRIDES"
+       },
+       {
+        "id": "ts",
+        "shape": "text",
+        "x": 8,
+        "y": 50,
+        "text": "SHORT QUICK STEPS"
+       },
+       {
+        "id": "L0",
+        "shape": "rect",
+        "x": 8,
+        "y": 30,
+        "w": 24,
+        "h": 6,
+        "style": "heat",
+        "hidden": true
+       },
+       {
+        "id": "L1",
+        "shape": "rect",
+        "x": 35,
+        "y": 30,
+        "w": 24,
+        "h": 6,
+        "style": "heat",
+        "hidden": true
+       },
+       {
+        "id": "L2",
+        "shape": "rect",
+        "x": 62,
+        "y": 30,
+        "w": 24,
+        "h": 6,
+        "style": "heat",
+        "hidden": true
+       },
+       {
+        "id": "S0",
+        "shape": "rect",
+        "x": 8,
+        "y": 56,
+        "w": 8,
+        "h": 6,
+        "style": "green",
+        "hidden": true
+       },
+       {
+        "id": "S1",
+        "shape": "rect",
+        "x": 18,
+        "y": 56,
+        "w": 8,
+        "h": 6,
+        "style": "green",
+        "hidden": true
+       },
+       {
+        "id": "S2",
+        "shape": "rect",
+        "x": 28,
+        "y": 56,
+        "w": 8,
+        "h": 6,
+        "style": "green",
+        "hidden": true
+       },
+       {
+        "id": "S3",
+        "shape": "rect",
+        "x": 38,
+        "y": 56,
+        "w": 8,
+        "h": 6,
+        "style": "green",
+        "hidden": true
+       },
+       {
+        "id": "S4",
+        "shape": "rect",
+        "x": 48,
+        "y": 56,
+        "w": 8,
+        "h": 6,
+        "style": "green",
+        "hidden": true
+       },
+       {
+        "id": "S5",
+        "shape": "rect",
+        "x": 58,
+        "y": 56,
+        "w": 8,
+        "h": 6,
+        "style": "green",
+        "hidden": true
+       },
+       {
+        "id": "S6",
+        "shape": "rect",
+        "x": 68,
+        "y": 56,
+        "w": 8,
+        "h": 6,
+        "style": "green",
+        "hidden": true
+       },
+       {
+        "id": "S7",
+        "shape": "rect",
+        "x": 78,
+        "y": 56,
+        "w": 8,
+        "h": 6,
+        "style": "green",
+        "hidden": true
+       }
+      ],
+      "steps": [
+       {
+        "show": [
+         "L0",
+         "L1",
+         "L2"
+        ],
+        "note": "Long strides are hard heaves"
+       },
+       {
+        "show": [
+         "S0",
+         "S1",
+         "S2",
+         "S3",
+         "S4",
+         "S5",
+         "S6",
+         "S7"
+        ],
+        "note": "Short quick steps are light"
+       }
+      ]
+     }
+    },
+    {
+     "type": "card",
+     "title": "To go the same speed on flat road, a smaller back ring means slower pedalling",
+     "text": "To go the same speed, a smaller back ring means pedalling slower, with a harder push each time. On flat road that's fine, because legs push best in a narrow range of pedalling speeds.",
+     "takeaway": "A gear can't make the hill any lower. It only decides how many pushes it takes to climb it.",
+     "visual": {
+      "type": "diagram",
+      "view": [
+       100,
+       90
+      ],
+      "tip": null,
+      "parts": [
+       {
+        "id": "cb1",
         "shape": "line",
         "from": [
          22.1,
-         38.3
+         31.1
         ],
         "to": [
-         70.4,
-         24.8
+         73.2,
+         24.2
         ],
         "dash": true,
         "label": "Chain",
@@ -890,28 +1154,28 @@
         ]
        },
        {
-        "id": "cS2",
+        "id": "cb2",
         "shape": "line",
         "from": [
          22.1,
-         51.7
+         58.9
         ],
         "to": [
-         70.4,
-         65.2
+         73.2,
+         65.8
         ],
         "dash": true
        },
        {
-        "id": "cH",
+        "id": "cs1",
         "shape": "line",
         "from": [
-         29.7,
-         24.8
+         25.9,
+         31.1
         ],
         "to": [
-         77.9,
-         38.3
+         76.9,
+         38.1
         ],
         "dash": true,
         "hidden": true,
@@ -922,68 +1186,54 @@
         ]
        },
        {
-        "id": "cH2",
+        "id": "cs2",
         "shape": "line",
         "from": [
-         29.7,
-         65.2
+         25.9,
+         58.9
         ],
         "to": [
-         77.9,
-         51.7
+         76.9,
+         51.9
         ],
         "dash": true,
         "hidden": true
        },
        {
-        "id": "ringS",
+        "id": "pedal",
         "shape": "circle",
         "x": 24,
         "y": 45,
-        "r": 7,
+        "r": 14,
         "style": "accent",
-        "label": "Front: 3 turns",
+        "label": "Pedal ring",
         "labelAt": [
          2,
          12
         ]
        },
        {
-        "id": "ringB",
-        "shape": "circle",
-        "x": 24,
-        "y": 45,
-        "r": 21,
-        "style": "accent",
-        "hidden": true,
-        "label": "Front: 1 turn",
-        "labelAt": [
-         2,
-         12
-        ]
-       },
-       {
-        "id": "cogB",
+        "id": "backBig",
         "shape": "circle",
         "x": 76,
         "y": 45,
         "r": 21,
         "style": "thin",
-        "label": "Back: 1 turn",
+        "label": "Bigger back ring",
         "labelAt": [
          98,
          82
         ]
        },
        {
-        "id": "cogS",
+        "id": "backSmall",
         "shape": "circle",
         "x": 76,
         "y": 45,
         "r": 7,
         "style": "thin",
         "hidden": true,
-        "label": "Back: 3 turns",
+        "label": "Smaller back ring",
         "labelAt": [
          98,
          82
@@ -1001,548 +1251,40 @@
         "x": 76,
         "y": 45,
         "r": 1.4
+       },
+       {
+        "id": "road",
+        "shape": "rect",
+        "x": 0,
+        "y": 84,
+        "w": 100,
+        "h": 6,
+        "style": "hatch",
+        "label": "Flat road",
+        "labelAt": [
+         2,
+         78
+        ]
        }
       ],
       "steps": [
        {
-        "note": "Easy: 3 pedal turns, 1 wheel turn"
+        "note": "Bigger back ring: your legs spin fast, each push is light"
        },
        {
+        "note": "Smaller back ring: slower pedalling, a harder push",
         "hide": [
-         "ringS",
-         "cogB",
-         "cS",
-         "cS2"
+         "cb1",
+         "cb2",
+         "backBig"
         ],
         "show": [
-         "ringB",
-         "cogS",
-         "cH",
-         "cH2"
-        ],
-        "note": "Fast: 1 pedal turn, 3 wheel turns"
+         "cs1",
+         "cs2",
+         "backSmall"
+        ]
        }
-      ],
-      "tip": null
-     }
-    },
-    {
-     "type": "card",
-     "title": "Short steps are easier uphill",
-     "text": "On stairs, you can take one step at a time or leap three at once. Either way you rise to the same top, but leaping makes your legs burn. A hill works the same way: you must lift yourself to the top either way. In gear 1, each pedal turn moves you a short way, so you pedal more turns with a light push each. In gear 7, each pedal turn moves you 3 times as far, so each push is 3 times harder. So how do you choose?",
-     "visual": {
-      "type": "diagram",
-      "view": [
-       100,
-       96
-      ],
-      "parts": [
-       {
-        "id": "ground",
-        "shape": "path",
-        "points": [
-         [
-          0,
-          96
-         ],
-         [
-          0,
-          92
-         ],
-         [
-          100,
-          52
-         ],
-         [
-          100,
-          96
-         ]
-        ],
-        "closed": true,
-        "style": "hatch"
-       },
-       {
-        "id": "wr",
-        "shape": "circle",
-        "x": 9.3,
-        "y": 77,
-        "r": 14.4,
-        "style": "thin"
-       },
-       {
-        "id": "wf",
-        "shape": "circle",
-        "x": 53.9,
-        "y": 59.2,
-        "r": 14.4,
-        "style": "thin"
-       },
-       {
-        "id": "f1",
-        "shape": "line",
-        "from": [
-         9.3,
-         77
-        ],
-        "to": [
-         27.5,
-         72.3
-        ],
-        "style": "ink"
-       },
-       {
-        "id": "f2",
-        "shape": "line",
-        "from": [
-         27.5,
-         72.3
-        ],
-        "to": [
-         33.1,
-         48.8
-        ],
-        "style": "ink"
-       },
-       {
-        "id": "f3",
-        "shape": "line",
-        "from": [
-         9.3,
-         77
-        ],
-        "to": [
-         33.1,
-         48.8
-        ],
-        "style": "ink"
-       },
-       {
-        "id": "f4",
-        "shape": "line",
-        "from": [
-         33.1,
-         48.8
-        ],
-        "to": [
-         54.8,
-         41.4
-        ],
-        "style": "ink"
-       },
-       {
-        "id": "f5",
-        "shape": "line",
-        "from": [
-         27.5,
-         72.3
-        ],
-        "to": [
-         54.8,
-         41.4
-        ],
-        "style": "ink"
-       },
-       {
-        "id": "f6",
-        "shape": "line",
-        "from": [
-         54.8,
-         41.4
-        ],
-        "to": [
-         53.9,
-         59.2
-        ],
-        "style": "ink"
-       },
-       {
-        "id": "body",
-        "shape": "path",
-        "points": [
-         [
-          36.4,
-          68.7
-         ],
-         [
-          41.1,
-          56.8
-         ],
-         [
-          31.6,
-          49.4
-         ],
-         [
-          56.9,
-          26.8
-         ],
-         [
-          60.2,
-          34.2
-         ]
-        ],
-        "style": "accent"
-       },
-       {
-        "id": "head",
-        "shape": "circle",
-        "x": 62.5,
-        "y": 18.9,
-        "r": 6.4,
-        "style": "accent"
-       },
-       {
-        "id": "gt",
-        "shape": "rect",
-        "x": 6,
-        "y": 9,
-        "w": 40,
-        "h": 7,
-        "style": "thin",
-        "fill": false
-       },
-       {
-        "id": "eh",
-        "shape": "rect",
-        "x": 6,
-        "y": 9,
-        "w": 38,
-        "h": 7,
-        "style": "heat"
-       },
-       {
-        "id": "ee",
-        "shape": "rect",
-        "x": 6,
-        "y": 9,
-        "w": 11,
-        "h": 7,
-        "style": "green",
-        "hidden": true
-       },
-       {
-        "shape": "text",
-        "x": 26,
-        "y": 5,
-        "text": "HOW HARD YOU PUSH"
-       }
-      ],
-      "steps": [
-       {
-        "note": "One gear: hard push, crawling"
-       },
-       {
-        "hide": [
-         "eh"
-        ],
-        "show": [
-         "ee"
-        ],
-        "move": {
-         "wr": [
-          22,
-          -8.8
-         ],
-         "wf": [
-          22,
-          -8.8
-         ],
-         "f1": [
-          22,
-          -8.8
-         ],
-         "f2": [
-          22,
-          -8.8
-         ],
-         "f3": [
-          22,
-          -8.8
-         ],
-         "f4": [
-          22,
-          -8.8
-         ],
-         "f5": [
-          22,
-          -8.8
-         ],
-         "f6": [
-          22,
-          -8.8
-         ],
-         "body": [
-          22,
-          -8.8
-         ],
-         "head": [
-          22,
-          -8.8
-         ]
-        },
-        "note": "Other gear: light push, keeps climbing"
-       }
-      ],
-      "tip": null
-     }
-    },
-    {
-     "type": "card",
-     "title": "Pick the gear that fits the road",
-     "text": "On a steep hill, use gear 1, so each push stays light. On flat ground, nothing pulls you back, so a light push already works and a higher gear lets each turn carry you further. Downhill, gravity helps, so gear 7 suits you. Riders shift often, so that pedalling never feels too hard or too fast.",
-     "takeaway": "Low gear number: easy push, slow ride. High gear number: hard push, fast ride.",
-     "visual": {
-      "type": "diagram",
-      "view": [
-       100,
-       96
-      ],
-      "parts": [
-       {
-        "id": "ground",
-        "shape": "path",
-        "points": [
-         [
-          0,
-          96
-         ],
-         [
-          0,
-          92
-         ],
-         [
-          100,
-          52
-         ],
-         [
-          100,
-          96
-         ]
-        ],
-        "closed": true,
-        "style": "hatch"
-       },
-       {
-        "id": "wr",
-        "shape": "circle",
-        "x": 9.3,
-        "y": 77,
-        "r": 14.4,
-        "style": "thin"
-       },
-       {
-        "id": "wf",
-        "shape": "circle",
-        "x": 53.9,
-        "y": 59.2,
-        "r": 14.4,
-        "style": "thin"
-       },
-       {
-        "id": "f1",
-        "shape": "line",
-        "from": [
-         9.3,
-         77
-        ],
-        "to": [
-         27.5,
-         72.3
-        ],
-        "style": "ink"
-       },
-       {
-        "id": "f2",
-        "shape": "line",
-        "from": [
-         27.5,
-         72.3
-        ],
-        "to": [
-         33.1,
-         48.8
-        ],
-        "style": "ink"
-       },
-       {
-        "id": "f3",
-        "shape": "line",
-        "from": [
-         9.3,
-         77
-        ],
-        "to": [
-         33.1,
-         48.8
-        ],
-        "style": "ink"
-       },
-       {
-        "id": "f4",
-        "shape": "line",
-        "from": [
-         33.1,
-         48.8
-        ],
-        "to": [
-         54.8,
-         41.4
-        ],
-        "style": "ink"
-       },
-       {
-        "id": "f5",
-        "shape": "line",
-        "from": [
-         27.5,
-         72.3
-        ],
-        "to": [
-         54.8,
-         41.4
-        ],
-        "style": "ink"
-       },
-       {
-        "id": "f6",
-        "shape": "line",
-        "from": [
-         54.8,
-         41.4
-        ],
-        "to": [
-         53.9,
-         59.2
-        ],
-        "style": "ink"
-       },
-       {
-        "id": "body",
-        "shape": "path",
-        "points": [
-         [
-          36.4,
-          68.7
-         ],
-         [
-          41.1,
-          56.8
-         ],
-         [
-          31.6,
-          49.4
-         ],
-         [
-          56.9,
-          26.8
-         ],
-         [
-          60.2,
-          34.2
-         ]
-        ],
-        "style": "accent"
-       },
-       {
-        "id": "head",
-        "shape": "circle",
-        "x": 62.5,
-        "y": 18.9,
-        "r": 6.4,
-        "style": "accent"
-       },
-       {
-        "id": "gt",
-        "shape": "rect",
-        "x": 6,
-        "y": 9,
-        "w": 40,
-        "h": 7,
-        "style": "thin",
-        "fill": false
-       },
-       {
-        "id": "eh",
-        "shape": "rect",
-        "x": 6,
-        "y": 9,
-        "w": 38,
-        "h": 7,
-        "style": "heat"
-       },
-       {
-        "id": "ee",
-        "shape": "rect",
-        "x": 6,
-        "y": 9,
-        "w": 11,
-        "h": 7,
-        "style": "green",
-        "hidden": true
-       },
-       {
-        "shape": "text",
-        "x": 26,
-        "y": 5,
-        "text": "HOW HARD YOU PUSH"
-       }
-      ],
-      "steps": [
-       {
-        "note": "One gear: hard push, crawling"
-       },
-       {
-        "hide": [
-         "eh"
-        ],
-        "show": [
-         "ee"
-        ],
-        "move": {
-         "wr": [
-          22,
-          -8.8
-         ],
-         "wf": [
-          22,
-          -8.8
-         ],
-         "f1": [
-          22,
-          -8.8
-         ],
-         "f2": [
-          22,
-          -8.8
-         ],
-         "f3": [
-          22,
-          -8.8
-         ],
-         "f4": [
-          22,
-          -8.8
-         ],
-         "f5": [
-          22,
-          -8.8
-         ],
-         "f6": [
-          22,
-          -8.8
-         ],
-         "body": [
-          22,
-          -8.8
-         ],
-         "head": [
-          22,
-          -8.8
-         ]
-        },
-        "note": "Other gear: light push, keeps climbing"
-       }
-      ],
-      "tip": null
+      ]
      }
     },
     {
@@ -1550,7 +1292,7 @@
      "links": [
       "car-engine"
      ],
-     "note": "Most bikes also have two or three rings at the pedals. Shifting those makes the same kind of change, only bigger."
+     "note": "Before chains, the pedals of the old penny-farthing were fixed straight to the hub of the huge front wheel, so there were no gears at all: one pedal turn was one wheel turn, and the only way to go farther per turn was a bigger wheel, up to about 60 inches across. The chain and a smaller back ring let a smaller wheel go as far as a big one, and that is the idea your gear lever still plays with. Even today the word \"gear inches\" means how wide a penny-farthing wheel would have to be to match your gear."
     }
    ]
   },
