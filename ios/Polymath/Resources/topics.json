@@ -4896,14 +4896,15 @@
   },
   {
    "id": "card-payment",
-   "title": "How does a card tap move your money to a shop?",
+   "title": "Why isn't the shop paid the moment you tap your card?",
    "kind": "full",
    "theme": "money",
    "cards": [
     {
      "type": "card",
      "title": "You tap, it beeps, and you walk away.",
-     "text": "Tapping your card feels like paying, but the money doesn't move yet. The card reader, the machine you tap on, only sends a short message asking your bank: can this card pay? So how does that message find your bank and come back with a yes?",
+     "text": "Tapping your card feels like paying. But the card reader only sends a short message asking your bank if this card can pay.",
+     "hook": "So where does that message go before it comes back with a yes?",
      "visual": {
       "type": "diagram",
       "view": [
@@ -4951,13 +4952,12 @@
         ]
        },
        {
-        "id": "cash",
-        "shape": "circle",
-        "x": 19,
+        "id": "q",
+        "shape": "text",
+        "x": 50,
         "y": 78,
-        "r": 8,
-        "style": "accent",
-        "text": "MONEY"
+        "text": "CAN THIS CARD PAY?",
+        "hidden": true
        }
       ],
       "steps": [
@@ -4972,9 +4972,10 @@
          ]
         },
         "show": [
-         "msg"
+         "msg",
+         "q"
         ],
-        "note": "A message goes out; the money stays put"
+        "note": "The reader sends a short message: can this card pay?"
        }
       ],
       "tip": null
@@ -4982,8 +4983,9 @@
     },
     {
      "type": "card",
-     "title": "The message travels through four places",
-     "text": "The card reader sends the message to the shop's bank, where the shop keeps its money. That bank passes it to a card network, a company such as Visa that connects banks. The network passes it to your bank, where you keep your money. Your bank answers yes or no, and the answer travels back the same way. So why doesn't the shop's bank just ask your bank itself?",
+     "title": "The message goes to the shop's bank, then a card network, then your bank",
+     "text": "The reader's message reaches the shop's bank. That bank passes it to a card network, a company such as Visa or Mastercard that links banks. The network passes it to your bank, which answers yes or no. The answer travels back the same way, in a couple of seconds.",
+     "hook": "So when your bank says yes, does the shop get the money?",
      "visual": {
       "type": "diagram",
       "view": [
@@ -5139,7 +5141,7 @@
          "o2",
          "o3"
         ],
-        "note": "A message hops to your bank"
+        "note": "The message goes to the shop's bank, then a card network, then your bank"
        },
        {
         "restyle": {
@@ -5164,7 +5166,7 @@
          "b2",
          "b3"
         ],
-        "note": "The yes hops back"
+        "note": "The yes comes back the same way"
        }
       ],
       "flows": [
@@ -5282,8 +5284,9 @@
     },
     {
      "type": "card",
-     "title": "One network saves banks from linking to each other",
-     "text": "A link is a line a message can travel along. Picture 10 banks that must all reach each other. Joining every pair needs 45 links. With a network in the middle, each bank needs only one link to it: 10 in all. Real life has thousands of banks, so the network saves a huge number of links. At last the message reaches the bank that knows your account, so what does it do?",
+     "title": "Your bank's yes is a promise to pay, and the money hasn't reached the shop yet",
+     "text": "Your bank checks that the card is real and that you have enough money or credit. If so, it takes that amount off what you can spend straight away. So you can't spend the same money twice. But the money hasn't reached the shop yet.",
+     "hook": "So why does the shop have to wait to be paid?",
      "visual": {
       "type": "diagram",
       "view": [
@@ -5293,436 +5296,102 @@
       "parts": [
        {
         "shape": "text",
-        "x": 15,
-        "y": 8,
-        "text": "SHOPS' BANKS"
+        "x": 32,
+        "y": 10,
+        "text": "WHAT YOU CAN SPEND"
        },
        {
-        "shape": "text",
-        "x": 85,
-        "y": 8,
-        "text": "CUSTOMERS' BANKS"
-       },
-       {
-        "id": "l0",
+        "id": "bank",
         "shape": "rect",
         "x": 4,
-        "y": 22,
-        "w": 23,
-        "h": 16,
-        "style": "thin"
-       },
-       {
-        "id": "l1",
-        "shape": "rect",
-        "x": 4,
-        "y": 46,
-        "w": 23,
-        "h": 16,
-        "style": "thin"
-       },
-       {
-        "id": "l2",
-        "shape": "rect",
-        "x": 4,
-        "y": 70,
-        "w": 23,
-        "h": 16,
-        "style": "thin"
-       },
-       {
-        "id": "r0",
-        "shape": "rect",
-        "x": 73,
-        "y": 22,
-        "w": 23,
-        "h": 16,
-        "style": "thin"
-       },
-       {
-        "id": "r1",
-        "shape": "rect",
-        "x": 73,
-        "y": 46,
-        "w": 23,
-        "h": 16,
-        "style": "thin"
-       },
-       {
-        "id": "r2",
-        "shape": "rect",
-        "x": 73,
-        "y": 70,
-        "w": 23,
-        "h": 16,
-        "style": "thin"
-       },
-       {
-        "id": "w00",
-        "shape": "line",
-        "from": [
-         27,
-         30
-        ],
-        "to": [
-         73,
-         30
-        ],
-        "style": "thin"
-       },
-       {
-        "id": "w01",
-        "shape": "line",
-        "from": [
-         27,
-         30
-        ],
-        "to": [
-         73,
-         54
-        ],
-        "style": "thin"
-       },
-       {
-        "id": "w02",
-        "shape": "line",
-        "from": [
-         27,
-         30
-        ],
-        "to": [
-         73,
-         78
-        ],
-        "style": "thin"
-       },
-       {
-        "id": "w10",
-        "shape": "line",
-        "from": [
-         27,
-         54
-        ],
-        "to": [
-         73,
-         30
-        ],
-        "style": "thin"
-       },
-       {
-        "id": "w11",
-        "shape": "line",
-        "from": [
-         27,
-         54
-        ],
-        "to": [
-         73,
-         54
-        ],
-        "style": "thin"
-       },
-       {
-        "id": "w12",
-        "shape": "line",
-        "from": [
-         27,
-         54
-        ],
-        "to": [
-         73,
-         78
-        ],
-        "style": "thin"
-       },
-       {
-        "id": "w20",
-        "shape": "line",
-        "from": [
-         27,
-         78
-        ],
-        "to": [
-         73,
-         30
-        ],
-        "style": "thin"
-       },
-       {
-        "id": "w21",
-        "shape": "line",
-        "from": [
-         27,
-         78
-        ],
-        "to": [
-         73,
-         54
-        ],
-        "style": "thin"
-       },
-       {
-        "id": "w22",
-        "shape": "line",
-        "from": [
-         27,
-         78
-        ],
-        "to": [
-         73,
-         78
-        ],
-        "style": "thin"
-       },
-       {
-        "id": "s0",
-        "shape": "line",
-        "from": [
-         27,
-         30
-        ],
-        "to": [
-         40,
-         49
-        ],
-        "style": "blue",
-        "hidden": true
-       },
-       {
-        "id": "s1",
-        "shape": "line",
-        "from": [
-         27,
-         54
-        ],
-        "to": [
-         36,
-         54
-        ],
-        "style": "blue",
-        "hidden": true
-       },
-       {
-        "id": "s2",
-        "shape": "line",
-        "from": [
-         27,
-         78
-        ],
-        "to": [
-         40,
-         59
-        ],
-        "style": "blue",
-        "hidden": true
-       },
-       {
-        "id": "s3",
-        "shape": "line",
-        "from": [
-         60,
-         49
-        ],
-        "to": [
-         73,
-         30
-        ],
-        "style": "blue",
-        "hidden": true
-       },
-       {
-        "id": "s4",
-        "shape": "line",
-        "from": [
-         64,
-         54
-        ],
-        "to": [
-         73,
-         54
-        ],
-        "style": "blue",
-        "hidden": true
-       },
-       {
-        "id": "s5",
-        "shape": "line",
-        "from": [
-         60,
-         59
-        ],
-        "to": [
-         73,
-         78
-        ],
-        "style": "blue",
-        "hidden": true
-       },
-       {
-        "id": "hub",
-        "shape": "circle",
-        "x": 50,
-        "y": 54,
-        "r": 14,
-        "style": "accent",
-        "hidden": true,
-        "text": "NETWORK"
-       }
-      ],
-      "steps": [
-       {
-        "note": "Every pair needs its own link"
-       },
-       {
-        "hide": [
-         "w00",
-         "w01",
-         "w02",
-         "w10",
-         "w11",
-         "w12",
-         "w20",
-         "w21",
-         "w22"
-        ],
-        "show": [
-         "s0",
-         "s1",
-         "s2",
-         "s3",
-         "s4",
-         "s5",
-         "hub"
-        ],
-        "note": "One network joins its members"
-       }
-      ],
-      "tip": null
-     }
-    },
-    {
-     "type": "card",
-     "title": "Your bank checks two things, then sets money aside",
-     "text": "A computer at your bank checks two things: is the card real, and is there enough money in your account? If both answers are yes, the bank sets the price aside. The money stays in your account for now, but you can't spend it twice. Say you pay 20 from 50: you can spend only 30. So when does the shop get paid?",
-     "visual": {
-      "type": "diagram",
-      "view": [
-       100,
-       96
-      ],
-      "parts": [
-       {
-        "shape": "text",
-        "x": 50,
-        "y": 6,
-        "text": "YOUR ACCOUNT"
-       },
-       {
-        "id": "a1",
-        "shape": "text",
-        "x": 50,
         "y": 18,
-        "text": "You can spend: 50"
-       },
-       {
-        "id": "a2",
-        "shape": "text",
-        "x": 50,
-        "y": 18,
-        "text": "You can spend: 30",
-        "hidden": true
-       },
-       {
-        "id": "acc",
-        "shape": "rect",
-        "x": 5,
-        "y": 28,
-        "w": 90,
-        "h": 42,
+        "w": 56,
+        "h": 34,
         "style": "thin"
        },
        {
-        "id": "cash",
+        "id": "full",
         "shape": "rect",
         "x": 8,
-        "y": 31,
-        "w": 84,
-        "h": 36,
+        "y": 22,
+        "w": 48,
+        "h": 26,
         "style": "green"
        },
        {
-        "id": "held",
+        "id": "less",
         "shape": "rect",
-        "x": 58,
-        "y": 31,
-        "w": 34,
-        "h": 36,
+        "x": 8,
+        "y": 22,
+        "w": 28,
+        "h": 26,
+        "style": "green",
+        "hidden": true
+       },
+       {
+        "id": "gone",
+        "shape": "rect",
+        "x": 36,
+        "y": 22,
+        "w": 20,
+        "h": 26,
         "style": "accent",
         "hidden": true
        },
        {
-        "id": "n50",
+        "id": "yb",
         "shape": "text",
-        "x": 50,
-        "y": 49,
-        "text": "50"
+        "x": 32,
+        "y": 62,
+        "text": "YOUR BANK"
        },
        {
-        "id": "n30",
+        "id": "yes",
         "shape": "text",
-        "x": 33,
-        "y": 49,
-        "text": "30",
+        "x": 32,
+        "y": 74,
+        "text": "YOUR BANK'S YES",
         "hidden": true
        },
        {
-        "id": "n20",
-        "shape": "text",
-        "x": 75,
-        "y": 49,
-        "text": "20",
-        "hidden": true
+        "id": "shop",
+        "shape": "rect",
+        "x": 70,
+        "y": 18,
+        "w": 26,
+        "h": 34,
+        "style": "thin",
+        "text": "THE SHOP"
        },
        {
-        "id": "tag",
+        "id": "no",
         "shape": "text",
-        "x": 75,
-        "y": 79,
-        "text": "Held for the shop",
-        "hidden": true
-       },
-       {
-        "id": "inn",
-        "shape": "text",
-        "x": 50,
-        "y": 89,
-        "text": "Shop not paid yet",
+        "x": 83,
+        "y": 62,
+        "text": "NO MONEY YET",
         "hidden": true
        }
       ],
       "steps": [
        {
-        "note": "You can spend 50"
+        "note": "This is what you can spend"
        },
        {
-        "show": [
-         "held",
-         "a2",
-         "n30",
-         "n20",
-         "tag"
-        ],
         "hide": [
-         "a1",
-         "n50"
+         "full"
         ],
-        "note": "Yes: 20 held for the shop"
+        "show": [
+         "less",
+         "gone",
+         "yes"
+        ],
+        "note": "The yes takes the amount off what you can spend"
        },
        {
         "show": [
-         "inn"
+         "no"
         ],
-        "note": "The shop is not paid yet"
+        "note": "The money hasn't reached the shop yet"
        }
       ],
       "tip": "Tap a dot to jump"
@@ -5730,9 +5399,9 @@
     },
     {
      "type": "card",
-     "title": "The shop gets its money later, all at once",
-     "text": "Moving money for every single tap would be slow and expensive. So banks collect many payments, add them up, and move the money all at once. The shop gets its money 1 to 3 working days after your tap. Weekends don't count.",
-     "takeaway": "The tap is a yes today; the money follows later.",
+     "title": "Banks move money in totals, so the shop is usually paid a few working days later",
+     "text": "Banks don't move money for every single tap. They gather many payments and add them up, and the shop's bank is paid in totals. So the shop is usually paid a few working days after your tap.",
+     "takeaway": "The yes comes back in seconds, and the shop is usually paid a few working days later.",
      "visual": {
       "type": "diagram",
       "view": [
@@ -5741,73 +5410,68 @@
       ],
       "parts": [
        {
-        "id": "line",
-        "shape": "line",
-        "from": [
-         10,
-         26
-        ],
-        "to": [
-         22,
-         26
-        ],
-        "style": "ink"
+        "shape": "text",
+        "x": 20,
+        "y": 6,
+        "text": "MANY PAYMENTS"
        },
        {
-        "id": "far",
-        "shape": "line",
-        "from": [
-         22,
-         26
-        ],
-        "to": [
-         92,
-         26
-        ],
-        "style": "thin",
-        "dash": true,
-        "hidden": true
-       },
-       {
-        "id": "p1",
+        "id": "d0",
         "shape": "circle",
-        "x": 10,
-        "y": 26,
-        "r": 4.2,
+        "x": 8,
+        "y": 14,
+        "r": 2.4,
         "style": "spark"
        },
        {
-        "id": "p2",
+        "id": "d1",
         "shape": "circle",
-        "x": 22,
+        "x": 14,
+        "y": 14,
+        "r": 2.4,
+        "style": "spark"
+       },
+       {
+        "id": "d2",
+        "shape": "circle",
+        "x": 20,
+        "y": 14,
+        "r": 2.4,
+        "style": "spark"
+       },
+       {
+        "id": "d3",
+        "shape": "circle",
+        "x": 26,
+        "y": 14,
+        "r": 2.4,
+        "style": "spark"
+       },
+       {
+        "id": "d4",
+        "shape": "circle",
+        "x": 32,
+        "y": 14,
+        "r": 2.4,
+        "style": "spark"
+       },
+       {
+        "id": "tot",
+        "shape": "rect",
+        "x": 4,
         "y": 26,
-        "r": 4.2,
-        "style": "green"
+        "w": 32,
+        "h": 12,
+        "style": "accent",
+        "text": "TOTALS",
+        "hidden": true
        },
        {
-        "shape": "text",
-        "x": 10,
-        "y": 12,
-        "text": "TAP"
-       },
-       {
-        "shape": "text",
-        "x": 23,
-        "y": 12,
-        "text": "YES"
-       },
-       {
-        "shape": "text",
-        "x": 16,
-        "y": 40,
-        "text": "About 2 sec"
-       },
-       {
-        "id": "nd",
+        "id": "days",
         "shape": "text",
         "x": 66,
         "y": 40,
-        "text": "1 to 3 working days",
+        "text": "A FEW WORKING DAYS",
         "hidden": true
        },
        {
@@ -5818,7 +5482,7 @@
         "w": 40,
         "h": 26,
         "style": "thin",
-        "text": "YOUR BANK"
+        "text": "THE BANKS"
        },
        {
         "id": "sb",
@@ -5828,7 +5492,7 @@
         "w": 40,
         "h": 26,
         "style": "thin",
-        "text": "SHOP'S BANK"
+        "text": "THE SHOP"
        },
        {
         "id": "trail",
@@ -5853,24 +5517,31 @@
         "r": 6,
         "style": "accent",
         "hidden": true,
-        "text": "20"
+        "text": "TOTALS"
        }
       ],
       "steps": [
        {
-        "note": "Tap, then yes, in about 2 sec"
+        "note": "Many taps"
        },
        {
-        "show": [
-         "far",
-         "nd",
-         "coin"
+        "hide": [
+         "d0",
+         "d1",
+         "d2",
+         "d3",
+         "d4"
         ],
-        "note": "Payments are added up in batches"
+        "show": [
+         "tot"
+        ],
+        "note": "Banks add many payments up into totals"
        },
        {
         "show": [
-         "trail"
+         "days",
+         "trail",
+         "coin"
         ],
         "move": {
          "coin": [
@@ -5878,7 +5549,7 @@
           0
          ]
         },
-        "note": "The shop is finally paid"
+        "note": "A few working days later the total reaches the shop"
        }
       ],
       "tip": "Tap a dot to jump"
@@ -5889,7 +5560,7 @@
      "links": [
       "gps"
      ],
-     "note": "Another thing that feels instant but takes a trip: your phone finding where you are."
+     "note": "The shop gets a little less than you paid, because a small fee is shared among your bank, the card network and the shop's bank. The fee that goes to your bank is called the interchange fee."
     }
    ]
   },

@@ -1,16 +1,24 @@
-// How does tapping a card send money from your bank to the shop? The tap only sends a message (about 2 seconds); the money moves later. Copy approved 2026-10-26 in the new voice; the iOS app draws every card natively (ios/Polymath/FlatPay.swift), these diagrams are stand-ins. Older summary: what happens in the two seconds after a tap. Card 1 = a message hops terminal -> shop's bank -> network -> your bank and back; card 2 = why a network sits in the middle; card 3 = your bank decides and sets the amount aside; card 4 = the real money moves later.
+// Why isn't the shop paid the moment you tap your card? 4 cards, written spine-first (2026-10-28, tasks/spine-card-payment/):
+// the tap only sends a short message asking your bank if the card can pay; the message goes shop's bank -> card network -> your bank and the
+// yes comes back in a couple of seconds; the yes takes the amount off what you can spend but the money hasn't reached the shop (a promise to pay);
+// banks move money in totals, so the shop is usually paid a few working days later.
+// No link counting (45 against 10), no "sets money aside", no "1 to 3 working days", no "about 2 seconds" (facts.md myths). The iOS app draws
+// every card natively (ios/Polymath/FlatPay.swift); these web diagrams are simple stand-ins using the text's exact words.
 (function () {
-  // Slide 1: the tap sends a message; the money stays put.
+  // ---- Card 1: the tap sends a short message asking if the card can pay. ----
   const tap = { type: 'diagram', view: [100, 96],
     parts: [
       { id: 'card', shape: 'rect', x: 4, y: 30, w: 30, h: 20, style: 'spark', text: 'CARD' },
       { id: 'rd', shape: 'rect', x: 56, y: 24, w: 36, h: 32, style: 'thin', text: 'CARD READER' },
       { id: 'msg', shape: 'arrow', from: [74, 24], to: [74, 8], style: 'accent', hidden: true, label: 'Message', labelAt: [98, 6] },
-      { id: 'cash', shape: 'circle', x: 19, y: 78, r: 8, style: 'accent', text: 'MONEY' }
+      { id: 'q', shape: 'text', x: 50, y: 78, text: 'CAN THIS CARD PAY?', hidden: true }
     ],
-    steps: [{ note: 'You tap your card' }, { move: { card: [20, 0] }, show: ['msg'], note: 'A message goes out; the money stays put' }] };
+    steps: [
+      { note: 'You tap your card' },
+      { move: { card: [20, 0] }, show: ['msg', 'q'], note: 'The reader sends a short message: can this card pay?' }
+    ] };
 
-  // Four places in a loop. The message goes out along the accent lane and the yes comes back along the green lane.
+  // ---- Card 2: four places in a loop. The message goes out along the accent lane and the yes comes back along the green lane. ----
   const hops = { type: 'diagram', view: [100, 96],
     parts: [
       { id: 't', shape: 'rect', x: 3, y: 8, w: 40, h: 24, style: 'spark', text: 'CARD READER' },
@@ -27,9 +35,9 @@
     ],
     steps: [
       { note: 'You tap your card' },
-      { restyle: { t: 'ink' }, show: ['o1', 'o2', 'o3'], note: 'A message hops to your bank' },
+      { restyle: { t: 'ink' }, show: ['o1', 'o2', 'o3'], note: "The message goes to the shop's bank, then a card network, then your bank" },
       { restyle: { yb: 'green' }, show: ['yes'], note: 'Your bank says yes' },
-      { restyle: { t: 'green' }, hide: ['o1', 'o2', 'o3'], show: ['b1', 'b2', 'b3'], note: 'The yes hops back' }
+      { restyle: { t: 'green' }, hide: ['o1', 'o2', 'o3'], show: ['b1', 'b2', 'b3'], note: 'The yes comes back the same way' }
     ],
     flows: [
       { along: [[43, 16], [57, 16]], style: 'accent', count: 2, speed: 14, during: [1] },
@@ -40,101 +48,68 @@
       { along: [[57, 24], [43, 24]], style: 'green', count: 2, speed: 14, during: [3] }
     ] };
 
-  // Without a network every shop's bank needs a line to every bank (9 lines). With one, each needs a single line (6).
-  const L = [30, 54, 78], X1 = 27, X2 = 73;
-  const web = [], webIds = [];
-  L.forEach((ly, i) => L.forEach((ry, j) => {
-    const id = 'w' + i + j; webIds.push(id);
-    web.push({ id, shape: 'line', from: [X1, ly], to: [X2, ry], style: 'thin' });
-  }));
-  const network = { type: 'diagram', view: [100, 96],
-    parts: [
-      { shape: 'text', x: 15, y: 8, text: "SHOPS' BANKS" },
-      { shape: 'text', x: 85, y: 8, text: "CUSTOMERS' BANKS" }
-    ].concat(
-      L.map((ly, i) => ({ id: 'l' + i, shape: 'rect', x: 4, y: ly - 8, w: 23, h: 16, style: 'thin' })),
-      L.map((ly, i) => ({ id: 'r' + i, shape: 'rect', x: 73, y: ly - 8, w: 23, h: 16, style: 'thin' })),
-      web,
-      [
-        { id: 's0', shape: 'line', from: [X1, 30], to: [40, 49], style: 'blue', hidden: true },
-        { id: 's1', shape: 'line', from: [X1, 54], to: [36, 54], style: 'blue', hidden: true },
-        { id: 's2', shape: 'line', from: [X1, 78], to: [40, 59], style: 'blue', hidden: true },
-        { id: 's3', shape: 'line', from: [60, 49], to: [X2, 30], style: 'blue', hidden: true },
-        { id: 's4', shape: 'line', from: [64, 54], to: [X2, 54], style: 'blue', hidden: true },
-        { id: 's5', shape: 'line', from: [60, 59], to: [X2, 78], style: 'blue', hidden: true },
-        { id: 'hub', shape: 'circle', x: 50, y: 54, r: 14, style: 'accent', hidden: true, text: 'NETWORK' }
-      ]),
-    steps: [
-      { note: 'Every pair needs its own link' },
-      { hide: webIds, show: ['s0', 's1', 's2', 's3', 's4', 's5', 'hub'], note: 'One network joins its members' }
-    ] };
-
-  // Your bank says yes and holds the amount for the shop. The shop has not been paid yet.
+  // ---- Card 3: the yes takes the amount off what you can spend; the shop's till stays empty. No numbers. ----
   const decide = { type: 'diagram', view: [100, 96],
     parts: [
-      { shape: 'text', x: 50, y: 6, text: 'YOUR ACCOUNT' },
-      { id: 'a1', shape: 'text', x: 50, y: 18, text: 'You can spend: 50' },
-      { id: 'a2', shape: 'text', x: 50, y: 18, text: 'You can spend: 30', hidden: true },
-      { id: 'acc', shape: 'rect', x: 5, y: 28, w: 90, h: 42, style: 'thin' },
-      { id: 'cash', shape: 'rect', x: 8, y: 31, w: 84, h: 36, style: 'green' },
-      { id: 'held', shape: 'rect', x: 58, y: 31, w: 34, h: 36, style: 'accent', hidden: true },
-      { id: 'n50', shape: 'text', x: 50, y: 49, text: '50' },
-      { id: 'n30', shape: 'text', x: 33, y: 49, text: '30', hidden: true },
-      { id: 'n20', shape: 'text', x: 75, y: 49, text: '20', hidden: true },
-      { id: 'tag', shape: 'text', x: 75, y: 79, text: 'Held for the shop', hidden: true },
-      { id: 'inn', shape: 'text', x: 50, y: 89, text: 'Shop not paid yet', hidden: true }
+      { shape: 'text', x: 32, y: 10, text: 'WHAT YOU CAN SPEND' },
+      { id: 'bank', shape: 'rect', x: 4, y: 18, w: 56, h: 34, style: 'thin' },
+      { id: 'full', shape: 'rect', x: 8, y: 22, w: 48, h: 26, style: 'green' },
+      { id: 'less', shape: 'rect', x: 8, y: 22, w: 28, h: 26, style: 'green', hidden: true },
+      { id: 'gone', shape: 'rect', x: 36, y: 22, w: 20, h: 26, style: 'accent', hidden: true },
+      { id: 'yb', shape: 'text', x: 32, y: 62, text: 'YOUR BANK' },
+      { id: 'yes', shape: 'text', x: 32, y: 74, text: "YOUR BANK'S YES", hidden: true },
+      { id: 'shop', shape: 'rect', x: 70, y: 18, w: 26, h: 34, style: 'thin', text: 'THE SHOP' },
+      { id: 'no', shape: 'text', x: 83, y: 62, text: 'NO MONEY YET', hidden: true }
     ],
     steps: [
-      { note: 'You can spend 50' },
-      { show: ['held', 'a2', 'n30', 'n20', 'tag'], hide: ['a1', 'n50'], note: 'Yes: 20 held for the shop' },
-      { show: ['inn'], note: 'The shop is not paid yet' }
+      { note: 'This is what you can spend' },
+      { hide: ['full'], show: ['less', 'gone', 'yes'], note: 'The yes takes the amount off what you can spend' },
+      { show: ['no'], note: "The money hasn't reached the shop yet" }
     ] };
 
-  // The quick yes/no, then a long gap before the money moves bank to bank.
+  // ---- Card 4: many taps are added up into totals, and the totals reach the shop a few working days later. ----
+  const dots = [];
+  for (let i = 0; i < 5; i++) dots.push({ id: 'd' + i, shape: 'circle', x: 8 + i * 6, y: 14, r: 2.4, style: 'spark' });
   const later = { type: 'diagram', view: [100, 96],
     parts: [
-      { id: 'line', shape: 'line', from: [10, 26], to: [22, 26], style: 'ink' },
-      { id: 'far', shape: 'line', from: [22, 26], to: [92, 26], style: 'thin', dash: true, hidden: true },
-      { id: 'p1', shape: 'circle', x: 10, y: 26, r: 4.2, style: 'spark' },
-      { id: 'p2', shape: 'circle', x: 22, y: 26, r: 4.2, style: 'green' },
-      { shape: 'text', x: 10, y: 12, text: 'TAP' },
-      { shape: 'text', x: 23, y: 12, text: 'YES' },
-      { shape: 'text', x: 16, y: 40, text: 'About 2 sec' },
-      { id: 'nd', shape: 'text', x: 66, y: 40, text: '1 to 3 working days', hidden: true },
-      { id: 'yb', shape: 'rect', x: 3, y: 62, w: 40, h: 26, style: 'thin', text: 'YOUR BANK' },
-      { id: 'sb', shape: 'rect', x: 57, y: 62, w: 40, h: 26, style: 'thin', text: "SHOP'S BANK" },
+      { shape: 'text', x: 20, y: 6, text: 'MANY PAYMENTS' }
+    ].concat(dots, [
+      { id: 'tot', shape: 'rect', x: 4, y: 26, w: 32, h: 12, style: 'accent', text: 'TOTALS', hidden: true },
+      { id: 'days', shape: 'text', x: 66, y: 40, text: 'A FEW WORKING DAYS', hidden: true },
+      { id: 'yb', shape: 'rect', x: 3, y: 62, w: 40, h: 26, style: 'thin', text: 'THE BANKS' },
+      { id: 'sb', shape: 'rect', x: 57, y: 62, w: 40, h: 26, style: 'thin', text: 'THE SHOP' },
       { id: 'trail', shape: 'arrow', from: [30, 52], to: [66, 52], style: 'thin', dash: true, hidden: true },
-      { id: 'coin', shape: 'circle', x: 23, y: 52, r: 6, style: 'accent', hidden: true, text: '20' }
-    ],
+      { id: 'coin', shape: 'circle', x: 23, y: 52, r: 6, style: 'accent', hidden: true, text: 'TOTALS' }
+    ]),
     steps: [
-      { note: 'Tap, then yes, in about 2 sec' },
-      { show: ['far', 'nd', 'coin'], note: 'Payments are added up in batches' },
-      { show: ['trail'], move: { coin: [54, 0] }, note: 'The shop is finally paid' }
+      { note: 'Many taps' },
+      { hide: dots.map(d => d.id), show: ['tot'], note: 'Banks add many payments up into totals' },
+      { show: ['days', 'trail', 'coin'], move: { coin: [54, 0] }, note: 'A few working days later the totals reach the shop' }
     ] };
 
   window.EXPLAINER = {
     id: 'card-payment',
-    title: 'How does a card tap move your money to a shop?',
+    title: "Why isn't the shop paid the moment you tap your card?",
     kind: 'full',
     theme: 'money',
     cards: [
       { type: 'card', title: 'You tap, it beeps, and you walk away.',
-        text: "Tapping your card feels like paying, but the money doesn't move yet. The card reader, the machine you tap on, only sends a short message asking your bank: can this card pay? So how does that message find your bank and come back with a yes?",
+        text: 'Tapping your card feels like paying. But the card reader only sends a short message asking your bank if this card can pay.',
+        hook: 'So where does that message go before it comes back with a yes?',
         visual: tap },
-      { type: 'card', title: 'The message travels through four places',
-        text: "The card reader sends the message to the shop's bank, where the shop keeps its money. That bank passes it to a card network, a company such as Visa that connects banks. The network passes it to your bank, where you keep your money. Your bank answers yes or no, and the answer travels back the same way. So why doesn't the shop's bank just ask your bank itself?",
+      { type: 'card', title: "The message goes to the shop's bank, then a card network, then your bank",
+        text: "The reader's message reaches the shop's bank. That bank passes it to a card network, a company such as Visa or Mastercard that links banks. The network passes it to your bank, which answers yes or no. The answer travels back the same way, in a couple of seconds.",
+        hook: 'So when your bank says yes, does the shop get the money?',
         visual: hops },
-      { type: 'card', title: 'One network saves banks from linking to each other',
-        text: 'A link is a line a message can travel along. Picture 10 banks that must all reach each other. Joining every pair needs 45 links. With a network in the middle, each bank needs only one link to it: 10 in all. Real life has thousands of banks, so the network saves a huge number of links. At last the message reaches the bank that knows your account, so what does it do?',
-        visual: network },
-      { type: 'card', title: 'Your bank checks two things, then sets money aside',
-        text: "A computer at your bank checks two things: is the card real, and is there enough money in your account? If both answers are yes, the bank sets the price aside. The money stays in your account for now, but you can't spend it twice. Say you pay 20 from 50: you can spend only 30. So when does the shop get paid?",
+      { type: 'card', title: "Your bank's yes is a promise to pay, and the money hasn't reached the shop yet",
+        text: "Your bank checks that the card is real and that you have enough money or credit. If so, it takes that amount off what you can spend straight away. So you can't spend the same money twice. But the money hasn't reached the shop yet.",
+        hook: 'So why does the shop have to wait to be paid?',
         visual: decide },
-      { type: 'card', title: 'The shop gets its money later, all at once',
-        text: "Moving money for every single tap would be slow and expensive. So banks collect many payments, add them up, and move the money all at once. The shop gets its money 1 to 3 working days after your tap. Weekends don't count.",
-        takeaway: 'The tap is a yes today; the money follows later.',
+      { type: 'card', title: 'Banks move money in totals, so the shop is usually paid a few working days later',
+        text: "Banks don't move money for every single tap. They gather many payments and add them up, and the shop's bank is paid in totals. So the shop is usually paid a few working days after your tap.",
+        takeaway: 'The yes comes back in seconds, and the shop is usually paid a few working days later.',
         visual: later },
-      { type: 'more', links: ['gps'], note: 'Another thing that feels instant but takes a trip: your phone finding where you are.' }
+      { type: 'more', links: ['gps'], note: 'The shop gets a little less than you paid, because a small fee is shared among your bank, the card network and the shop\'s bank. The fee that goes to your bank is called the interchange fee.' }
     ]
   };
 })();
