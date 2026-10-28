@@ -6953,14 +6953,15 @@
   },
   {
    "id": "moon-tides",
-   "title": "How does the Moon move the oceans?",
+   "title": "Why does one Moon give most beaches two high tides a day?",
    "kind": "full",
    "theme": "nature",
    "cards": [
     {
      "type": "card",
-     "title": "Twice a day, the sea comes in and goes out again.",
-     "text": "Stand on a beach for a few hours. The water slowly creeps up the sand. Later, it slowly slides back down. This rise and fall is called the tide. It happens on every coast on Earth. The cause is about 384,000 kilometres away, up in the sky.",
+     "title": "There's only one Moon, and it's on one side of the sky at a time.",
+     "text": "The Moon pulls the sea toward it, so you'd expect one high tide a day. But most beaches get two.",
+     "hook": "So how does the Moon's pull make a second high tide?",
      "visual": {
       "type": "diagram",
       "view": [
@@ -6969,14 +6970,6 @@
       ],
       "tip": null,
       "parts": [
-       {
-        "id": "moon",
-        "shape": "circle",
-        "x": 20,
-        "y": 16,
-        "r": 5,
-        "style": "spark"
-       },
        {
         "id": "sand",
         "shape": "path",
@@ -7019,12 +7012,7 @@
          ]
         ],
         "closed": true,
-        "style": "blue",
-        "label": "Low tide",
-        "labelAt": [
-         98,
-         40
-        ]
+        "style": "blue"
        }
       ],
       "steps": [
@@ -7033,10 +7021,24 @@
        },
        {
         "move": {
-         "moon": [
-          60,
+         "sea": [
+          0,
+          -6
+         ]
+        },
+        "note": "High tide"
+       },
+       {
+        "move": {
+         "sea": [
+          0,
           0
-         ],
+         ]
+        },
+        "note": "Low tide"
+       },
+       {
+        "move": {
          "sea": [
           0,
           -6
@@ -7049,83 +7051,9 @@
     },
     {
      "type": "card",
-     "title": "The Moon pulls on the ocean",
-     "text": "Everything in space pulls on everything else, and this pull is called gravity. The Moon's gravity pulls on Earth. Rock is stiff, so it hardly moves. Water is free to flow. So the ocean slides a little toward the Moon. It makes a bulge of water on the side facing the Moon. But Earth actually has two bulges.",
-     "visual": {
-      "type": "diagram",
-      "view": [
-       100,
-       96
-      ],
-      "tip": null,
-      "parts": [
-       {
-        "id": "sea",
-        "shape": "circle",
-        "x": 34,
-        "y": 48,
-        "r": 26,
-        "style": "blue"
-       },
-       {
-        "id": "earth",
-        "shape": "circle",
-        "x": 34,
-        "y": 48,
-        "r": 22,
-        "style": "green"
-       },
-       {
-        "id": "moon",
-        "shape": "circle",
-        "x": 88,
-        "y": 48,
-        "r": 7,
-        "style": "thin"
-       },
-       {
-        "id": "g",
-        "shape": "arrow",
-        "from": [
-         60,
-         48
-        ],
-        "to": [
-         78,
-         48
-        ],
-        "style": "accent",
-        "hidden": true,
-        "label": "Gravity",
-        "labelAt": [
-         98,
-         70
-        ]
-       }
-      ],
-      "steps": [
-       {
-        "note": "Water is free to flow"
-       },
-       {
-        "show": [
-         "g"
-        ],
-        "move": {
-         "sea": [
-          4,
-          0
-         ]
-        },
-        "note": "One bulge toward the Moon"
-       }
-      ]
-     }
-    },
-    {
-     "type": "card",
-     "title": "The ocean bulges on both sides",
-     "text": "The Moon pulls hardest on the side of Earth closest to it. It pulls less on Earth's middle. It pulls least on the far side. So the near water moves toward the Moon the most. The far water moves the least, so it gets left behind. That makes a second bulge, on the far side. Next, Earth spins underneath these two bulges.",
+     "title": "The Moon pulls the near sea harder than the ground, and the far sea less",
+     "text": "The Moon pulls harder on whatever is closer. So the sea facing it, the near sea, is pulled harder than the ground. The sea on the far side, the far sea, is pulled less hard than the ground.",
+     "hook": "So where does all that pulling make the sea pile up?",
      "visual": {
       "type": "diagram",
       "view": [
@@ -7156,21 +7084,26 @@
         "x": 92,
         "y": 48,
         "r": 6,
-        "style": "thin"
+        "style": "thin",
+        "label": "Moon",
+        "labelAt": [
+         98,
+         70
+        ]
        },
        {
         "id": "a",
         "shape": "arrow",
         "from": [
-         62,
+         70,
          48
         ],
         "to": [
-         80,
+         84,
          48
         ],
         "style": "accent",
-        "label": "Pulls most",
+        "label": "Near sea",
         "labelAt": [
          98,
          30
@@ -7187,41 +7120,189 @@
          50,
          48
         ],
-        "style": "accent"
+        "style": "accent",
+        "label": "Ground",
+        "labelAt": [
+         40,
+         86
+        ]
        },
        {
         "id": "c",
         "shape": "arrow",
         "from": [
-         18,
+         14,
          48
         ],
         "to": [
-         23,
+         19,
          48
         ],
         "style": "accent",
-        "label": "Pulls least",
+        "label": "Far sea",
         "labelAt": [
          2,
-         84
+         20
         ]
        }
       ],
       "steps": [
        {
-        "note": "Near side, middle, far side"
+        "note": "The near sea is pulled most"
        },
        {
-        "note": "Far water is left behind"
+        "note": "The far sea is pulled least"
        }
       ]
      }
     },
     {
      "type": "card",
-     "title": "Earth spins through both bulges every day",
-     "text": "Earth turns around once a day. Your beach passes through both bulges as it turns. Inside a bulge, the water is high, so it is high tide. Between the bulges, the water is low, so it is low tide. So most beaches get two high tides and two low tides each day. But some days, the high tides are much higher. Something else is pulling too.",
+     "title": "The sea piles up on both sides of Earth, in two bulges",
+     "text": "Picture three runners in a line. One magnet ahead pulls them all, the front one hardest and the back one least. The front runner is the near sea, the middle one the ground, the back one the far sea. The near sea is pulled ahead of the ground, and the ground is pulled ahead of the far sea. So the sea piles up on both sides of Earth, in two bulges.",
+     "hook": "So what happens to your beach as Earth turns?",
+     "visual": {
+      "type": "diagram",
+      "view": [
+       100,
+       96
+      ],
+      "tip": null,
+      "parts": [
+       {
+        "id": "far",
+        "shape": "dot",
+        "x": 16,
+        "y": 20,
+        "r": 3.5,
+        "style": "accent",
+        "label": "Far sea",
+        "labelAt": [
+         2,
+         6
+        ]
+       },
+       {
+        "id": "mid",
+        "shape": "dot",
+        "x": 38,
+        "y": 20,
+        "r": 3.5,
+        "style": "accent",
+        "label": "Ground",
+        "labelAt": [
+         50,
+         6
+        ]
+       },
+       {
+        "id": "near",
+        "shape": "dot",
+        "x": 60,
+        "y": 20,
+        "r": 3.5,
+        "style": "accent",
+        "label": "Near sea",
+        "labelAt": [
+         98,
+         6
+        ]
+       },
+       {
+        "id": "moon",
+        "shape": "circle",
+        "x": 90,
+        "y": 20,
+        "r": 5,
+        "style": "thin",
+        "label": "Moon",
+        "labelAt": [
+         98,
+         38
+        ]
+       },
+       {
+        "id": "ring",
+        "shape": "circle",
+        "x": 36,
+        "y": 70,
+        "r": 18,
+        "style": "blue"
+       },
+       {
+        "id": "bulges",
+        "shape": "path",
+        "points": [
+         [
+          8,
+          70
+         ],
+         [
+          36,
+          54
+         ],
+         [
+          64,
+          70
+         ],
+         [
+          36,
+          86
+         ]
+        ],
+        "closed": true,
+        "smooth": true,
+        "style": "blue",
+        "hidden": true,
+        "label": "Two bulges",
+        "labelAt": [
+         98,
+         88
+        ]
+       },
+       {
+        "id": "earth",
+        "shape": "circle",
+        "x": 36,
+        "y": 70,
+        "r": 14,
+        "style": "green"
+       }
+      ],
+      "steps": [
+       {
+        "note": "One magnet pulls all three"
+       },
+       {
+        "move": {
+         "far": [
+          -8,
+          0
+         ],
+         "near": [
+          10,
+          0
+         ]
+        },
+        "note": "The front one is pulled hardest"
+       },
+       {
+        "hide": [
+         "ring"
+        ],
+        "show": [
+         "bulges"
+        ],
+        "note": "The sea piles up on both sides"
+       }
+      ]
+     }
+    },
+    {
+     "type": "card",
+     "title": "As Earth turns under the bulges, your beach gets two high tides",
+     "text": "The bulges stay lined up with the Moon while Earth turns once a day beneath them. Your beach passes under one, then the other. That's two high tides, a bit over twelve hours apart.",
+     "hook": "But why does each day's high tide come a little later?",
      "visual": {
       "type": "diagram",
       "view": [
@@ -7264,6 +7345,32 @@
         "style": "green"
        },
        {
+        "id": "b1",
+        "shape": "dot",
+        "x": 66,
+        "y": 48,
+        "r": 1.5,
+        "style": "thin",
+        "label": "Bulge",
+        "labelAt": [
+         98,
+         30
+        ]
+       },
+       {
+        "id": "b2",
+        "shape": "dot",
+        "x": 14,
+        "y": 48,
+        "r": 1.5,
+        "style": "thin",
+        "label": "Bulge",
+        "labelAt": [
+         2,
+         84
+        ]
+       },
+       {
         "id": "beach",
         "shape": "dot",
         "x": 40,
@@ -7273,7 +7380,7 @@
         "label": "Your beach",
         "labelAt": [
          98,
-         14
+         10
         ]
        },
        {
@@ -7297,18 +7404,33 @@
          ]
         },
         "note": "High tide"
+       },
+       {
+        "move": {
+         "beach": [
+          0,
+          32
+         ]
+        },
+        "note": "Low tide"
+       },
+       {
+        "move": {
+         "beach": [
+          -16,
+          16
+         ]
+        },
+        "note": "High tide"
        }
       ]
      }
     },
     {
-     "type": "bridge",
-     "text": "The Moon also moves along its path around Earth. So your beach needs a little extra time to catch up with each bulge. That is why high tide comes about 50 minutes later every day. The Moon is not the only thing in the sky that pulls on the sea."
-    },
-    {
      "type": "card",
-     "title": "The Sun pulls on the oceans too",
-     "text": "The Sun is huge, but it is very far away. Its pull on the tides is a bit less than half the Moon's. At full moon and new moon, the Sun and Moon line up. Their pulls add together, and tides get bigger. These are called spring tides, and they have nothing to do with the season. Even so, the bulge is small out at sea. So why do some beaches get giant tides?",
+     "title": "The Moon moves on, so each day's high tide comes about 50 minutes later",
+     "text": "The Moon also moves round Earth the way Earth spins. So each day your beach needs about 50 extra minutes to catch up with it.",
+     "takeaway": "One Moon stretches the sea on both sides of Earth, and Earth turns your beach through both.",
      "visual": {
       "type": "diagram",
       "view": [
@@ -7318,128 +7440,76 @@
       "tip": null,
       "parts": [
        {
-        "id": "sun",
-        "shape": "circle",
-        "x": 6,
-        "y": 48,
-        "r": 10,
-        "style": "spark"
-       },
-       {
-        "id": "sea",
-        "shape": "path",
-        "points": [
-         [
-          34,
-          48
-         ],
-         [
-          52,
-          38
-         ],
-         [
-          70,
-          48
-         ],
-         [
-          52,
-          58
-         ]
-        ],
-        "closed": true,
-        "smooth": true,
-        "style": "blue"
-       },
-       {
         "id": "earth",
         "shape": "circle",
-        "x": 52,
-        "y": 48,
-        "r": 12,
+        "x": 36,
+        "y": 56,
+        "r": 16,
         "style": "green"
+       },
+       {
+        "id": "beach",
+        "shape": "dot",
+        "x": 52,
+        "y": 56,
+        "r": 2.5,
+        "style": "accent",
+        "label": "Your beach",
+        "labelAt": [
+         98,
+         84
+        ]
        },
        {
         "id": "moon",
         "shape": "circle",
-        "x": 88,
-        "y": 48,
+        "x": 92,
+        "y": 56,
         "r": 5,
-        "style": "thin"
+        "style": "thin",
+        "label": "Moon",
+        "labelAt": [
+         98,
+         70
+        ]
+       },
+       {
+        "id": "extra",
+        "shape": "text",
+        "x": 50,
+        "y": 14,
+        "text": "About 50 extra minutes",
+        "hidden": true
        }
       ],
       "steps": [
        {
-        "note": "In a line: bigger tides"
+        "note": "High tide"
        },
        {
         "move": {
          "moon": [
-          -36,
-          -38
+          -4,
+          -22
          ]
         },
-        "note": "Not in a line: smaller"
-       }
-      ]
-     }
-    },
-    {
-     "type": "card",
-     "title": "The shape of the coast makes tides bigger",
-     "text": "Out in the open ocean, the bulge is less than a metre high. Near land, the coast changes it. A long, narrow bay squeezes the water like a funnel, so it piles up higher. In Canada's Bay of Fundy, the sea can rise and fall about 16 metres. That is taller than a four-storey building.",
-     "takeaway": "Wind makes waves. The Moon lifts the whole ocean, twice a day.",
-     "visual": {
-      "type": "diagram",
-      "view": [
-       100,
-       96
-      ],
-      "tip": null,
-      "parts": [
-       {
-        "id": "open",
-        "shape": "rect",
-        "x": 6,
-        "y": 70,
-        "w": 38,
-        "h": 6,
-        "style": "blue",
-        "label": "Open ocean",
-        "labelAt": [
-         4,
-         60
-        ]
+        "note": "A day later the Moon has moved on"
        },
        {
-        "id": "bay",
-        "shape": "rect",
-        "x": 56,
-        "y": 30,
-        "w": 38,
-        "h": 46,
-        "style": "blue",
-        "label": "Bay of Fundy",
-        "labelAt": [
-         96,
-         20
-        ]
-       },
-       {
-        "id": "ground",
-        "shape": "rect",
-        "x": 0,
-        "y": 76,
-        "w": 100,
-        "h": 20,
-        "style": "hatch"
-       }
-      ],
-      "steps": [
-       {
-        "note": "Under 1 m out at sea"
-       },
-       {
-        "note": "About 16 m in a funnel bay"
+        "move": {
+         "moon": [
+          -4,
+          -22
+         ],
+         "beach": [
+          -3,
+          -11
+         ]
+        },
+        "show": [
+         "extra"
+        ],
+        "note": "The beach needs about 50 extra minutes"
        }
       ]
      }
@@ -7449,7 +7519,7 @@
      "links": [
       "sky-blue"
      ],
-     "note": "The Moon pulls on rock too. Twice a day, the ground under your feet rises and falls by up to about 30 centimetres. You never feel it, because everything around you moves with it."
+     "note": "A tide is really a very slow wave moving through the sea, and in each ocean it circles a point where the sea hardly rises or falls at all, called an amphidromic point. That is why high tide never lines up neatly with the Moon overhead. In 1687 Isaac Newton explained tides as the pull of the Moon and Sun on the sea."
     }
    ]
   },
