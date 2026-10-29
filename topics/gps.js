@@ -1,9 +1,14 @@
-// How does your phone know where you are? 6 cards (write-explainer copy, 2026-10-25): it only listens, satellites call out place and time, a storm shows a delay is a distance, signal delay = distance, one ring, rings meet at one spot.
+// How does your phone find you with no mobile signal? 5 cards, written spine-first (2026-10-29, tasks/spine-gps/):
+// the phone only listens, so it needs no mobile signal; satellites keep sending a radio signal that says where they are and when it was sent;
+// the gap between sent and arrived, times the speed of light, is a distance (one analogy: lightning to thunder); one distance is a ring, three
+// satellites leave two spots and only one is on Earth; the phone's own clock is not exact, so a fourth satellite fixes it.
+// No "GPS", no satellite count, no "usually", no school-friend analogy (facts.md myths). The iOS app draws every card natively
+// (ios/Polymath/FlatGPS.swift); these web diagrams are simple stand-ins using the text's exact words.
 (function () {
   // Ground: an arc (big circle top) hatched, closed across the bottom of the box.
   const arc = [];
   for (let x = 0; x <= 100; x += 5) arc.push([x, +(176 - Math.sqrt(10000 - (x - 50) * (x - 50))).toFixed(1)]);
-  const ground = { id: 'ground', shape: 'path', points: arc.concat([[100, 96], [0, 96]]), closed: true, style: 'hatch' };
+  const ground = (extra) => Object.assign({ id: 'ground', shape: 'path', points: arc.concat([[100, 96], [0, 96]]), closed: true, style: 'hatch' }, extra || {});
 
   // Satellite: body plus two panels, scaled by k. `extra` is merged into every piece (e.g. hidden).
   const sat = (id, x, y, k, label, labelAt, extra) => [
@@ -12,135 +17,137 @@
     Object.assign({ id: id, shape: 'rect', x: x - 4 * k, y: y - 3 * k, w: 8 * k, h: 6 * k, style: 'ink', label, labelAt }, extra || {})
   ];
 
-  // Card 1 scene: three satellites shout the time in every direction, the phone only listens (spark dots travel down to it, none leave it).
-  const bluedot = { type: 'diagram', view: [100, 96], tip: false,
+  // ---- Card 1: no mobile signal. Satellites send pulses down to the phone; nothing goes back. ----
+  const listen = { type: 'diagram', view: [100, 96], tip: false,
     parts: [
-      { id: 'ph', shape: 'rect', x: 34, y: 14, w: 32, h: 62, style: 'thin' },
-      { id: 'd', shape: 'dot', x: 50, y: 42, r: 3, style: 'blue', label: 'You are here', labelAt: [50, 54] },
-      { id: 's', shape: 'arrow', from: [50, 0], to: [50, 12], style: 'accent', label: 'Your phone · listening', labelAt: [50, 88] }
-    ],
-    steps: [{ note: 'A blue dot shows where you are' }, { note: 'Your phone only listens' }] };
-
-  const broadcast = { type: 'diagram', view: [100, 96],
-    parts: [
-      ground,
+      ground(),
       ...sat('a', 18, 18, 1.3, 'Satellite', [2, 5]), ...sat('b', 50, 10, 1.3), ...sat('c', 82, 18, 1.3),
-      { id: 'ph', shape: 'rect', x: 44, y: 56, w: 12, h: 20, style: 'accent', label: 'Phone', labelAt: [98, 66] },
-      { id: 'none', shape: 'text', x: 27, y: 68, text: 'No reply', hidden: true }
+      { id: 'ph', shape: 'rect', x: 44, y: 56, w: 12, h: 20, style: 'accent', label: 'Your phone', labelAt: [98, 66] },
+      { id: 'bars', shape: 'text', x: 27, y: 68, text: 'NO MOBILE SIGNAL' },
+      { id: 'lis', shape: 'text', x: 27, y: 80, text: 'LISTENING', hidden: true }
     ],
     steps: [
-      { note: 'Satellites broadcast signals' },
-      { focus: ['ph', 'ground', 'none'], show: ['none'], note: 'Your phone only listens' }
+      { note: 'Your phone has no mobile signal' },
+      { show: ['lis'], note: 'It never calls anyone. It only listens' }
     ],
     flows: [
-      { along: [[22, 25], [45, 54]], style: 'spark', count: 3, speed: 15 },
-      { along: [[50, 18], [50, 54]], style: 'spark', count: 3, speed: 15 },
-      { along: [[78, 25], [55, 54]], style: 'spark', count: 3, speed: 15 },
-      { along: [[46, 20], [12, 52]], style: 'spark', count: 3, speed: 15 },
-      { along: [[54, 20], [88, 52]], style: 'spark', count: 3, speed: 15 }
+      { along: [[22, 25], [45, 54]], style: 'spark', count: 3, speed: 15, during: [1] },
+      { along: [[50, 18], [50, 54]], style: 'spark', count: 3, speed: 15, during: [1] },
+      { along: [[78, 25], [55, 54]], style: 'spark', count: 3, speed: 15, during: [1] }
     ] };
 
-  // Card 2 scene: storm cloud left, you right. A bolt flashes at once (spark), then a blue sound wave crawls along the ground and reaches you late. Takeaway image: the long gap between flash and boom, "3 s = about 1 km".
-  const thunder = { type: 'diagram', view: [100, 96],
+  // ---- Card 2: one satellite sends a radio signal that says where it is and when it was sent; the phone sends nothing back. ----
+  const send = { type: 'diagram', view: [100, 96], tip: false,
+    parts: [
+      ground(),
+      ...sat('s', 50, 12, 1.4, 'Satellite', [98, 8]),
+      { id: 'ph', shape: 'rect', x: 44, y: 56, w: 12, h: 20, style: 'accent', label: 'Your phone', labelAt: [98, 66] },
+      { id: 'w', shape: 'text', x: 24, y: 28, text: 'WHERE IT IS', hidden: true },
+      { id: 't', shape: 'text', x: 24, y: 40, text: 'TIME SENT', hidden: true },
+      { id: 'none', shape: 'text', x: 78, y: 40, text: 'Nothing goes back', hidden: true }
+    ],
+    steps: [
+      { note: 'A satellite keeps sending out a radio signal' },
+      { show: ['w', 't'], note: 'It says where it is and what time it was sent' },
+      { show: ['none'], note: 'Your phone catches it and sends nothing back' }
+    ],
+    flows: [{ along: [[50, 20], [50, 54]], style: 'spark', count: 4, speed: 15 }] };
+
+  // ---- Card 3: lightning to thunder first (a wait is a distance), then the satellite signal: sent, arrived about 0.07 seconds later. ----
+  const stormIds = ['gr', 'cloud', 'bolt', 'me', 'tw'];
+  const delay = { type: 'diagram', view: [100, 96], tip: false,
     parts: [
       { id: 'gr', shape: 'rect', x: 0, y: 86, w: 100, h: 10, style: 'hatch' },
       { id: 'cloud', shape: 'path', points: [[4, 24], [6, 14], [16, 10], [24, 6], [34, 12], [42, 16], [42, 26], [30, 30], [14, 30]], closed: true, smooth: true, style: 'thin' },
       { id: 'bolt', shape: 'path', points: [[22, 30], [17, 46], [25, 48], [15, 84]], style: 'spark' },
       { id: 'me', shape: 'rect', x: 80, y: 66, w: 6, h: 20, style: 'accent', label: 'You', labelAt: [98, 58] },
-      { id: 'tb', shape: 'text', x: 55, y: 48, text: 'Boom, 3 s later', hidden: true },
-      { id: 'tk', shape: 'text', x: 55, y: 62, text: '3 s = about 1 km', hidden: true }
-    ],
-    steps: [
-      { note: 'The flash reaches you at once' },
-      { show: ['tb'], note: 'The boom is slow, so it is late' },
-      { show: ['tk'], hide: ['tb'], focus: ['tk', 'me', 'bolt'], note: 'The wait tells the distance' }
-    ],
-    flows: [{ along: [[22, 76], [78, 76]], style: 'blue', count: 4, speed: 18, during: [1, 2] }] };
-
-  // Card 3 scene: one satellite straight overhead. A yellow pulse leaves it ("Sent 0.00 s") and drops to the phone ("Arrives 0.07 s"), then an arrow marks the gap as "About 20,200 km". Takeaway image: a tiny delay measured as a long distance.
-  const delay = { type: 'diagram', view: [100, 96],
-    parts: [
-      ground,
-      ...sat('s', 50, 12, 1.4, 'Overhead', [98, 8]),
-      { id: 'ph', shape: 'rect', x: 44, y: 56, w: 12, h: 20, style: 'accent' },
-      { id: 'ts', shape: 'text', x: 78, y: 28, text: 'Sent 0.00 s' },
-      { id: 'ta', shape: 'text', x: 79, y: 52, text: 'Lands 0.07 s', hidden: true },
+      { id: 'tw', shape: 'text', x: 55, y: 48, text: 'FLASH, THEN THUNDER: THE WAIT' },
+      ground({ hidden: true }),
+      ...sat('s', 50, 12, 1.4, 'Satellite', [98, 8], { hidden: true }),
+      { id: 'ph', shape: 'rect', x: 44, y: 56, w: 12, h: 20, style: 'accent', hidden: true },
+      { id: 'ts', shape: 'text', x: 78, y: 28, text: 'SENT', hidden: true },
+      { id: 'ta', shape: 'text', x: 78, y: 52, text: 'ARRIVED', hidden: true },
       { id: 'dist', shape: 'arrow', from: [38, 22], to: [38, 54], style: 'thin', hidden: true },
-      { id: 'dt', shape: 'text', x: 20, y: 38, text: 'About 20,200 km', hidden: true },
-      { id: 'pulse', shape: 'circle', x: 50, y: 22, r: 3, style: 'spark' }
+      { id: 'dt', shape: 'text', x: 20, y: 38, text: 'DISTANCE', hidden: true },
+      { id: 'sec', shape: 'text', x: 78, y: 40, text: 'ABOUT 0.07 SECONDS', hidden: true },
+      { id: 'pulse', shape: 'circle', x: 50, y: 22, r: 3, style: 'spark', hidden: true }
     ],
     steps: [
-      { note: 'A signal leaves the satellite' },
-      { move: { pulse: [0, 31] }, hide: ['ts'], show: ['ta'], note: 'It lands a flicker later' },
-      { show: ['dist', 'dt'], focus: ['dist', 'dt', 'pulse', 'ta'], note: 'Late by 0.07 s = that far' }
+      { note: 'The wait from lightning to thunder tells you how far away the storm is' },
+      { hide: stormIds, show: ['ground', 'sl', 'sr', 's', 'ph', 'ts', 'pulse'], note: 'A satellite signal is sent' },
+      { move: { pulse: [0, 31] }, hide: ['ts'], show: ['ta', 'sec'], note: 'It arrives about 0.07 seconds later' },
+      { show: ['dist', 'dt'], note: 'The gap, times the speed of light, is the distance' }
     ] };
 
-  // Card 5 shares one flat picture: rings around three satellites, all crossing at one spot.
+  // ---- Card 4: a map from above. One ring, then three rings; they meet on the ground at one spot, and the other spot is far out in space. ----
   const ring = (cx, cy, r) => {
     const pts = [];
     for (let a = 0; a <= 330; a += 15) pts.push([+(cx + r * Math.cos(a * Math.PI / 180)).toFixed(1), +(cy + r * Math.sin(a * Math.PI / 180)).toFixed(1)]);
     return pts;
   };
-  // dx shifts the whole picture sideways (card 3 shows only two circles, so it is centred differently).
-  const ringParts = (dx, hideB, hideC, label) => [
-    { id: 'rA', shape: 'circle', x: 50 + dx, y: 28, r: 26, style: 'blue', fill: false },
-    { id: 'rB', shape: 'circle', x: 27.5 + dx, y: 67, r: 26, style: 'blue', fill: false, hidden: hideB },
-    { id: 'rC', shape: 'circle', x: 72.5 + dx, y: 67, r: 26, style: 'blue', fill: false, hidden: hideC },
-    ...sat('a', 50 + dx, 28, 1.2, label ? 'Satellite' : undefined, label ? label : undefined),
-    ...sat('b', 27.5 + dx, 67, 1.2, undefined, undefined, { hidden: hideB }),
-    ...sat('c', 72.5 + dx, 67, 1.2, undefined, undefined, { hidden: hideC })
-  ];
-
-  // Card 4 scene: top-down map. One satellite in the middle, a single ring around it, and an accent dot circling the ring for the whole card ("you could be anywhere on this ring"). Takeaway image: one distance leaves a whole ring of places.
-  const ring1 = { type: 'diagram', view: [100, 96],
+  const spots = { type: 'diagram', view: [100, 96],
     parts: [
-      { id: 'r1', shape: 'circle', x: 50, y: 48, r: 32, style: 'blue', fill: false },
-      ...sat('a', 50, 48, 1.2, 'Satellite', [2, 8]),
-      { id: 'ra', shape: 'text', x: 50, y: 90, text: 'A map from above' }
-    ],
-    steps: [],
-    flows: [{ along: ring(50, 48, 32), style: 'accent', count: 3, speed: 22 }] };
-
-  // Card 5 scene (map from above): two rings and two satellites cross in two dots; a third satellite and ring appear and miss one dot; the other dot turns into the accent "You". Takeaway image: three rings meeting at one point.
-  const circle3 = { type: 'diagram', view: [100, 96],
-    parts: [
-      ...ringParts(0, false, true, [98, 10]),
-      { id: 'x1', shape: 'dot', x: 50, y: 54, r: 2.6, style: 'ink' },
-      { id: 'x2', shape: 'dot', x: 27.5, y: 41, r: 2.6, style: 'ink' },
-      { id: 'you', shape: 'circle', x: 50, y: 54, r: 4, style: 'accent', hidden: true, label: 'You', labelAt: [98, 44] }
+      { id: 'rA', shape: 'circle', x: 50, y: 28, r: 26, style: 'blue', fill: false },
+      { id: 'rB', shape: 'circle', x: 27.5, y: 67, r: 26, style: 'blue', fill: false, hidden: true },
+      { id: 'rC', shape: 'circle', x: 72.5, y: 67, r: 26, style: 'blue', fill: false, hidden: true },
+      ...sat('a', 50, 28, 1.2, 'Satellite', [98, 8]),
+      ...sat('b', 27.5, 67, 1.2, undefined, undefined, { hidden: true }),
+      ...sat('c', 72.5, 67, 1.2, undefined, undefined, { hidden: true }),
+      { id: 'x1', shape: 'dot', x: 50, y: 54, r: 2.6, style: 'ink', hidden: true },
+      { id: 'x2', shape: 'dot', x: 90, y: 10, r: 2.6, style: 'ink', hidden: true, label: 'Far out in space', labelAt: [98, 20] },
+      { id: 'up', shape: 'arrow', from: [60, 40], to: [86, 14], style: 'thin', dash: true, hidden: true },
+      { id: 'you', shape: 'circle', x: 50, y: 54, r: 4, style: 'accent', hidden: true, label: 'On Earth', labelAt: [98, 54] }
     ],
     steps: [
-      { note: 'Two rings cross in two spots' },
-      { show: ['rC', 'cl', 'cr', 'c'], focus: ['rC', 'cl', 'cr', 'c', 'x1', 'x2'], note: 'A third ring joins in' },
-      { show: ['you'], hide: ['x1', 'x2'], note: 'Only one spot fits all three' }
+      { note: 'One distance leaves a whole ring of places you could be' },
+      { show: ['rB', 'rC', 'bl', 'br', 'b', 'cl', 'cr', 'c', 'x1', 'x2', 'up'], note: 'With three satellites, only two spots fit' },
+      { show: ['you'], hide: ['x1'], note: 'Only one of them is on Earth' }
+    ],
+    flows: [{ along: ring(50, 28, 26), style: 'accent', count: 2, speed: 22, during: [0] }] };
+
+  // ---- Card 5: the phone's clock is wrong, so the spot is 300 metres off; a fourth satellite lets it fix the clock. ----
+  const clock = { type: 'diagram', view: [100, 96],
+    parts: [
+      { id: 'rt', shape: 'dot', x: 50, y: 62, r: 2.6, style: 'ink', label: 'Where you are', labelAt: [98, 72] },
+      { id: 'est', shape: 'circle', x: 66, y: 50, r: 4, style: 'accent' },
+      { id: 'off', shape: 'arrow', from: [66, 50], to: [52, 60], style: 'thin', dash: true, label: 'About 300 metres off', labelAt: [98, 40] },
+      ...sat('d', 50, 14, 1.3, 'Fourth satellite', [98, 8], { hidden: true }),
+      { id: 'pc', shape: 'text', x: 27, y: 88, text: "YOUR PHONE'S CLOCK" },
+      { id: 'sc', shape: 'text', x: 75, y: 88, text: "SATELLITE'S CLOCK", hidden: true }
+    ],
+    steps: [
+      { note: "Your phone's clock isn't as exact, so you land about 300 metres off" },
+      { show: ['dl', 'dr', 'd', 'sc'], note: 'A fourth satellite shows it how wrong its clock is' },
+      { move: { est: [-16, 12] }, hide: ['off'], note: 'It fixes its own clock and lands on the right spot' }
     ] };
 
   window.EXPLAINER = {
     id: 'gps',
-    title: 'How does your phone know exactly where you are?',
+    title: 'How does your phone find you with no mobile signal?',
     kind: 'full',
     theme: 'internet',
     cards: [
-      { type: 'card',
-        title: 'It finds you within a few metres, anywhere on Earth.',
-        text: 'Open a map on your phone. A blue dot shows where you stand. Your phone never sends a message to space to find you. It only listens. So what is it listening to?',
-        visual: bluedot },
-      { type: 'card', title: 'Satellites keep calling out the time',
-        text: 'About 30 GPS satellites circle Earth, high in space. A satellite is a machine that orbits our planet. Each one carries a very exact clock. Each one sends a radio signal, again and again. The signal says, "This is where I am, and this is the time now." How can a time tell your phone how far away something is? A storm shows you.',
-        visual: broadcast },
-      { type: 'card', title: 'A storm turns a delay into a distance',
-        text: 'Lightning and thunder happen at the same moment. You see the flash at once. The sound of the thunder travels much more slowly. So you hear it later. Count the seconds between the flash and the boom. Every 3 seconds means the storm is about 1 kilometre away. GPS uses the same trick, but with a signal that travels much faster.',
-        visual: thunder },
-      { type: 'card', title: 'The satellite signal works like a very fast thunderclap',
-        text: 'A satellite signal travels at the speed of light. From straight above, it takes about 0.07 seconds to reach you. The signal says what time it left. Your phone notes what time it arrived. The gap between the two times tells your phone the distance. But knowing a distance is not the same as knowing a place.',
+      { type: 'card', title: 'Zero bars, and your phone still finds you.',
+        text: 'Out in the open, with no mobile signal at all, your phone still finds you. It doesn\'t need to call anyone. It only listens.',
+        hook: 'So what radio signal is it listening to?',
+        visual: listen },
+      { type: 'card', title: 'Satellites keep sending a radio signal that says where they are and when it was sent',
+        text: 'Satellites circle Earth far above you, and each one keeps sending out a radio signal. The signal says where the satellite is and what time it was sent. Your phone catches it and sends nothing back.',
+        hook: 'So how does the time a radio signal was sent tell your phone a distance?',
+        visual: send },
+      { type: 'card', title: 'The gap between when a radio signal was sent and when it arrived is a distance',
+        text: "Count the seconds from lightning to thunder, and the wait tells you how far away the storm is. A satellite's radio signal is far faster than sound, but its delay is a distance too. From straight overhead it arrives in about 0.07 seconds, shorter than a blink. Your phone compares when it was sent with when it arrived. That gap, times the speed of light, is the distance.",
+        hook: 'So how many satellites does it take to pin down your spot?',
         visual: delay },
-      { type: 'card', title: 'One distance gives a ring of places',
-        text: 'Look at a map from above. A friend says, "I am 1 kilometre from the school." Your friend can be anywhere on a ring around the school. GPS has the same problem. One satellite gives one distance. One distance gives a ring of possible places. So how does your phone pick the one right place on the ring?',
-        visual: ring1 },
-      { type: 'card', title: 'More satellites give one place',
-        text: 'A second satellite gives a second ring. The two rings cross at two places. A third satellite gives a third ring. Usually, only one of the two crossing places is on it.', takeaway: 'That place is you.',
-        visual: circle3 },
-      { type: 'more', links: ['card-payment'], note: 'The timing must be perfect. If the time is wrong by one thousandth of a second, your phone is 300 kilometres off. Phone clocks are not that exact. So your phone listens to a fourth satellite too. The extra satellite lets it correct its own clock.' }
+      { type: 'card', title: 'With three satellites, only two spots fit, and only one is on Earth',
+        text: 'One distance leaves a whole ring of places you could be, all the same distance from that satellite. With three satellites, only two spots fit all three distances, and only one of them is on Earth. The other is far out in space.',
+        hook: "But how exact is your phone's own clock?",
+        visual: spots },
+      { type: 'card', title: "Your phone's own clock isn't exact, so it listens to a fourth satellite",
+        text: "One problem is left. Your phone times the arrival with its own clock, and that clock is nowhere near as exact as a satellite's. A clock a millionth of a second wrong puts you about 300 metres off. So the phone listens to a fourth satellite. That lets it work out how wrong its own clock is, and fix it.",
+        takeaway: 'Your phone doesn\'t need to call anyone. It listens to satellites and turns the delay into where you are.',
+        visual: clock },
+      { type: 'more', links: ['card-payment'], note: "The satellites' clocks are set to tick a little slower before launch. Up there, far from Earth's pull and moving fast, they would otherwise run about 38 millionths of a second ahead of clocks on the ground every day, and that would pile up into a position error of about 11 kilometres a day. Engineers fixed this before launch by changing how fast the clocks tick, one of the few places where Einstein's ideas about time are used by something in your pocket." }
     ]
   };
 })();
