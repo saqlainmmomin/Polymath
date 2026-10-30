@@ -20,7 +20,6 @@ struct CardView: View {
 
 private struct Lead: View {
     let headline: String
-    var setup: String? = nil
     var opener = false
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -28,13 +27,11 @@ private struct Lead: View {
                 .font(S.rounded(24, .bold)).lineSpacing(2)
                 .foregroundStyle(S.text)
                 .fixedSize(horizontal: false, vertical: true)
-            if let setup {
-                Text(setup).font(S.rounded(16, .medium)).foregroundStyle(S.text2).fixedSize(horizontal: false, vertical: true)
-            }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.horizontal, 21)
         .padding(.top, 4)
+        .padding(.bottom, 8)   // room between the headline and the paragraph now the setup line is gone
     }
 }
 
@@ -48,10 +45,10 @@ struct StandardCard: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            // Card 1's headline is the topic's question; the card's own title becomes the setup line under it.
+            // Card 1's headline is the topic's question. Its own card title is not shown (no grey setup line, owner, 2026-10-28).
             // Text first, then the picture (owner, 2026-10-27): no panel, the whole screen is the canvas. The stage takes all the room
             // left under the text and the picture sits centred in it, as big as fits; pictures read their colours from the gradient (`\.stage`).
-            Lead(headline: opener ? topic.title : (card.title ?? ""), setup: opener ? card.title : nil, opener: opener)
+            Lead(headline: opener ? topic.title : (card.title ?? ""), opener: opener)
             paragraph
                 .padding(.horizontal, 21).padding(.top, 12)
             Group {

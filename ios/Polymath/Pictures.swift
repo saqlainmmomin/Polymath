@@ -13,14 +13,23 @@ enum Pictures {
             default: return nil
             }
         }
+        if topic.id == "car-engine" {
+            switch index {
+            case 0: return AnyView(CarStart(active: active))
+            case 1: return AnyView(CarPiston(active: active))
+            case 2: return AnyView(CarStrokes(active: active))
+            case 3: return AnyView(CarDrag(active: active))
+            case 4: return AnyView(CarFlywheel(active: active))
+            default: return nil
+            }
+        }
         if topic.id == "moon-tides" {
             switch index {
-            case 0: return AnyView(TidesBeach(active: active))
-            case 1: return AnyView(TidesPull(active: active))
-            case 2: return AnyView(TidesTwo(active: active))
-            case 3: return AnyView(TidesSpin(active: active))
-            case 5: return AnyView(TidesSun(active: active))      // card 4 is a text-only bridge
-            case 6: return AnyView(TidesCoast(active: active))
+            case 0: return AnyView(TidesBPBeach(active: active))
+            case 1: return AnyView(TidesBPPull(active: active))
+            case 2: return AnyView(TidesBPBulges(active: active))
+            case 3: return AnyView(TidesBPTurn(active: active))
+            case 4: return AnyView(TidesBPLater(active: active))
             default: return nil
             }
         }
@@ -36,21 +45,20 @@ enum Pictures {
         }
         if topic.id == "card-payment" {
             switch index {
-            case 0: return AnyView(PayTap(active: active))
-            case 1: return AnyView(PayHops(active: active))
-            case 2: return AnyView(PayNetwork(active: active))
-            case 3: return AnyView(PayDecide(active: active))
-            case 4: return AnyView(PayLater(active: active))
+            case 0: return AnyView(PayBPTap(active: active))
+            case 1: return AnyView(PayBPHops(active: active))
+            case 2: return AnyView(PayBPPromise(active: active))
+            case 3: return AnyView(PayBPTotals(active: active))
             default: return nil
             }
         }
         if topic.id == "bike-gears" {
             switch index {
-            case 0: return AnyView(BikeHill(active: active))
-            case 1: return AnyView(BikeRings(active: active))
-            case 2: return AnyView(BikeCount(active: active))
-            case 3: return AnyView(BikeSteps(active: active))
-            case 4: return AnyView(BikeRoads(active: active))
+            case 0: return AnyView(BikeBPHill(active: active))
+            case 1: return AnyView(BikeBPRings(active: active))
+            case 2: return AnyView(BikeBPCarry(active: active))
+            case 3: return AnyView(BikeBPWalk(active: active))
+            case 4: return AnyView(BikeBPFlat(active: active))
             default: return nil
             }
         }
@@ -65,41 +73,40 @@ enum Pictures {
         }
         if topic.id == "birthday" {
             switch index {
-            case 0: return AnyView(BirthRoom(active: active))
-            case 1: return AnyView(BirthYours(active: active))
-            case 2: return AnyView(BirthPairs(active: active))
-            case 3: return AnyView(BirthRooms(active: active))
-            case 4: return AnyView(BirthCurve(active: active))
+            case 0: return AnyView(BirthBPRoom(active: active))
+            case 1: return AnyView(BirthBPYours(active: active))
+            case 2: return AnyView(BirthBPPairs(active: active))
+            case 3: return AnyView(BirthBPRooms(active: active))
+            case 4: return AnyView(BirthBPCurve(active: active))
             default: return nil
             }
         }
         if topic.id == "seasons" {
             switch index {
-            case 0: return AnyView(SeasonsFar(active: active))
-            case 1: return AnyView(SeasonsSteps(active: active))
-            case 2: return AnyView(SeasonsLean(active: active))
-            case 3: return AnyView(SeasonsTorch(active: active))
-            case 4: return AnyView(SeasonsDay(active: active))
+            case 0: return AnyView(SeasonsBPFar(active: active))
+            case 1: return AnyView(SeasonsBPSteps(active: active))
+            case 2: return AnyView(SeasonsBPLean(active: active))
+            case 3: return AnyView(SeasonsBPTorch(active: active))
+            case 4: return AnyView(SeasonsBPDay(active: active))
             default: return nil
             }
         }
         if topic.id == "superglue" {
             switch index {
-            case 0: return AnyView(GlueTube(active: active))
-            case 1: return AnyView(GlueTwo(active: active))
-            case 2: return AnyView(GlueFilm(active: active))
-            case 3: return AnyView(GlueCap(active: active))
+            case 0: return AnyView(GlueBPFast(active: active))
+            case 1: return AnyView(GlueBPWater(active: active))
+            case 2: return AnyView(GlueBPFilm(active: active))
+            case 3: return AnyView(GlueBPCap(active: active))
             default: return nil
             }
         }
         guard topic.id == "gps" else { return nil }
         switch index {
-        case 0: return AnyView(FlatBlueDot(active: active))
-        case 1: return AnyView(FlatBroadcast(active: active))
-        case 2: return AnyView(FlatStorm(active: active))
-        case 3: return AnyView(FlatDelay(active: active))
-        case 4: return AnyView(FlatRing(active: active))
-        case 5: return AnyView(FlatMeet(active: active))
+        case 0: return AnyView(GpBPSilent(active: active))
+        case 1: return AnyView(GpBPSend(active: active))
+        case 2: return AnyView(GpBPGap(active: active))
+        case 3: return AnyView(GpBPSpots(active: active))
+        case 4: return AnyView(GpBPClock(active: active))
         default: return nil
         }
     }

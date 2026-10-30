@@ -29,8 +29,8 @@ enum Launch {
         shades = Dictionary(uniqueKeysWithValues: all.map(\.id).sorted().enumerated().map { ($1, $0) })
     }
 
-    /// Shazam sits on blueprint paper; every other topic keeps its own gradient.
-    func shade(_ t: Topic) -> Int { t.id == "shazam" ? S.paper : shades[t.id] ?? 0 }
+    /// Every topic sits on blueprint paper. The per-topic gradients (`shades`) are kept for now but unused.
+    func shade(_ t: Topic) -> Int { S.paper }
     /// Topics drawn on blueprint paper (a flat colour with a grid) instead of a gradient.
     func isPaper(_ t: Topic) -> Bool { shade(t) == S.paper }
 
