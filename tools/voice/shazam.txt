@@ -1,0 +1,9 @@
+How can your phone name a song from a few noisy seconds? It picks one song out of millions, with people talking over it. All it gets is a few seconds of chatter with music somewhere inside. So what is it listening for?
+
+First it draws the sound as a chart. Time runs left to right, high notes sit higher up, and the louder a sound, the brighter its dot. It keeps only the brightest dots, because the music's loudest moments are the hardest for talking to cover up.
+
+But one dot is just one note at one moment, and nearly every song has that. Two notes with an exact gap between them are much rarer. So it writes each pair down as a short code made of two notes and one gap.
+
+The app's makers turned every song they have into codes ahead of time. A giant list works like a book's index, showing every song that has each code, and when.
+
+One code points at lots of songs. But only in the right song do your codes show up in the same order, as far apart in time as in your clip. It never listens for the words or the tune, only for where the brightest dots sit.

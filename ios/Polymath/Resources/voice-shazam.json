@@ -1,0 +1,1063 @@
+{
+ "voice": "af_heart",
+ "duration": 67.47,
+ "beats": [
+  0.0,
+  13.72,
+  29.45,
+  43.02,
+  53.67
+ ],
+ "words": [
+  {
+   "text": "How",
+   "start": 0.28,
+   "end": 0.45
+  },
+  {
+   "text": "can",
+   "start": 0.45,
+   "end": 0.56
+  },
+  {
+   "text": "your",
+   "start": 0.56,
+   "end": 0.72
+  },
+  {
+   "text": "phone",
+   "start": 0.72,
+   "end": 1.07
+  },
+  {
+   "text": "name",
+   "start": 1.07,
+   "end": 1.3
+  },
+  {
+   "text": "a",
+   "start": 1.3,
+   "end": 1.43
+  },
+  {
+   "text": "song",
+   "start": 1.43,
+   "end": 1.82
+  },
+  {
+   "text": "from",
+   "start": 1.82,
+   "end": 1.96
+  },
+  {
+   "text": "a",
+   "start": 1.96,
+   "end": 2.02
+  },
+  {
+   "text": "few",
+   "start": 2.02,
+   "end": 2.25
+  },
+  {
+   "text": "noisy",
+   "start": 2.25,
+   "end": 2.6
+  },
+  {
+   "text": "seconds?",
+   "start": 2.6,
+   "end": 3.55
+  },
+  {
+   "text": "It",
+   "start": 3.55,
+   "end": 3.7
+  },
+  {
+   "text": "picks",
+   "start": 3.7,
+   "end": 3.99
+  },
+  {
+   "text": "one",
+   "start": 3.99,
+   "end": 4.24
+  },
+  {
+   "text": "song",
+   "start": 4.24,
+   "end": 4.6
+  },
+  {
+   "text": "out",
+   "start": 4.6,
+   "end": 4.74
+  },
+  {
+   "text": "of",
+   "start": 4.74,
+   "end": 4.83
+  },
+  {
+   "text": "millions,",
+   "start": 4.83,
+   "end": 5.55
+  },
+  {
+   "text": "with",
+   "start": 5.55,
+   "end": 5.7
+  },
+  {
+   "text": "people",
+   "start": 5.7,
+   "end": 6.05
+  },
+  {
+   "text": "talking",
+   "start": 6.05,
+   "end": 6.44
+  },
+  {
+   "text": "over",
+   "start": 6.44,
+   "end": 6.7
+  },
+  {
+   "text": "it.",
+   "start": 6.7,
+   "end": 7.39
+  },
+  {
+   "text": "All",
+   "start": 7.39,
+   "end": 7.59
+  },
+  {
+   "text": "it",
+   "start": 7.59,
+   "end": 7.67
+  },
+  {
+   "text": "gets",
+   "start": 7.67,
+   "end": 7.9
+  },
+  {
+   "text": "is",
+   "start": 7.9,
+   "end": 8.01
+  },
+  {
+   "text": "a",
+   "start": 8.01,
+   "end": 8.09
+  },
+  {
+   "text": "few",
+   "start": 8.09,
+   "end": 8.34
+  },
+  {
+   "text": "seconds",
+   "start": 8.34,
+   "end": 8.71
+  },
+  {
+   "text": "of",
+   "start": 8.71,
+   "end": 8.84
+  },
+  {
+   "text": "chatter",
+   "start": 8.84,
+   "end": 9.22
+  },
+  {
+   "text": "with",
+   "start": 9.22,
+   "end": 9.4
+  },
+  {
+   "text": "music",
+   "start": 9.4,
+   "end": 9.84
+  },
+  {
+   "text": "somewhere",
+   "start": 9.84,
+   "end": 10.2
+  },
+  {
+   "text": "inside.",
+   "start": 10.2,
+   "end": 11.18
+  },
+  {
+   "text": "So",
+   "start": 11.18,
+   "end": 11.51
+  },
+  {
+   "text": "what",
+   "start": 11.51,
+   "end": 11.7
+  },
+  {
+   "text": "is",
+   "start": 11.7,
+   "end": 11.82
+  },
+  {
+   "text": "it",
+   "start": 11.82,
+   "end": 11.95
+  },
+  {
+   "text": "listening",
+   "start": 11.95,
+   "end": 12.32
+  },
+  {
+   "text": "for?",
+   "start": 12.32,
+   "end": 13.03
+  },
+  {
+   "text": "First",
+   "start": 14.03,
+   "end": 14.35
+  },
+  {
+   "text": "it",
+   "start": 14.35,
+   "end": 14.45
+  },
+  {
+   "text": "draws",
+   "start": 14.45,
+   "end": 14.82
+  },
+  {
+   "text": "the",
+   "start": 14.82,
+   "end": 14.96
+  },
+  {
+   "text": "sound",
+   "start": 14.96,
+   "end": 15.38
+  },
+  {
+   "text": "as",
+   "start": 15.38,
+   "end": 15.49
+  },
+  {
+   "text": "a",
+   "start": 15.49,
+   "end": 15.59
+  },
+  {
+   "text": "chart.",
+   "start": 15.59,
+   "end": 16.51
+  },
+  {
+   "text": "Time",
+   "start": 16.51,
+   "end": 16.88
+  },
+  {
+   "text": "runs",
+   "start": 16.88,
+   "end": 17.2
+  },
+  {
+   "text": "left",
+   "start": 17.2,
+   "end": 17.45
+  },
+  {
+   "text": "to",
+   "start": 17.45,
+   "end": 17.57
+  },
+  {
+   "text": "right,",
+   "start": 17.57,
+   "end": 18.19
+  },
+  {
+   "text": "high",
+   "start": 18.19,
+   "end": 18.48
+  },
+  {
+   "text": "notes",
+   "start": 18.48,
+   "end": 18.79
+  },
+  {
+   "text": "sit",
+   "start": 18.79,
+   "end": 19.0
+  },
+  {
+   "text": "higher",
+   "start": 19.0,
+   "end": 19.3
+  },
+  {
+   "text": "up,",
+   "start": 19.3,
+   "end": 19.85
+  },
+  {
+   "text": "and",
+   "start": 19.85,
+   "end": 19.96
+  },
+  {
+   "text": "the",
+   "start": 19.96,
+   "end": 20.05
+  },
+  {
+   "text": "louder",
+   "start": 20.05,
+   "end": 20.4
+  },
+  {
+   "text": "a",
+   "start": 20.4,
+   "end": 20.51
+  },
+  {
+   "text": "sound,",
+   "start": 20.51,
+   "end": 21.15
+  },
+  {
+   "text": "the",
+   "start": 21.15,
+   "end": 21.26
+  },
+  {
+   "text": "brighter",
+   "start": 21.26,
+   "end": 21.68
+  },
+  {
+   "text": "its",
+   "start": 21.68,
+   "end": 21.88
+  },
+  {
+   "text": "dot.",
+   "start": 21.88,
+   "end": 22.8
+  },
+  {
+   "text": "It",
+   "start": 22.8,
+   "end": 22.95
+  },
+  {
+   "text": "keeps",
+   "start": 22.95,
+   "end": 23.24
+  },
+  {
+   "text": "only",
+   "start": 23.24,
+   "end": 23.57
+  },
+  {
+   "text": "the",
+   "start": 23.57,
+   "end": 23.69
+  },
+  {
+   "text": "brightest",
+   "start": 23.69,
+   "end": 24.12
+  },
+  {
+   "text": "dots,",
+   "start": 24.12,
+   "end": 24.75
+  },
+  {
+   "text": "because",
+   "start": 24.75,
+   "end": 25.07
+  },
+  {
+   "text": "the",
+   "start": 25.07,
+   "end": 25.17
+  },
+  {
+   "text": "music's",
+   "start": 25.17,
+   "end": 25.64
+  },
+  {
+   "text": "loudest",
+   "start": 25.64,
+   "end": 26.07
+  },
+  {
+   "text": "moments",
+   "start": 26.07,
+   "end": 26.5
+  },
+  {
+   "text": "are",
+   "start": 26.5,
+   "end": 26.59
+  },
+  {
+   "text": "the",
+   "start": 26.59,
+   "end": 26.69
+  },
+  {
+   "text": "hardest",
+   "start": 26.69,
+   "end": 27.17
+  },
+  {
+   "text": "for",
+   "start": 27.17,
+   "end": 27.3
+  },
+  {
+   "text": "talking",
+   "start": 27.3,
+   "end": 27.73
+  },
+  {
+   "text": "to",
+   "start": 27.73,
+   "end": 27.82
+  },
+  {
+   "text": "cover",
+   "start": 27.82,
+   "end": 28.11
+  },
+  {
+   "text": "up.",
+   "start": 28.11,
+   "end": 28.75
+  },
+  {
+   "text": "But",
+   "start": 29.68,
+   "end": 29.8
+  },
+  {
+   "text": "one",
+   "start": 29.8,
+   "end": 30.02
+  },
+  {
+   "text": "dot",
+   "start": 30.02,
+   "end": 30.35
+  },
+  {
+   "text": "is",
+   "start": 30.35,
+   "end": 30.5
+  },
+  {
+   "text": "just",
+   "start": 30.5,
+   "end": 30.79
+  },
+  {
+   "text": "one",
+   "start": 30.79,
+   "end": 31.02
+  },
+  {
+   "text": "note",
+   "start": 31.02,
+   "end": 31.27
+  },
+  {
+   "text": "at",
+   "start": 31.27,
+   "end": 31.38
+  },
+  {
+   "text": "one",
+   "start": 31.38,
+   "end": 31.57
+  },
+  {
+   "text": "moment,",
+   "start": 31.57,
+   "end": 32.35
+  },
+  {
+   "text": "and",
+   "start": 32.35,
+   "end": 32.48
+  },
+  {
+   "text": "nearly",
+   "start": 32.48,
+   "end": 32.86
+  },
+  {
+   "text": "every",
+   "start": 32.86,
+   "end": 33.19
+  },
+  {
+   "text": "song",
+   "start": 33.19,
+   "end": 33.52
+  },
+  {
+   "text": "has",
+   "start": 33.52,
+   "end": 33.73
+  },
+  {
+   "text": "that.",
+   "start": 33.73,
+   "end": 34.58
+  },
+  {
+   "text": "Two",
+   "start": 34.58,
+   "end": 34.8
+  },
+  {
+   "text": "notes",
+   "start": 34.8,
+   "end": 35.12
+  },
+  {
+   "text": "with",
+   "start": 35.12,
+   "end": 35.26
+  },
+  {
+   "text": "an",
+   "start": 35.26,
+   "end": 35.35
+  },
+  {
+   "text": "exact",
+   "start": 35.35,
+   "end": 35.85
+  },
+  {
+   "text": "gap",
+   "start": 35.85,
+   "end": 36.12
+  },
+  {
+   "text": "between",
+   "start": 36.12,
+   "end": 36.44
+  },
+  {
+   "text": "them",
+   "start": 36.44,
+   "end": 36.74
+  },
+  {
+   "text": "are",
+   "start": 36.74,
+   "end": 36.85
+  },
+  {
+   "text": "much",
+   "start": 36.85,
+   "end": 37.12
+  },
+  {
+   "text": "rarer.",
+   "start": 37.12,
+   "end": 38.04
+  },
+  {
+   "text": "So",
+   "start": 38.04,
+   "end": 38.19
+  },
+  {
+   "text": "it",
+   "start": 38.19,
+   "end": 38.27
+  },
+  {
+   "text": "writes",
+   "start": 38.27,
+   "end": 38.52
+  },
+  {
+   "text": "each",
+   "start": 38.52,
+   "end": 38.75
+  },
+  {
+   "text": "pair",
+   "start": 38.75,
+   "end": 39.0
+  },
+  {
+   "text": "down",
+   "start": 39.0,
+   "end": 39.38
+  },
+  {
+   "text": "as",
+   "start": 39.38,
+   "end": 39.49
+  },
+  {
+   "text": "a",
+   "start": 39.49,
+   "end": 39.61
+  },
+  {
+   "text": "short",
+   "start": 39.61,
+   "end": 39.96
+  },
+  {
+   "text": "code",
+   "start": 39.96,
+   "end": 40.3
+  },
+  {
+   "text": "made",
+   "start": 40.3,
+   "end": 40.49
+  },
+  {
+   "text": "of",
+   "start": 40.49,
+   "end": 40.61
+  },
+  {
+   "text": "two",
+   "start": 40.61,
+   "end": 40.83
+  },
+  {
+   "text": "notes",
+   "start": 40.83,
+   "end": 41.24
+  },
+  {
+   "text": "and",
+   "start": 41.24,
+   "end": 41.38
+  },
+  {
+   "text": "one",
+   "start": 41.38,
+   "end": 41.6
+  },
+  {
+   "text": "gap.",
+   "start": 41.6,
+   "end": 42.33
+  },
+  {
+   "text": "The",
+   "start": 43.27,
+   "end": 43.41
+  },
+  {
+   "text": "app's",
+   "start": 43.41,
+   "end": 43.7
+  },
+  {
+   "text": "makers",
+   "start": 43.7,
+   "end": 44.15
+  },
+  {
+   "text": "turned",
+   "start": 44.15,
+   "end": 44.51
+  },
+  {
+   "text": "every",
+   "start": 44.51,
+   "end": 44.84
+  },
+  {
+   "text": "song",
+   "start": 44.84,
+   "end": 45.2
+  },
+  {
+   "text": "they",
+   "start": 45.2,
+   "end": 45.35
+  },
+  {
+   "text": "have",
+   "start": 45.35,
+   "end": 45.54
+  },
+  {
+   "text": "into",
+   "start": 45.54,
+   "end": 45.79
+  },
+  {
+   "text": "codes",
+   "start": 45.79,
+   "end": 46.17
+  },
+  {
+   "text": "ahead",
+   "start": 46.17,
+   "end": 46.39
+  },
+  {
+   "text": "of",
+   "start": 46.39,
+   "end": 46.48
+  },
+  {
+   "text": "time.",
+   "start": 46.48,
+   "end": 47.41
+  },
+  {
+   "text": "A",
+   "start": 47.41,
+   "end": 47.54
+  },
+  {
+   "text": "giant",
+   "start": 47.54,
+   "end": 47.9
+  },
+  {
+   "text": "list",
+   "start": 47.9,
+   "end": 48.25
+  },
+  {
+   "text": "works",
+   "start": 48.25,
+   "end": 48.55
+  },
+  {
+   "text": "like",
+   "start": 48.55,
+   "end": 48.71
+  },
+  {
+   "text": "a",
+   "start": 48.71,
+   "end": 48.77
+  },
+  {
+   "text": "book's",
+   "start": 48.77,
+   "end": 49.04
+  },
+  {
+   "text": "index,",
+   "start": 49.04,
+   "end": 49.88
+  },
+  {
+   "text": "showing",
+   "start": 49.88,
+   "end": 50.26
+  },
+  {
+   "text": "every",
+   "start": 50.26,
+   "end": 50.59
+  },
+  {
+   "text": "song",
+   "start": 50.59,
+   "end": 50.95
+  },
+  {
+   "text": "that",
+   "start": 50.95,
+   "end": 51.08
+  },
+  {
+   "text": "has",
+   "start": 51.08,
+   "end": 51.24
+  },
+  {
+   "text": "each",
+   "start": 51.24,
+   "end": 51.46
+  },
+  {
+   "text": "code,",
+   "start": 51.46,
+   "end": 52.1
+  },
+  {
+   "text": "and",
+   "start": 52.1,
+   "end": 52.22
+  },
+  {
+   "text": "when.",
+   "start": 52.22,
+   "end": 52.97
+  },
+  {
+   "text": "One",
+   "start": 53.97,
+   "end": 54.21
+  },
+  {
+   "text": "code",
+   "start": 54.21,
+   "end": 54.59
+  },
+  {
+   "text": "points",
+   "start": 54.59,
+   "end": 54.95
+  },
+  {
+   "text": "at",
+   "start": 54.95,
+   "end": 55.05
+  },
+  {
+   "text": "lots",
+   "start": 55.05,
+   "end": 55.31
+  },
+  {
+   "text": "of",
+   "start": 55.31,
+   "end": 55.41
+  },
+  {
+   "text": "songs.",
+   "start": 55.41,
+   "end": 56.4
+  },
+  {
+   "text": "But",
+   "start": 56.4,
+   "end": 56.55
+  },
+  {
+   "text": "only",
+   "start": 56.55,
+   "end": 56.85
+  },
+  {
+   "text": "in",
+   "start": 56.85,
+   "end": 56.94
+  },
+  {
+   "text": "the",
+   "start": 56.94,
+   "end": 57.02
+  },
+  {
+   "text": "right",
+   "start": 57.02,
+   "end": 57.34
+  },
+  {
+   "text": "song",
+   "start": 57.34,
+   "end": 57.7
+  },
+  {
+   "text": "do",
+   "start": 57.7,
+   "end": 57.81
+  },
+  {
+   "text": "your",
+   "start": 57.81,
+   "end": 57.96
+  },
+  {
+   "text": "codes",
+   "start": 57.96,
+   "end": 58.42
+  },
+  {
+   "text": "show",
+   "start": 58.42,
+   "end": 58.66
+  },
+  {
+   "text": "up",
+   "start": 58.66,
+   "end": 58.81
+  },
+  {
+   "text": "in",
+   "start": 58.81,
+   "end": 58.89
+  },
+  {
+   "text": "the",
+   "start": 58.89,
+   "end": 58.99
+  },
+  {
+   "text": "same",
+   "start": 58.99,
+   "end": 59.32
+  },
+  {
+   "text": "order,",
+   "start": 59.32,
+   "end": 60.01
+  },
+  {
+   "text": "as",
+   "start": 60.01,
+   "end": 60.17
+  },
+  {
+   "text": "far",
+   "start": 60.17,
+   "end": 60.39
+  },
+  {
+   "text": "apart",
+   "start": 60.39,
+   "end": 60.69
+  },
+  {
+   "text": "in",
+   "start": 60.69,
+   "end": 60.84
+  },
+  {
+   "text": "time",
+   "start": 60.84,
+   "end": 61.25
+  },
+  {
+   "text": "as",
+   "start": 61.25,
+   "end": 61.4
+  },
+  {
+   "text": "in",
+   "start": 61.4,
+   "end": 61.51
+  },
+  {
+   "text": "your",
+   "start": 61.51,
+   "end": 61.65
+  },
+  {
+   "text": "clip.",
+   "start": 61.65,
+   "end": 62.52
+  },
+  {
+   "text": "It",
+   "start": 62.52,
+   "end": 62.7
+  },
+  {
+   "text": "never",
+   "start": 62.7,
+   "end": 63.02
+  },
+  {
+   "text": "listens",
+   "start": 63.02,
+   "end": 63.47
+  },
+  {
+   "text": "for",
+   "start": 63.47,
+   "end": 63.59
+  },
+  {
+   "text": "the",
+   "start": 63.59,
+   "end": 63.67
+  },
+  {
+   "text": "words",
+   "start": 63.67,
+   "end": 64.14
+  },
+  {
+   "text": "or",
+   "start": 64.14,
+   "end": 64.3
+  },
+  {
+   "text": "the",
+   "start": 64.3,
+   "end": 64.44
+  },
+  {
+   "text": "tune,",
+   "start": 64.44,
+   "end": 65.19
+  },
+  {
+   "text": "only",
+   "start": 65.19,
+   "end": 65.52
+  },
+  {
+   "text": "for",
+   "start": 65.52,
+   "end": 65.66
+  },
+  {
+   "text": "where",
+   "start": 65.66,
+   "end": 65.79
+  },
+  {
+   "text": "the",
+   "start": 65.79,
+   "end": 65.88
+  },
+  {
+   "text": "brightest",
+   "start": 65.88,
+   "end": 66.3
+  },
+  {
+   "text": "dots",
+   "start": 66.3,
+   "end": 66.64
+  },
+  {
+   "text": "sit.",
+   "start": 66.64,
+   "end": 67.38
+  }
+ ]
+}

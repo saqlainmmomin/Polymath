@@ -19,7 +19,10 @@ struct FeedView: View {
             let h = geo.size.height + geo.safeAreaInsets.top + geo.safeAreaInsets.bottom
             ZStack {
                 ForEach(window, id: \.offset) { i, t in
-                    TopicView(topic: t, isCurrent: i == index, jump: go(to:))
+                    Group {
+                        if let v = Narration.load(t.id) { VoiceTopicView(topic: t, narration: v.0, audio: v.1, isCurrent: i == index) }
+                        else { TopicView(topic: t, isCurrent: i == index, jump: go(to:)) }
+                    }
                         .environment(\.colorScheme, store.isPaper(t) ? .dark : scheme)   // blueprint paper is always blue, so its text is light
                         .padding(.top, geo.safeAreaInsets.top)
                         .padding(.bottom, geo.safeAreaInsets.bottom)
