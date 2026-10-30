@@ -1,110 +1,115 @@
-// How do you know something is wet? 4 cards: you have no sensor for wet; water cools your skin fast; it touches you softly and
-// evenly, and the brain adds the two signals into "wet"; a dry hand in a bag still feels wet in cold water, less in warm.
-// Copy approved by the owner 2026-10-26, then cold-read and fact checked 2026-10-26 (Filingeri et al. 2014, J Neurophysiol;
-// Bentley 1900). Replaces ice-floats in the feed. The web diagrams are simple stand-ins until native iOS pictures exist.
+// Can your skin feel wet when it is dry? 4 cards, written spine-first (2026-10-30, tasks/spine-feel-wet/):
+// your skin has no sensor made just for wet; water cooler than your skin takes heat out of it and your cold sensors notice;
+// your brain puts the cold signal and a close, even touch together into wet; in 1900 a dry finger in a thin rubber sheath felt wet in water.
+// No "guess", "adds" or "decides", no plastic bag, no 20-times figure, no "damp" outside Go deeper (facts.md myths).
+// The iOS app draws every card natively (ios/Polymath/FlatWet.swift); these web diagrams are simple stand-ins using the text's exact words.
 (function () {
-  // Card 1: a shirt that feels damp, and a zoom into the skin: four sensors, and an empty slot for wet.
-  const names = ['Cold', 'Heat', 'Touch', 'Pain'];
+  // ---- Card 1: skin from the side, sensors tagged with what they react to, and an empty slot for wet. ----
+  const names = ['COLD SENSOR', 'WARM SENSOR', 'TOUCH SENSOR'];
   const sensorParts = [], sensorIds = [];
   names.forEach((n, i) => {
-    const y = 52 + i * 9;
-    sensorParts.push({ id: 's' + i, shape: 'circle', x: 30, y, r: 3.5, style: 'accent', hidden: true },
+    const y = 30 + i * 12;
+    sensorParts.push({ id: 's' + i, shape: 'circle', x: 22, y, r: 3.5, style: 'accent', hidden: true },
       { id: 'n' + i, shape: 'text', x: 58, y: y + 1.5, text: n, hidden: true });
     sensorIds.push('s' + i, 'n' + i);
   });
   const noSensor = { type: 'diagram', view: [100, 96], tip: false,
     parts: [
-      { id: 'shirt', shape: 'path', points: [[36, 12], [28, 16], [22, 26], [30, 30], [32, 26], [32, 40], [68, 40], [68, 26], [70, 30], [78, 26], [72, 16], [64, 12], [58, 16], [42, 16]], closed: true, style: 'blue' },
-      { id: 'damp', shape: 'text', x: 50, y: 6, text: 'Feels damp, can still be dry' },
-      { id: 'skin', shape: 'rect', x: 18, y: 45, w: 64, h: 49, style: 'thin', fill: false, hidden: true },
+      { id: 'skin', shape: 'rect', x: 8, y: 8, w: 84, h: 84, style: 'thin', fill: false },
+      { shape: 'text', x: 50, y: 16, text: 'SKIN' },
       ...sensorParts,
-      { id: 'wet', shape: 'circle', x: 30, y: 88, r: 3.5, style: 'thin', fill: false, hidden: true },
-      { id: 'x1', shape: 'line', from: [28, 86], to: [32, 90], style: 'thin', hidden: true },
-      { id: 'x2', shape: 'line', from: [32, 86], to: [28, 90], style: 'thin', hidden: true },
-      { id: 'wn', shape: 'text', x: 58, y: 89.5, text: 'Wet: none', hidden: true }
+      { id: 'wet', shape: 'circle', x: 22, y: 66, r: 3.5, style: 'thin', fill: false, hidden: true },
+      { id: 'wn', shape: 'text', x: 58, y: 67.5, text: 'NO SENSOR JUST FOR WET', hidden: true }
     ],
     steps: [
-      { note: 'Feels damp' },
-      { show: ['skin', ...sensorIds, 'wet', 'x1', 'x2', 'wn'], note: 'No sensor for wet' }
+      { show: sensorIds, note: 'Tiny sensors react to cold, warmth and touch' },
+      { show: ['wet', 'wn'], note: 'No sensor made just for wet' }
     ] };
 
-  // Card 2: two fingertips, one in air and one in water. Heat leaves the wet one much faster.
+  // ---- Card 2: a drop on skin; heat leaves into the water, the cold sensor lights up, a cold signal goes to the brain. ----
   const cooling = { type: 'diagram', view: [100, 96], tip: false,
     parts: [
-      { id: 'pool', shape: 'rect', x: 54, y: 46, w: 42, h: 44, style: 'blue' },
-      { id: 'f1', shape: 'rect', x: 18, y: 18, w: 14, h: 46, style: 'accent' },
-      { id: 'f2', shape: 'rect', x: 68, y: 18, w: 14, h: 46, style: 'accent' },
-      { id: 'ta', shape: 'text', x: 25, y: 80, text: 'In air: slow' },
-      { id: 'tw', shape: 'text', x: 70, y: 6, text: 'In water:' },
-      { id: 'tw2', shape: 'text', x: 70, y: 12, text: 'over 20× faster' },
-      { id: 'a1', shape: 'arrow', from: [32, 56], to: [42, 56], style: 'thin', hidden: true },
-      { id: 'b1', shape: 'arrow', from: [82, 52], to: [94, 52], hidden: true },
-      { id: 'b2', shape: 'arrow', from: [82, 60], to: [94, 60], hidden: true },
-      { id: 'b3', shape: 'arrow', from: [68, 56], to: [56, 56], hidden: true }
+      { id: 'skin', shape: 'rect', x: 4, y: 70, w: 92, h: 22, style: 'hatch' },
+      { id: 'drop', shape: 'path', points: [[24, 70], [38, 58], [62, 58], [76, 70]], closed: true, smooth: true, style: 'blue' },
+      { shape: 'text', x: 50, y: 52, text: 'WATER' },
+      { id: 'h1', shape: 'arrow', from: [40, 78], to: [40, 62], style: 'thin', hidden: true },
+      { id: 'h2', shape: 'arrow', from: [60, 78], to: [60, 62], style: 'thin', hidden: true },
+      { id: 'ho', shape: 'text', x: 84, y: 66, text: 'HEAT OUT', hidden: true },
+      { id: 'cs', shape: 'circle', x: 50, y: 82, r: 3.5, style: 'accent', hidden: true },
+      { id: 'csn', shape: 'text', x: 50, y: 90, text: 'COLD SENSOR', hidden: true },
+      { id: 'sig', shape: 'arrow', from: [14, 80], to: [14, 24], style: 'accent', hidden: true },
+      { id: 'sgn', shape: 'text', x: 26, y: 50, text: 'COLD SIGNAL', hidden: true },
+      { id: 'br', shape: 'rect', x: 2, y: 8, w: 40, h: 14, style: 'spark', text: 'YOUR BRAIN', hidden: true }
     ],
     steps: [
-      { note: 'Same finger, air and water' },
-      { show: ['a1', 'b1', 'b2', 'b3'], note: 'Heat leaves your skin' }
+      { note: 'Water touches your skin' },
+      { show: ['h1', 'h2', 'ho'], note: 'Water cooler than your skin takes heat out of it' },
+      { show: ['cs', 'csn', 'sig', 'sgn', 'br'], note: 'Your cold sensors notice and send a cold signal to your brain' }
     ] };
 
-  // Card 3: water rests on skin. A cooling signal and a touch signal travel up and add into "wet".
-  const guess = { type: 'diagram', view: [100, 96], tip: false,
+  // ---- Card 3: the same drop gives a close, even touch; the touch sensor lights up; both signals meet at the brain as "wet". ----
+  const together = { type: 'diagram', view: [100, 96], tip: false,
     parts: [
       { id: 'skin', shape: 'rect', x: 4, y: 76, w: 92, h: 16, style: 'hatch' },
       { id: 'drop', shape: 'path', points: [[20, 76], [34, 66], [66, 66], [80, 76]], closed: true, smooth: true, style: 'blue' },
-      { id: 'c', shape: 'arrow', from: [34, 62], to: [34, 34], style: 'accent', hidden: true },
-      { id: 't', shape: 'arrow', from: [66, 62], to: [66, 34], style: 'accent', hidden: true },
-      { id: 'ct', shape: 'text', x: 30, y: 28, text: 'Cooling', hidden: true },
-      { id: 'tt', shape: 'text', x: 70, y: 28, text: 'Touch', hidden: true },
-      { id: 'w', shape: 'text', x: 50, y: 14, text: 'Cooling + touch = "wet"', hidden: true }
+      { id: 'tt', shape: 'text', x: 50, y: 86, text: 'CLOSE, EVEN TOUCH', hidden: true },
+      { id: 'c', shape: 'arrow', from: [34, 62], to: [34, 36], style: 'accent' },
+      { id: 'ct', shape: 'text', x: 24, y: 48, text: 'COLD SIGNAL' },
+      { id: 't', shape: 'arrow', from: [66, 62], to: [66, 36], style: 'accent', hidden: true },
+      { id: 'ts', shape: 'text', x: 80, y: 48, text: 'TOUCH SENSOR', hidden: true },
+      { id: 'br', shape: 'rect', x: 30, y: 20, w: 40, h: 14, style: 'spark', text: 'YOUR BRAIN', hidden: true },
+      { id: 'w', shape: 'text', x: 50, y: 10, text: 'WET', hidden: true }
     ],
     steps: [
-      { note: 'Water on your skin' },
-      { show: ['c', 't', 'ct', 'tt'], note: 'Two signals' },
-      { show: ['w'], note: 'Your brain\'s guess' }
+      { note: 'The cold signal' },
+      { show: ['tt', 't', 'ts'], note: 'A wet thing also gives your skin a close, even touch' },
+      { show: ['br', 'w'], note: 'Your brain puts the cold signal and the touch together into wet' }
     ] };
 
-  // Card 4: a hand in a plastic bag, dipped in a bowl. Cold water: feels wet. Warm water: feels less wet. The hand stays dry.
-  const bag = { type: 'diagram', view: [100, 96], tip: false,
+  // ---- Card 4: a finger in a thin rubber sheath dips into water; it stays dry but feels wet; warmer water feels less wet. ----
+  const sheath = { type: 'diagram', view: [100, 96], tip: false,
     parts: [
       { id: 'cold', shape: 'rect', x: 14, y: 50, w: 72, h: 36, style: 'blue' },
       { id: 'warm', shape: 'rect', x: 14, y: 50, w: 72, h: 36, style: 'spark', hidden: true },
-      { id: 'bowl', shape: 'path', points: [[12, 40], [12, 88], [88, 88], [88, 40]], fill: false },
-      { id: 'bag', shape: 'rect', x: 38, y: 10, w: 24, h: 64, style: 'thin', fill: false },
-      { id: 'hand', shape: 'rect', x: 42, y: 14, w: 16, h: 56, style: 'accent' },
-      { id: 'dry', shape: 'text', x: 50, y: 6, text: 'Hand: dry' },
-      { id: 'tc', shape: 'text', x: 50, y: 94, text: 'Cold water: feels wet' },
-      { id: 'tw', shape: 'text', x: 50, y: 94, text: 'Warm water: feels less wet', hidden: true }
+      { id: 'glass', shape: 'path', points: [[12, 40], [12, 88], [88, 88], [88, 40]], fill: false },
+      { id: 'sh', shape: 'rect', x: 38, y: 10, w: 24, h: 64, style: 'thin', fill: false },
+      { id: 'fn', shape: 'rect', x: 42, y: 14, w: 16, h: 56, style: 'accent' },
+      { shape: 'text', x: 50, y: 6, text: 'DRY FINGER' },
+      { id: 'shn', shape: 'text', x: 80, y: 30, text: 'THIN RUBBER SHEATH' },
+      { id: 'fw', shape: 'text', x: 50, y: 94, text: 'FEELS WET', hidden: true },
+      { id: 'wm', shape: 'text', x: 50, y: 94, text: 'WARMER: LESS WET', hidden: true },
+      { id: 'lk', shape: 'text', x: 50, y: 94, text: 'LUKEWARM: BARELY', hidden: true }
     ],
     steps: [
-      { note: 'Cold water' },
-      { hide: ['cold', 'tc'], show: ['warm', 'tw'], note: 'Warm water' }
+      { note: 'A finger in a thin rubber sheath' },
+      { show: ['fw'], note: 'The finger stays dry, but it feels wet' },
+      { hide: ['cold', 'fw'], show: ['warm', 'wm'], note: 'Warmer water felt less wet' },
+      { hide: ['wm'], show: ['lk'], note: 'Lukewarm water barely at all' }
     ] };
 
   window.EXPLAINER = {
     id: 'feel-wet',
-    title: 'How do you know something is wet?',
+    title: 'Can your skin feel wet when it is dry?',
     kind: 'full',
     theme: 'nature',
     cards: [
-      { type: 'card',
-        title: 'You have no sense for wet. Your brain works it out.',
-        text: 'Take clothes off a washing line on a cold evening. They can feel damp, even when they are dry. Your skin cannot sense wet at all. It has tiny nerve endings, called sensors, for cold, heat, touch and pain. None of them senses wet.',
-        hook: 'So what are you really feeling?',
+      { type: 'card', title: 'Your skin has no sensor made just for wet.',
+        text: 'Your skin has tiny nerve endings, called sensors, that react to things such as cold, warmth and touch. But scientists have looked for one and found none made just for wet.',
+        hook: 'So what do your sensors feel when water touches you?',
         visual: noSensor },
-      { type: 'card', title: 'First, you feel your skin cool down',
-        text: 'Water is usually cooler than your skin. It pulls heat out of your skin over 20 times faster than air does. Your skin has tiny nerve endings, called sensors, that notice cold. They feel your skin cool down fast, so they send a signal to your brain.',
-        hook: 'But cooling alone does not always say "wet". Your brain also checks how the thing touches you.',
+      { type: 'card', title: 'Water cooler than your skin takes heat out of it, and your cold sensors notice',
+        text: 'When something wet touches you, water cooler than your skin takes heat out of it fast. Your cold sensors notice your skin getting colder and send a cold signal to your brain.',
+        hook: 'But is a cold signal all it takes to feel wet?',
         visual: cooling },
-      { type: 'card', title: 'Then you feel how it touches your skin',
-        text: 'A liquid touches you gently and evenly, all over at once. It moves and fits every bump of your skin. Touch sensors, tiny nerve endings, feel how the liquid presses and moves. Now your brain has two signals: fast cooling and a soft, even touch. Together, they usually mean a liquid. So your brain decides: "wet".',
-        hook: 'But that is only a guess, and you can fool it.',
-        visual: guess },
-      { type: 'card', title: 'You can feel wet when nothing is wet',
-        text: 'Put your hand in a thin plastic bag, and dip it in cold water. Your hand stays dry. Yet it feels wet, because your skin cools fast and feels that soft, even press. Now try warm water, close to your skin\'s own heat. It feels less wet, because your skin hardly cools.',
-        takeaway: 'You can\'t actually feel wet. Your brain guesses it from cold and touch.',
-        visual: bag },
-      { type: 'more', links: ['sky-blue'], note: 'Some insects really do have sensors for wet. Mosquitoes and fruit flies have them on their antennae. These sensors notice how wet the air is. They help the insects find water, and help mosquitoes find you.' }
+      { type: 'card', title: 'Your brain puts a cold signal and a close, even touch together into wet',
+        text: 'A wet thing also gives your skin a close, even touch, and your touch sensors feel it. Your brain puts the cold signal and the touch together into wet.',
+        hook: 'So could a dry finger feel wet?',
+        visual: together },
+      { type: 'card', title: 'In 1900, a dry finger in a thin rubber sheath felt wet in water',
+        text: 'So you can feel wet when you are dry. In 1900, a psychologist covered a finger with a thin rubber sheath, like a glove for one finger. The finger was then lowered into water, and it stayed dry but felt wet. The people who tried it at first refused to believe the finger was dry. In the same test, warmer water felt less wet, and lukewarm water barely at all.',
+        takeaway: 'Wet is not a sense of its own. Your brain builds it from cold and touch.',
+        visual: sheath },
+      { type: 'more', links: ['sky-blue'], note: 'Some animals do have a sensor for how damp the air is, which people do not. Fruit flies keep humidity sensors in their antennae, and mosquitoes have two kinds on theirs: one that reacts to dry air and one to damp air. Up close the sensors help a mosquito tell a person is near, and the damp-air kind helps it find water to lay eggs in. They sense water vapour in the air, not the feeling of a wet surface.' }
     ]
   };
 })();
