@@ -1890,79 +1890,8 @@
     {
      "type": "card",
      "title": "It's the same sky and the same Sun.",
-     "text": "Sunlight looks yellow, but it's really all colours mixed together. Air looks clear, but it isn't quite. So how does clear air turn sunlight into a blue sky, and later an orange one?",
-     "visual": {
-      "type": "diagram",
-      "view": [
-       100,
-       96
-      ],
-      "parts": [
-       {
-        "id": "skyL",
-        "shape": "rect",
-        "x": 3,
-        "y": 6,
-        "w": 45,
-        "h": 76,
-        "style": "blue"
-       },
-       {
-        "id": "skyR",
-        "shape": "rect",
-        "x": 52,
-        "y": 6,
-        "w": 45,
-        "h": 76,
-        "style": "heat"
-       },
-       {
-        "id": "ground",
-        "shape": "rect",
-        "x": 3,
-        "y": 82,
-        "w": 94,
-        "h": 9,
-        "style": "hatch"
-       },
-       {
-        "id": "sunL",
-        "shape": "circle",
-        "x": 25.5,
-        "y": 34,
-        "r": 9,
-        "style": "spark"
-       },
-       {
-        "id": "sunR",
-        "shape": "circle",
-        "x": 74.5,
-        "y": 69,
-        "r": 9,
-        "style": "spark"
-       },
-       {
-        "id": "tn",
-        "shape": "text",
-        "x": 25.5,
-        "y": 14,
-        "text": "Noon"
-       },
-       {
-        "id": "ts",
-        "shape": "text",
-        "x": 74.5,
-        "y": 14,
-        "text": "Sunset"
-       }
-      ],
-      "tip": null
-     }
-    },
-    {
-     "type": "card",
-     "title": "Sunlight is every colour at once",
-     "text": "After rain, a rainbow shows what is hiding in sunlight: every colour, mixed together. Light travels in tiny waves, and each colour has its own length. Red waves are long and stretched out. Blue waves are short and close together. So what does the air do to these waves?",
+     "text": "The Sun looks yellow, but its light is really all colours mixed together. Air looks clear, but it isn't quite.",
+     "hook": "So how does clear air turn sunlight into a blue sky, and later a red and orange sunset?",
      "visual": {
       "type": "diagram",
       "view": [
@@ -1973,557 +1902,79 @@
        {
         "id": "sun",
         "shape": "circle",
-        "x": 12,
-        "y": 18,
+        "x": 50,
+        "y": 12,
         "r": 8,
-        "style": "spark",
-        "label": "Sunlight",
-        "labelAt": [
-         12,
-         34
-        ]
-       },
-       {
-        "id": "beam",
-        "shape": "arrow",
-        "from": [
-         22,
-         18
-        ],
-        "to": [
-         54,
-         18
-        ],
         "style": "spark"
        },
        {
-        "id": "cr",
-        "shape": "arrow",
-        "from": [
-         54,
-         18
-        ],
-        "to": [
-         92,
-         6
-        ],
-        "style": "heat"
-       },
-       {
-        "id": "cg",
-        "shape": "arrow",
-        "from": [
-         54,
-         18
-        ],
-        "to": [
-         92,
-         18
-        ],
-        "style": "green"
-       },
-       {
-        "id": "cb",
-        "shape": "arrow",
-        "from": [
-         54,
-         18
-        ],
-        "to": [
-         92,
-         30
-        ],
-        "style": "blue"
-       },
-       {
-        "id": "tr",
         "shape": "text",
-        "x": 28,
-        "y": 52,
-        "text": "Red: long wave"
+        "x": 82,
+        "y": 13,
+        "text": "THE SUN"
        },
        {
-        "id": "wr",
-        "shape": "path",
-        "points": [
-         [
-          6,
-          62
-         ],
-         [
-          8.3,
-          65.9
-         ],
-         [
-          10.6,
-          65.9
-         ],
-         [
-          12.9,
-          62.1
-         ],
-         [
-          15.3,
-          58.2
-         ],
-         [
-          17.6,
-          58
-         ],
-         [
-          19.9,
-          61.8
-         ],
-         [
-          22.2,
-          65.8
-         ],
-         [
-          24.5,
-          66
-         ],
-         [
-          26.8,
-          62.3
-         ],
-         [
-          29.2,
-          58.3
-         ],
-         [
-          31.5,
-          57.9
-         ],
-         [
-          33.8,
-          61.6
-         ],
-         [
-          36.1,
-          65.6
-         ],
-         [
-          38.4,
-          66.1
-         ],
-         [
-          40.7,
-          62.5
-         ],
-         [
-          43.1,
-          58.4
-         ],
-         [
-          45.4,
-          57.8
-         ],
-         [
-          47.7,
-          61.4
-         ],
-         [
-          50,
-          65.5
-         ],
-         [
-          52.3,
-          66.2
-         ],
-         [
-          54.6,
-          62.7
-         ],
-         [
-          56.9,
-          58.5
-         ],
-         [
-          59.3,
-          57.8
-         ],
-         [
-          61.6,
-          61.2
-         ],
-         [
-          63.9,
-          65.4
-         ],
-         [
-          66.2,
-          66.3
-         ],
-         [
-          68.5,
-          62.9
-         ],
-         [
-          70.8,
-          58.7
-         ],
-         [
-          73.2,
-          57.7
-         ],
-         [
-          75.5,
-          60.9
-         ],
-         [
-          77.8,
-          65.2
-         ],
-         [
-          80.1,
-          66.3
-         ],
-         [
-          82.4,
-          63.2
-         ],
-         [
-          84.7,
-          58.8
-         ],
-         [
-          87.1,
-          57.6
-         ],
-         [
-          89.4,
-          60.7
-         ],
-         [
-          91.7,
-          65.1
-         ],
-         [
-          94,
-          66.4
-         ]
+        "id": "ray",
+        "shape": "arrow",
+        "from": [
+         50,
+         22
         ],
-        "smooth": true,
-        "style": "heat"
+        "to": [
+         50,
+         42
+        ],
+        "style": "accent"
        },
        {
-        "id": "tb",
         "shape": "text",
-        "x": 28,
-        "y": 76,
-        "text": "Blue: short wave"
+        "x": 76,
+        "y": 33,
+        "text": "ALL COLOURS MIXED"
        },
        {
-        "id": "wb",
-        "shape": "path",
-        "points": [
-         [
-          6,
-          86
-         ],
-         [
-          7.2,
-          88.6
-         ],
-         [
-          8.3,
-          88.6
-         ],
-         [
-          9.5,
-          85.9
-         ],
-         [
-          10.7,
-          83.4
-         ],
-         [
-          11.9,
-          83.4
-         ],
-         [
-          13,
-          86.1
-         ],
-         [
-          14.2,
-          88.7
-         ],
-         [
-          15.4,
-          88.5
-         ],
-         [
-          16.6,
-          85.8
-         ],
-         [
-          17.7,
-          83.3
-         ],
-         [
-          18.9,
-          83.5
-         ],
-         [
-          20.1,
-          86.2
-         ],
-         [
-          21.3,
-          88.7
-         ],
-         [
-          22.4,
-          88.5
-         ],
-         [
-          23.6,
-          85.7
-         ],
-         [
-          24.8,
-          83.3
-         ],
-         [
-          25.9,
-          83.6
-         ],
-         [
-          27.1,
-          86.3
-         ],
-         [
-          28.3,
-          88.8
-         ],
-         [
-          29.5,
-          88.4
-         ],
-         [
-          30.6,
-          85.6
-         ],
-         [
-          31.8,
-          83.2
-         ],
-         [
-          33,
-          83.6
-         ],
-         [
-          34.2,
-          86.4
-         ],
-         [
-          35.3,
-          88.8
-         ],
-         [
-          36.5,
-          88.3
-         ],
-         [
-          37.7,
-          85.5
-         ],
-         [
-          38.9,
-          83.2
-         ],
-         [
-          40,
-          83.7
-         ],
-         [
-          41.2,
-          86.5
-         ],
-         [
-          42.4,
-          88.8
-         ],
-         [
-          43.5,
-          88.3
-         ],
-         [
-          44.7,
-          85.4
-         ],
-         [
-          45.9,
-          83.2
-         ],
-         [
-          47.1,
-          83.8
-         ],
-         [
-          48.2,
-          86.6
-         ],
-         [
-          49.4,
-          88.9
-         ],
-         [
-          50.6,
-          88.2
-         ],
-         [
-          51.8,
-          85.3
-         ],
-         [
-          52.9,
-          83.1
-         ],
-         [
-          54.1,
-          83.8
-         ],
-         [
-          55.3,
-          86.7
-         ],
-         [
-          56.5,
-          88.9
-         ],
-         [
-          57.6,
-          88.1
-         ],
-         [
-          58.8,
-          85.2
-         ],
-         [
-          60,
-          83.1
-         ],
-         [
-          61.1,
-          83.9
-         ],
-         [
-          62.3,
-          86.8
-         ],
-         [
-          63.5,
-          88.9
-         ],
-         [
-          64.7,
-          88
-         ],
-         [
-          65.8,
-          85.1
-         ],
-         [
-          67,
-          83.1
-         ],
-         [
-          68.2,
-          84
-         ],
-         [
-          69.4,
-          87
-         ],
-         [
-          70.5,
-          88.9
-         ],
-         [
-          71.7,
-          88
-         ],
-         [
-          72.9,
-          85
-         ],
-         [
-          74.1,
-          83
-         ],
-         [
-          75.2,
-          84.1
-         ],
-         [
-          76.4,
-          87.1
-         ],
-         [
-          77.6,
-          89
-         ],
-         [
-          78.7,
-          87.9
-         ],
-         [
-          79.9,
-          84.9
-         ],
-         [
-          81.1,
-          83
-         ],
-         [
-          82.3,
-          84.2
-         ],
-         [
-          83.4,
-          87.2
-         ],
-         [
-          84.6,
-          89
-         ],
-         [
-          85.8,
-          87.8
-         ],
-         [
-          87,
-          84.8
-         ],
-         [
-          88.1,
-          83
-         ],
-         [
-          89.3,
-          84.3
-         ],
-         [
-          90.5,
-          87.3
-         ],
-         [
-          91.7,
-          89
-         ],
-         [
-          92.8,
-          87.7
-         ],
-         [
-          94,
-          84.7
-         ]
+        "id": "air",
+        "shape": "rect",
+        "x": 8,
+        "y": 44,
+        "w": 84,
+        "h": 14,
+        "style": "thin",
+        "text": "CLEAR AIR"
+       },
+       {
+        "id": "noon",
+        "shape": "rect",
+        "x": 8,
+        "y": 66,
+        "w": 40,
+        "h": 22,
+        "style": "blue",
+        "text": "NOON ?",
+        "hidden": true
+       },
+       {
+        "id": "sunset",
+        "shape": "rect",
+        "x": 52,
+        "y": 66,
+        "w": 40,
+        "h": 22,
+        "style": "heat",
+        "text": "SUNSET ?",
+        "hidden": true
+       }
+      ],
+      "steps": [
+       {
+        "note": "The Sun looks yellow, but its light is all colours mixed"
+       },
+       {
+        "show": [
+         "noon",
+         "sunset"
         ],
-        "smooth": true,
-        "style": "blue"
+        "note": "How does clear air turn it into a blue sky, and later a red and orange sunset?"
        }
       ],
       "tip": null
@@ -2531,8 +1982,9 @@
     },
     {
      "type": "card",
-     "title": "Clear air still bounces blue light",
-     "text": "Air looks like nothing, but it's made of gases. The gases are tiny particles, too small to see. Sunlight hits them all the time, and each hit sends the light off in a new direction. Short blue waves bounce much more often than long red ones: about 5 times as much. So where does all that bounced blue go?",
+     "title": "Air is made of molecules that scatter light in all directions",
+     "text": "Light travels in waves, and each colour has its own length. Blue waves are short and red waves are long. Air is made of molecules, tiny bits of gas far too small to see. They scatter light, which means they send it off in all directions.",
+     "hook": "So does air scatter blue light the same as red light?",
      "visual": {
       "type": "diagram",
       "view": [
@@ -2541,247 +1993,149 @@
       ],
       "parts": [
        {
-        "id": "col",
-        "shape": "rect",
-        "x": 38,
-        "y": 6,
-        "w": 24,
-        "h": 84,
-        "style": "blue",
-        "fill": false,
-        "label": "Air",
-        "labelAt": [
-         97,
-         84
-        ]
-       },
-       {
-        "id": "k0",
-        "shape": "dot",
-        "x": 43,
-        "y": 24,
-        "r": 1.8
-       },
-       {
-        "id": "k1",
-        "shape": "dot",
-        "x": 50,
-        "y": 31,
-        "r": 1.8
-       },
-       {
-        "id": "k2",
-        "shape": "dot",
-        "x": 57,
-        "y": 26,
-        "r": 1.8
-       },
-       {
-        "id": "k3",
-        "shape": "dot",
-        "x": 45,
-        "y": 34,
-        "r": 1.8
-       },
-       {
-        "id": "k4",
-        "shape": "dot",
-        "x": 55,
-        "y": 20,
-        "r": 1.8
-       },
-       {
-        "id": "k5",
-        "shape": "dot",
-        "x": 47,
-        "y": 62,
-        "r": 1.8
-       },
-       {
-        "id": "k6",
-        "shape": "dot",
-        "x": 54,
-        "y": 69,
-        "r": 1.8
-       },
-       {
-        "id": "k7",
-        "shape": "dot",
-        "x": 58,
-        "y": 63,
-        "r": 1.8
-       },
-       {
-        "id": "k8",
-        "shape": "dot",
-        "x": 43,
-        "y": 70,
-        "r": 1.8,
-        "label": "Gas particles",
-        "labelAt": [
-         3,
-         86
-        ]
-       },
-       {
-        "id": "k9",
-        "shape": "dot",
-        "x": 51,
-        "y": 59,
-        "r": 1.8
-       },
-       {
-        "id": "tb",
-        "shape": "text",
-        "x": 18,
-        "y": 14,
-        "text": "Blue: short"
-       },
-       {
-        "id": "tr",
-        "shape": "text",
-        "x": 20,
-        "y": 56,
-        "text": "Red: long"
-       },
-       {
-        "id": "bi",
+        "id": "bw",
         "shape": "path",
         "points": [
          [
           4,
-          27
+          26
          ],
          [
           5.2,
-          29.6
+          28.6
          ],
          [
           6.3,
-          29.6
+          28.6
          ],
          [
           7.5,
-          27
+          26
          ],
          [
           8.6,
-          24.4
+          23.4
          ],
          [
           9.8,
-          24.4
+          23.4
          ],
          [
           11,
-          26.9
+          25.9
          ],
          [
           12.1,
-          29.5
+          28.5
          ],
          [
           13.3,
-          29.7
+          28.7
          ],
          [
           14.5,
-          27.1
+          26.1
          ],
          [
           15.6,
-          24.5
+          23.5
          ],
          [
           16.8,
-          24.3
+          23.3
          ],
          [
           17.9,
-          26.8
+          25.8
          ],
          [
           19.1,
-          29.5
+          28.5
          ],
          [
           20.3,
-          29.7
+          28.7
          ],
          [
           21.4,
-          27.2
+          26.2
          ],
          [
           22.6,
-          24.5
+          23.5
          ],
          [
           23.7,
-          24.3
+          23.3
          ],
          [
           24.9,
-          26.7
+          25.7
          ],
          [
           26.1,
-          29.4
+          28.4
          ],
          [
           27.2,
-          29.7
+          28.7
          ],
          [
           28.4,
-          27.3
+          26.3
          ],
          [
           29.5,
-          24.6
+          23.6
          ],
          [
           30.7,
-          24.3
+          23.3
          ],
          [
           31.9,
-          26.7
+          25.7
          ],
          [
           33,
-          29.4
+          28.4
          ],
          [
           34.2,
-          29.8
+          28.8
          ],
          [
           35.4,
-          27.4
+          26.4
          ],
          [
           36.5,
-          24.6
+          23.6
          ],
          [
           37.7,
-          24.2
+          23.2
          ],
          [
           38.8,
-          26.6
+          25.6
          ],
          [
           40,
-          29.3
+          28.3
          ]
         ],
         "smooth": true,
         "style": "blue"
        },
        {
-        "id": "ri",
+        "shape": "text",
+        "x": 24,
+        "y": 14,
+        "text": "BLUE WAVE: SHORT"
+       },
+       {
+        "id": "rw",
         "shape": "path",
         "points": [
          [
@@ -2789,498 +2143,170 @@
           66
          ],
          [
-          5.8,
-          69.9
-         ],
-         [
-          7.6,
+          6.4,
           70
          ],
          [
-          9.4,
-          66.3
+          8.8,
+          69.8
          ],
          [
           11.2,
-          62.3
+          65.6
          ],
          [
-          13,
+          13.6,
           61.9
          ],
          [
-          14.8,
-          65.5
-         ],
-         [
-          16.6,
-          69.6
+          16,
+          62.5
          ],
          [
           18.4,
-          70.2
-         ],
-         [
-          20.2,
           66.8
          ],
          [
-          22,
-          62.6
+          20.8,
+          70.3
          ],
          [
-          23.8,
-          61.7
+          23.2,
+          69.3
          ],
          [
           25.6,
-          65
+          64.8
          ],
          [
-          27.4,
-          69.2
-         ],
-         [
-          29.2,
-          70.4
-         ],
-         [
-          31,
-          67.3
-         ],
-         [
-          32.8,
-          63
-         ],
-         [
-          34.6,
+          28,
           61.6
          ],
          [
-          36.4,
-          64.5
+          30.4,
+          63
          ],
          [
-          38.2,
-          68.8
+          32.8,
+          67.6
+         ],
+         [
+          35.2,
+          70.5
+         ],
+         [
+          37.6,
+          68.6
          ],
          [
           40,
-          70.5
+          64
          ]
         ],
         "smooth": true,
         "style": "heat"
        },
        {
-        "id": "ro",
-        "shape": "path",
-        "points": [
-         [
-          60,
-          66
-         ],
-         [
-          61.8,
-          69.9
-         ],
-         [
-          63.6,
-          70
-         ],
-         [
-          65.4,
-          66.3
-         ],
-         [
-          67.2,
-          62.3
-         ],
-         [
-          69,
-          61.9
-         ],
-         [
-          70.8,
-          65.5
-         ],
-         [
-          72.6,
-          69.6
-         ],
-         [
-          74.4,
-          70.2
-         ],
-         [
-          76.2,
-          66.8
-         ],
-         [
-          78,
-          62.6
-         ],
-         [
-          79.8,
-          61.7
-         ],
-         [
-          81.6,
-          65
-         ],
-         [
-          83.4,
-          69.2
-         ],
-         [
-          85.2,
-          70.4
-         ],
-         [
-          87,
-          67.3
-         ],
-         [
-          88.8,
-          63
-         ],
-         [
-          90.6,
-          61.6
-         ],
-         [
-          92.4,
-          64.5
-         ],
-         [
-          94.2,
-          68.8
-         ],
-         [
-          96,
-          70.5
-         ]
-        ],
-        "smooth": true,
-        "style": "heat",
-        "hidden": true
+        "shape": "text",
+        "x": 24,
+        "y": 80,
+        "text": "RED WAVE: LONG"
        },
        {
-        "id": "bo1",
-        "shape": "path",
-        "points": [
-         [
-          60,
-          27
-         ],
-         [
-          62.4,
-          28.5
-         ],
-         [
-          63.4,
-          27.9
-         ],
-         [
-          62.9,
-          25.1
-         ],
-         [
-          62.5,
-          22.3
-         ],
-         [
-          63.4,
-          21.6
-         ],
-         [
-          65.8,
-          23.1
-         ],
-         [
-          68.2,
-          24.7
-         ],
-         [
-          69.2,
-          24.1
-         ],
-         [
-          68.8,
-          21.4
-         ],
-         [
-          68.3,
-          18.5
-         ],
-         [
-          69.2,
-          17.7
-         ],
-         [
-          71.5,
-          19.2
-         ],
-         [
-          74,
-          20.8
-         ],
-         [
-          75.1,
-          20.4
-         ],
-         [
-          74.7,
-          17.7
-         ],
-         [
-          74.2,
-          14.8
-         ],
-         [
-          75,
-          13.9
-         ],
-         [
-          77.3,
-          15.3
-         ],
-         [
-          79.7,
-          16.9
-         ],
-         [
-          80.9,
-          16.6
-         ],
-         [
-          80.6,
-          14
-         ],
-         [
-          80,
-          11
-         ],
-         [
-          80.8,
-          10
-         ],
-         [
-          83,
-          11.4
-         ],
-         [
-          85.5,
-          13
-         ],
-         [
-          86.7,
-          12.8
-         ],
-         [
-          86.5,
-          10.2
-         ],
-         [
-          85.9,
-          7.3
-         ],
-         [
-          86.6,
-          6.2
-         ],
-         [
-          88.8,
-          7.5
-         ],
-         [
-          91.3,
-          9.2
-         ],
-         [
-          92.6,
-          9
-         ],
-         [
-          92.3,
-          6.5
-         ]
+        "id": "mol",
+        "shape": "circle",
+        "x": 50,
+        "y": 46,
+        "r": 5,
+        "style": "accent"
+       },
+       {
+        "shape": "text",
+        "x": 50,
+        "y": 56,
+        "text": "MOLECULE OF AIR"
+       },
+       {
+        "id": "o1",
+        "shape": "arrow",
+        "from": [
+         55,
+         41
         ],
-        "smooth": true,
+        "to": [
+         80,
+         20
+        ],
         "style": "blue",
         "hidden": true
        },
        {
-        "id": "bo2",
-        "shape": "path",
-        "points": [
-         [
-          60,
-          27
-         ],
-         [
-          59.7,
-          29.8
-         ],
-         [
-          60.7,
-          30.4
-         ],
-         [
-          63,
-          28.8
-         ],
-         [
-          65.3,
-          27.2
-         ],
-         [
-          66.3,
-          27.7
-         ],
-         [
-          66,
-          30.5
-         ],
-         [
-          65.7,
-          33.4
-         ],
-         [
-          66.7,
-          34
-         ],
-         [
-          69,
-          32.4
-         ],
-         [
-          71.3,
-          30.7
-         ],
-         [
-          72.4,
-          31.3
-         ],
-         [
-          72.1,
-          34
-         ],
-         [
-          71.7,
-          36.9
-         ],
-         [
-          72.6,
-          37.6
-         ],
-         [
-          74.9,
-          36
-         ],
-         [
-          77.3,
-          34.3
-         ],
-         [
-          78.4,
-          34.8
-         ],
-         [
-          78.1,
-          37.5
-         ],
-         [
-          77.7,
-          40.4
-         ],
-         [
-          78.6,
-          41.2
-         ],
-         [
-          80.9,
-          39.6
-         ],
-         [
-          83.3,
-          37.9
-         ],
-         [
-          84.4,
-          38.3
-         ],
-         [
-          84.1,
-          41
-         ],
-         [
-          83.7,
-          44
-         ],
-         [
-          84.6,
-          44.8
-         ],
-         [
-          86.9,
-          43.3
-         ],
-         [
-          89.3,
-          41.5
-         ],
-         [
-          90.4,
-          41.9
-         ],
-         [
-          90.2,
-          44.6
-         ],
-         [
-          89.8,
-          47.5
-         ],
-         [
-          90.6,
-          48.4
-         ]
+        "id": "o2",
+        "shape": "arrow",
+        "from": [
+         56,
+         46
         ],
-        "smooth": true,
+        "to": [
+         92,
+         46
+        ],
         "style": "blue",
+        "hidden": true
+       },
+       {
+        "id": "o3",
+        "shape": "arrow",
+        "from": [
+         55,
+         51
+        ],
+        "to": [
+         80,
+         74
+        ],
+        "style": "blue",
+        "hidden": true
+       },
+       {
+        "id": "o4",
+        "shape": "arrow",
+        "from": [
+         45,
+         41
+        ],
+        "to": [
+         66,
+         8
+        ],
+        "style": "blue",
+        "hidden": true
+       },
+       {
+        "id": "sc",
+        "shape": "text",
+        "x": 78,
+        "y": 90,
+        "text": "SCATTERED IN ALL DIRECTIONS",
         "hidden": true
        }
       ],
       "steps": [
        {
-        "note": "Both enter the air"
+        "note": "Light travels in waves, and each colour has its own length"
+       },
+       {
+        "note": "Air is made of molecules, tiny bits of gas far too small to see"
        },
        {
         "show": [
-         "ro"
+         "o1",
+         "o2",
+         "o3",
+         "o4",
+         "sc"
         ],
-        "focus": [
-         "ri",
-         "ro",
-         "tr",
-         "col"
-        ],
-        "note": "Long red mostly slips past"
-       },
-       {
-        "show": [
-         "bo1",
-         "bo2"
-        ],
-        "focus": [
-         "bi",
-         "bo1",
-         "bo2",
-         "tb",
-         "col"
-        ],
-        "note": "Short blue gets bounced"
+        "note": "They scatter light: they send it off in all directions"
        }
       ],
       "tip": "Tap a dot to jump"
@@ -3288,8 +2314,9 @@
     },
     {
      "type": "card",
-     "title": "Bounced blue comes at you from everywhere",
-     "text": "Particles fill the whole sky, not only the part near the Sun. Each one bounces some blue toward your eyes, so you see blue wherever you look. The sky has no blue of its own. It's sunlight, bounced toward you by the air. So why does that blue sky turn orange at sunset?",
+     "title": "Air scatters blue about four times as strongly as red, so the blue comes from all over the sky",
+     "text": "Air scatters blue about four times as strongly as red, so far more blue than red is sent off. That scattered blue reaches your eyes from all over the sky. The sky has no blue of its own. The blue was in the sunlight all along.",
+     "hook": "So why is a sunset red and orange?",
      "visual": {
       "type": "diagram",
       "view": [
@@ -3300,96 +2327,56 @@
        {
         "id": "air",
         "shape": "rect",
-        "x": 6,
-        "y": 30,
-        "w": 88,
-        "h": 48,
+        "x": 4,
+        "y": 26,
+        "w": 92,
+        "h": 44,
         "style": "blue",
-        "fill": false,
-        "label": "Air",
-        "labelAt": [
-         97,
-         22
-        ]
+        "fill": false
        },
        {
-        "id": "ground",
-        "shape": "rect",
-        "x": 6,
-        "y": 86,
-        "w": 88,
-        "h": 6,
-        "style": "hatch"
+        "shape": "text",
+        "x": 90,
+        "y": 22,
+        "text": "AIR"
        },
        {
         "id": "sun",
         "shape": "circle",
-        "x": 14,
-        "y": 13,
-        "r": 7,
-        "style": "spark",
-        "label": "Sun",
-        "labelAt": [
-         42,
-         10
-        ]
+        "x": 10,
+        "y": 10,
+        "r": 5,
+        "style": "spark"
        },
        {
-        "id": "sl",
-        "shape": "arrow",
-        "from": [
-         21,
-         20
-        ],
-        "to": [
-         72,
-         71
-        ],
-        "style": "spark",
-        "label": "Sunlight",
-        "labelAt": [
-         88,
-         10
-        ]
+        "shape": "text",
+        "x": 34,
+        "y": 8,
+        "text": "SUNLIGHT"
        },
        {
-        "id": "a1",
+        "id": "beam",
         "shape": "arrow",
         "from": [
-         38,
-         37
+         14,
+         14
         ],
         "to": [
-         43,
-         29
+         66,
+         52
         ],
-        "style": "blue",
-        "hidden": true
-       },
-       {
-        "id": "a2",
-        "shape": "arrow",
-        "from": [
-         38,
-         37
-        ],
-        "to": [
-         26,
-         41
-        ],
-        "style": "blue",
-        "hidden": true
+        "style": "spark"
        },
        {
         "id": "b1",
         "shape": "arrow",
         "from": [
-         50,
-         49
+         26,
+         28
         ],
         "to": [
-         65,
-         45
+         14,
+         42
         ],
         "style": "blue",
         "hidden": true
@@ -3398,95 +2385,190 @@
         "id": "b2",
         "shape": "arrow",
         "from": [
-         50,
-         49
+         38,
+         36
         ],
         "to": [
-         45,
-         63
+         30,
+         52
         ],
         "style": "blue",
         "hidden": true
        },
        {
-        "id": "c1",
+        "id": "b3",
         "shape": "arrow",
         "from": [
-         62,
-         61
+         48,
+         42
         ],
         "to": [
-         76,
-         54
+         56,
+         30
         ],
         "style": "blue",
         "hidden": true
        },
        {
-        "id": "c2",
+        "id": "b4",
         "shape": "arrow",
         "from": [
-         62,
-         61
+         58,
+         48
         ],
         "to": [
-         53,
-         74
+         78,
+         38
         ],
         "style": "blue",
+        "hidden": true
+       },
+       {
+        "id": "b5",
+        "shape": "arrow",
+        "from": [
+         58,
+         48
+        ],
+        "to": [
+         72,
+         62
+        ],
+        "style": "blue",
+        "hidden": true
+       },
+       {
+        "id": "r1",
+        "shape": "arrow",
+        "from": [
+         34,
+         32
+        ],
+        "to": [
+         40,
+         24
+        ],
+        "style": "heat",
+        "hidden": true
+       },
+       {
+        "id": "bt",
+        "shape": "text",
+        "x": 70,
+        "y": 30,
+        "text": "BLUE: ABOUT FOUR TIMES",
+        "hidden": true
+       },
+       {
+        "id": "bt2",
+        "shape": "text",
+        "x": 70,
+        "y": 35,
+        "text": "AS STRONGLY AS RED",
+        "hidden": true
+       },
+       {
+        "id": "rt",
+        "shape": "text",
+        "x": 24,
+        "y": 22,
+        "text": "RED",
+        "hidden": true
+       },
+       {
+        "id": "e1",
+        "shape": "arrow",
+        "from": [
+         18,
+         46
+        ],
+        "to": [
+         44,
+         82
+        ],
+        "style": "blue",
+        "dash": true,
+        "hidden": true
+       },
+       {
+        "id": "e2",
+        "shape": "arrow",
+        "from": [
+         60,
+         34
+        ],
+        "to": [
+         54,
+         82
+        ],
+        "style": "blue",
+        "dash": true,
+        "hidden": true
+       },
+       {
+        "id": "e3",
+        "shape": "arrow",
+        "from": [
+         80,
+         44
+        ],
+        "to": [
+         60,
+         82
+        ],
+        "style": "blue",
+        "dash": true,
         "hidden": true
        },
        {
         "id": "eye",
         "shape": "circle",
         "x": 50,
-        "y": 80,
-        "r": 4.5,
-        "style": "accent",
-        "label": "Your eye",
-        "labelAt": [
-         20,
-         74
-        ]
+        "y": 86,
+        "r": 4,
+        "style": "thin"
+       },
+       {
+        "shape": "text",
+        "x": 50,
+        "y": 94,
+        "text": "YOUR EYES"
+       },
+       {
+        "id": "all",
+        "shape": "text",
+        "x": 14,
+        "y": 66,
+        "text": "ALL OVER THE SKY",
+        "hidden": true
        }
       ],
       "steps": [
        {
-        "note": "Sunlight: a mix of colours"
+        "note": "Sunlight crosses the air"
        },
        {
         "show": [
-         "a1",
-         "a2",
          "b1",
          "b2",
-         "c1"
+         "b3",
+         "b4",
+         "b5",
+         "r1",
+         "bt",
+         "bt2",
+         "rt"
         ],
-        "focus": [
-         "a1",
-         "a2",
-         "b1",
-         "b2",
-         "c1",
-         "sl",
-         "air"
-        ],
-        "note": "Air bounces blue every way"
+        "note": "Air scatters blue about four times as strongly as red"
        },
        {
         "show": [
-         "c2"
+         "e1",
+         "e2",
+         "e3",
+         "all"
         ],
-        "focus": [
-         "c2",
-         "c1",
-         "a1",
-         "a2",
-         "b1",
-         "b2",
-         "eye"
-        ],
-        "note": "Some reaches your eye"
+        "note": "That scattered blue reaches your eyes from all over the sky"
        }
       ],
       "tip": "Tap a dot to jump"
@@ -3494,9 +2576,9 @@
     },
     {
      "type": "card",
-     "title": "At sunset, light crosses far more air",
-     "text": "Air is a thin layer around Earth. When the Sun is overhead, its light takes a short path down through the layer. At sunset, the Sun is near the horizon, so its light must cross the layer sideways. That is a much longer trip, through about 40 times more air. On the way, the particles bounce away most of the blue, so mostly red and orange reaches your eyes.",
-     "takeaway": "Short trip: blue sky; long trip: red sunset.",
+     "title": "At sunset the Sun's light slants through far more air, so red and orange are what is left",
+     "text": "At sunset the Sun is low, so its light slants through far more air. Right at the horizon, that is about 38 times as much air as when the Sun is straight overhead. On the way, much of the blue is scattered off in other directions and never reaches you. Red and orange are what is left. The Sun looks yellow at noon for the same reason. The air has already scattered some blue out of its light.",
+     "takeaway": "The same scattering that makes the sky blue takes much of the blue out of the sunset.",
      "visual": {
       "type": "diagram",
       "view": [
@@ -3512,12 +2594,13 @@
         "w": 76,
         "h": 28,
         "style": "blue",
-        "fill": false,
-        "label": "Air",
-        "labelAt": [
-         52,
-         42
-        ]
+        "fill": false
+       },
+       {
+        "shape": "text",
+        "x": 56,
+        "y": 46,
+        "text": "FAR MORE AIR"
        },
        {
         "id": "ground",
@@ -3534,12 +2617,13 @@
         "x": 88,
         "y": 12,
         "r": 6,
-        "style": "spark",
-        "label": "Noon",
-        "labelAt": [
-         66,
-         12
-        ]
+        "style": "spark"
+       },
+       {
+        "shape": "text",
+        "x": 66,
+        "y": 12,
+        "text": "SUN OVERHEAD"
        },
        {
         "id": "nbd",
@@ -3575,12 +2659,15 @@
         "y": 76,
         "r": 5.5,
         "style": "spark",
-        "hidden": true,
-        "label": "Sunset",
-        "labelAt": [
-         4,
-         60
-        ]
+        "hidden": true
+       },
+       {
+        "id": "low",
+        "shape": "text",
+        "x": 14,
+        "y": 62,
+        "text": "LOW SUN",
+        "hidden": true
        },
        {
         "id": "sb",
@@ -3639,54 +2726,65 @@
         "hidden": true
        },
        {
+        "id": "ut",
+        "shape": "text",
+        "x": 50,
+        "y": 40,
+        "text": "BLUE SCATTERED OFF",
+        "hidden": true
+       },
+       {
+        "id": "ro",
+        "shape": "text",
+        "x": 70,
+        "y": 92,
+        "text": "RED AND ORANGE",
+        "hidden": true
+       },
+       {
         "id": "eye",
         "shape": "circle",
         "x": 88,
         "y": 76,
         "r": 4,
-        "style": "thin",
-        "label": "You",
-        "labelAt": [
-         78,
-         94
-        ]
+        "style": "thin"
+       },
+       {
+        "shape": "text",
+        "x": 78,
+        "y": 94,
+        "text": "YOUR EYES"
        }
       ],
       "steps": [
        {
-        "note": "Noon: a short trip through air"
+        "note": "Sun overhead: a short path through the air"
        },
        {
         "show": [
          "sunS",
+         "low",
          "sb"
         ],
-        "focus": [
-         "sunS",
-         "sb",
-         "nb",
-         "air",
-         "eye"
-        ],
-        "note": "Sunset: a much longer trip"
+        "note": "At sunset the Sun is low, so its light slants through far more air"
        },
        {
         "show": [
          "u1",
          "u2",
-         "u3"
+         "u3",
+         "ut"
         ],
         "restyle": {
          "sb": "heat"
         },
-        "focus": [
-         "sb",
-         "u1",
-         "u2",
-         "u3",
-         "eye"
+        "note": "Much of the blue is scattered off in other directions"
+       },
+       {
+        "show": [
+         "ro"
         ],
-        "note": "Blue bounced away, red gets through"
+        "note": "Red and orange are what is left"
        }
       ],
       "tip": "Tap a dot to jump"
@@ -3697,7 +2795,7 @@
      "links": [
       "moon-tides"
      ],
-     "note": "The Sun looks yellow because the air has already bounced some blue out of its light. Violet bounces even more than blue, but the Sun gives out less violet and our eyes see it poorly, so the sky looks blue, not violet."
+     "note": "Clouds are white because their drops of water are much bigger than air molecules, and they scatter all the colours alike."
     }
    ]
   },
