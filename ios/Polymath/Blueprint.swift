@@ -42,6 +42,7 @@ struct BlueprintStage: View {
 
     @Environment(\.accessibilityReduceMotion) private var reduce
     @Environment(\.stage) private var pal
+    @Environment(\.pictureClock) private var narrated
     @State private var start: Date?
     @State private var run = 0
 
@@ -49,6 +50,23 @@ struct BlueprintStage: View {
     private static let settle = 0.4
 
     var body: some View {
+        if let narrated { follow(narrated) } else { selfTimed }
+    }
+
+    /// Narrated: the voice's clock drives the picture, so it pauses and seeks with the voice, and a tap never restarts it.
+    private func follow(_ n: PictureClock) -> some View {
+        Canvas { ctx, size in
+            let u = min(size.width / self.size.width, size.height / self.size.height)
+            var c = ctx
+            c.translateBy(x: (size.width - self.size.width * u) / 2, y: (size.height - self.size.height * u) / 2)
+            c.scaleBy(x: u, y: u)
+            draw(&c, reduce ? length : min(length, max(0, n.t)), pal, reduce ? 2.2 : max(0, n.clock))
+        }
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(label)
+    }
+
+    private var selfTimed: some View {
         // Paused until `start` is set: a timeline that was live from the app's very first frame never ticked, freezing the first card.
         TimelineView(.animation(paused: !active || reduce || start == nil)) { tl in
             Canvas { ctx, size in
@@ -78,6 +96,14 @@ struct BlueprintStage: View {
         .accessibilityLabel(label)
         .accessibilityHint("Tap to replay")
     }
+}
+
+/// Time handed to a picture by the narration (VoiceTopicView): `t` is the action's time, stretched by the beat's keyframes so each
+/// step lands on the words that name it; `clock` is plain seconds into the beat, for motion that keeps flowing. Nil on swipeable cards.
+struct PictureClock { let t: Double; let clock: Double }
+private struct PictureClockKey: EnvironmentKey { static let defaultValue: PictureClock? = nil }
+extension EnvironmentValues {
+    var pictureClock: PictureClock? { get { self[PictureClockKey.self] } set { self[PictureClockKey.self] = newValue } }
 }
 
 // MARK: - Small helpers (BP namespace so they never clash with other files' private helpers)

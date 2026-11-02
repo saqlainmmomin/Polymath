@@ -124,7 +124,7 @@ Status: car-engine build is in progress (Sonnet subagent); not yet compiled, dep
 - Owner verdict: pending. Uncommitted.
 - **birthday: APPROVED by the owner (2026-10-28), looping version; tiny people kept as built.** Open issues: none. Uncommitted.
 
-### seasons (built, awaiting owner verdict, 2026-10-28)
+### seasons (APPROVED by the owner, 2026-10-31; built 2026-10-28)
 - Redone in Blueprint with loops on all five: `FlatSeasonsBP.swift` (SeasonsBPFar, Steps, Lean, Torch, Day), mapped in `Pictures.swift`; card 6 none. Old `FlatSeasons.swift` left, unused. Card 4 torch tilts automatically (no drag). Compiles.
 - Seen on the phone, all five cards (a locked-phone screenshot of card 1 was deleted unviewed and retaken). Labels clear, nothing needed fixing.
 - Deviations: card 1 orbit is exaggerated (Sun off-centre, ~100 vs 124 pt) with no scale note, while card 2 says the real difference is about 3%; card 2 adds "JANUARY: 100 STEPS", "JULY: 103 STEPS", "SAME DISTANCE"; card 5 adds LONG DAY / SHORT DAY.
@@ -164,3 +164,16 @@ The grey "setup" line under card 1's headline (the card's own title) looked odd 
 - Owner verdict: pending. Uncommitted.
 - gps recheck (2026-10-30): captured cards 1, 2, 3 and 5 at three points each, later in their loops (card 1's earlier capture of the home screen was deleted). All four read well; labels clear, no overlaps with the like/save corner, Anatomy craft rules (fill, one idea per accent, lines land on something, drawing matches copy) satisfied. No fixes made. Notes: card 3's lower SENT / ARRIVED timeline sits near the bottom of the picture area; card 5 mid-loop frame shows the phone and the offset target ring clearly. Owner verdict: pending. Uncommitted.
 - **gps: APPROVED by the owner (2026-10-30), looping version.** Open issues: none. Uncommitted.
+
+### feel-wet (2026-10-31)
+- **Status:** APPROVED by the owner (2026-10-31). Plan approved as proposed (Blueprint, loops on all four, three glasses on card 4, no temperatures).
+- **Files:** `ios/Polymath/FlatWetBP.swift` (WetBPSensors, WetBPCold, WetBPTouch, WetBPSheath); `Pictures.swift` feel-wet block remapped. Old `Wet*` pictures left unused.
+- **Checked on phone:** all four cards at several loop points. Labels sit inside the frame, leaders clear of the first letter.
+- **Deviations:** card 4's WATER leader points at the third glass; card 4 loops every 10.5 s (finger visits three glasses); card 3's cold sensor is lit but unlabelled (COLD SENSOR is not in that slide's labels).
+- **Not fixed / for the owner's eye:** card 3 labels both signals' shared channel "COLD SIGNAL" (slide's own words); card 1's picture is a plain skin bar and fills less of the stage than other topics.
+
+### sky-blue (2026-10-31)
+- **Status:** built and on the owner's phone, awaiting owner verdict. Plan approved, then restyled at the owner's request to match a reference image: tilted disc, dashed light routes, round coloured pins on stems (sky blue, coral, teal, lime, plus the mustard). Pictures only; the app UI and grid are unchanged. Sky-blue only (owner chose this scope; other topics stay as approved).
+- **Files:** `ios/Polymath/FlatSkyBP.swift` (SkyBPSun, SkyBPWave, SkyBPAll, SkyBPSunset); `Pictures.swift` sky-blue block maps 0 to 3 (the old 5th mapping is gone). Old `Sky*` pictures left unused.
+- **Fixed after the phone check:** card 4 "FAR MORE AIR" ran into "LOW SUN" and its leader touched a neighbour; moved to elbow x 92, and the RED AND ORANGE leader to elbow x 190.
+- **For the owner's eye:** card 4's BLUE SCATTERED OFF leader is a long diagonal across the slab corner; the sky-blue copy's cold read is still pending, so the pictures may need a redraw if the card order or wording changes.

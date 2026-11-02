@@ -66,7 +66,8 @@ private func tbOuter(_ th: Double, axis: Double, b1: Double, b2: Double) -> Doub
 
 /// Earth from above with its sea. `axis` is the angle of the Moon; `b1` / `b2` grow the near and far bulges (0...1). With `hi` the bulges
 /// are picked out in the accent. `spin` turns the spokes, so a turning Earth shows.
-private func tbEarth(_ c: inout GraphicsContext, axis: Double, b1: Double, b2: Double, hi: Bool, spin: Double, ink: Color, acc: Color) {
+private func tbEarth(_ c: inout GraphicsContext, axis: Double, b1: Double, b2: Double, hi: Bool, spin: Double, ink: Color, acc: Color, seaHue: Color? = nil, landHue: Color? = nil) {
+    let seaC = seaHue ?? ink, landC = landHue ?? ink
     var sea = Path()
     for i in 0...180 {
         let th = 2 * Double.pi * Double(i) / 180
@@ -74,8 +75,8 @@ private func tbEarth(_ c: inout GraphicsContext, axis: Double, b1: Double, b2: D
         if i == 0 { sea.move(to: q) } else { sea.addLine(to: q) }
     }
     sea.closeSubpath()
-    c.fill(sea, with: .color(BP.paper)); c.fill(sea, with: .color(ink.opacity(0.18)))
-    c.stroke(sea, with: .color(ink), style: StrokeStyle(lineWidth: BP.edge, lineJoin: .round))
+    c.fill(sea, with: .color(BP.paper)); c.fill(sea, with: .color(seaC.opacity(seaHue == nil ? 0.18 : 0.18)))
+    c.stroke(sea, with: .color(seaC), style: StrokeStyle(lineWidth: BP.edge, lineJoin: .round))
     if hi {
         for side in 0..<2 {
             let b = side == 0 ? b1 : b2
@@ -90,20 +91,20 @@ private func tbEarth(_ c: inout GraphicsContext, axis: Double, b1: Double, b2: D
             var fillP = out
             for i in stride(from: 36, through: 0, by: -1) { fillP.addLine(to: tbOnE(tbR + tbBand, start + Double.pi * Double(i) / 36)) }
             fillP.closeSubpath()
-            c.fill(fillP, with: .color(acc.opacity(0.38)))
+            c.fill(fillP, with: .color(acc.opacity(0.18)))
             c.stroke(out, with: .color(acc), style: StrokeStyle(lineWidth: 1.9, lineCap: .round, lineJoin: .round))
         }
     }
     let disc = tbOval(tbE, tbR, tbR)
-    c.fill(disc, with: .color(BP.paper)); c.fill(disc, with: .color(ink.opacity(0.08)))
-    c.stroke(disc, with: .color(ink), lineWidth: BP.edge)
+    c.fill(disc, with: .color(BP.paper)); c.fill(disc, with: .color(landC.opacity(landHue == nil ? 0.08 : 0.14)))
+    c.stroke(disc, with: .color(landC), lineWidth: BP.edge)
     var spokes = Path()
     for k in 0..<6 {
         let a = spin + Double(k) * Double.pi / 3
         spokes.move(to: tbOnE(5, a)); spokes.addLine(to: tbOnE(tbR - 1, a))
     }
-    c.stroke(spokes, with: .color(ink.opacity(0.3)), lineWidth: BP.hair)
-    c.fill(tbOval(tbE, 2.2, 2.2), with: .color(ink))
+    c.stroke(spokes, with: .color(landC.opacity(0.3)), lineWidth: BP.hair)
+    c.fill(tbOval(tbE, 2.2, 2.2), with: .color(landC))
 }
 
 // MARK: - Card 1: the sea creeps up the sand, falls back, creeps up again
@@ -114,12 +115,13 @@ struct TidesBPBeach: View {
 
     var body: some View {
         BlueprintStage(active: active, length: Self.story, tick: 6.7,
-                       label: "A beach seen from the side, cut away. The sea creeps up the sand to a high-tide mark, falls back to a low-tide mark, then rises again and stays at the second high tide. The top edge of the sea is marked in gold.",
+                       label: "A beach seen from the side, cut away. The sea creeps up the sand to a high-tide mark, falls back to a low-tide mark, then rises again and stays at the second high tide. The sea is pale, the sand is peach, and the top edge of the sea is marked in gold.",
                        draw: { c, t, pal, clock in Self.draw(&c, t, pal, tbCycle(t, clock, story: Self.story)) }, size: tbSize)
     }
 
     private static func draw(_ c: inout GraphicsContext, _ t: Double, _ pal: StagePalette, _ u: Double) {
         let ink = pal.ink, acc = pal.accent
+        let sky = BP.Hue.ice, teal = BP.Hue.peach
         let left = 16.0, right = 300.0, bottom = 250.0
         func ys(_ x: Double) -> Double { 214 - 0.40 * (x - left) }
         let hi = 128.0, lo = 172.0
@@ -134,20 +136,20 @@ struct TidesBPBeach: View {
         sand.move(to: BP.pt(left, ys(left))); sand.addLine(to: BP.pt(right, ys(right)))
         sand.addLine(to: BP.pt(right, bottom)); sand.addLine(to: BP.pt(left, bottom)); sand.closeSubpath()
         bpGroup(&c, alpha: BP.eout(BP.pr(t, 0, 0.5))) { g in
-            g.fill(sand, with: .color(BP.paper)); g.fill(sand, with: .color(ink.opacity(0.10)))
+            g.fill(sand, with: .color(BP.paper)); g.fill(sand, with: .color(teal.opacity(0.14)))
             var h = g
             h.clip(to: sand)
             var hatch = Path()
             var x = left - 160.0
             while x < right + 10 { hatch.move(to: BP.pt(x, bottom + 4)); hatch.addLine(to: BP.pt(x + 170, bottom + 4 - 170)); x += 11 }
-            h.stroke(hatch, with: .color(ink.opacity(0.2)), lineWidth: BP.hair)
-            g.stroke(sand, with: .color(ink), style: StrokeStyle(lineWidth: BP.edge, lineJoin: .round))
+            h.stroke(hatch, with: .color(teal.opacity(0.35)), lineWidth: BP.hair)
+            g.stroke(sand, with: .color(teal), style: StrokeStyle(lineWidth: BP.edge, lineJoin: .round))
         }
 
         // the two tide marks
         let gH = BP.pr(t, 2.3, 3.0), gL = BP.pr(t, 0.3, 1.0)
-        bpGuide(&c, BP.pt(left, hi), BP.pt(shore(hi), hi), p: gH, color: ink.opacity(0.55))
-        bpGuide(&c, BP.pt(left, lo), BP.pt(shore(lo), lo), p: gL, color: ink.opacity(0.55))
+        bpGuide(&c, BP.pt(left, hi), BP.pt(shore(hi), hi), p: gH, color: sky.opacity(0.7))
+        bpGuide(&c, BP.pt(left, lo), BP.pt(shore(lo), lo), p: gL, color: sky.opacity(0.7))
 
         // the sea: a wedge against the sand, its top edge in mustard
         let xs = shore(lv)
@@ -161,15 +163,15 @@ struct TidesBPBeach: View {
         var seaP = Path(); seaP.addLines(top); seaP.addLine(to: BP.pt(left, ys(left))); seaP.closeSubpath()
         var seaTop = Path(); seaTop.addLines(top)
         bpGroup(&c, alpha: BP.eout(BP.pr(t, 0, 0.5))) { g in
-            g.fill(seaP, with: .color(BP.paper)); g.fill(seaP, with: .color(ink.opacity(0.22)))
+            g.fill(seaP, with: .color(BP.paper)); g.fill(seaP, with: .color(sky.opacity(0.18)))
             var wall = Path(); wall.move(to: BP.pt(left, lv)); wall.addLine(to: BP.pt(left, ys(left)))
-            g.stroke(wall, with: .color(ink), lineWidth: BP.hair)
-            g.stroke(Path { q in q.move(to: BP.pt(left, ys(left))); q.addLine(to: BP.pt(right, ys(right))) }, with: .color(ink), style: StrokeStyle(lineWidth: BP.edge, lineCap: .round))
+            g.stroke(wall, with: .color(sky), lineWidth: BP.hair)
+            g.stroke(Path { q in q.move(to: BP.pt(left, ys(left))); q.addLine(to: BP.pt(right, ys(right))) }, with: .color(teal), style: StrokeStyle(lineWidth: BP.edge, lineCap: .round))
             g.stroke(seaTop, with: .color(acc), style: StrokeStyle(lineWidth: 1.9, lineCap: .round, lineJoin: .round))
         }
 
-        bpLeader(&c, anchor: BP.pt(shore(hi), hi), elbow: BP.pt(255, 84), tail: 10, text: "HIGH TIDE", ink: ink, p: BP.pr(t, 2.3, 3.1))
-        bpLeader(&c, anchor: BP.pt(shore(lo), lo), elbow: BP.pt(110, 104), tail: 10, text: "LOW TIDE", ink: ink, p: BP.pr(t, 0.3, 1.1))
+        bpLeader(&c, anchor: BP.pt(shore(hi), hi), elbow: BP.pt(255, 84), tail: 10, text: "HIGH TIDE", ink: sky, p: BP.pr(t, 2.3, 3.1))
+        bpLeader(&c, anchor: BP.pt(shore(lo), lo), elbow: BP.pt(110, 104), tail: 10, text: "LOW TIDE", ink: sky, p: BP.pr(t, 0.3, 1.1))
     }
 }
 
@@ -181,7 +183,7 @@ struct TidesBPPull: View {
 
     var body: some View {
         BlueprintStage(active: active, length: Self.story, tick: 2.6,
-                       label: "Earth seen from above with the Moon to its right. Three arrows point toward the Moon from the near sea, the ground and the far sea. The arrow on the near sea is the longest and is marked in gold; the arrow on the far sea is the shortest.",
+                       label: "Earth seen from above with the Moon to its right. Three arrows point toward the Moon from the near sea, the ground and the far sea. The arrow on the near sea is the longest and is marked in gold; the arrow on the far sea is the shortest. The sea is pale and the other two arrows are coral.",
                        draw: { c, t, pal, clock in Self.draw(&c, t, pal, tbCycle(t, clock, story: Self.story)) }, size: tbSize)
     }
 
@@ -191,21 +193,21 @@ struct TidesBPPull: View {
         let moon = BP.pt(tbE.x + tbMoonD, mid)
         let fa = BP.eout(BP.pr(t, 0, 0.5))
         bpGroup(&c, alpha: fa) { g in
-            tbEarth(&g, axis: 0, b1: 0, b2: 0, hi: false, spin: 0.5, ink: ink, acc: acc)
-            tbMoon(&g, moon, ink: ink)
+            tbEarth(&g, axis: 0, b1: 0, b2: 0, hi: false, spin: 0.5, ink: ink, acc: acc, seaHue: BP.Hue.ice)
+            tbMoon(&g, moon, ink: BP.Hue.coral)
         }
 
         // the three pulls grow out together, hold, then draw back in
         let grow = BP.eout(BP.pr(u, 1.2, 2.6)) * (1 - BP.eio(BP.pr(u, story + 0.9, story + 1.5)))
         let far = BP.pt(tbE.x - (tbR + tbBand / 2), mid), ground = tbE, near = BP.pt(tbE.x + tbR + tbBand / 2, mid)
-        tbArrow(&c, from: far, to: BP.pt(far.x + 22 * grow, mid), color: ink)
-        tbArrow(&c, from: ground, to: BP.pt(ground.x + 38 * grow, mid), color: ink)
+        tbArrow(&c, from: far, to: BP.pt(far.x + 22 * grow, mid), color: BP.Hue.coral)
+        tbArrow(&c, from: ground, to: BP.pt(ground.x + 38 * grow, mid), color: BP.Hue.coral)
         tbArrow(&c, from: near, to: BP.pt(near.x + 62 * grow, mid), color: acc, width: 2.4)
 
         bpLeader(&c, anchor: near, elbow: BP.pt(238, 118), tail: 12, text: "NEAR SEA", ink: acc, p: BP.pr(t, 0.3, 1.1))
         bpLeader(&c, anchor: ground, elbow: BP.pt(180, 246), tail: 12, text: "GROUND", ink: ink, p: BP.pr(t, 0.45, 1.25))
-        bpLeader(&c, anchor: far, elbow: BP.pt(100, 118), tail: -12, text: "FAR SEA", ink: ink, p: BP.pr(t, 0.6, 1.4))
-        bpText(&c, "MOON", BP.pt(moon.x, moon.y + tbMoonR + 14), ink: ink, alpha: BP.pr(t, 0.2, 0.7))
+        bpLeader(&c, anchor: far, elbow: BP.pt(100, 118), tail: -12, text: "FAR SEA", ink: BP.Hue.ice, p: BP.pr(t, 0.6, 1.4))
+        bpText(&c, "MOON", BP.pt(moon.x, moon.y + tbMoonR + 14), ink: BP.Hue.coral, alpha: BP.pr(t, 0.2, 0.7))
     }
 }
 
@@ -248,7 +250,7 @@ struct TidesBPBulges: View {
 
     var body: some View {
         BlueprintStage(active: active, length: Self.story, tick: 6.6,
-                       label: "Three runners in a line are pulled toward a magnet and the gaps between them open up, the front runner furthest. They become the near sea, the ground and the far sea around Earth, and the sea rises into two bulges, one at each end, marked in gold, with the Moon to the right.",
+                       label: "Three runners in a line are pulled toward a magnet and the gaps between them open up, the front runner furthest. They become the near sea, the ground and the far sea around Earth, and the sea rises into two bulges, one at each end, marked in gold, with the Moon to the right. The sea is pale and the magnet is coral.",
                        draw: { c, t, pal, clock in Self.draw(&c, t, pal, tbCycle(t, clock, story: Self.story)) }, size: tbSize)
     }
 
@@ -263,8 +265,8 @@ struct TidesBPBulges: View {
 
         // Earth, the Moon and the bulges fade in as the runners fade out
         bpGroup(&c, alpha: k * g) { q in
-            tbEarth(&q, axis: 0, b1: b1, b2: b2, hi: true, spin: 0.5, ink: ink, acc: acc)
-            tbMoon(&q, moon, ink: ink)
+            tbEarth(&q, axis: 0, b1: b1, b2: b2, hi: true, spin: 0.5, ink: ink, acc: acc, seaHue: BP.Hue.ice)
+            tbMoon(&q, moon, ink: BP.Hue.coral)
         }
 
         // runners: back, middle, front. Start close together; the front one is pulled furthest.
@@ -273,9 +275,9 @@ struct TidesBPBulges: View {
         var xs: [Double] = []
         for i in 0..<3 { xs.append(BP.mix(BP.mix(startX[i], pullX[i], pull), dotX[i], k)) }
         bpGroup(&c, alpha: (1 - k) * g) { q in
-            for i in 0..<3 { tbRunner(&q, xs[i], ey, ph: u * 9, ink: ink) }
-            tbMagnet(&q, BP.pt(moon.x, ey), ink: ink)
-            bpGuide(&q, BP.pt(xs[2] + 14, ey - 5), BP.pt(moon.x - 22, ey - 5), p: 1, color: ink.opacity(0.5))
+            for i in 0..<3 { tbRunner(&q, xs[i], ey, ph: u * 9, ink: [BP.Hue.ice, ink, BP.Hue.ice][i]) }
+            tbMagnet(&q, BP.pt(moon.x, ey), ink: BP.Hue.coral)
+            bpGuide(&q, BP.pt(xs[2] + 14, ey - 5), BP.pt(moon.x - 22, ey - 5), p: 1, color: BP.Hue.coral.opacity(0.6))
         }
 
         // names follow the runners, then the sea points they become
@@ -283,12 +285,12 @@ struct TidesBPBulges: View {
         bpGroup(&c, alpha: g) { q in
             for i in 0..<3 {
                 let ay = BP.mix(ey - 32, ey, k)
-                bpLeader(&q, anchor: BP.pt(xs[i], ay), elbow: BP.pt(xs[i] + 10, elbowY[i]), tail: 12, text: names[i], ink: ink, p: BP.pr(u, 1.0 + 0.3 * Double(i), 1.8 + 0.3 * Double(i)))
+                bpLeader(&q, anchor: BP.pt(xs[i], ay), elbow: BP.pt(xs[i] + 10, elbowY[i]), tail: 12, text: names[i], ink: [BP.Hue.ice, ink, BP.Hue.ice][i], p: BP.pr(u, 1.0 + 0.3 * Double(i), 1.8 + 0.3 * Double(i)))
             }
         }
         let la = BP.pr(u, 6.1, 6.9)
         bpGroup(&c, alpha: g) { q in
-            bpText(&q, "MOON", BP.pt(moon.x, moon.y + tbMoonR + 14), ink: ink, alpha: BP.pr(u, 4.6, 5.2))
+            bpText(&q, "MOON", BP.pt(moon.x, moon.y + tbMoonR + 14), ink: BP.Hue.coral, alpha: BP.pr(u, 4.6, 5.2))
             guard la > 0.01 else { return }
             let far = tbOnE(tbOuter(tbRad(145), axis: 0, b1: b1, b2: b2), tbRad(145)), near = tbOnE(tbOuter(tbRad(35), axis: 0, b1: b1, b2: b2), tbRad(35))
             var ls = Path()
@@ -307,9 +309,23 @@ private func tbChip(_ c: inout GraphicsContext, _ ctr: CGPoint, _ text: String, 
     let w = Double(text.count) * 6.9 + 18, h = 21.0
     let r = CGRect(x: ctr.x - w / 2, y: ctr.y - h / 2, width: w, height: h)
     let p = Path(roundedRect: r, cornerRadius: 5)
-    c.fill(p, with: .color(BP.paper)); c.fill(p, with: .color(ink.opacity(0.24 * lit)))
+    c.fill(p, with: .color(BP.paper)); c.fill(p, with: .color(ink.opacity(0.18 * lit)))
     c.stroke(p, with: .color(ink.opacity(0.35 + 0.65 * lit)), lineWidth: BP.hair + 0.3 * lit)
     bpText(&c, text, ctr, ink: ink, alpha: 0.45 + 0.55 * lit)
+}
+
+/// Earth for cards 4 and 5, in colour: the sea in sky blue (via `tbEarth`), the ground over it in chalk with chalk spokes.
+private func tbTideEarth(_ c: inout GraphicsContext, axis: Double, spin: Double, ink: Color, acc: Color) {
+    tbEarth(&c, axis: axis, b1: 1, b2: 1, hi: false, spin: spin, ink: BP.Hue.ice, acc: acc)
+    let disc = tbOval(tbE, tbR, tbR)
+    c.stroke(disc, with: .color(ink), lineWidth: BP.edge)
+    var spokes = Path()
+    for k in 0..<6 {
+        let a = spin + Double(k) * Double.pi / 3
+        spokes.move(to: tbOnE(5, a)); spokes.addLine(to: tbOnE(tbR - 1, a))
+    }
+    c.stroke(spokes, with: .color(ink.opacity(0.35)), lineWidth: BP.hair)
+    c.fill(tbOval(tbE, 2.2, 2.2), with: .color(ink))
 }
 
 struct TidesBPTurn: View {
@@ -318,7 +334,7 @@ struct TidesBPTurn: View {
 
     var body: some View {
         BlueprintStage(active: active, length: Self.story, tick: 6.4,
-                       label: "Earth seen from above, turning, with two bulges of sea fixed toward the Moon. A gold dot for your beach rides round: low tide at the start, high tide as it passes under one bulge, low tide between, and high tide again under the other bulge.",
+                       label: "Earth seen from above, turning, with two bulges of sea fixed toward the Moon. A mustard dot for your beach rides round: low tide at the start, high tide as it passes under one bulge, low tide between, and high tide again under the other bulge.",
                        draw: { c, t, pal, clock in Self.draw(&c, t, pal, tbCycle(t, clock, story: Self.story)) }, size: tbSize)
     }
 
@@ -333,17 +349,17 @@ struct TidesBPTurn: View {
         let high = BP.pr(abs(cos(psi)), 0.70, 0.88)
 
         bpGroup(&c, alpha: g) { q in
-            tbEarth(&q, axis: 0, b1: 1, b2: 1, hi: false, spin: psi, ink: ink, acc: acc)
-            tbMoon(&q, moon, ink: ink)
-            bpGuide(&q, BP.pt(tbE.x - 80, ey), BP.pt(moon.x - tbMoonR - 4, ey), p: BP.pr(u, 0.2, 0.9), color: ink.opacity(0.45))
+            tbTideEarth(&q, axis: 0, spin: psi, ink: ink, acc: acc)
+            tbMoon(&q, moon, ink: BP.Hue.coral)
+            bpGuide(&q, BP.pt(tbE.x - 80, ey), BP.pt(moon.x - tbMoonR - 4, ey), p: BP.pr(u, 0.2, 0.9), color: BP.Hue.coral.opacity(0.5))
             q.stroke(tbOval(dot, 8, 8), with: .color(acc.opacity(0.9)), lineWidth: BP.hair)
             q.fill(tbOval(dot, 4.5, 4.5), with: .color(acc))
-            tbChip(&q, BP.pt(80, 292), "HIGH TIDE", lit: high, ink: ink)
-            tbChip(&q, BP.pt(190, 292), "LOW TIDE", lit: 1 - high, ink: ink)
+            tbChip(&q, BP.pt(80, 292), "HIGH TIDE", lit: high, ink: BP.Hue.ice)
+            tbChip(&q, BP.pt(190, 292), "LOW TIDE", lit: 1 - high, ink: BP.Hue.ice)
 
             let pb = BP.pr(t, 0.5, 1.3)
-            bpLeader(&q, anchor: tbOnE(tbOuter(tbRad(-15), axis: 0, b1: 1, b2: 1), tbRad(-15)), elbow: BP.pt(252, 118), tail: 10, text: "BULGE", ink: ink, p: pb)
-            bpLeader(&q, anchor: tbOnE(tbOuter(tbRad(195), axis: 0, b1: 1, b2: 1), tbRad(195)), elbow: BP.pt(84, 118), tail: -10, text: "BULGE", ink: ink, p: BP.pr(t, 0.65, 1.45))
+            bpLeader(&q, anchor: tbOnE(tbOuter(tbRad(-15), axis: 0, b1: 1, b2: 1), tbRad(-15)), elbow: BP.pt(252, 118), tail: 10, text: "BULGE", ink: BP.Hue.ice, p: pb)
+            bpLeader(&q, anchor: tbOnE(tbOuter(tbRad(195), axis: 0, b1: 1, b2: 1), tbRad(195)), elbow: BP.pt(84, 118), tail: -10, text: "BULGE", ink: BP.Hue.ice, p: BP.pr(t, 0.65, 1.45))
         }
         // YOUR BEACH names the dot where it starts, then again where it ends
         let startA = (1 - BP.pr(u, 1.7, 2.1)), endA = BP.pr(u, 6.2, 6.8)
@@ -364,7 +380,7 @@ struct TidesBPLater: View {
 
     var body: some View {
         BlueprintStage(active: active, length: Self.story, tick: 6.2,
-                       label: "Earth seen from above with your beach under the bulge nearest the Moon. Earth turns once while the Moon moves a little on, so the bulge has moved. The beach has to turn a bit further to reach the bulge again, and that extra stretch is marked in gold: about 50 extra minutes.",
+                       label: "Earth seen from above with your beach under the bulge nearest the Moon. Earth turns once while the Moon moves a little on, so the bulge has moved. The beach has to turn a bit further to reach the bulge again, and that extra stretch is marked in mustard: about 50 extra minutes.",
                        draw: { c, t, pal, clock in Self.draw(&c, t, pal, tbCycle(t, clock, story: Self.story)) }, size: tbSize)
     }
 
@@ -383,11 +399,11 @@ struct TidesBPLater: View {
             // the Moon's path, and where it was
             var orbit = Path()
             for i in 0...24 { let a = tbRad(-42 + 50 * Double(i) / 24); let p = tbOnE(tbMoonD, a); if i == 0 { orbit.move(to: p) } else { orbit.addLine(to: p) } }
-            q.stroke(orbit, with: .color(ink.opacity(0.4)), style: StrokeStyle(lineWidth: BP.hair, dash: [3, 4]))
-            q.stroke(tbOval(ghost, tbMoonR, tbMoonR), with: .color(ink.opacity(0.5 * BP.pr(lam, 0.02, 0.2))), style: StrokeStyle(lineWidth: BP.hair, dash: [3, 3]))
+            q.stroke(orbit, with: .color(BP.Hue.coral.opacity(0.55)), style: StrokeStyle(lineWidth: BP.hair, dash: [3, 4]))
+            q.stroke(tbOval(ghost, tbMoonR, tbMoonR), with: .color(BP.Hue.coral.opacity(0.6 * BP.pr(lam, 0.02, 0.2))), style: StrokeStyle(lineWidth: BP.hair, dash: [3, 3]))
 
-            tbEarth(&q, axis: phi, b1: 1, b2: 1, hi: false, spin: psi, ink: ink, acc: acc)
-            tbMoon(&q, moon, ink: ink)
+            tbTideEarth(&q, axis: phi, spin: psi, ink: ink, acc: acc)
+            tbMoon(&q, moon, ink: BP.Hue.coral)
 
             // the extra stretch, in mustard
             if ex > 0.01 {
@@ -395,15 +411,15 @@ struct TidesBPLater: View {
                 for i in 0...16 { let p = tbOnE(tbR, tbRad(phi0 + 28 * ex * Double(i) / 16)); if i == 0 { arc.move(to: p) } else { arc.addLine(to: p) } }
                 q.stroke(arc, with: .color(acc), style: StrokeStyle(lineWidth: 3, lineCap: .round))
             }
-            q.stroke(tbOval(dot, 8, 8), with: .color(ink.opacity(0.9)), lineWidth: BP.hair)
-            q.fill(tbOval(dot, 4.5, 4.5), with: .color(ink))
+            q.stroke(tbOval(dot, 8, 8), with: .color(acc.opacity(0.9)), lineWidth: BP.hair)
+            q.fill(tbOval(dot, 4.5, 4.5), with: .color(acc))
 
-            bpText(&q, "MOON", BP.pt(moon.x, moon.y - tbMoonR - 13), ink: ink, alpha: BP.pr(t, 0.3, 0.9))
+            bpText(&q, "MOON", BP.pt(moon.x, moon.y - tbMoonR - 13), ink: BP.Hue.coral, alpha: BP.pr(t, 0.3, 0.9))
         }
         // YOUR BEACH marks the start spot: shown while the beach waits there, hidden during the turn, back when it returns
         let ya = (1 - BP.pr(u, 1.5, 1.9)) + BP.pr(u, 4.5, 4.9)
         bpGroup(&c, alpha: g * min(1, ya)) { q in
-            bpLeader(&q, anchor: start, elbow: BP.pt(194, 96), tail: -14, text: "YOUR BEACH", ink: ink, p: BP.pr(t, 0.5, 1.3))
+            bpLeader(&q, anchor: start, elbow: BP.pt(194, 96), tail: -14, text: "YOUR BEACH", ink: acc, p: BP.pr(t, 0.5, 1.3))
         }
         let mid = tbOnE(tbR, tbRad(phi0 + 14))
         bpGroup(&c, alpha: g) { q in

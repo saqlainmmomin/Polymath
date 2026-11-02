@@ -53,6 +53,8 @@ private struct CarCyl {
     var gas = CarGas()
     var pistonTint: Color? = nil          // the mustard piston
     var sparkColor: Color? = nil
+    var gasColor: Color? = nil            // tint of the gas above the piston (default: ink)
+    var hotColor: Color? = nil            // extra tint when the gas is burning (default: ink)
 }
 
 private func carHash(_ a: Int, _ b: Int) -> Double {
@@ -89,7 +91,7 @@ private func carArrow(_ c: inout GraphicsContext, _ a: CGPoint, _ b: CGPoint, co
 }
 
 /// A wheel seen from the front: disc, rim ring, `n` spokes turned by `angle`, and a hub.
-private func carWheel(_ c: inout GraphicsContext, _ at: CGPoint, r: Double, angle: Double, color: Color, tint: Double, spokes n: Int = 3) {
+private func carWheel(_ c: inout GraphicsContext, _ at: CGPoint, r: Double, angle: Double, color: Color, tint: Double, spokes n: Int = 3, hubTint: Double = 0.5) {
     let disc = Path(ellipseIn: CGRect(x: at.x - r, y: at.y - r, width: 2 * r, height: 2 * r))
     c.fill(disc, with: .color(BP.paper)); c.fill(disc, with: .color(color.opacity(tint)))
     c.stroke(disc, with: .color(color), lineWidth: BP.edge)
@@ -100,7 +102,7 @@ private func carWheel(_ c: inout GraphicsContext, _ at: CGPoint, r: Double, angl
     }
     c.stroke(sp, with: .color(color), style: StrokeStyle(lineWidth: BP.hair, lineCap: .round))
     let hub = Path(ellipseIn: CGRect(x: at.x - r * 0.28, y: at.y - r * 0.28, width: r * 0.56, height: r * 0.56))
-    c.fill(hub, with: .color(BP.paper)); c.fill(hub, with: .color(color.opacity(0.5)))
+    c.fill(hub, with: .color(BP.paper)); c.fill(hub, with: .color(color.opacity(hubTint)))
     c.stroke(hub, with: .color(color), lineWidth: BP.hair)
 }
 
@@ -166,12 +168,13 @@ private func carEngine(_ c: inout GraphicsContext, _ g: CarGeo, _ cyls: [CarCyl]
         let hGas = pTop
         if hGas > 0.5 {
             let r = rect(bx - CE.bore, 0, bx + CE.bore, hGas)
-            c.fill(Path(r), with: .color(ink.opacity(st.gas.gas)))
-            c.fill(Path(r), with: .color(ink.opacity(st.gas.hot * 0.18)))
+            let gasCol = st.gasColor ?? ink
+            c.fill(Path(r), with: .color(gasCol.opacity(st.gasColor == nil ? st.gas.gas : min(0.18, st.gas.gas))))
+            c.fill(Path(r), with: .color((st.hotColor ?? ink).opacity(st.gas.hot * 0.18)))
             if hGas > 8 {
                 for k in 0..<10 {
                     let q = g.p(bx - 16 + 32 * carHash(k, i), 2 + (hGas - 4) * carHash(k + 20, i))
-                    c.fill(Path(ellipseIn: CGRect(x: q.x - 0.9, y: q.y - 0.9, width: 1.8, height: 1.8)), with: .color(ink.opacity(min(0.8, st.gas.gas * 1.8 + st.gas.hot * 0.3))))
+                    c.fill(Path(ellipseIn: CGRect(x: q.x - 0.9, y: q.y - 0.9, width: 1.8, height: 1.8)), with: .color(gasCol.opacity(min(0.8, st.gas.gas * 1.8 + st.gas.hot * 0.3))))
                 }
             }
         }
@@ -260,7 +263,7 @@ struct CarStart: View {
             let ph = th + Double(i) * .pi
             var gas = carGas(ph)
             if !running { gas.hot = 0; gas.spark = 0 }
-            cyls.append(CarCyl(theta: ph, gas: gas))
+            cyls.append(CarCyl(theta: ph, gas: gas, sparkColor: BP.Hue.coral, gasColor: BP.Hue.ice, hotColor: BP.Hue.coral))
         }
         bpGroup(&c, alpha: a0) { g in carEngine(&g, geo, cyls, ink: ink) }
 
@@ -274,7 +277,7 @@ struct CarStart: View {
             }
             for dy in [-15.0, 15.0] { g.fill(Path(ellipseIn: CGRect(x: 103.2, y: crankY + dy - 1.8, width: 3.6, height: 3.6)), with: .color(ink)) }
             let can = Path(ellipseIn: CGRect(x: motor.x - 24, y: motor.y - 24, width: 48, height: 48))
-            g.fill(can, with: .color(BP.paper)); g.fill(can, with: .color(acc.opacity(0.2)))
+            g.fill(can, with: .color(BP.paper)); g.fill(can, with: .color(acc.opacity(0.18)))
             g.stroke(can, with: .color(acc), lineWidth: BP.edge)
             g.stroke(Path(ellipseIn: CGRect(x: motor.x - 16, y: motor.y - 16, width: 32, height: 32)), with: .color(acc.opacity(0.7)), lineWidth: BP.hair)
             let am = theta(min(t, 1.7)) * 1.0
@@ -290,7 +293,7 @@ struct CarStart: View {
         // the link from motor to shaft: it draws on at the press and pulls back to the motor once the engine runs
         let linkOn = BP.pr(t, 0.45, 0.65), linkOff = BP.eio(BP.pr(t, 1.7, 2.0))
         let reach = BP.mix(74, crankX - 6, linkOn * (1 - linkOff))
-        if linkOn > 0.01 && linkOff < 0.99 { carBar(&c, BP.pt(74, crankY), BP.pt(reach, crankY), w: 5.4, ink: ink) }
+        if linkOn > 0.01 && linkOff < 0.99 { carBar(&c, BP.pt(74, crankY), BP.pt(reach, crankY), w: 5.4, ink: acc) }
 
         // the dash panel with the start button
         bpGroup(&c, alpha: BP.eout(BP.pr(t, 0.05, 0.45))) { g in
@@ -307,24 +310,24 @@ struct CarStart: View {
             }
             var dashes = Path()
             for y in [123.0, 129.0] { dashes.move(to: BP.pt(234, y)); dashes.addLine(to: BP.pt(246, y)) }
-            g.stroke(dashes, with: .color(ink.opacity(0.6)), style: StrokeStyle(lineWidth: BP.hair, lineCap: .round))
+            g.stroke(dashes, with: .color(BP.Hue.ice.opacity(0.7)), style: StrokeStyle(lineWidth: BP.hair, lineCap: .round))
             let press = BP.pr(t, 0.25, 0.4) * (1 - BP.pr(t, 0.65, 0.85))
             let ctr = BP.pt(253, 148)
             let ring = Path(ellipseIn: CGRect(x: ctr.x - 13, y: ctr.y - 13, width: 26, height: 26))
             g.fill(ring, with: .color(BP.paper)); g.stroke(ring, with: .color(ink), lineWidth: BP.edge)
             let b = Path(ellipseIn: CGRect(x: ctr.x - 8.5, y: ctr.y - 8.5 + 1.6 * press, width: 17, height: 17))
-            g.fill(b, with: .color(ink.opacity(0.18 + 0.4 * press))); g.stroke(b, with: .color(ink), lineWidth: BP.edge)
+            g.fill(b, with: .color(BP.Hue.ice.opacity(0.12 + 0.06 * press))); g.stroke(b, with: .color(BP.Hue.ice), lineWidth: BP.edge)
             let pulse = BP.pr(t, 0.4, 0.9)
             if pulse > 0 && pulse < 1 {
                 let rr = 15 + 9 * pulse
-                g.stroke(Path(ellipseIn: CGRect(x: ctr.x - rr, y: ctr.y - rr, width: 2 * rr, height: 2 * rr)), with: .color(ink.opacity(0.7 * (1 - pulse))), lineWidth: BP.hair)
+                g.stroke(Path(ellipseIn: CGRect(x: ctr.x - rr, y: ctr.y - rr, width: 2 * rr, height: 2 * rr)), with: .color(BP.Hue.ice.opacity(0.9 * (1 - pulse))), lineWidth: BP.hair)
             }
         }
 
         // labels
         bpLeader(&c, anchor: BP.pt(150, 101), elbow: BP.pt(150, 62), tail: 0, text: "ENGINE", ink: ink, p: BP.pr(t, 0.1, 0.55))
-        bpLeader(&c, anchor: BP.pt(52, motor.y - 20), elbow: BP.pt(30, 126), tail: 0, text: "ELECTRIC\nMOTOR", ink: ink, p: BP.pr(t, 0.15, 0.6))
-        bpLeader(&c, anchor: BP.pt(253, 139), elbow: BP.pt(253, 86), tail: 0, text: "START", ink: ink, p: BP.pr(t, 0.2, 0.65))
+        bpLeader(&c, anchor: BP.pt(52, motor.y - 20), elbow: BP.pt(30, 126), tail: 0, text: "ELECTRIC\nMOTOR", ink: acc, p: BP.pr(t, 0.15, 0.6))
+        bpLeader(&c, anchor: BP.pt(253, 139), elbow: BP.pt(253, 86), tail: 0, text: "START", ink: BP.Hue.ice, p: BP.pr(t, 0.2, 0.65))
         bpLeader(&c, anchor: BP.pt(150, geo.p(0, CE.base).y), elbow: BP.pt(150, 250), tail: 0, text: "RUNS BY ITSELF", ink: ink, p: BP.pr(t, 2.0, 2.6))
     }
 }
@@ -353,7 +356,7 @@ struct CarPiston: View {
         var gas = carGas(2 * .pi + th)
         gas.gas *= ignite; gas.hot *= ignite
         if tt < 1.4 { gas.spark = BP.pr(t, 0.75, 0.9) * (1 - BP.pr(t, 0.95, 1.3)) } else { gas.spark *= ignite }
-        bpGroup(&c, alpha: a0) { g in carEngine(&g, geo, [CarCyl(theta: th, gas: gas, pistonTint: acc)], ink: ink) }
+        bpGroup(&c, alpha: a0) { g in carEngine(&g, geo, [CarCyl(theta: th, gas: gas, pistonTint: acc, sparkColor: BP.Hue.coral, hotColor: BP.Hue.coral)], ink: ink) }
 
         // the push: three arrows down the bore while the piston travels
         let pTop = geo.p(0, CE.pinY(th) - 5).y
@@ -361,7 +364,7 @@ struct CarPiston: View {
         let travel = ph2 >= 2 * .pi && ph2 < 3 * .pi ? ignite * BP.pr(su, 0, 0.1) * (1 - BP.pr(su, 0.85, 1)) : 0
         for dx in [-9.0, 0.0, 9.0] {
             let x = geo.p(dx, 0).x, y0 = geo.p(0, 4).y
-            if pTop - y0 > 14 { carArrow(&c, BP.pt(x, y0 + 4), BP.pt(x, pTop - 5), color: ink, alpha: 0.85 * travel) }
+            if pTop - y0 > 14 { carArrow(&c, BP.pt(x, y0 + 4), BP.pt(x, pTop - 5), color: BP.Hue.coral, alpha: 0.95 * travel) }
         }
 
         // the bike pedal beside it, turning with the same angle
@@ -377,13 +380,14 @@ struct CarPiston: View {
             let ca = (a * a + d * d - b * b) / (2 * a * d)
             let h = a * sqrt(max(0, 1 - ca * ca))
             let knee = BP.pt(hip.x + ux * a * ca + uy * h, hip.y + uy * a * ca - ux * h)
-            carBar(&g, hip, knee, w: 9, ink: ink)
-            carBar(&g, knee, pedal, w: 7.5, ink: ink)
+            carBar(&g, hip, knee, w: 9, ink: BP.Hue.pistachio)
+            carBar(&g, knee, pedal, w: 7.5, ink: BP.Hue.pistachio)
             carBar(&g, ctr, pedal, w: 4.6, ink: ink)
             g.fill(Path(ellipseIn: CGRect(x: ctr.x - 4, y: ctr.y - 4, width: 8, height: 8)), with: .color(ink))
             let foot = CGRect(x: pedal.x - 2, y: pedal.y - 3.5, width: 14, height: 7)
             g.fill(Path(roundedRect: foot, cornerRadius: 3), with: .color(BP.paper))
-            g.stroke(Path(roundedRect: foot, cornerRadius: 3), with: .color(ink), lineWidth: BP.edge)
+            g.fill(Path(roundedRect: foot, cornerRadius: 3), with: .color(BP.Hue.pistachio.opacity(0.18)))
+            g.stroke(Path(roundedRect: foot, cornerRadius: 3), with: .color(BP.Hue.pistachio), lineWidth: BP.edge)
         }
 
         // labels: parts down the left, tracking the moving ones
@@ -391,10 +395,10 @@ struct CarPiston: View {
         let rodMid = BP.mixp(geo.p(0, CE.pinY(th)), geo.p(CE.r * sin(th), CE.cy - CE.r * cos(th)), 0.5)
         let armMid = geo.p(CE.r * sin(th) * 0.5, CE.cy - CE.r * cos(th) * 0.5)
         bpLeader(&c, anchor: geo.p(-29, 24), elbow: BP.pt(104, 66), tail: -4, text: "CYLINDER", ink: ink, p: BP.pr(t, 0.2, 0.7))
-        bpLeader(&c, anchor: pistonAt, elbow: BP.pt(104, 106), tail: -4, text: "PISTON", ink: ink, p: BP.pr(t, 0.3, 0.8))
+        bpLeader(&c, anchor: pistonAt, elbow: BP.pt(104, 106), tail: -4, text: "PISTON", ink: acc, p: BP.pr(t, 0.3, 0.8))
         bpLeader(&c, anchor: rodMid, elbow: BP.pt(104, 138), tail: -4, text: "ROD", ink: ink, p: BP.pr(t, 0.4, 0.9))
         bpLeader(&c, anchor: armMid, elbow: BP.pt(104, 174), tail: -4, text: "BENT SHAFT", ink: ink, p: BP.pr(t, 0.5, 1.0))
-        bpLeader(&c, anchor: BP.pt(ctr.x - 8, ctr.y + 18), elbow: BP.pt(222, 216), tail: 0, text: "BIKE PEDAL", ink: ink, p: BP.pr(t, 0.6, 1.1))
+        bpLeader(&c, anchor: BP.pt(ctr.x - 8, ctr.y + 18), elbow: BP.pt(222, 216), tail: 0, text: "BIKE PEDAL", ink: BP.Hue.pistachio, p: BP.pr(t, 0.6, 1.1))
     }
 }
 
@@ -438,27 +442,27 @@ struct CarStrokes: View {
                 if w < 0.65 { gas.hot *= BP.pr(w, 0.05, 0.25) } else if w >= 1.3 || w < 0 { gas.hot = 0 }
                 gas.spark = w < 0.65 ? BP.pr(w, 0, 0.06) * (1 - BP.pr(w, 0.1, 0.45)) : 0
             }
-            var cyl = CarCyl(theta: phase, gas: gas)
+            var cyl = CarCyl(theta: phase, gas: gas, sparkColor: BP.Hue.coral, gasColor: i == 3 ? nil : BP.Hue.ice, hotColor: BP.Hue.coral)
             if i == 2 { cyl.pistonTint = acc }
             bpGroup(&c, alpha: a0) { g in carEngine(&g, geo, [cyl], ink: ink) }
 
             // fuel and air in, used gas out: an arrow along the open valve's port
             if i == 0 {
                 let q = carPort(geo, 0, -11)
-                carArrow(&c, BP.pt(q.x, q.y - 16), BP.pt(q.x, q.y - 2), color: ink, alpha: gas.intake)
+                carArrow(&c, BP.pt(q.x, q.y - 16), BP.pt(q.x, q.y - 2), color: BP.Hue.ice, alpha: gas.intake)
             }
             if i == 3 {
                 let q = carPort(geo, 0, 11)
                 carArrow(&c, BP.pt(q.x, q.y - 2), BP.pt(q.x, q.y - 16), color: ink, alpha: gas.exhaust)
             }
             let tx = geo.p(0, 0).x, isPush = i == 2
-            bpText(&c, names[i], BP.pt(tx, 202), ink: isPush ? acc : ink, alpha: BP.pr(t, 0.2 + 0.1 * Double(i), 0.6 + 0.1 * Double(i)))
+            bpText(&c, names[i], BP.pt(tx, 202), ink: isPush ? acc : (i == 3 ? ink : BP.Hue.ice), alpha: BP.pr(t, 0.2 + 0.1 * Double(i), 0.6 + 0.1 * Double(i)))
         }
 
         let g0 = CarGeo(ox: 56, oy: oy, s: s), g2 = CarGeo(ox: 212, oy: oy, s: s), g3 = CarGeo(ox: 290, oy: oy, s: s)
-        bpLeader(&c, anchor: carPort(g0, 0, -11), elbow: BP.pt(49, 72), tail: 0, text: "FUEL AND AIR IN", ink: ink, p: BP.pr(t, 0.3, 0.8))
+        bpLeader(&c, anchor: carPort(g0, 0, -11), elbow: BP.pt(49, 72), tail: 0, text: "FUEL AND AIR IN", ink: BP.Hue.ice, p: BP.pr(t, 0.3, 0.8))
         bpLeader(&c, anchor: carPort(g3, 0, 11), elbow: BP.pt(297, 72), tail: -4, text: "USED GAS OUT", ink: ink, p: BP.pr(t, 0.4, 0.9))
-        bpLeader(&c, anchor: carPort(g2, 0, 0), elbow: BP.pt(170, 30), tail: -4, text: "SPARK", ink: ink, p: BP.pr(t, 0.5, 1.0))
+        bpLeader(&c, anchor: carPort(g2, 0, 0), elbow: BP.pt(170, 30), tail: -4, text: "SPARK", ink: BP.Hue.coral, p: BP.pr(t, 0.5, 1.0))
     }
 }
 
@@ -469,7 +473,7 @@ struct CarDrag: View {
 
     var body: some View {
         BlueprintStage(active: active, length: 3.4, tick: 2.5,
-                       label: "A cutaway cylinder with the shaft below it. A gold electric motor at the right turns the shaft through a belt. The shaft drags the piston down to pull fuel and air in, then up to squeeze it. At the top a gold spark lights the first squeezed load, the belt lets go, and the push begins.",
+                       label: "A cutaway cylinder with the shaft below it. A gold electric motor at the right turns the shaft through a belt. The shaft drags the piston down to pull fuel and air in, then up to squeeze it. At the top a coral spark lights the first squeezed load, the belt lets go, and the push begins.",
                        draw: { c, t, pal, clock in Self.draw(&c, t, pal, max(t, clock)) }, size: carSize)
     }
 
@@ -488,7 +492,7 @@ struct CarDrag: View {
         let sparkOn = BP.pr(t, 2.35, 2.5)
         gas.spark *= sparkOn
         if t < 2.45 { gas.hot = 0 }
-        bpGroup(&c, alpha: a0) { g in carEngine(&g, geo, [CarCyl(theta: th, gas: gas, sparkColor: acc)], ink: ink) }
+        bpGroup(&c, alpha: a0) { g in carEngine(&g, geo, [CarCyl(theta: th, gas: gas, sparkColor: BP.Hue.coral)], ink: ink) }
 
         let crank = geo.p(0, CE.cy)
         let pulley = BP.pt(186, crank.y), motor = BP.pt(276, crank.y)
@@ -498,7 +502,7 @@ struct CarDrag: View {
         // the shaft carries on out of the block to a pulley
         bpGroup(&c, alpha: BP.eout(BP.pr(t, 0.05, 0.5))) { g in
             carBar(&g, BP.pt(crank.x, crank.y), BP.pt(pulley.x, pulley.y), w: 5.4, ink: ink)
-            carWheel(&g, pulley, r: 12, angle: th, color: ink, tint: 0.14)
+            carWheel(&g, pulley, r: 12, angle: th, color: BP.Hue.peach, tint: 0.18, hubTint: 0.18)
         }
 
         // the motor: gold can, small pulley, a foot
@@ -508,10 +512,10 @@ struct CarDrag: View {
             g.stroke(Path(foot), with: .color(ink), lineWidth: BP.edge)
             let can = Path(ellipseIn: CGRect(x: motor.x - 22, y: motor.y - 22, width: 44, height: 44))
             let on = 1 - 0.65 * BP.pr(t, 2.5, 2.9)
-            g.fill(can, with: .color(BP.paper)); g.fill(can, with: .color(acc.opacity(0.28 * on)))
+            g.fill(can, with: .color(BP.paper)); g.fill(can, with: .color(acc.opacity(0.18 * on)))
             g.stroke(can, with: .color(acc), lineWidth: BP.edge)
             g.stroke(Path(ellipseIn: CGRect(x: motor.x - 15, y: motor.y - 15, width: 30, height: 30)), with: .color(acc.opacity(0.7)), lineWidth: BP.hair)
-            carWheel(&g, motor, r: 8, angle: thBelt * 1.8, color: acc, tint: 0.3)
+            carWheel(&g, motor, r: 8, angle: thBelt * 1.8, color: acc, tint: 0.18, hubTint: 0.18)
         }
 
         // the belt: moving dashes, gone when the motor lets go
@@ -520,19 +524,19 @@ struct CarDrag: View {
             top.move(to: BP.pt(pulley.x, pulley.y - 12)); top.addLine(to: BP.pt(motor.x, motor.y - 8))
             bottom.move(to: BP.pt(motor.x, motor.y + 8)); bottom.addLine(to: BP.pt(pulley.x, pulley.y + 12))
             let style = StrokeStyle(lineWidth: 2, lineCap: .butt, dash: [5, 3], dashPhase: -thBelt * 9)
-            c.stroke(top, with: .color(ink.opacity(belt)), style: style)
-            c.stroke(bottom, with: .color(ink.opacity(belt)), style: style)
+            c.stroke(top, with: .color(BP.Hue.peach.opacity(belt)), style: style)
+            c.stroke(bottom, with: .color(BP.Hue.peach.opacity(belt)), style: style)
         }
 
         // the first spark stays marked on the plug
         let dot = BP.pr(t, 2.45, 2.6)
         let sp = geo.p(0, 4)
-        c.fill(Path(ellipseIn: CGRect(x: sp.x - 2.4, y: sp.y - 2.4, width: 4.8, height: 4.8)), with: .color(acc.opacity(dot)))
+        c.fill(Path(ellipseIn: CGRect(x: sp.x - 2.4, y: sp.y - 2.4, width: 4.8, height: 4.8)), with: .color(BP.Hue.coral.opacity(dot)))
 
         bpLeader(&c, anchor: geo.p(-29, 24), elbow: BP.pt(76, 70), tail: -4, text: "CYLINDER", ink: ink, p: BP.pr(t, 0.2, 0.7))
-        bpLeader(&c, anchor: BP.pt(166, crank.y), elbow: BP.pt(166, 232), tail: -4, text: "SHAFT DRAGS THE PISTON", ink: ink, p: BP.pr(t, 0.4, 1.0))
-        bpLeader(&c, anchor: BP.pt(motor.x, motor.y - 22), elbow: BP.pt(motor.x, 92), tail: -4, text: "ELECTRIC MOTOR", ink: ink, p: BP.pr(t, 0.3, 0.8))
-        bpLeader(&c, anchor: geo.p(0, CE.headTop - 9), elbow: BP.pt(118, 26), tail: 0, text: "FIRST SPARK", ink: ink, p: BP.pr(t, 2.3, 2.9))
+        bpLeader(&c, anchor: BP.pt(166, crank.y), elbow: BP.pt(166, 232), tail: -4, text: "SHAFT DRAGS THE PISTON", ink: BP.Hue.peach, p: BP.pr(t, 0.4, 1.0))
+        bpLeader(&c, anchor: BP.pt(motor.x, motor.y - 22), elbow: BP.pt(motor.x, 92), tail: -4, text: "ELECTRIC MOTOR", ink: acc, p: BP.pr(t, 0.3, 0.8))
+        bpLeader(&c, anchor: geo.p(0, CE.headTop - 9), elbow: BP.pt(118, 26), tail: 0, text: "FIRST SPARK", ink: BP.Hue.coral, p: BP.pr(t, 2.3, 2.9))
     }
 }
 
@@ -563,7 +567,7 @@ struct CarFlywheel: View {
         let phi = max(0, tt - 0.4) * 4 * Double.pi / 2.6, span = 4 * Double.pi, ws = max(0, phi - span)      // the graph scrolls once it fills
 
         var cyls: [CarCyl] = []
-        for i in 0..<4 { cyls.append(CarCyl(theta: phi + Double(i) * .pi, gas: carGas(phi + Double(i) * .pi))) }
+        for i in 0..<4 { cyls.append(CarCyl(theta: phi + Double(i) * .pi, gas: carGas(phi + Double(i) * .pi), sparkColor: BP.Hue.coral)) }
         bpGroup(&c, alpha: a0) { g in carEngine(&g, geo, cyls, ink: ink) }
 
         // the shaft out of the block, and the heavy wheel on its end
@@ -574,7 +578,7 @@ struct CarFlywheel: View {
             // thickness behind: a second rim and the two lines joining them
             let d = BP.pt(8, -4.5), dl = hypot(d.x, d.y), nx = -d.y / dl, ny = d.x / dl
             let back = Path(ellipseIn: CGRect(x: wheel.x + d.x - wr, y: wheel.y + d.y - wr, width: 2 * wr, height: 2 * wr))
-            g.fill(back, with: .color(BP.paper)); g.fill(back, with: .color(acc.opacity(0.2)))
+            g.fill(back, with: .color(BP.paper)); g.fill(back, with: .color(acc.opacity(0.18)))
             var join = Path()
             for sgn in [-1.0, 1.0] {
                 join.move(to: BP.pt(wheel.x + sgn * nx * wr, wheel.y + sgn * ny * wr))
@@ -584,7 +588,7 @@ struct CarFlywheel: View {
             g.stroke(join, with: .color(acc), lineWidth: BP.edge)
             // the front face: heavy rim, holes that turn with the shaft, hub
             let face = Path(ellipseIn: CGRect(x: wheel.x - wr, y: wheel.y - wr, width: 2 * wr, height: 2 * wr))
-            g.fill(face, with: .color(BP.paper)); g.fill(face, with: .color(acc.opacity(0.34)))
+            g.fill(face, with: .color(BP.paper)); g.fill(face, with: .color(acc.opacity(0.18)))
             g.stroke(face, with: .color(acc), lineWidth: BP.edge)
             g.stroke(Path(ellipseIn: CGRect(x: wheel.x - 26, y: wheel.y - 26, width: 52, height: 52)), with: .color(acc.opacity(0.8)), lineWidth: BP.hair)
             for k in 0..<4 {
@@ -627,8 +631,8 @@ struct CarFlywheel: View {
             }
             guard started else { continue }
             if let last = line.currentPoint { fill.addLine(to: BP.pt(last.x, gBase)); fill.closeSubpath() }
-            c.fill(fill, with: .color(ink.opacity(0.12)))
-            c.stroke(line, with: .color(ink.opacity(0.7)), style: StrokeStyle(lineWidth: BP.hair, lineJoin: .round))
+            c.fill(fill, with: .color(BP.Hue.coral.opacity(0.18)))
+            c.stroke(line, with: .color(BP.Hue.coral), style: StrokeStyle(lineWidth: BP.hair, lineJoin: .round))
         }
         var sum = Path()
         for k in 0...steps {
@@ -643,9 +647,16 @@ struct CarFlywheel: View {
             let x = gpt(phi, 0, ws).x
             bpGuide(&c, BP.pt(x, gBase - 60), BP.pt(x, gBase), color: ink.opacity(0.35))
         }
+        // the live end of the summed line carries the flywheel's colour
+        if phi > 0.05 {
+            var v = 0.0
+            for st in starts { v += hump(phi, start: st) }
+            let q = gpt(phi, v, ws)
+            c.fill(Path(ellipseIn: CGRect(x: q.x - 3, y: q.y - 3, width: 6, height: 6)), with: .color(acc))
+        }
 
         bpLeader(&c, anchor: geo.p(geo.cx(0) + CE.wall, CE.headTop), elbow: BP.pt(26, 30), tail: 10, text: "CYLINDERS", ink: ink, p: BP.pr(t, 0.2, 0.7))
-        bpLeader(&c, anchor: BP.pt(wheel.x - 4, wheel.y - wr - 4), elbow: BP.pt(232, 54), tail: 0, text: "HEAVY WHEEL", ink: ink, p: BP.pr(t, 0.3, 0.8))
-        bpLeader(&c, anchor: BP.pt(gx0, gBase - 56), elbow: BP.pt(gx0, 172), tail: 0, text: "PUSH ON THE SHAFT", ink: ink, p: BP.pr(t, 0.4, 0.9))
+        bpLeader(&c, anchor: BP.pt(wheel.x - 4, wheel.y - wr - 4), elbow: BP.pt(232, 54), tail: 0, text: "HEAVY WHEEL", ink: acc, p: BP.pr(t, 0.3, 0.8))
+        bpLeader(&c, anchor: BP.pt(gx0, gBase - 56), elbow: BP.pt(gx0, 172), tail: 0, text: "PUSH ON THE SHAFT", ink: BP.Hue.coral, p: BP.pr(t, 0.4, 0.9))
     }
 }

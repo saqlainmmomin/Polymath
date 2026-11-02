@@ -31,7 +31,7 @@ private func ssBall(_ c: inout GraphicsContext, _ ctr: CGPoint, r: Double, color
     c.stroke(p, with: .color(color), lineWidth: width)
 }
 
-private func ssSun(_ c: inout GraphicsContext, _ ctr: CGPoint, r: Double, ink: Color) {
+private func ssSun(_ c: inout GraphicsContext, _ ctr: CGPoint, r: Double, ink: Color, tint: Double = 0.22) {
     var rays = Path()
     for k in 0..<12 {
         let a = Double(k) * Double.pi / 6
@@ -39,7 +39,7 @@ private func ssSun(_ c: inout GraphicsContext, _ ctr: CGPoint, r: Double, ink: C
         rays.addLine(to: BP.pt(ctr.x + (r + 3 + (k % 2 == 0 ? 5 : 3)) * cos(a), ctr.y + (r + 3 + (k % 2 == 0 ? 5 : 3)) * sin(a)))
     }
     c.stroke(rays, with: .color(ink.opacity(0.75)), style: StrokeStyle(lineWidth: BP.hair, lineCap: .round))
-    ssBall(&c, ctr, r: r, color: ink, tint: 0.22)
+    ssBall(&c, ctr, r: r, color: ink, tint: tint)
 }
 
 private func ssHead(_ p: inout Path, _ a: CGPoint, _ b: CGPoint) {
@@ -62,6 +62,7 @@ struct SeasonsBPFar: View {
 
     private static func draw(_ c: inout GraphicsContext, _ t: Double, _ pal: StagePalette, _ u: Double) {
         let ink = pal.ink, acc = pal.accent
+        let sunC = BP.Hue.coral, earthC = BP.Hue.peach
         let fo = ssFade(u, story)
         let cx = 171.0, cy = 154.0, a = 112.0, b = 111.35
         func orbit(_ th: Double) -> CGPoint { BP.pt(cx - b * sin(th), cy - a * cos(th)) }
@@ -75,21 +76,21 @@ struct SeasonsBPFar: View {
         bpTrace(&c, ring, p: BP.pr(t, 0, 0.9), color: ink.opacity(0.8), width: BP.hair)
 
         let gp = BP.pr(t, 0.5, 1.1)
-        bpGuide(&c, BP.pt(171, 150), BP.pt(171, jul.y + 15), p: gp, color: ink.opacity(0.6))
-        bpGuide(&c, BP.pt(171, 182), BP.pt(171, jan.y - 15), p: gp, color: ink.opacity(0.6))
-        bpGroup(&c, alpha: BP.eout(BP.pr(t, 0, 0.5))) { g in ssSun(&g, sun, r: 14, ink: ink) }
+        bpGuide(&c, BP.pt(171, 150), BP.pt(171, jul.y + 15), p: gp, color: sunC.opacity(0.7))
+        bpGuide(&c, BP.pt(171, 182), BP.pt(171, jan.y - 15), p: gp, color: sunC.opacity(0.7))
+        bpGroup(&c, alpha: BP.eout(BP.pr(t, 0, 0.5))) { g in ssSun(&g, sun, r: 14, ink: sunC, tint: 0.18) }
 
         // Earth at its farthest point stays marked in mustard
         bpGroup(&c, alpha: BP.pr(u, 1.3, 1.6) * fo) { g in
-            ssBall(&g, jul, r: 8, color: acc, tint: 0.4)
+            ssBall(&g, jul, r: 8, color: acc, tint: 0.18)
             g.stroke(ssOval(jul, 13, 13), with: .color(acc), lineWidth: BP.hair)
         }
         // the travelling Earth: right side up to July, a beat there, then round to January
         let th = u < 2.1 ? -Double.pi / 2 + (Double.pi / 2) * BP.eio(BP.pr(u, 0.3, 1.5)) : Double.pi * BP.eio(BP.pr(u, 2.1, story))
-        bpGroup(&c, alpha: BP.pr(u, 0, 0.3) * fo) { g in ssBall(&g, orbit(th), r: 8, color: ink, tint: 0.2) }
+        bpGroup(&c, alpha: BP.pr(u, 0, 0.3) * fo) { g in ssBall(&g, orbit(th), r: 8, color: earthC, tint: 0.18) }
 
         bpLeader(&c, anchor: BP.pt(jul.x + 9, jul.y - 4), elbow: BP.pt(jul.x + 26, jul.y - 22), tail: 10, text: "JULY\nFARTHEST", ink: acc, p: BP.pr(t, 0.6, 1.3))
-        bpLeader(&c, anchor: BP.pt(jan.x + 9, jan.y + 4), elbow: BP.pt(jan.x + 26, jan.y + 26), tail: 10, text: "JANUARY\nCLOSEST", ink: ink, p: BP.pr(t, 0.8, 1.5))
+        bpLeader(&c, anchor: BP.pt(jan.x + 9, jan.y + 4), elbow: BP.pt(jan.x + 26, jan.y + 26), tail: 10, text: "JANUARY\nCLOSEST", ink: earthC, p: BP.pr(t, 0.8, 1.5))
     }
 }
 
@@ -106,7 +107,7 @@ struct SeasonsBPSteps: View {
                        draw: { c, t, pal, clock in Self.draw(&c, t, pal, ssCycle(t, clock, story: Self.story)) }, size: ssSize)
     }
 
-    private static func row(_ c: inout GraphicsContext, y: Double, n: Double, ink: Color, acc: Color) {
+    private static func row(_ c: inout GraphicsContext, y: Double, n: Double, ink: Color, acc: Color, earthC: Color = BP.Hue.peach) {
         let end = x0 + n * step, knee = x0 + min(n, 100) * step
         var base = Path(); base.move(to: BP.pt(x0, y)); base.addLine(to: BP.pt(knee, y))
         var tk = Path(), tx = Path()
@@ -122,22 +123,23 @@ struct SeasonsBPSteps: View {
             c.stroke(e, with: .color(acc), style: StrokeStyle(lineWidth: 2, lineCap: .round))
             c.stroke(tx, with: .color(acc), lineWidth: BP.edge)
         }
-        ssBall(&c, BP.pt(end + 6, y), r: 6, color: ink, tint: 0.2)
+        ssBall(&c, BP.pt(end + 6, y), r: 6, color: earthC, tint: 0.18)
     }
 
     private static func draw(_ c: inout GraphicsContext, _ t: Double, _ pal: StagePalette, _ u: Double) {
         let ink = pal.ink, acc = pal.accent
+        let sunC = BP.Hue.coral, earthC = BP.Hue.peach
         let fo = ssFade(u, story)
 
         // the two lines are drawn together up to 100 steps; July goes on for three more
         let n1 = 100 * BP.eio(BP.pr(u, 0.3, 1.8))
         let n2 = n1 + 3 * BP.eout(BP.pr(u, 1.9, 2.4))
         bpGroup(&c, alpha: BP.eout(BP.pr(t, 0, 0.4))) { g in
-            ssSun(&g, BP.pt(26, yJ), r: 11, ink: ink); ssSun(&g, BP.pt(26, yL), r: 11, ink: ink)
+            ssSun(&g, BP.pt(26, yJ), r: 11, ink: sunC, tint: 0.18); ssSun(&g, BP.pt(26, yL), r: 11, ink: sunC, tint: 0.18)
         }
         bpGroup(&c, alpha: BP.pr(u, 0, 0.3) * fo) { g in
-            row(&g, y: yJ, n: n1, ink: ink, acc: acc)
-            row(&g, y: yL, n: n2, ink: ink, acc: acc)
+            row(&g, y: yJ, n: n1, ink: ink, acc: acc, earthC: earthC)
+            row(&g, y: yL, n: n2, ink: ink, acc: acc, earthC: earthC)
         }
         bpGuide(&c, BP.pt(x0 + 100 * step, yJ - 24), BP.pt(x0 + 100 * step, yL + 22), p: BP.pr(t, 1.8, 2.2), color: ink.opacity(0.6))
         let la = BP.pr(t, 0.2, 0.6)
@@ -149,10 +151,10 @@ struct SeasonsBPSteps: View {
         let by = 219.0, ex = 170.0, er = 30.0
         let bA = BP.eout(BP.pr(t, 2.8, 3.4))
         bpGroup(&c, alpha: bA) { g in
-            ssSun(&g, BP.pt(26, by), r: 11, ink: ink)
-            bpGuide(&g, BP.pt(42, by), BP.pt(ex - er - 4, by), color: ink.opacity(0.7))
-            ssBall(&g, BP.pt(ex, by), r: er, color: ink, tint: 0.12)
-            g.stroke(ssOval(BP.pt(ex, by), er, 8), with: .color(ink.opacity(0.55)), lineWidth: BP.hair)
+            ssSun(&g, BP.pt(26, by), r: 11, ink: sunC, tint: 0.18)
+            bpGuide(&g, BP.pt(42, by), BP.pt(ex - er - 4, by), color: sunC.opacity(0.7))
+            ssBall(&g, BP.pt(ex, by), r: er, color: earthC, tint: 0.18)
+            g.stroke(ssOval(BP.pt(ex, by), er, 8), with: .color(earthC.opacity(0.7)), lineWidth: BP.hair)
         }
         bpText(&c, "SAME DISTANCE", BP.pt(88, by - 16), ink: ink, alpha: bA)
         bpLeader(&c, anchor: BP.pt(ex + 12, by - 20), elbow: BP.pt(ex + 42, by - 31), tail: 10, text: "CANADA\nWINTER", ink: ink, p: BP.pr(t, 3.1, 3.8))
@@ -175,7 +177,7 @@ private func ssGlobe(_ c: inout GraphicsContext, _ ctr: CGPoint, r: Double, tilt
         if i == 0 { north.move(to: q) } else { north.addLine(to: q) }
     }
     north.closeSubpath()
-    c.fill(north, with: .color(ink.opacity(0.26)))
+    c.fill(north, with: .color(ink.opacity(0.18)))
     c.stroke(disc, with: .color(ink), lineWidth: BP.edge)
     var eq = Path()
     eq.move(to: BP.pt(ctr.x - pp.x * r, ctr.y - pp.y * r)); eq.addLine(to: BP.pt(ctr.x + pp.x * r, ctr.y + pp.y * r))
@@ -198,6 +200,7 @@ struct SeasonsBPLean: View {
 
     private static func draw(_ c: inout GraphicsContext, _ t: Double, _ pal: StagePalette, _ u: Double) {
         let ink = pal.ink, acc = pal.accent
+        let sunC = BP.Hue.coral, earthC = BP.Hue.peach
         let fo = ssFade(u, story)
         let sun = BP.pt(171, 160), rx = 100.0, ry = 38.0, gr = 16.0
         let june = BP.pt(sun.x - rx, sun.y), dec = BP.pt(sun.x + rx, sun.y)
@@ -207,8 +210,8 @@ struct SeasonsBPLean: View {
         // June and December stay drawn, the same arrow leaning the same way in both
         let ga = BP.eout(BP.pr(t, 0.2, 0.7))
         bpGroup(&c, alpha: ga) { g in
-            ssGlobe(&g, june, r: gr, tilt: tilt, ink: ink, acc: acc)
-            ssGlobe(&g, dec, r: gr, tilt: tilt, ink: ink, acc: acc)
+            ssGlobe(&g, june, r: gr, tilt: tilt, ink: earthC, acc: acc)
+            ssGlobe(&g, dec, r: gr, tilt: tilt, ink: earthC, acc: acc)
             // the 23 degrees: upright, the axis, and the angle between
             var up = Path(); up.move(to: dec); up.addLine(to: BP.pt(dec.x, dec.y - 44))
             g.stroke(up, with: .color(ink.opacity(0.7)), style: StrokeStyle(lineWidth: BP.hair, dash: [3, 3]))
@@ -228,13 +231,13 @@ struct SeasonsBPLean: View {
         let pos = BP.pt(sun.x - rx * cos(al), sun.y + ry * sin(al))
         let ea = BP.pr(u, 0, 0.35) * fo
         let behind = sin(al) < 0
-        if behind { bpGroup(&c, alpha: ea) { g in ssGlobe(&g, pos, r: gr, tilt: tilt, ink: ink, acc: acc) } }
-        bpGroup(&c, alpha: BP.eout(BP.pr(t, 0, 0.5))) { g in ssSun(&g, sun, r: 16, ink: ink) }
-        if !behind { bpGroup(&c, alpha: ea) { g in ssGlobe(&g, pos, r: gr, tilt: tilt, ink: ink, acc: acc) } }
+        if behind { bpGroup(&c, alpha: ea) { g in ssGlobe(&g, pos, r: gr, tilt: tilt, ink: earthC, acc: acc) } }
+        bpGroup(&c, alpha: BP.eout(BP.pr(t, 0, 0.5))) { g in ssSun(&g, sun, r: 16, ink: sunC, tint: 0.18) }
+        if !behind { bpGroup(&c, alpha: ea) { g in ssGlobe(&g, pos, r: gr, tilt: tilt, ink: earthC, acc: acc) } }
 
         let n = june.x + 11.2, nt = june.y - 26.5
-        bpLeader(&c, anchor: BP.pt(n, nt), elbow: BP.pt(104, 106), tail: 10, text: "NORTH", ink: ink, p: BP.pr(t, 0.7, 1.3))
-        bpLeader(&c, anchor: BP.pt(june.x - 8.9, june.y + 21), elbow: BP.pt(40, 222), tail: 10, text: "SOUTH", ink: ink, p: BP.pr(t, 0.8, 1.4))
+        bpLeader(&c, anchor: BP.pt(n, nt), elbow: BP.pt(104, 106), tail: 10, text: "NORTH", ink: earthC, p: BP.pr(t, 0.7, 1.3))
+        bpLeader(&c, anchor: BP.pt(june.x - 8.9, june.y + 21), elbow: BP.pt(40, 222), tail: 10, text: "SOUTH", ink: earthC, p: BP.pr(t, 0.8, 1.4))
         let am = -Double.pi / 2 + tilt / 2
         bpLeader(&c, anchor: BP.pt(dec.x + 36 * cos(am), dec.y + 36 * sin(am)), elbow: BP.pt(292, 92), tail: -10, text: "23 DEGREES", ink: acc, p: BP.pr(t, 0.9, 1.5))
     }
@@ -249,7 +252,7 @@ struct SeasonsBPTorch: View {
 
     var body: some View {
         BlueprintStage(active: active, length: Self.story, tick: 0.7,
-                       label: "A torch above a table tilts back and forth. Held straight, its light makes a small, bright gold spot on the table. Tilted, the same light spreads into a long, dim patch.",
+                       label: "A torch above a table tilts back and forth. Held straight, its light makes a small, bright yellow spot on the table. Tilted, the same light spreads into a long, dim patch.",
                        draw: { c, t, pal, clock in Self.draw(&c, t, pal, ssCycle(t, clock, story: Self.story, extra: 1.0)) }, size: ssSize)
     }
 
@@ -265,9 +268,9 @@ struct SeasonsBPTorch: View {
             func poly(_ pts: [CGPoint]) -> Path { var q = Path(); q.addLines(pts); q.closeSubpath(); return q }
             let top = poly([BP.pt(14, table), BP.pt(304, table), BP.pt(316, table - 8), BP.pt(26, table - 8)])
             let front = poly([BP.pt(14, table), BP.pt(304, table), BP.pt(304, table + 14), BP.pt(14, table + 14)])
-            for (p, k) in [(top, 0.1), (front, 0.2)] {
-                g.fill(p, with: .color(BP.paper)); g.fill(p, with: .color(ink.opacity(k)))
-                g.stroke(p, with: .color(ink), style: StrokeStyle(lineWidth: BP.edge, lineJoin: .round))
+            for (p, k) in [(top, 0.10), (front, 0.18)] {
+                g.fill(p, with: .color(BP.paper)); g.fill(p, with: .color(BP.Hue.peach.opacity(k)))
+                g.stroke(p, with: .color(BP.Hue.peach), style: StrokeStyle(lineWidth: BP.edge, lineJoin: .round))
             }
         }
 
@@ -277,14 +280,14 @@ struct SeasonsBPTorch: View {
         let bright = 0.12 + 0.8 * pow(w0 / w, 2.2)
         bpGroup(&c, alpha: a0) { g in
             var wedge = Path(); wedge.move(to: BP.pt(px, py)); wedge.addLine(to: BP.pt(x1, table)); wedge.addLine(to: BP.pt(x2, table)); wedge.closeSubpath()
-            g.fill(wedge, with: .color(acc.opacity(0.08)))
+            g.fill(wedge, with: .color(BP.Hue.coral.opacity(0.14)))
             var edges = Path()
             edges.move(to: BP.pt(px, py)); edges.addLine(to: BP.pt(x1, table)); edges.move(to: BP.pt(px, py)); edges.addLine(to: BP.pt(x2, table))
-            g.stroke(edges, with: .color(acc.opacity(0.55)), style: StrokeStyle(lineWidth: BP.hair, dash: [4, 4]))
+            g.stroke(edges, with: .color(BP.Hue.coral), style: StrokeStyle(lineWidth: BP.hair, dash: [4, 4]))
             var patch = Path()
             patch.move(to: BP.pt(x1, table)); patch.addLine(to: BP.pt(x2, table)); patch.addLine(to: BP.pt(x2 + 12, table - 8)); patch.addLine(to: BP.pt(x1 + 12, table - 8)); patch.closeSubpath()
-            g.fill(patch, with: .color(acc.opacity(bright)))
-            g.stroke(patch, with: .color(acc), style: StrokeStyle(lineWidth: BP.hair, lineJoin: .round))
+            g.fill(patch, with: .color(BP.Hue.mustard.opacity(bright)))
+            g.stroke(patch, with: .color(BP.Hue.mustard), style: StrokeStyle(lineWidth: BP.hair, lineJoin: .round))
         }
 
         // the torch, turning about its front
@@ -300,7 +303,7 @@ struct SeasonsBPTorch: View {
             for k in [-40.0, -34.0, -28.0] { grip.move(to: at(k, -7)); grip.addLine(to: at(k, 7)) }
             g.stroke(grip, with: .color(ink.opacity(0.6)), lineWidth: BP.hair)
             var lens = Path(); lens.move(to: at(0, -11)); lens.addLine(to: at(0, 11))
-            g.stroke(lens, with: .color(acc), style: StrokeStyle(lineWidth: 2.4, lineCap: .round))
+            g.stroke(lens, with: .color(BP.Hue.coral), style: StrokeStyle(lineWidth: 2.4, lineCap: .round))
         }
 
         // brackets on the table mark the two extremes; labels use the card's own words
@@ -312,10 +315,10 @@ struct SeasonsBPTorch: View {
             br.move(to: BP.pt(xa, 246)); br.addLine(to: BP.pt(xa, 254)); br.addLine(to: BP.pt(xb, 254)); br.addLine(to: BP.pt(xb, 246))
         }
         bpTrace(&c, br, p: la, color: ink.opacity(0.8), width: BP.hair)
-        bpLeader(&c, anchor: BP.pt(px, 254), elbow: BP.pt(50, 280), tail: 10, text: "SMALL,\nBRIGHT SPOT", ink: acc, p: BP.pr(t, 0.5, 1.2))
-        bpLeader(&c, anchor: BP.pt((longA + longB) / 2, 254), elbow: BP.pt(250, 280), tail: -10, text: "LONG,\nDIM PATCH", ink: ink, p: BP.pr(t, 0.6, 1.3))
+        bpLeader(&c, anchor: BP.pt(px, 254), elbow: BP.pt(50, 280), tail: 10, text: "SMALL,\nBRIGHT SPOT", ink: BP.Hue.mustard, p: BP.pr(t, 0.5, 1.2))
+        bpLeader(&c, anchor: BP.pt((longA + longB) / 2, 254), elbow: BP.pt(250, 280), tail: -10, text: "LONG,\nDIM PATCH", ink: BP.Hue.mustard, p: BP.pr(t, 0.6, 1.3))
         bpLeader(&c, anchor: BP.pt(px + 3, py - 4), elbow: BP.pt(86, 54), tail: 10, text: "TORCH", ink: ink, p: BP.pr(t, 0.3, 0.9))
-        bpLeader(&c, anchor: BP.pt(36, table + 8), elbow: BP.pt(28, 196), tail: 10, text: "TABLE", ink: ink, p: BP.pr(t, 0.4, 1.0))
+        bpLeader(&c, anchor: BP.pt(36, table + 8), elbow: BP.pt(28, 196), tail: 10, text: "TABLE", ink: BP.Hue.peach, p: BP.pr(t, 0.4, 1.0))
     }
 }
 
@@ -330,7 +333,7 @@ struct SeasonsBPDay: View {
 
     var body: some View {
         BlueprintStage(active: active, length: Self.story, tick: 3.23,
-                       label: "Earth seen from above the north pole, spinning, twice: June on the left, December on the right. Sunlight comes from the top. London is marked on each. In June London spends most of the spin in light and in December most of it in the dark; London's lit arc is shown in gold and the June one is about twice as long as the December one.",
+                       label: "Earth seen from above the north pole, spinning, twice: June on the left, December on the right. Sunlight comes from the top. London is marked on each. In June London spends most of the spin in light and in December most of it in the dark; London's lit arc is shown in yellow and the June one is about twice as long as the December one.",
                        draw: { c, t, pal, clock in Self.draw(&c, t, pal, ssCycle(t, clock, story: Self.story)) }, size: ssSize)
     }
 
@@ -395,7 +398,7 @@ struct SeasonsBPDay: View {
                 for dx in [-30.0, 0, 30] {
                     rays.move(to: BP.pt(ctr.x + dx, 56)); rays.addLine(to: BP.pt(ctr.x + dx, 90)); ssHead(&rays, BP.pt(ctr.x + dx, 56), BP.pt(ctr.x + dx, 92))
                 }
-                g.stroke(rays, with: .color(ink.opacity(0.7)), style: StrokeStyle(lineWidth: BP.hair, lineCap: .round, lineJoin: .round))
+                g.stroke(rays, with: .color(BP.Hue.coral), style: StrokeStyle(lineWidth: BP.hair, lineCap: .round, lineJoin: .round))
                 g.fill(ssOval(ctr, 2, 2), with: .color(ink))
             }
             // the spin: marks on the rim turn, London travels, and the arc it spends in the light is drawn in mustard
@@ -410,13 +413,13 @@ struct SeasonsBPDay: View {
             let l = -lam0 + sigma
             bpGroup(&c, alpha: fo) { g in
                 if l > -lam0 + 0.01 {
-                    bpTrace(&g, arc(ctr, -lam0, min(l, lam0)), p: 1, color: acc, width: 2.6)
+                    bpTrace(&g, arc(ctr, -lam0, min(l, lam0)), p: 1, color: BP.Hue.mustard, width: 2.6)
                     if l > lam0 { bpTrace(&g, arc(ctr, lam0, l), p: 1, color: ink.opacity(0.7), width: BP.hair) }
                 }
                 let lit = abs(l) < lam0
                 let m = london(ctr, l)
                 g.fill(ssOval(m, 4.6, 4.6), with: .color(BP.paper))
-                g.fill(ssOval(m, 3.4, 3.4), with: .color(lit ? acc : ink))
+                g.fill(ssOval(m, 3.4, 3.4), with: .color(BP.Hue.pistachio))
             }
             let label = name == "JUNE" ? "LONG DAY" : "SHORT DAY"
             bpText(&c, name, BP.pt(ctr.x, 244), ink: ink, alpha: BP.pr(t, 0.3, 0.8))
@@ -427,6 +430,6 @@ struct SeasonsBPDay: View {
         let c0 = earths[0].0
         let lam0J = acos(-(sin(lat) * tan(tiltD)) / cos(lat))
         let rise = london(c0, -lam0J)
-        bpLeader(&c, anchor: rise, elbow: BP.pt(rise.x + 11, 232), tail: 10, text: "LONDON", ink: acc, p: BP.pr(t, 0.6, 1.3))
+        bpLeader(&c, anchor: rise, elbow: BP.pt(rise.x + 11, 232), tail: 10, text: "LONDON", ink: BP.Hue.pistachio, p: BP.pr(t, 0.6, 1.3))
     }
 }

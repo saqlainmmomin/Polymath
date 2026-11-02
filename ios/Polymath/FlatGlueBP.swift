@@ -70,19 +70,19 @@ private func glDrop(_ c: inout GraphicsContext, _ path: Path, color: Color, runn
 
 /// The tube of glue: local x -20...20, tip at y 12, shoulders at 40, flat crimped end at 130...137. `level` is the local height of the glue's
 /// surface and `tilt` how much it leans (the slosh). `plug` 0...1 hardens the glue in the tip from the top down.
-private func glTube(_ c: inout GraphicsContext, _ g: GlGeo, ink: Color, level: Double, tilt: Double, plug: Double = 0) {
+private func glTube(_ c: inout GraphicsContext, _ g: GlGeo, ink: Color, level: Double, tilt: Double, plug: Double = 0, wash: Double = 1) {
     let outer = [g.p(-6, 12), g.p(6, 12), g.p(20, 40), g.p(20, 130), g.p(-20, 130), g.p(-20, 40)]
     let dv = g.dv
     func off(_ q: CGPoint) -> CGPoint { BP.pt(q.x + dv.x, q.y + dv.y) }
     // depth: the top of the tip and the right side
     let topFace = glPoly([outer[0], outer[1], off(outer[1]), off(outer[0])])
     let side = glPoly([outer[1], outer[2], outer[3], off(outer[3]), off(outer[2]), off(outer[1])])
-    glFillEdge(&c, topFace, ink: ink, tint: 0.08)
-    glFillEdge(&c, side, ink: ink, tint: 0.2)
+    glFillEdge(&c, topFace, ink: ink, tint: 0.08 * wash)
+    glFillEdge(&c, side, ink: ink, tint: 0.2 * wash)
     // the front, then the flat crimp at the bottom
-    glFillEdge(&c, glPoly(outer), ink: ink, tint: 0.07)
+    glFillEdge(&c, glPoly(outer), ink: ink, tint: 0.07 * wash)
     let crimp = Path(CGRect(x: g.p(-20, 130).x, y: g.p(-20, 130).y, width: 40 * g.s, height: 7 * g.s))
-    glFillEdge(&c, crimp, ink: ink, tint: 0.25)
+    glFillEdge(&c, crimp, ink: ink, tint: 0.25 * wash)
     var ribs = Path()
     for k in 1...3 { let y = 130 + 7.0 * Double(k) / 4; ribs.move(to: g.p(-20, y)); ribs.addLine(to: g.p(20, y)) }
     c.stroke(ribs, with: .color(ink.opacity(0.6)), lineWidth: BP.hair)
@@ -92,34 +92,34 @@ private func glTube(_ c: inout GraphicsContext, _ g: GlGeo, ink: Color, level: D
     var gc = c
     gc.clip(to: inner)
     func sy(_ x: Double) -> Double { level + tilt * x / 17 }
-    gc.fill(glPoly([g.p(-20, sy(-20)), g.p(20, sy(20)), g.p(20, 140), g.p(-20, 140)]), with: .color(ink.opacity(0.26)))
+    gc.fill(glPoly([g.p(-20, sy(-20)), g.p(20, sy(20)), g.p(20, 140), g.p(-20, 140)]), with: .color(ink.opacity(0.26 * wash)))
     var surf = Path(); surf.move(to: g.p(-20, sy(-20))); surf.addLine(to: g.p(20, sy(20)))
     gc.stroke(surf, with: .color(ink), lineWidth: BP.hair)
     if plug > 0.001 {
         let b = inner.boundingRect
         let reveal = CGRect(x: b.minX, y: b.minY, width: b.width, height: g.p(0, 14 + 30 * plug).y - b.minY)
-        glHatch(&c, clip: inner, reveal: reveal, bounds: b, color: ink, tint: 0.34)
+        glHatch(&c, clip: inner, reveal: reveal, bounds: b, color: ink, tint: 0.34 * wash)
     }
     c.stroke(inner, with: .color(ink.opacity(0.55)), style: StrokeStyle(lineWidth: BP.hair, lineJoin: .round))
     c.stroke(glPoly(outer), with: .color(ink), style: StrokeStyle(lineWidth: BP.edge, lineJoin: .round))
 }
 
 /// The cap, over the tip; (dx, dy) lifts it in local units.
-private func glCap(_ c: inout GraphicsContext, _ g: GlGeo, ink: Color, dx: Double = 0, dy: Double = 0) {
+private func glCap(_ c: inout GraphicsContext, _ g: GlGeo, ink: Color, dx: Double = 0, dy: Double = 0, wash: Double = 1) {
     let dv = g.dv
     let x0 = -10 + dx, x1 = 10 + dx, y0 = -12 + dy, y1 = 20 + dy
     let front = [g.p(x0, y0), g.p(x1, y0), g.p(x1, y1), g.p(x0, y1)]
     func off(_ q: CGPoint) -> CGPoint { BP.pt(q.x + dv.x * 0.8, q.y + dv.y * 0.8) }
-    glFillEdge(&c, glPoly([front[0], front[1], off(front[1]), off(front[0])]), ink: ink, tint: 0.1)
-    glFillEdge(&c, glPoly([front[1], off(front[1]), off(front[2]), front[2]]), ink: ink, tint: 0.22)
-    glFillEdge(&c, glPoly(front), ink: ink, tint: 0.14)
+    glFillEdge(&c, glPoly([front[0], front[1], off(front[1]), off(front[0])]), ink: ink, tint: 0.1 * wash)
+    glFillEdge(&c, glPoly([front[1], off(front[1]), off(front[2]), front[2]]), ink: ink, tint: 0.22 * wash)
+    glFillEdge(&c, glPoly(front), ink: ink, tint: 0.14 * wash)
     var grip = Path()
     for y in [-4.0, 2.0, 8.0] { grip.move(to: g.p(x0 + 2, y + dy)); grip.addLine(to: g.p(x1 - 2, y + dy)) }
     c.stroke(grip, with: .color(ink.opacity(0.6)), lineWidth: BP.hair)
 }
 
 /// A fingertip pointing up, apex at the local origin, local x -22...22; the lower end breaks off with a zigzag.
-private func glFinger(_ c: inout GraphicsContext, _ g: GlGeo, ink: Color, length: Double = 80) {
+private func glFinger(_ c: inout GraphicsContext, _ g: GlGeo, ink: Color, length: Double = 80, wash: Double = 1) {
     func outline(_ dx: Double, _ dy: Double) -> Path {
         var p = Path()
         p.move(to: BP.pt(g.p(-22, length).x + dx, g.p(-22, length).y + dy))
@@ -136,11 +136,11 @@ private func glFinger(_ c: inout GraphicsContext, _ g: GlGeo, ink: Color, length
         return p
     }
     let dv = g.dv
-    glFillEdge(&c, outline(dv.x, dv.y), ink: ink, tint: 0.2)
+    glFillEdge(&c, outline(dv.x, dv.y), ink: ink, tint: 0.2 * wash)
     var join = Path()
     for y in [22.0, length] { join.move(to: g.p(22, y)); join.addLine(to: BP.pt(g.p(22, y).x + dv.x, g.p(22, y).y + dv.y)) }
     c.stroke(join, with: .color(ink), lineWidth: BP.edge)
-    glFillEdge(&c, outline(0, 0), ink: ink, tint: 0.1)
+    glFillEdge(&c, outline(0, 0), ink: ink, tint: 0.1 * wash)
     // fingerprint ridges near the tip
     var ridges = Path()
     for r in [6.0, 11.0, 16.0] {
@@ -205,28 +205,29 @@ struct GlueBPFast: View {
 
     private static func draw(_ c: inout GraphicsContext, _ t: Double, _ pal: StagePalette, _ u: Double, _ clock: Double, _ still: Bool) {
         let ink = pal.ink, acc = pal.accent
+        let teal = BP.Hue.peach, lime = BP.Hue.pistachio
         let a0 = BP.eout(BP.pr(t, 0, 0.4))
 
-        // the tube: its glue sloshes slowly, then settles
+        // the tube: its glue sloshes slowly, then settles (tube and glue teal)
         let slosh = still ? 0 : sin(clock * 1.7) * 4.5 * BP.pr(t, 0.3, 1.2)
         bpGroup(&c, alpha: a0) { g in
-            glTube(&g, tube, ink: ink, level: 62, tilt: slosh)
-            glCap(&g, tube, ink: ink)
+            glTube(&g, tube, ink: teal, level: 62, tilt: slosh, wash: 0.65)
+            glCap(&g, tube, ink: teal, wash: 0.65)
         }
 
-        // the calendar: months go by in the tube
+        // the calendar: months go by in the tube (chalk)
         bpGroup(&c, alpha: BP.eout(BP.pr(t, 0.2, 0.6))) { g in
             glCalendar(&g, CGRect(x: 124, y: 78, width: 46, height: 42), month: "MAY", ink: ink)
         }
 
-        // the finger and its drop (mustard)
-        bpGroup(&c, alpha: a0) { g in glFinger(&g, finger, ink: ink, length: 80) }
+        // the finger (lime) and its drop (mustard)
+        bpGroup(&c, alpha: a0) { g in glFinger(&g, finger, ink: lime, length: 80, wash: 0.65) }
         let fx = finger.cx, fy = finger.oy
         let drop = glDome(cx: fx, w: 32, h: 22, base: { x in fy + 26.4 - sqrt(max(0, 26.4 * 26.4 - (x - fx) * (x - fx))) + 1 })
         let set = BP.eio(BP.pr(u, 0.5, 1.8))
         let dropA = BP.pr(u, 0, 0.3) * (1 - BP.pr(u, 3.4, 3.9))        // a fresh drop each round, fading out and in
         bpGroup(&c, alpha: dropA) { g in
-            glDrop(&g, drop, color: acc, runny: 0.2, hatch: acc, hard: 0.5, set: set)
+            glDrop(&g, drop, color: acc, runny: 0.16, hatch: acc, hard: 0.18, set: set)
         }
 
         // the timer: three seconds, the ring fills as the drop sets
@@ -244,11 +245,11 @@ struct GlueBPFast: View {
                 let q = BP.pt(ctr.x + (r - 0.5) * cos(a), ctr.y + (r - 0.5) * sin(a))
                 if i == 0 { arc.move(to: q) } else { arc.addLine(to: q) }
             }
-            bpGroup(&g, alpha: dropA) { h in bpTrace(&h, arc, p: set, color: ink, width: 2) }
+            bpGroup(&g, alpha: dropA) { h in bpTrace(&h, arc, p: set, color: acc, width: 2) }
             bpText(&g, "3S", ctr, ink: ink)
         }
 
-        bpLeader(&c, anchor: tube.p(-12, 100), elbow: BP.pt(12, 246), tail: 10, text: "IN THE TUBE:\nRUNNY FOR MONTHS", ink: ink, p: BP.pr(t, 0.3, 0.9))
+        bpLeader(&c, anchor: tube.p(-12, 100), elbow: BP.pt(12, 246), tail: 10, text: "IN THE TUBE:\nRUNNY FOR MONTHS", ink: teal, p: BP.pr(t, 0.3, 0.9))
         bpLeader(&c, anchor: BP.pt(244, 200), elbow: BP.pt(148, 246), tail: 24, text: "ON YOUR FINGER:\nHARD IN SECONDS", ink: acc, p: BP.pr(t, 0.4, 1.0))
     }
 }
@@ -291,8 +292,8 @@ struct GlueBPWater: View {
         let leftDrop = glDome(cx: lx, w: 92, h: 56 * (1 - 0.15 * dry), base: { _ in y0 })
         let rightDrop = glDome(cx: rx, w: 92, h: 56, base: { _ in y0 })
         bpGroup(&c, alpha: a0 * dropA) { g in
-            glDrop(&g, leftDrop, color: ink, runny: 0.14, hatch: ink, hard: 0.3, set: dry)
-            glDrop(&g, rightDrop, color: ink, runny: 0.14, hatch: ink, hard: 0.3, set: wet)
+            glDrop(&g, leftDrop, color: BP.Hue.peach, runny: 0.16, hatch: BP.Hue.peach, hard: 0.18, set: dry)
+            glDrop(&g, rightDrop, color: BP.Hue.peach, runny: 0.16, hatch: BP.Hue.peach, hard: 0.18, set: wet)
         }
 
         // water guides: vapour rises from the left drop, moisture falls on the right one
@@ -306,12 +307,12 @@ struct GlueBPWater: View {
             }
             var arrow = w
             glHead(&arrow, BP.pt(lane, 90), BP.pt(lane + 3 * sin(84.0 / 6), 84))
-            bpTrace(&c, arrow, p: gp, color: acc.opacity(0.55), width: BP.hair)
+            bpTrace(&c, arrow, p: gp, color: BP.Hue.ice.opacity(0.8), width: BP.hair)
         }
         for lane in [218.0, 238.0, 258.0] {
             var s = Path(); s.move(to: BP.pt(lane, 78)); s.addLine(to: BP.pt(lane, 126))
             glHead(&s, BP.pt(lane, 100), BP.pt(lane, 128))
-            bpTrace(&c, s, p: gp, color: acc.opacity(0.55), width: BP.hair)
+            bpTrace(&c, s, p: gp, color: BP.Hue.ice.opacity(0.8), width: BP.hair)
         }
 
         // the water in each drop: it leaves the left, it arrives in the right (mustard)
@@ -336,7 +337,7 @@ struct GlueBPWater: View {
         bpText(&c, "SUPERGLUE", BP.pt(rx, 28), ink: ink, alpha: BP.pr(t, 0.2, 0.7))
         bpLeader(&c, anchor: BP.pt(64, 112), elbow: BP.pt(52, 112), tail: -4, text: "WATER", ink: acc, p: BP.pr(t, 0.3, 0.9))
         bpLeader(&c, anchor: BP.pt(258, 100), elbow: BP.pt(276, 100), tail: 0, text: "WATER", ink: acc, p: BP.pr(t, 0.4, 1.0))
-        bpLeader(&c, anchor: BP.pt(218, 82), elbow: BP.pt(190, 62), tail: -4, text: "AIR", ink: ink, p: BP.pr(t, 0.5, 1.1))
+        bpLeader(&c, anchor: BP.pt(218, 82), elbow: BP.pt(190, 62), tail: -4, text: "AIR", ink: BP.Hue.ice, p: BP.pr(t, 0.5, 1.1))
     }
 }
 
@@ -347,7 +348,7 @@ struct GlueBPFilm: View {
 
     var body: some View {
         BlueprintStage(active: active, length: 3.0, tick: 0.85,
-                       label: "A magnified cutaway of fingertip skin with ridges on top, and a thin film of water on it shown in gold. A drop of glue falls and lands on the film, then goes hard from the bottom up, where it touches the water. Labels say: water film, glue, skin.",
+                       label: "A magnified cutaway of fingertip skin in green with ridges on top, and a thin film of water on it shown in gold. A drop of glue, shown in peach, falls and lands on the film, then goes hard from the bottom up, where it touches the water. Labels say: water film, glue, skin.",
                        draw: { c, t, pal, clock in let (u, r) = glCycle(t, clock, hold: 3.0); Self.draw(&c, t, pal, u, clock, r) }, size: glSize)
     }
 
@@ -356,6 +357,7 @@ struct GlueBPFilm: View {
 
     private static func draw(_ c: inout GraphicsContext, _ t: Double, _ pal: StagePalette, _ u: Double, _ clock: Double, _ still: Bool) {
         let ink = pal.ink, acc = pal.accent
+        let skin = BP.Hue.pistachio, glue = BP.Hue.peach
         let a0 = BP.eout(BP.pr(t, 0, 0.4))
         let x0 = 18.0, x1 = 318.0, bottom = 250.0
         let xs = stride(from: x0, through: x1, by: 3).map { $0 }
@@ -367,23 +369,23 @@ struct GlueBPFilm: View {
             for (i, x) in xs.enumerated() { let q = BP.pt(x, ridge(x)); if i == 0 { strip.move(to: q) } else { strip.addLine(to: q) } }
             for x in xs.reversed() { strip.addLine(to: BP.pt(x + dv.x, ridge(x) + dv.y)) }
             strip.closeSubpath()
-            glFillEdge(&g, strip, ink: ink, tint: 0.07)
-            glFillEdge(&g, glPoly([BP.pt(x1, ridge(x1)), BP.pt(x1 + dv.x, ridge(x1) + dv.y), BP.pt(x1 + dv.x, bottom + dv.y), BP.pt(x1, bottom)]), ink: ink, tint: 0.2)
+            glFillEdge(&g, strip, ink: skin, tint: 0.1)
+            glFillEdge(&g, glPoly([BP.pt(x1, ridge(x1)), BP.pt(x1 + dv.x, ridge(x1) + dv.y), BP.pt(x1 + dv.x, bottom + dv.y), BP.pt(x1, bottom)]), ink: skin, tint: 0.18)
             // the front of the skin
             var body = Path()
             for (i, x) in xs.enumerated() { let q = BP.pt(x, ridge(x)); if i == 0 { body.move(to: q) } else { body.addLine(to: q) } }
             body.addLine(to: BP.pt(x1, bottom)); body.addLine(to: BP.pt(x0, bottom)); body.closeSubpath()
-            glFillEdge(&g, body, ink: ink, tint: 0.1)
+            glFillEdge(&g, body, ink: skin, tint: 0.16)
             // cell layers under the surface
             var layers = Path()
             for y in [222.0, 238.0] { layers.move(to: BP.pt(x0 + 6, y)); layers.addLine(to: BP.pt(x1 - 6, y)) }
-            g.stroke(layers, with: .color(ink.opacity(0.4)), style: StrokeStyle(lineWidth: BP.hair, dash: [2, 5]))
+            g.stroke(layers, with: .color(skin.opacity(0.6)), style: StrokeStyle(lineWidth: BP.hair, dash: [2, 5]))
             var cells = Path()
             for (row, y) in [212.0, 230.0].enumerated() {
                 var x = x0 + 14 + (row == 0 ? 0 : 12)
                 while x < x1 - 10 { cells.move(to: BP.pt(x, y - 4)); cells.addLine(to: BP.pt(x, y + 4)); x += 24 }
             }
-            g.stroke(cells, with: .color(ink.opacity(0.35)), lineWidth: BP.hair)
+            g.stroke(cells, with: .color(skin.opacity(0.55)), lineWidth: BP.hair)
         }
 
         // the film of water, mustard, riding the ridges
@@ -394,7 +396,7 @@ struct GlueBPFilm: View {
             let top = film
             for x in xs.reversed() { film.addLine(to: BP.pt(x, ridge(x))) }
             film.closeSubpath()
-            g.fill(film, with: .color(BP.paper)); g.fill(film, with: .color(acc.opacity(0.5 + (still ? 0 : 0.1 * sin(clock * 1.6)))))
+            g.fill(film, with: .color(BP.paper)); g.fill(film, with: .color(acc.opacity(0.15 + (still ? 0 : 0.03 * sin(clock * 1.6)))))
             g.stroke(top, with: .color(acc), style: StrokeStyle(lineWidth: BP.edge, lineJoin: .round))
         }
 
@@ -405,11 +407,11 @@ struct GlueBPFilm: View {
         let w = BP.mix(30, 140, spread), h = BP.mix(34, 64, spread)
         let yBase = filmTop(cx) - 130 * (1 - f * f)
         let drop = glDome(cx: cx, w: w, h: h, base: { x in yBase + (filmTop(x) - filmTop(cx)) * land })
-        bpGroup(&c, alpha: dropA) { g in glDrop(&g, drop, color: ink, runny: 0.18, hatch: ink, hard: 0.38, set: BP.eio(BP.pr(u, 1.1, 3.0))) }
+        bpGroup(&c, alpha: dropA) { g in glDrop(&g, drop, color: glue, runny: 0.18, hatch: glue, hard: 0.18, set: BP.eio(BP.pr(u, 1.1, 3.0))) }
 
-        bpLeader(&c, anchor: BP.pt(130, 160), elbow: BP.pt(34, 120), tail: 10, text: "GLUE", ink: ink, p: BP.pr(t, 0.9, 1.5))
+        bpLeader(&c, anchor: BP.pt(130, 160), elbow: BP.pt(34, 120), tail: 10, text: "GLUE", ink: glue, p: BP.pr(t, 0.9, 1.5))
         bpLeader(&c, anchor: BP.pt(256, filmTop(256) + 3), elbow: BP.pt(256, 160), tail: 0, text: "WATER FILM", ink: acc, p: BP.pr(t, 0.2, 0.8))
-        bpLeader(&c, anchor: BP.pt(60, 236), elbow: BP.pt(20, 278), tail: 10, text: "SKIN", ink: ink, p: BP.pr(t, 0.3, 0.9))
+        bpLeader(&c, anchor: BP.pt(60, 236), elbow: BP.pt(20, 278), tail: 10, text: "SKIN", ink: skin, p: BP.pr(t, 0.3, 0.9))
     }
 }
 
@@ -420,7 +422,7 @@ struct GlueBPCap: View {
 
     var body: some View {
         BlueprintStage(active: active, length: 3.1, tick: 2.75,
-                       label: "A cutaway tube of glue with its cap on. Dots of moisture, shown in gold, fly in from the air and bounce off the cap, so the glue stays runny. Then the cap lifts off, the moisture creeps in at the tip, and the glue at the tip fills with hatching, goes hard and blocks it. Labels say: cap, tip, moisture, glue.",
+                       label: "A cutaway tube of glue, drawn in peach, with its cap on. Dots of moisture, shown in gold, fly in from the air and bounce off the cap, so the glue stays runny. Then the cap lifts off, the moisture creeps in at the tip, and the glue at the tip fills with hatching, goes hard and blocks it. Labels say: cap, tip, moisture, glue.",
                        draw: { c, t, pal, clock in let (u, r) = glCycle(t, clock, hold: 3.1, extra: 2.1); Self.draw(&c, t, pal, u, clock, r) }, size: glSize)
     }
 
@@ -431,6 +433,7 @@ struct GlueBPCap: View {
 
     private static func draw(_ c: inout GraphicsContext, _ t: Double, _ pal: StagePalette, _ u: Double, _ clock: Double, _ still: Bool) {
         let ink = pal.ink, acc = pal.accent
+        let teal = BP.Hue.peach
         let a0 = BP.eout(BP.pr(t, 0, 0.4))
         let g = tube
         let lift = BP.eio(BP.pr(u, 1.4, 2.0)) * (1 - BP.eio(BP.pr(u, 4.2, 4.9)))
@@ -438,8 +441,8 @@ struct GlueBPCap: View {
         let dotFade = 1 - BP.pr(u, 4.4, 5.1)
 
         bpGroup(&c, alpha: a0) { gc in
-            glTube(&gc, g, ink: ink, level: 18, tilt: 0, plug: hard)
-            glCap(&gc, g, ink: ink, dx: 16 * lift, dy: -36 * lift)
+            glTube(&gc, g, ink: teal, level: 18, tilt: 0, plug: hard, wash: 0.65)
+            glCap(&gc, g, ink: teal, dx: 16 * lift, dy: -36 * lift, wash: 0.65)
         }
 
         // moisture: all dots fly at the cap and bounce back; once it is off, three of them creep in at the tip
@@ -467,7 +470,7 @@ struct GlueBPCap: View {
         let capAt = g.p(-10 + 16 * lift, 4 - 36 * lift)
         bpLeader(&c, anchor: capAt, elbow: BP.pt(112, 42), tail: -4, text: "CAP", ink: ink, p: BP.pr(t, 0.2, 0.7))
         bpLeader(&c, anchor: g.p(0, 14), elbow: BP.pt(112, 100), tail: -4, text: "TIP", ink: ink, p: BP.pr(t, 0.3, 0.8))
-        bpLeader(&c, anchor: g.p(-12, 95), elbow: BP.pt(112, 196), tail: -4, text: "GLUE", ink: ink, p: BP.pr(t, 0.4, 0.9))
+        bpLeader(&c, anchor: g.p(-12, 95), elbow: BP.pt(112, 196), tail: -4, text: "GLUE", ink: teal, p: BP.pr(t, 0.4, 0.9))
         bpLeader(&c, anchor: rest[0], elbow: BP.pt(262, 40), tail: 0, text: "MOISTURE", ink: acc, p: BP.pr(t, 0.7, 1.3))
     }
 }

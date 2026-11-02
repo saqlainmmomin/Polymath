@@ -7150,6 +7150,368 @@
      "note": "What does the water actually do? It makes the glue's tiny building blocks hook onto each other in long chains, and long chains can't flow. Makers also add a tiny dash of acid that stops any chain that starts by accident."
     }
    ]
+  },
+  {
+   "id": "afterimage",
+   "title": "Why do you see spots after looking at a bright light?",
+   "kind": "full",
+   "theme": "nature",
+   "cards": [
+    {
+     "type": "card",
+     "title": "The flash is over in an instant. The spot it leaves is not.",
+     "text": "Someone takes your photo with a flash, and for the next few seconds a dark spot floats in the middle of everything you look at. Look at the wall: it's there. Look at the floor: it's there too. But there's nothing on the wall or the floor.",
+     "hook": "So where is the spot?",
+     "visual": {
+      "type": "diagram",
+      "view": [
+       100,
+       96
+      ],
+      "tip": null,
+      "parts": [
+       {
+        "id": "eye",
+        "shape": "circle",
+        "x": 50,
+        "y": 44,
+        "r": 24,
+        "style": "thin"
+       },
+       {
+        "id": "patch",
+        "shape": "circle",
+        "x": 66,
+        "y": 44,
+        "r": 6,
+        "style": "accent",
+        "label": "Flash, then a dark spot",
+        "labelAt": [
+         50,
+         82
+        ]
+       }
+      ],
+      "steps": [
+       {
+        "note": "A flash, then a dark spot on the wall and the floor"
+       }
+      ]
+     }
+    },
+    {
+     "type": "card",
+     "title": "A flash tires out a patch of cells in your eye",
+     "text": "It's in your eye. At the back of each eye is a layer of cells that turn light into signals for your brain. The flash hits a patch of those cells so hard that they get tired out. For a little while, they respond less to light than the cells around them.",
+     "hook": "So why does a tired patch show up as a dark spot?",
+     "visual": {
+      "type": "diagram",
+      "view": [
+       100,
+       96
+      ],
+      "tip": null,
+      "parts": [
+       {
+        "id": "eye",
+        "shape": "circle",
+        "x": 50,
+        "y": 44,
+        "r": 24,
+        "style": "thin"
+       },
+       {
+        "id": "patch",
+        "shape": "circle",
+        "x": 66,
+        "y": 44,
+        "r": 6,
+        "style": "accent",
+        "label": "Tired cells",
+        "labelAt": [
+         50,
+         82
+        ]
+       }
+      ],
+      "steps": [
+       {
+        "note": "A flash tires out a patch of the layer of cells at the back of your eye"
+       }
+      ]
+     }
+    },
+    {
+     "type": "card",
+     "title": "Tired cells send weaker signals, so you see a dark spot",
+     "text": "Look at a plain wall. The cells around the patch send signals for the wall as usual, but the tired cells send weaker ones. Your brain gets a normal picture with a dark spot in it.",
+     "hook": "So why does the spot follow your eyes?",
+     "visual": {
+      "type": "diagram",
+      "view": [
+       100,
+       96
+      ],
+      "tip": null,
+      "parts": [
+       {
+        "id": "eye",
+        "shape": "circle",
+        "x": 50,
+        "y": 44,
+        "r": 24,
+        "style": "thin"
+       },
+       {
+        "id": "patch",
+        "shape": "circle",
+        "x": 66,
+        "y": 44,
+        "r": 6,
+        "style": "accent",
+        "label": "Weak signal, dark spot",
+        "labelAt": [
+         50,
+         82
+        ]
+       }
+      ],
+      "steps": [
+       {
+        "note": "Normal cells: strong signal, tired cells: weak signal, what you see: a dark spot"
+       }
+      ]
+     }
+    },
+    {
+     "type": "card",
+     "title": "The spot follows your eyes because it's part of your eye",
+     "text": "It's tied to that part of your eye, not to anything out there. A few seconds later, when the cells recover, it fades.",
+     "takeaway": "The spot isn't in the room. It's a patch of your eye that got tired out by the flash.",
+     "visual": {
+      "type": "diagram",
+      "view": [
+       100,
+       96
+      ],
+      "tip": null,
+      "parts": [
+       {
+        "id": "eye",
+        "shape": "circle",
+        "x": 50,
+        "y": 44,
+        "r": 24,
+        "style": "thin"
+       },
+       {
+        "id": "patch",
+        "shape": "circle",
+        "x": 66,
+        "y": 44,
+        "r": 6,
+        "style": "accent",
+        "label": "Tied to your eye",
+        "labelAt": [
+         50,
+         82
+        ]
+       }
+      ],
+      "steps": [
+       {
+        "note": "The spot turns with your eye, then fades as the cells recover"
+       }
+      ]
+     }
+    },
+    {
+     "type": "more",
+     "links": [],
+     "note": "Look at the spot against a far wall and it seems big; against your hand it seems small. The patch on your eye never changes size. Only your brain's guess at its size does."
+    }
+   ]
+  },
+  {
+   "id": "own-voice",
+   "title": "Why does your voice sound different on a recording?",
+   "kind": "full",
+   "theme": "nature",
+   "cards": [
+    {
+     "type": "card",
+     "title": "You know how you sound. Then you play it back.",
+     "text": "Play a recording of yourself and it feels wrong: that doesn't sound like me. But that's the way your voice reaches everyone else, and always has.",
+     "hook": "So which is the odd one out, the recording or the voice you hear when you talk?",
+     "visual": {
+      "type": "diagram",
+      "view": [
+       100,
+       96
+      ],
+      "tip": null,
+      "parts": [
+       {
+        "id": "head",
+        "shape": "circle",
+        "x": 36,
+        "y": 44,
+        "r": 20,
+        "style": "thin"
+       },
+       {
+        "id": "friend",
+        "shape": "circle",
+        "x": 82,
+        "y": 44,
+        "r": 10,
+        "style": "blue",
+        "label": "The voice you hear vs the recording",
+        "labelAt": [
+         50,
+         82
+        ]
+       }
+      ],
+      "steps": [
+       {
+        "note": "Your voice as you hear it, and the recording"
+       }
+      ]
+     }
+    },
+    {
+     "type": "card",
+     "title": "When you talk, your voice reaches your ears two ways",
+     "text": "Some goes out through the air and into your ears, like any sound. The rest travels as vibrations inside your head, through bone and flesh. Your friends only get the air route.",
+     "hook": "So what does the inside route do to your voice?",
+     "visual": {
+      "type": "diagram",
+      "view": [
+       100,
+       96
+      ],
+      "tip": null,
+      "parts": [
+       {
+        "id": "head",
+        "shape": "circle",
+        "x": 36,
+        "y": 44,
+        "r": 20,
+        "style": "thin"
+       },
+       {
+        "id": "friend",
+        "shape": "circle",
+        "x": 82,
+        "y": 44,
+        "r": 10,
+        "style": "blue",
+        "label": "Air route and inside route",
+        "labelAt": [
+         50,
+         82
+        ]
+       }
+      ],
+      "steps": [
+       {
+        "note": "Air route to your ear, inside route through bone and flesh, your friend gets only the air route"
+       }
+      ]
+     }
+    },
+    {
+     "type": "card",
+     "title": "The inside route makes your own voice fuller",
+     "text": "It carries the low, deep part of a voice well. Put your fingers in your ears and talk: your voice turns boomy, because blocking the air route leaves the inside one louder.",
+     "hook": "So what does a recording pick up?",
+     "visual": {
+      "type": "diagram",
+      "view": [
+       100,
+       96
+      ],
+      "tip": null,
+      "parts": [
+       {
+        "id": "head",
+        "shape": "circle",
+        "x": 36,
+        "y": 44,
+        "r": 20,
+        "style": "thin"
+       },
+       {
+        "id": "friend",
+        "shape": "circle",
+        "x": 82,
+        "y": 44,
+        "r": 10,
+        "style": "blue",
+        "label": "Low, deep part",
+        "labelAt": [
+         50,
+         82
+        ]
+       }
+      ],
+      "steps": [
+       {
+        "note": "The inside route carries the low, deep part; fingers in ears: boomy"
+       }
+      ]
+     }
+    },
+    {
+     "type": "card",
+     "title": "A microphone only picks up the air route",
+     "text": "A microphone sits outside your head, so it only picks up the air route, the same one your friends get. So the recording isn't the odd one out. Your live voice is, because only you get the extra route through your head.",
+     "takeaway": "Everyone hears your voice through the air. Only you hear it through your head too.",
+     "visual": {
+      "type": "diagram",
+      "view": [
+       100,
+       96
+      ],
+      "tip": null,
+      "parts": [
+       {
+        "id": "head",
+        "shape": "circle",
+        "x": 36,
+        "y": 44,
+        "r": 20,
+        "style": "thin"
+       },
+       {
+        "id": "friend",
+        "shape": "circle",
+        "x": 82,
+        "y": 44,
+        "r": 10,
+        "style": "blue",
+        "label": "Microphone: air route only",
+        "labelAt": [
+         50,
+         82
+        ]
+       }
+      ],
+      "steps": [
+       {
+        "note": "Microphone and friend get the air route only, you get both routes"
+       }
+      ]
+     }
+    },
+    {
+     "type": "more",
+     "links": [],
+     "note": "Bone-conduction headphones play sound through the bones of your skull to your inner ear, which leaves your ears free to hear the room. It's the same inside route your own voice uses, now used on purpose."
+    }
+   ]
   }
  ]
 }

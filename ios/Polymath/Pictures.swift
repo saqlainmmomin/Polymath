@@ -35,11 +35,10 @@ enum Pictures {
         }
         if topic.id == "sky-blue" {
             switch index {
-            case 0: return AnyView(SkyTwo(active: active))
-            case 1: return AnyView(SkyColours(active: active))
-            case 2: return AnyView(SkyBounce(active: active))
-            case 3: return AnyView(SkyEverywhere(active: active))
-            case 4: return AnyView(SkySunset(active: active))
+            case 0: return AnyView(SkyBPSun(active: active))
+            case 1: return AnyView(SkyBPWave(active: active))
+            case 2: return AnyView(SkyBPAll(active: active))
+            case 3: return AnyView(SkyBPSunset(active: active))
             default: return nil
             }
         }
@@ -64,10 +63,10 @@ enum Pictures {
         }
         if topic.id == "feel-wet" {
             switch index {
-            case 0: return AnyView(WetNoSensor(active: active))
-            case 1: return AnyView(WetCooling(active: active))
-            case 2: return AnyView(WetGuess(active: active))
-            case 3: return AnyView(WetBag(active: active))
+            case 0: return AnyView(WetBPSensors(active: active))
+            case 1: return AnyView(WetBPCold(active: active))
+            case 2: return AnyView(WetBPTouch(active: active))
+            case 3: return AnyView(WetBPSheath(active: active))
             default: return nil
             }
         }
@@ -97,6 +96,24 @@ enum Pictures {
             case 1: return AnyView(GlueBPWater(active: active))
             case 2: return AnyView(GlueBPFilm(active: active))
             case 3: return AnyView(GlueBPCap(active: active))
+            default: return nil
+            }
+        }
+        if topic.id == "afterimage" {
+            switch index {
+            case 0: return AnyView(AfterBPSpot(active: active))
+            case 1: return AnyView(AfterBPEye(active: active))
+            case 2: return AnyView(AfterBPCells(active: active))
+            case 3: return AnyView(AfterBPTurn(active: active))
+            default: return nil
+            }
+        }
+        if topic.id == "own-voice" {
+            switch index {
+            case 0: return AnyView(VoiceBPTalk(active: active))
+            case 1: return AnyView(VoiceBPRoutes(active: active))
+            case 2: return AnyView(VoiceBPBands(active: active))
+            case 3: return AnyView(VoiceBPMic(active: active))
             default: return nil
             }
         }

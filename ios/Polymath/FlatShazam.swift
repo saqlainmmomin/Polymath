@@ -27,7 +27,7 @@ struct ShazamListen: View {
 
     var body: some View {
         BlueprintStage(active: active, length: 3.4, tick: 3.0,
-                       label: "A cutaway café. One person sits alone at a small table in the middle, holding up a phone that is listening. At the tables on either side, two people chat, with speech bubbles above them, and broken grey rings of sound drift to the phone. Speakers high on the two back walls send gold music notes and smooth waves to the same phone. A ring fills around the phone and a measuring line grows along the floor, for a few seconds. Then a gold tag with a note pops up: the song was found.",
+                       label: "A cutaway café. One person sits alone at a small table in the middle, holding up a phone that is listening. At the tables on either side, two people chat, with speech bubbles above them, and broken pale rings of sound drift to the phone. Speakers high on the two back walls send gold music notes and smooth waves to the same phone. A ring fills around the phone and a measuring line grows along the floor, for a few seconds. Then a gold tag with a note pops up: the song was found.",
                        draw: { c, t, pal, clock in Self.draw(&c, t, pal, clock) }, size: CGSize(width: 330, height: 340))
     }
 
@@ -61,7 +61,7 @@ struct ShazamListen: View {
         for k in 0..<2 {
             var w = Path()
             for i in 0...8 { let f = Double(i) / 8; let q = BP.pt(top.x + (Double(k) - 0.5) * 5 + sin(clock * 1.6 + Double(k) * 2.2 + f * 5) * 2.2, top.y - 2 - f * 12); if i == 0 { w.move(to: q) } else { w.addLine(to: q) } }
-            c.stroke(w, with: .color(ink.opacity(0.45)), style: StrokeStyle(lineWidth: 1, lineCap: .round))
+            c.stroke(w, with: .color(ink.opacity(0.75)), style: StrokeStyle(lineWidth: 1, lineCap: .round))
         }
     }
 
@@ -193,7 +193,7 @@ struct ShazamListen: View {
             var g = c; g.opacity = v
             let o = BP.pt(p.x, p.y - 58)                         // bottom middle, above the head
             g.translateBy(x: o.x, y: o.y); g.scaleBy(x: s, y: s); g.translateBy(x: -o.x, y: -o.y)
-            bubble(&g, CGRect(x: p.x - 20, y: p.y - 80, width: 40, height: 22), tail: tail, ink: ink, clock: clock)
+            bubble(&g, CGRect(x: p.x - 20, y: p.y - 80, width: 40, height: 22), tail: tail, ink: BP.Hue.ice, clock: clock)
         }
 
         // chatter: bold broken grey arcs from the two side tables toward the phone
@@ -206,7 +206,7 @@ struct ShazamListen: View {
                     let k = u - u.rounded(.down), rad = BP.mix(23, far, k), alpha = BP.pr(k, 0, 0.12) * (1 - BP.pr(k, 0.8, 1)) * BP.mix(0.6, 1, vis) * wf
                     var arc = Path()
                     for i in 0...14 { let a = dir - 0.42 + 0.84 * Double(i) / 14; let q = BP.pt(src.x + rad * cos(a), src.y + rad * sin(a)); if i == 0 { arc.move(to: q) } else { arc.addLine(to: q) } }
-                    c.stroke(arc, with: .color(ink.opacity(0.95 * alpha)), style: StrokeStyle(lineWidth: 2, lineCap: .butt, dash: [6, 3]))
+                    c.stroke(arc, with: .color(BP.Hue.ice.opacity(0.95 * alpha)), style: StrokeStyle(lineWidth: 2, lineCap: .butt, dash: [6, 3]))
                 }
             }
         }
@@ -220,13 +220,13 @@ struct ShazamListen: View {
             bpArm(&g, from: BP.pt(b.x - 11, b.y - 24), elbow: BP.pt(b.x - 20, b.y - 6), to: iso.p(6.1, 6.7, tableZ), ink: ink)
             bpArm(&g, from: BP.pt(b.x + 11, b.y - 24), elbow: BP.pt(b.x + 25, b.y - 14), to: BP.pt(b.x + 27, b.y - 43), ink: ink)
             let body = Path(roundedRect: CGRect(x: phone.x - 6.5, y: phone.y - 11, width: 13, height: 22), cornerRadius: 3)
-            g.fill(body, with: .color(BP.paper)); g.stroke(body, with: .color(ink), lineWidth: 1.6)
-            g.fill(Path(roundedRect: CGRect(x: phone.x - 4.8, y: phone.y - 8.6, width: 9.6, height: 15.6), cornerRadius: 1.8), with: .color(ink.opacity(0.1)))
+            g.fill(body, with: .color(BP.paper)); g.stroke(body, with: .color(BP.Hue.pistachio), lineWidth: 1.6)
+            g.fill(Path(roundedRect: CGRect(x: phone.x - 4.8, y: phone.y - 8.6, width: 9.6, height: 15.6), cornerRadius: 1.8), with: .color(BP.Hue.pistachio.opacity(0.18)))
             for k in 0..<2 {
                 let f = (clock * 0.8 + Double(k) / 2).truncatingRemainder(dividingBy: 1), r = 1.2 + 3.6 * f
-                g.stroke(Path(ellipseIn: CGRect(x: phone.x - r, y: phone.y - 1 - r, width: 2 * r, height: 2 * r)), with: .color(pal.accent.opacity(BP.pr(clock, 0.9, 1.3) * (1 - f))), lineWidth: 1.2)
+                g.stroke(Path(ellipseIn: CGRect(x: phone.x - r, y: phone.y - 1 - r, width: 2 * r, height: 2 * r)), with: .color(BP.Hue.pistachio.opacity(BP.pr(clock, 0.9, 1.3) * (1 - f))), lineWidth: 1.2)
             }
-            g.fill(Path(ellipseIn: CGRect(x: phone.x - 1.6, y: phone.y - 2.6, width: 3.2, height: 3.2)), with: .color(pal.accent))
+            g.fill(Path(ellipseIn: CGRect(x: phone.x - 1.6, y: phone.y - 2.6, width: 3.2, height: 3.2)), with: .color(BP.Hue.pistachio))
         }
 
         // the few seconds: a measuring line just outside the front-left edge of the floor, with extension lines, growing left to right
@@ -285,8 +285,8 @@ struct ShazamListen: View {
 
         // leader labels, in open space: CHATTER points at whichever left-table bubble is up, MUSIC at the right speaker
         let wl = vL2 / max(0.001, vL1 + vL2), tl1 = BP.pt(l1.x, l1.y - 80), tl2 = BP.pt(l2.x, l2.y - 80)
-        bpLeader(&c, anchor: BP.mixp(tl1, tl2, wl), elbow: BP.pt(114, 97), tail: -1, text: "CHATTER", ink: ink, p: BP.pr(t, 1.0, 1.5))
-        bpLeader(&c, anchor: iso.p(10.95, 0.35, 8.2), elbow: BP.pt(300, 58), tail: -10, text: "MUSIC", ink: ink, p: BP.pr(t, 1.1, 1.6))
+        bpLeader(&c, anchor: BP.mixp(tl1, tl2, wl), elbow: BP.pt(114, 97), tail: -1, text: "CHATTER", ink: BP.Hue.ice, p: BP.pr(t, 1.0, 1.5))
+        bpLeader(&c, anchor: iso.p(10.95, 0.35, 8.2), elbow: BP.pt(300, 58), tail: -10, text: "MUSIC", ink: BP.Hue.mustard, p: BP.pr(t, 1.1, 1.6))
     }
 }
 
@@ -317,12 +317,12 @@ struct ShazamDraw: View {
 
         // the phone, with a few sound arcs leaving it
         let iso = Iso(origin: BP.pt(14, 66), scale: 13)
-        bpSlab(&c, iso, x: 0, y: 0, z: 0, w: 1.8, d: 0.3, h: 3.6, ink: ink, p: a)
-        bpTrace(&c, bpFacePath(iso, o: SIMD3(0, 0.3, 0), ux: SIMD3(1, 0, 0), vx: SIMD3(0, 0, 1), u: 0.2, v: 0.4, w: 1.4, h: 2.8, r: 0.2), p: a, color: ink, width: BP.hair)
+        bpSlab(&c, iso, x: 0, y: 0, z: 0, w: 1.8, d: 0.3, h: 3.6, ink: BP.Hue.pistachio, p: a)
+        bpTrace(&c, bpFacePath(iso, o: SIMD3(0, 0.3, 0), ux: SIMD3(1, 0, 0), vx: SIMD3(0, 0, 1), u: 0.2, v: 0.4, w: 1.4, h: 2.8, r: 0.2), p: a, color: BP.Hue.pistachio, width: BP.hair)
         for k in 0..<2 {
             var arc = Path()
             for i in 0...8 { let ang = -0.7 + 1.4 * Double(i) / 8; let q = BP.pt(40 + Double(k) * 5 + cos(ang) * 3, 46 + sin(ang) * (8 + Double(k) * 4)); if i == 0 { arc.move(to: q) } else { arc.addLine(to: q) } }
-            bpTrace(&c, arc, p: BP.pr(t, 0.3 + Double(k) * 0.1, 0.7), color: ink)
+            bpTrace(&c, arc, p: BP.pr(t, 0.3 + Double(k) * 0.1, 0.7), color: BP.Hue.ice)
         }
 
         // axes
@@ -343,34 +343,34 @@ struct ShazamDraw: View {
             let env = (0..<rows).map { loud(i, $0) }.max()! * 0.6 + 0.3 * hash2(i, 99)
             let h = (4 + 22 * env) * s
             var bar = Path(); bar.move(to: BP.pt(x(i), 46 - h / 2)); bar.addLine(to: BP.pt(x(i), 46 + h / 2))
-            c.stroke(bar, with: .color(ink.opacity(0.75)), style: StrokeStyle(lineWidth: 3, lineCap: .round))
+            c.stroke(bar, with: .color(BP.Hue.ice.opacity(0.85)), style: StrokeStyle(lineWidth: 3, lineCap: .round))
             for j in 0..<rows {
                 let v = loud(i, j), side = (2.5 + 9 * v) * s, peak = isPeak(i, j)
                 let r = CGRect(x: x(i) - side / 2, y: y(j) - side / 2, width: side, height: side)
                 if peak {
-                    c.fill(Path(r), with: .color(ink.opacity((0.2 + 0.5 * v) * (1 - hot))))
+                    c.fill(Path(r), with: .color(BP.Hue.ice.opacity((0.05 + 0.13 * v) * (1 - hot))))
                     let rad = BP.mix(side / 2, 5.5, hot)
                     c.fill(Path(ellipseIn: CGRect(x: x(i) - rad, y: y(j) - rad, width: 2 * rad, height: 2 * rad)), with: .color(pal.accent.opacity(hot)))
                     let rr = 9.0
                     c.stroke(Path(ellipseIn: CGRect(x: x(i) - rr, y: y(j) - rr, width: 2 * rr, height: 2 * rr)), with: .color(pal.accent.opacity(0.8 * hot)), lineWidth: BP.hair)
                 } else {
                     let sh = side * BP.mix(1, 0.7, fade), q = CGRect(x: x(i) - sh / 2, y: y(j) - sh / 2, width: sh, height: sh)
-                    c.fill(Path(q), with: .color(ink.opacity((0.2 + 0.5 * v) * (1 - fade))))
-                    c.stroke(Path(q), with: .color(ink.opacity(0.3 * fade)), lineWidth: 0.8)
+                    c.fill(Path(q), with: .color(BP.Hue.ice.opacity((0.05 + 0.13 * v) * (1 - fade))))
+                    c.stroke(Path(q), with: .color(BP.Hue.ice.opacity(0.4 * fade)), lineWidth: 0.8)
                 }
             }
         }
         let scanT = BP.pr(t, 0.5, 0.5 + 0.09 * Double(cols - 1) + 0.35)
         if scanT > 0.001 && scanT < 0.999 {
             let sx = BP.mix(x(0), x(cols - 1), scanT)
-            bpGuide(&c, BP.pt(sx, 70), BP.pt(sx, 294), color: ink.opacity(0.35))
+            bpGuide(&c, BP.pt(sx, 70), BP.pt(sx, 294), color: BP.Hue.ice.opacity(0.6))
         }
 
         // one loud dot and the dashed neighbourhood it beats
         let (pc, pr) = (10, 3), cx = x(pc), cy = y(pr)
         var box = Path(); box.addRect(CGRect(x: cx - 23, y: cy - 22, width: 46, height: 44))
         bpTrace(&c, box, p: BP.pr(t, 2.6, 3.0), color: pal.accent, width: 1.2, dash: [4, 3])
-        bpLeader(&c, anchor: BP.pt(cx + 23, cy - 22), elbow: BP.pt(246, 98), tail: 0, text: "BRIGHTER THAN\nEVERYTHING\nRIGHT AROUND\nTHEM", ink: ink, p: BP.pr(t, 2.8, 3.4))
+        bpLeader(&c, anchor: BP.pt(cx + 23, cy - 22), elbow: BP.pt(246, 98), tail: 0, text: "BRIGHTER THAN\nEVERYTHING\nRIGHT AROUND\nTHEM", ink: BP.Hue.mustard, p: BP.pr(t, 2.8, 3.4))
     }
 }
 
@@ -400,15 +400,15 @@ struct ShazamPair: View {
             let p = at(k), r = 4.6 * s, inZone = k == anchor || after.contains(k)
             let al = inZone ? 1 : BP.mix(1, 0.45, dim)
             let e = Path(ellipseIn: CGRect(x: p.x - r, y: p.y - r, width: 2 * r, height: 2 * r))
-            c.fill(e, with: .color(BP.paper.opacity(s))); c.fill(e, with: .color(ink.opacity(0.18 * al)))
-            c.stroke(e, with: .color(ink.opacity(al)), lineWidth: BP.edge)
+            c.fill(e, with: .color(BP.paper.opacity(s))); c.fill(e, with: .color(BP.Hue.mustard.opacity(0.18 * al)))
+            c.stroke(e, with: .color(BP.Hue.mustard.opacity(al)), lineWidth: BP.edge)
         }
         // one note, and the dashed zone just after it
         let pa = BP.pr(t, 0.7, 1.1)
         c.stroke(Path(ellipseIn: CGRect(x: a.x - 9, y: a.y - 9, width: 18, height: 18)), with: .color(pal.accent.opacity(pa)), lineWidth: 1.6)
         var zone = Path(); zone.addRect(CGRect(x: 156, y: 34, width: 106, height: 126))
         bpTrace(&c, zone, p: BP.pr(t, 0.6, 1.1), color: ink, width: BP.hair, dash: [4, 4])
-        bpLeader(&c, anchor: BP.pt(a.x - 4, a.y - 7), elbow: BP.pt(120, 50), tail: -10, text: "ONE NOTE", ink: ink, p: BP.pr(t, 1.0, 1.5))
+        bpLeader(&c, anchor: BP.pt(a.x - 4, a.y - 7), elbow: BP.pt(120, 50), tail: -10, text: "ONE NOTE", ink: BP.Hue.mustard, p: BP.pr(t, 1.0, 1.5))
 
         // dimension lines to the dots just after it; the picked pair is gold and labelled
         for (n, k) in after.enumerated() {
@@ -416,13 +416,13 @@ struct ShazamPair: View {
             let from = BP.pt(a.x + ux * 7, a.y + uy * 7), to = BP.pt(b.x - ux * 7, b.y - uy * 7)
             let isPick = k == chosen
             bpDimension(&c, from: from, to: to, tick: BP.pt(-uy * 3.5, ux * 3.5), text: isPick ? "A PAIR" : "", labelWidth: isPick ? 44 : 0,
-                        ink: isPick ? pal.accent : ink.opacity(0.75), p: BP.eio(BP.pr(t, 1.3 + 0.3 * Double(n), 1.7 + 0.3 * Double(n))))
+                        ink: isPick ? pal.accent : ink, p: BP.eio(BP.pr(t, 1.3 + 0.3 * Double(n), 1.7 + 0.3 * Double(n))))
         }
         // the gap of the picked pair: along the time axis
         let b = at(chosen), pg = BP.pr(t, 1.9, 2.4)
-        bpGuide(&c, BP.pt(a.x, a.y + 9), BP.pt(a.x, 176), p: pg, color: ink.opacity(0.6))
-        bpGuide(&c, BP.pt(b.x, b.y + 9), BP.pt(b.x, 176), p: pg, color: ink.opacity(0.6))
-        bpDimension(&c, from: BP.pt(a.x, 176), to: BP.pt(b.x, 176), tick: BP.pt(0, 4), text: "GAP", labelWidth: 30, ink: ink, p: BP.eio(BP.pr(t, 2.0, 2.5)))
+        bpGuide(&c, BP.pt(a.x, a.y + 9), BP.pt(a.x, 176), p: pg, color: BP.Hue.mustard.opacity(0.7))
+        bpGuide(&c, BP.pt(b.x, b.y + 9), BP.pt(b.x, 176), p: pg, color: BP.Hue.mustard.opacity(0.7))
+        bpDimension(&c, from: BP.pt(a.x, 176), to: BP.pt(b.x, 176), tick: BP.pt(0, 4), text: "GAP", labelWidth: 30, ink: BP.Hue.mustard, p: BP.eio(BP.pr(t, 2.0, 2.5)))
 
         // the table: a header row, then one row per pair, each written as note, note, gap
         let pt0 = BP.pr(t, 2.0, 2.5), rows = Double(after.count)
@@ -509,7 +509,7 @@ struct ShazamIndex: View {
             g.stroke(Path(roundedRect: chip, cornerRadius: 8), with: .color(ink), lineWidth: BP.edge)
             bpCode(&g, ctr, width: 56, a: -0.1, b: 0.08, r: 4, color: pal.accent)
         }
-        bpText(&c, "CODE", BP.pt(18, 30), ink: ink, alpha: pChip, anchor: .leading)
+        bpText(&c, "CODE", BP.pt(18, 30), ink: pal.accent, alpha: pChip, anchor: .leading)
 
         let slide = BP.eio(BP.pr(t, 1.5, 2.2)) * 3.5
         func glyphAt(_ s: Double) -> CGPoint { iso.p(W + 0.12 + s, 1.85, z0c + hh * 0.55) }
@@ -518,9 +518,9 @@ struct ShazamIndex: View {
         bpGuide(&c, BP.pt(g0.x + 6, g0.y), BP.pt(glyphAt(4.3).x + 6, glyphAt(4.3).y), p: BP.pr(t, 1.3, 1.8), color: pal.accent)
 
         // the chosen drawer slides out along the dashed guide, carrying the code
-        bpSlab(&c, iso, x: W, y: 0.15, z: z0c, w: 0.12 + slide, d: 3.4, h: hh, ink: ink, p: ps(0.3, 0.9))
+        bpSlab(&c, iso, x: W, y: 0.15, z: z0c, w: 0.12 + slide, d: 3.4, h: hh, ink: BP.Hue.peach, p: ps(0.3, 0.9))
         let fo = SIMD3(W + 0.12 + slide, 0.15, z0c)
-        bpTrace(&c, bpFacePath(iso, o: fo, ux: ey, vx: ez, u: 1.2, v: 0.22, w: 1.0, h: 0.2, r: 0.1), p: ps(0.3, 0.9), color: ink, width: 1.2)
+        bpTrace(&c, bpFacePath(iso, o: fo, ux: ey, vx: ez, u: 1.2, v: 0.22, w: 1.0, h: 0.2, r: 0.1), p: ps(0.3, 0.9), color: BP.Hue.peach, width: 1.2)
         let tr = BP.eio(BP.pr(t, 0.9, 1.5))
         if t > 0.9 {
             let at = t < 1.5 ? BP.mixp(ctr, g0, tr) : glyphAt(slide)
@@ -532,18 +532,18 @@ struct ShazamIndex: View {
         if pp > 0.001 {
             var frame = Path(roundedRect: panel, cornerRadius: 6)
             for k in 1..<3 { frame.move(to: BP.pt(panel.minX, panel.minY + 32 * Double(k))); frame.addLine(to: BP.pt(panel.maxX, panel.minY + 32 * Double(k))) }
-            c.fill(Path(roundedRect: panel, cornerRadius: 6), with: .color(BP.paper.opacity(pp))); c.fill(Path(roundedRect: panel, cornerRadius: 6), with: .color(ink.opacity(0.08 * pp)))
-            bpTrace(&c, frame, p: pp, color: ink)
+            c.fill(Path(roundedRect: panel, cornerRadius: 6), with: .color(BP.paper.opacity(pp))); c.fill(Path(roundedRect: panel, cornerRadius: 6), with: .color(BP.Hue.ice.opacity(0.12 * pp)))
+            bpTrace(&c, frame, p: pp, color: BP.Hue.ice)
         }
-        bpText(&c, "EVERY SONG", BP.pt(202, 56), ink: ink, alpha: pp, anchor: .leading)
-        bpText(&c, "WITH THAT CODE", BP.pt(202, 69), ink: ink, alpha: pp, anchor: .leading)
+        bpText(&c, "EVERY SONG", BP.pt(202, 56), ink: BP.Hue.ice, alpha: pp, anchor: .leading)
+        bpText(&c, "WITH THAT CODE", BP.pt(202, 69), ink: BP.Hue.ice, alpha: pp, anchor: .leading)
         let gs = glyphAt(3.5)
         for (i, s) in songs.enumerated() {
             let q = BP.eout(BP.pr(t, 2.2 + 0.15 * Double(i), 2.6 + 0.15 * Double(i))), y = panel.minY + 16 + 32 * Double(i) + (1 - q) * 14
             var l = Path(); l.move(to: BP.pt(gs.x + 16, gs.y - 2)); l.addLine(to: BP.pt(204, panel.minY + 16 + 32 * Double(i)))
-            bpTrace(&c, l, p: BP.pr(t, 2.3 + 0.1 * Double(i), 2.8 + 0.1 * Double(i)), color: pal.accent.opacity(0.8), width: BP.hair)
+            bpTrace(&c, l, p: BP.pr(t, 2.3 + 0.1 * Double(i), 2.8 + 0.1 * Double(i)), color: BP.Hue.ice, width: BP.hair)
             bpCode(&c, BP.pt(218, y), width: 18, a: [-0.1, 0.1, 0.0][i], b: [0.08, -0.08, 0.1][i], r: 2.2, color: pal.accent, alpha: q)
-            bpText(&c, s, BP.pt(236, y), ink: ink, alpha: q, anchor: .leading)
+            bpText(&c, s, BP.pt(236, y), ink: BP.Hue.ice, alpha: q, anchor: .leading)
         }
         let pm = BP.pr(t, 2.6, 3.0)      // under the times column, clear of the drawer
         bpText(&c, "THE MOMENT", BP.pt(panel.maxX, 204), ink: ink, alpha: pm, anchor: .trailing)
@@ -583,16 +583,16 @@ struct ShazamMatch: View {
         let e = BP.eio(BP.pr(t, 2.5, 3.0)), dim = BP.mix(1, 0.42, e)
 
         // the layers, bottom to top; the two wrong songs dim at the end
-        bpGroup(&c, alpha: dim) { g in strip(&g, z: zC, ink: ink, p: ps(0, 0.5)) }
-        strip(&c, z: zB, ink: ink, p: ps(0.1, 0.6))
+        bpGroup(&c, alpha: dim) { g in strip(&g, z: zC, ink: BP.Hue.ice, p: ps(0, 0.5)) }
+        strip(&c, z: zB, ink: BP.Hue.ice, p: ps(0.1, 0.6))
         bpGroup(&c, alpha: e) { g in bpSlab(&g, iso, x: 0, y: 0, z: zB, w: L, d: d, h: 0.4, ink: pal.accent, p: 1) }
-        bpGroup(&c, alpha: dim) { g in strip(&g, z: zA, ink: ink, p: ps(0.2, 0.7)) }
-        strip(&c, z: zR, x0: 5, len: 4, ink: ink, p: ps(0.3, 0.8))
+        bpGroup(&c, alpha: dim) { g in strip(&g, z: zA, ink: BP.Hue.ice, p: ps(0.2, 0.7)) }
+        strip(&c, z: zR, x0: 5, len: 4, ink: BP.Hue.ice, p: ps(0.3, 0.8))
 
         // dashed vertical alignment guides down from your codes, and a straight guide along the right song
         let pg = BP.pr(t, 0.9, 1.4)
         for x in recX { bpGuide(&c, iso.p(x, d / 2, zR + 0.4), iso.p(x, d / 2, 0.4), p: pg, color: ink.opacity(0.7)) }
-        bpGuide(&c, iso.p(4.8, d / 2, zB + 0.4), iso.p(9.3, d / 2, zB + 0.4), p: BP.pr(t, 2.2, 2.6), color: pal.accent)
+        bpGuide(&c, iso.p(4.8, d / 2, zB + 0.4), iso.p(9.3, d / 2, zB + 0.4), p: BP.pr(t, 2.2, 2.6), color: BP.Hue.pistachio)
 
         // your three codes on their strip, then dropping onto each song
         let pr0 = BP.pr(t, 0.6, 0.9)
@@ -615,7 +615,7 @@ struct ShazamMatch: View {
         bpLeader(&c, anchor: iso.p(7, 0, zR + 0.4), elbow: BP.pt(196, 44), tail: 10, text: "THOSE FEW SECONDS", ink: ink, p: lp)
         let ra = iso.p(L, 0, zC + 0.4), rb = iso.p(L, 0, zB + 0.4)
         bpLeader(&c, anchor: ra, elbow: BP.pt(ra.x + 6, ra.y), tail: 0, text: "WRONG SONGS:\nSCATTERED", ink: ink, p: BP.pr(t, 1.9, 2.3))
-        bpLeader(&c, anchor: rb, elbow: BP.pt(rb.x + 6, rb.y), tail: 0, text: "RIGHT SONG:\nSAME ORDER", ink: ink, p: BP.pr(t, 2.5, 2.9))
+        bpLeader(&c, anchor: rb, elbow: BP.pt(rb.x + 6, rb.y), tail: 0, text: "RIGHT SONG:\nSAME ORDER", ink: BP.Hue.pistachio, p: BP.pr(t, 2.5, 2.9))
 
         // found: a gold tag with a note pops up by the right song
         let pop = BP.pr(t, 2.7, 3.0)

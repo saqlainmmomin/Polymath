@@ -67,7 +67,7 @@ private func gpSat(_ c: inout GraphicsContext, _ ctr: CGPoint, s: Double, ink: C
         c.stroke(cells, with: .color(ink.opacity(0.6)), lineWidth: 0.8)
     }
     let body = Path(roundedRect: CGRect(x: ctr.x - 5 * s, y: ctr.y - 5 * s, width: 10 * s, height: 10 * s), cornerRadius: 1.6 * s)
-    c.fill(body, with: .color(BP.paper)); c.fill(body, with: .color(ink.opacity(0.22)))
+    c.fill(body, with: .color(BP.paper)); c.fill(body, with: .color(ink.opacity(0.18)))
     c.stroke(body, with: .color(ink), style: StrokeStyle(lineWidth: BP.edge, lineJoin: .round))
 }
 
@@ -106,6 +106,7 @@ struct GpBPSilent: View {
 
     private static func draw(_ c: inout GraphicsContext, _ t: Double, _ pal: StagePalette, _ u: Double) {
         let ink = pal.ink, acc = pal.accent
+        let sky = BP.Hue.ice, lime = BP.Hue.pistachio
         let fo = gpFade(u, story)
         let a0 = BP.eout(BP.pr(t, 0, 0.5))
 
@@ -131,7 +132,7 @@ struct GpBPSilent: View {
         for (i, s) in sats.enumerated() {
             let origin = BP.pt(s.x, s.y + 6)
             bpGuide(&c, origin, land, p: BP.pr(t, 0.3 + 0.1 * Double(i), 1.0 + 0.1 * Double(i)), color: ink.opacity(0.3))
-            bpGroup(&c, alpha: a0) { g in gpSat(&g, s, s: 0.62, ink: ink) }
+            bpGroup(&c, alpha: a0) { g in gpSat(&g, s, s: 0.62, ink: sky) }
         }
 
         // pulses come down one after another; each leaves a ripple where it lands
@@ -156,11 +157,11 @@ struct GpBPSilent: View {
         }
 
         // the phone
-        bpGroup(&c, alpha: a0) { g in gpPhone(&g, BP.pt(171, 203), s: 1, ink: ink) }
+        bpGroup(&c, alpha: a0) { g in gpPhone(&g, BP.pt(171, 203), s: 1, ink: lime) }
 
         bpLeader(&c, anchor: BP.pt(166, 192), elbow: BP.pt(146, 206), tail: -12, text: "NO MOBILE SIGNAL", ink: ink, p: BP.pr(t, 0.5, 1.2))
-        bpLeader(&c, anchor: BP.pt(182, 190), elbow: BP.pt(200, 180), tail: 12, text: "YOUR PHONE", ink: ink, p: BP.pr(t, 0.65, 1.35))
-        bpLeader(&c, anchor: BP.pt(182, 205), elbow: BP.pt(198, 207), tail: 12, text: "LISTENING", ink: ink, p: BP.pr(t, 0.8, 1.5))
+        bpLeader(&c, anchor: BP.pt(182, 190), elbow: BP.pt(200, 180), tail: 12, text: "YOUR PHONE", ink: lime, p: BP.pr(t, 0.65, 1.35))
+        bpLeader(&c, anchor: BP.pt(182, 205), elbow: BP.pt(198, 207), tail: 12, text: "LISTENING", ink: lime, p: BP.pr(t, 0.8, 1.5))
     }
 }
 
@@ -183,7 +184,7 @@ struct GpBPSend: View {
 
     private static func pinTag(_ c: inout GraphicsContext, _ ctr: CGPoint, acc: Color) {
         let r = Path(roundedRect: CGRect(x: ctr.x - 9, y: ctr.y - 9, width: 18, height: 18), cornerRadius: 4.5)
-        c.fill(r, with: .color(BP.paper)); c.fill(r, with: .color(acc.opacity(0.2)))
+        c.fill(r, with: .color(BP.paper)); c.fill(r, with: .color(acc.opacity(0.18)))
         c.stroke(r, with: .color(acc), lineWidth: BP.edge)
         var pin = Path()
         pin.move(to: BP.pt(ctr.x, ctr.y + 5.5))
@@ -195,7 +196,7 @@ struct GpBPSend: View {
 
     private static func clockTag(_ c: inout GraphicsContext, _ ctr: CGPoint, acc: Color) {
         let r = Path(roundedRect: CGRect(x: ctr.x - 9, y: ctr.y - 9, width: 18, height: 18), cornerRadius: 4.5)
-        c.fill(r, with: .color(BP.paper)); c.fill(r, with: .color(acc.opacity(0.2)))
+        c.fill(r, with: .color(BP.paper)); c.fill(r, with: .color(acc.opacity(0.18)))
         c.stroke(r, with: .color(acc), lineWidth: BP.edge)
         c.stroke(gpOval(ctr, 5.2, 5.2), with: .color(acc), lineWidth: 1.1)
         var hands = Path()
@@ -205,6 +206,7 @@ struct GpBPSend: View {
 
     private static func draw(_ c: inout GraphicsContext, _ t: Double, _ pal: StagePalette, _ u: Double) {
         let ink = pal.ink, acc = pal.accent
+        let sky = BP.Hue.ice, lime = BP.Hue.pistachio
         let fo = gpFade(u, story)
         let a0 = BP.eout(BP.pr(t, 0, 0.5))
         let phone = BP.pt(171, 211), land = BP.pt(171, 189)
@@ -215,7 +217,7 @@ struct GpBPSend: View {
             var h = g
             h.clip(to: Path(CGRect(x: 8, y: 0, width: 327, height: 292)))
             let earth = gpOval(Self.earth, 200, 200)
-            h.fill(earth, with: .color(BP.paper)); h.fill(earth, with: .color(ink.opacity(0.08)))
+            h.fill(earth, with: .color(BP.paper)); h.fill(earth, with: .color(ink.opacity(0.1)))
             h.stroke(earth, with: .color(ink), lineWidth: BP.edge)
         }
         // the satellite's path
@@ -225,13 +227,13 @@ struct GpBPSend: View {
             let q = orbit(-phiEnd + 2 * phiEnd * Double(i) / 40)
             if i == 0 { path.move(to: q) } else { path.addLine(to: q) }
         }
-        bpTrace(&c, path, p: BP.pr(t, 0.1, 0.9), color: ink.opacity(0.4), width: BP.hair, dash: [3, 4])
+        bpTrace(&c, path, p: BP.pr(t, 0.1, 0.9), color: sky.opacity(0.6), width: BP.hair, dash: [3, 4])
 
         // the satellite circles; it fades in with each round
         let sat = orbit(phi(u))
         let sa = BP.pr(u, 0, 0.4) * fo
-        bpGroup(&c, alpha: sa) { g in gpSat(&g, sat, s: 0.8, ink: ink) }
-        bpText(&c, "SATELLITE", BP.pt(min(298, max(42, sat.x)), sat.y - 20), ink: ink, alpha: sa * BP.pr(t, 0.3, 0.8))
+        bpGroup(&c, alpha: sa) { g in gpSat(&g, sat, s: 0.8, ink: sky) }
+        bpText(&c, "SATELLITE", BP.pt(min(298, max(42, sat.x)), sat.y - 20), ink: sky, alpha: sa * BP.pr(t, 0.3, 0.8))
 
         // the pulse and its two tags: sent, flies down to the phone, then the tags step out either side
         let k = BP.pr(u, sendAt, landAt)
@@ -243,7 +245,7 @@ struct GpBPSend: View {
         let posWhere = BP.mixp(BP.pt(q.x + n.x * 15, q.y + n.y * 15), fWhere, e)
         let posTime = BP.mixp(BP.pt(q.x - n.x * 15, q.y - n.y * 15), fTime, e)
         bpGroup(&c, alpha: fo) { g in
-            g.stroke(gpOval(s0, 5, 5), with: .color(ink.opacity(0.5 * BP.pr(u, sendAt + 0.2, sendAt + 0.6))), style: StrokeStyle(lineWidth: BP.hair, dash: [2, 2]))
+            g.stroke(gpOval(s0, 5, 5), with: .color(sky.opacity(0.8 * BP.pr(u, sendAt + 0.2, sendAt + 0.6))), style: StrokeStyle(lineWidth: BP.hair, dash: [2, 2]))
             var trace = Path(); trace.move(to: s0); trace.addLine(to: land)
             bpTrace(&g, trace, p: k, color: acc.opacity(0.85), width: BP.hair, dash: [4, 4])
             gpPulse(&g, from: s0, to: land, k: k, color: acc)
@@ -255,9 +257,9 @@ struct GpBPSend: View {
         }
 
         // the phone on the ground
-        bpGroup(&c, alpha: a0) { g in gpPhone(&g, phone, s: 1, ink: ink) }
+        bpGroup(&c, alpha: a0) { g in gpPhone(&g, phone, s: 1, ink: lime) }
 
-        bpLeader(&c, anchor: BP.pt(182, 222), elbow: BP.pt(204, 246), tail: 10, text: "YOUR PHONE", ink: ink, p: BP.pr(t, 0.5, 1.2))
+        bpLeader(&c, anchor: BP.pt(182, 222), elbow: BP.pt(204, 246), tail: 10, text: "YOUR PHONE", ink: lime, p: BP.pr(t, 0.5, 1.2))
         bpGroup(&c, alpha: fo) { g in
             bpLeader(&g, anchor: BP.mixp(s0, land, 0.5), elbow: BP.pt(118, 150), tail: -10, text: "RADIO SIGNAL", ink: acc, p: BP.pr(u, sendAt + 0.4, sendAt + 1.2))
             bpLeader(&g, anchor: BP.pt(fWhere.x - 8, fWhere.y + 3), elbow: BP.pt(106, 204), tail: -10, text: "WHERE IT IS", ink: acc, p: BP.pr(u, landAt + 0.7, landAt + 1.5))
@@ -295,6 +297,7 @@ struct GpBPGap: View {
 
     private static func draw(_ c: inout GraphicsContext, _ t: Double, _ pal: StagePalette, _ u: Double) {
         let ink = pal.ink, acc = pal.accent
+        let sky = BP.Hue.ice, lime = BP.Hue.pistachio
         let fo = gpFade(u, story)
         let a0 = BP.eout(BP.pr(t, 0, 0.5))
         let bolt = BP.pt(70, ground)
@@ -311,8 +314,8 @@ struct GpBPGap: View {
         cloud.addQuadCurve(to: BP.pt(36, 64), control: BP.pt(40, 48))
         cloud.addQuadCurve(to: BP.pt(38, 80), control: BP.pt(24, 74))
         bpGroup(&c, alpha: a0) { g in
-            g.fill(cloud, with: .color(BP.paper)); g.fill(cloud, with: .color(ink.opacity(0.16)))
-            g.stroke(cloud, with: .color(ink), style: StrokeStyle(lineWidth: BP.edge, lineJoin: .round))
+            g.fill(cloud, with: .color(BP.paper)); g.fill(cloud, with: .color(sky.opacity(0.18)))
+            g.stroke(cloud, with: .color(sky), style: StrokeStyle(lineWidth: BP.edge, lineJoin: .round))
         }
 
         // the flash: bright for a moment, then it stays drawn thinner
@@ -338,7 +341,7 @@ struct GpBPGap: View {
                     let p = BP.pt(bolt.x + r * cos(a), bolt.y + r * sin(a))
                     if j == 0 { arc.move(to: p) } else { arc.addLine(to: p) }
                 }
-                g.stroke(arc, with: .color(ink.opacity(0.85 - 0.25 * Double(i))), style: StrokeStyle(lineWidth: BP.hair + 0.2, lineCap: .round))
+                g.stroke(arc, with: .color(sky.opacity(0.9 - 0.25 * Double(i))), style: StrokeStyle(lineWidth: BP.hair + 0.2, lineCap: .round))
             }
         }
 
@@ -350,16 +353,16 @@ struct GpBPGap: View {
         bpGroup(&c, alpha: fo) { g in
             line(&g, x0, xa, ya, color: acc, width: 3)
             tick(&g, x0, ya, color: ink, alpha: BP.pr(u, flashAt, flashAt + 0.1))
-            tick(&g, xEnd, ya, color: ink, alpha: BP.pr(u, thunderAt, thunderAt + 0.1))
+            tick(&g, xEnd, ya, color: sky, alpha: BP.pr(u, thunderAt, thunderAt + 0.1))
         }
         bpText(&c, "FLASH", BP.pt(x0, ya + 16), ink: ink, alpha: BP.pr(u, flashAt, flashAt + 0.3) * fo)
-        bpText(&c, "THUNDER", BP.pt(xEnd, ya + 16), ink: ink, alpha: BP.pr(u, thunderAt, thunderAt + 0.3) * fo)
+        bpText(&c, "THUNDER", BP.pt(xEnd, ya + 16), ink: sky, alpha: BP.pr(u, thunderAt, thunderAt + 0.3) * fo)
         bpText(&c, "THE WAIT", BP.pt((x0 + xEnd) / 2, ya - 14), ink: acc, alpha: BP.pr(u, thunderAt + 0.1, thunderAt + 0.5) * fo)
 
         // the satellite straight overhead, the pulse, and the gap
         let sat = BP.pt(phoneX, 48), top = BP.pt(phoneX, 58), land = BP.pt(phoneX, 186)
         let k = BP.pr(u, sendAt, landAt)
-        bpGroup(&c, alpha: BP.pr(u, 4.2, 4.7) * fo) { g in gpSat(&g, sat, s: 0.8, ink: ink) }
+        bpGroup(&c, alpha: BP.pr(u, 4.2, 4.7) * fo) { g in gpSat(&g, sat, s: 0.8, ink: sky) }
         bpGroup(&c, alpha: fo) { g in
             var trace = Path(); trace.move(to: top); trace.addLine(to: land)
             bpTrace(&g, trace, p: k, color: acc.opacity(0.85), width: BP.hair, dash: [4, 4])
@@ -372,10 +375,10 @@ struct GpBPGap: View {
         bpGroup(&c, alpha: fo) { g in
             line(&g, sx, sx + (ex - sx) * k, yb, color: acc, width: 3)
             tick(&g, sx, yb, color: ink, alpha: BP.pr(u, sendAt, sendAt + 0.1))
-            tick(&g, ex, yb, color: ink, alpha: BP.pr(u, landAt, landAt + 0.1))
+            tick(&g, ex, yb, color: lime, alpha: BP.pr(u, landAt, landAt + 0.1))
         }
         bpText(&c, "SENT", BP.pt(sx - 4, yb + 16), ink: ink, alpha: BP.pr(u, sendAt, sendAt + 0.3) * fo, anchor: .trailing)
-        bpText(&c, "ARRIVED", BP.pt(ex + 4, yb + 16), ink: ink, alpha: BP.pr(u, landAt, landAt + 0.3) * fo, anchor: .leading)
+        bpText(&c, "ARRIVED", BP.pt(ex + 4, yb + 16), ink: lime, alpha: BP.pr(u, landAt, landAt + 0.3) * fo, anchor: .leading)
         bpText(&c, "ABOUT 0.07 SECONDS", BP.pt((sx + ex) / 2, yb - 14), ink: acc, alpha: BP.pr(u, landAt + 0.2, landAt + 0.8) * fo)
 
         // the gap, marked on the path as the distance
@@ -396,7 +399,7 @@ struct GpBPGap: View {
         }
 
         // the phone
-        bpGroup(&c, alpha: a0) { g in gpPhone(&g, BP.pt(phoneX, ground - 19), s: 1, ink: ink) }
+        bpGroup(&c, alpha: a0) { g in gpPhone(&g, BP.pt(phoneX, ground - 19), s: 1, ink: lime) }
     }
 }
 
@@ -427,7 +430,7 @@ struct GpBPSpots: View {
         let r1 = BP.pr(u, 0.3, 0.9)
         let lap = BP.pr(u, 0.9, 3.0)
         bpGroup(&c, alpha: fo) { g in
-            bpTrace(&g, ring(0), p: r1, color: ink, width: BP.edge)
+            bpTrace(&g, ring(0), p: r1, color: BP.Hue.ice, width: BP.edge)
             if lap > 0.001 && lap < 1 {
                 // the part already travelled is drawn heavier
                 var done = Path()
@@ -437,38 +440,38 @@ struct GpBPSpots: View {
                     let p = BP.pt(ax[0] + radius(0) * cos(a), ay + radius(0) * sin(a))
                     if j == 0 { done.move(to: p) } else { done.addLine(to: p) }
                 }
-                g.stroke(done, with: .color(ink), style: StrokeStyle(lineWidth: 2.4, lineCap: .round))
+                g.stroke(done, with: .color(BP.Hue.ice), style: StrokeStyle(lineWidth: 2.4, lineCap: .round))
             }
         }
         let a = -Double.pi / 2 + 2 * Double.pi * lap
         let dot = BP.pt(ax[0] + radius(0) * cos(a), ay + radius(0) * sin(a))
         bpGroup(&c, alpha: BP.pr(u, 0.9, 1.1) * (1 - BP.pr(u, 3.0, 3.3)) * fo) { g in
             g.fill(gpOval(dot, 5, 5), with: .color(BP.paper))
-            g.fill(gpOval(dot, 3.6, 3.6), with: .color(ink))
+            g.fill(gpOval(dot, 3.6, 3.6), with: .color(BP.Hue.ice))
         }
 
         // rings 2 and 3 draw in, each with its satellite
         bpGroup(&c, alpha: fo) { g in
-            bpTrace(&g, ring(1), p: BP.pr(u, 3.1, 3.9), color: ink, width: BP.edge)
-            bpTrace(&g, ring(2), p: BP.pr(u, 4.0, 4.8), color: ink, width: BP.edge)
+            bpTrace(&g, ring(1), p: BP.pr(u, 3.1, 3.9), color: BP.Hue.ice, width: BP.edge)
+            bpTrace(&g, ring(2), p: BP.pr(u, 4.0, 4.8), color: BP.Hue.ice, width: BP.edge)
         }
         let satA = [BP.eout(BP.pr(u, 0, 0.4)), BP.eout(BP.pr(u, 2.9, 3.3)), BP.eout(BP.pr(u, 3.8, 4.2))]
         for i in 0..<3 {
-            bpGroup(&c, alpha: satA[i] * fo) { g in gpSat(&g, BP.pt(ax[i], ay), s: 0.56, ink: ink) }
+            bpGroup(&c, alpha: satA[i] * fo) { g in gpSat(&g, BP.pt(ax[i], ay), s: 0.56, ink: BP.Hue.ice) }
         }
 
         // the two crossing points: marked as soon as two rings meet, the same two for the third ring
         let spots = BP.eout(BP.pr(u, 5.0, 5.5))
         let dash = StrokeStyle(lineWidth: BP.hair, dash: [3, 3])
         bpGroup(&c, alpha: BP.pr(u, 3.9, 4.2) * fo) { g in
-            for p in [up, dn] { g.fill(gpOval(p, 2.4, 2.4), with: .color(ink)) }
+            for p in [up, dn] { g.fill(gpOval(p, 2.4, 2.4), with: .color(BP.Hue.pistachio)) }
         }
         bpGroup(&c, alpha: spots * fo) { g in
             var guide = Path(); guide.move(to: BP.pt(px, up.y + 7)); guide.addLine(to: BP.pt(px, dn.y - 7))
             g.stroke(guide, with: .color(ink.opacity(0.5)), style: dash)
             for p in [up, dn] {
                 g.fill(gpOval(p, 5.5, 5.5), with: .color(BP.paper))
-                g.stroke(gpOval(p, 5.5, 5.5), with: .color(ink), lineWidth: BP.edge)
+                g.stroke(gpOval(p, 5.5, 5.5), with: .color(BP.Hue.pistachio), lineWidth: BP.edge)
             }
         }
 
@@ -498,10 +501,10 @@ struct GpBPSpots: View {
         }
 
         // labels
-        bpLeader(&c, anchor: BP.pt(ax[0], ay + 7), elbow: BP.pt(ax[0], 270), tail: 10, text: "SATELLITE", ink: ink, p: BP.pr(t, 0.4, 1.1))
-        bpLeader(&c, anchor: BP.pt(ax[0] + radius(0) * cos(gpRad(-125)), ay + radius(0) * sin(gpRad(-125))), elbow: BP.pt(50, 88), tail: 10, text: "RING", ink: ink, p: BP.pr(t, 0.8, 1.5))
+        bpLeader(&c, anchor: BP.pt(ax[0], ay + 7), elbow: BP.pt(ax[0], 270), tail: 10, text: "SATELLITE", ink: BP.Hue.ice, p: BP.pr(t, 0.4, 1.1))
+        bpLeader(&c, anchor: BP.pt(ax[0] + radius(0) * cos(gpRad(-125)), ay + radius(0) * sin(gpRad(-125))), elbow: BP.pt(50, 88), tail: 10, text: "RING", ink: BP.Hue.ice, p: BP.pr(t, 0.8, 1.5))
         bpGroup(&c, alpha: fo) { g in
-            bpLeader(&g, anchor: BP.pt(px - 5, up.y - 2), elbow: BP.pt(128, 70), tail: -10, text: "TWO SPOTS", ink: ink, p: BP.pr(u, 5.3, 6.0))
+            bpLeader(&g, anchor: BP.pt(px - 5, up.y - 2), elbow: BP.pt(128, 70), tail: -10, text: "TWO SPOTS", ink: BP.Hue.pistachio, p: BP.pr(u, 5.3, 6.0))
             bpLeader(&g, anchor: BP.pt(px, headY + 14), elbow: BP.pt(px + 10, 48), tail: 10, text: "FAR OUT IN SPACE", ink: ink, p: BP.pr(u, 6.3, 7.0) * BP.pr(travel, 0.6, 1))
             bpLeader(&g, anchor: BP.pt(dn.x + 6, dn.y + 5), elbow: BP.pt(170, 244), tail: 10, text: "ON EARTH", ink: acc, p: BP.pr(u, lockAt + 0.1, lockAt + 0.7))
         }
@@ -523,7 +526,7 @@ struct GpBPClock: View {
                        draw: { c, t, pal, clock in Self.draw(&c, t, pal, gpCycle(t, clock, story: Self.story)) }, size: gpSize)
     }
 
-    private static func clockFace(_ c: inout GraphicsContext, _ ctr: CGPoint, r: Double, angle: Double, ghost: Double?, ink: Color) {
+    private static func clockFace(_ c: inout GraphicsContext, _ ctr: CGPoint, r: Double, angle: Double, ghost: Double?, ink: Color, ghostInk: Color? = nil) {
         let face = gpOval(ctr, r, r)
         c.fill(face, with: .color(BP.paper)); c.fill(face, with: .color(ink.opacity(0.1)))
         c.stroke(face, with: .color(ink), lineWidth: BP.edge)
@@ -535,7 +538,7 @@ struct GpBPClock: View {
         c.stroke(ticks, with: .color(ink.opacity(0.7)), lineWidth: 0.8)
         if let gh = ghost {
             var g = Path(); g.move(to: ctr); g.addLine(to: BP.pt(ctr.x + (r - 6) * sin(gh), ctr.y - (r - 6) * cos(gh)))
-            c.stroke(g, with: .color(ink.opacity(0.5)), style: StrokeStyle(lineWidth: BP.hair, lineCap: .round, dash: [2, 2]))
+            c.stroke(g, with: .color((ghostInk ?? ink).opacity(0.5)), style: StrokeStyle(lineWidth: BP.hair, lineCap: .round, dash: [2, 2]))
         }
         var hand = Path(); hand.move(to: ctr); hand.addLine(to: BP.pt(ctr.x + (r - 5) * sin(angle), ctr.y - (r - 5) * cos(angle)))
         c.stroke(hand, with: .color(ink), style: StrokeStyle(lineWidth: 1.8, lineCap: .round))
@@ -554,24 +557,24 @@ struct GpBPClock: View {
         let sa = 0.8 * u
         let cp = BP.pt(90, 100), cs = BP.pt(252, 100)
         bpGroup(&c, alpha: a0) { g in
-            clockFace(&g, cp, r: 22, angle: sa + err, ghost: err > 0.04 ? sa : nil, ink: ink)
-            clockFace(&g, cs, r: 22, angle: sa, ghost: nil, ink: ink)
+            clockFace(&g, cp, r: 22, angle: sa + err, ghost: err > 0.04 ? sa : nil, ink: BP.Hue.pistachio, ghostInk: BP.Hue.ice)
+            clockFace(&g, cs, r: 22, angle: sa, ghost: nil, ink: BP.Hue.ice)
         }
-        bpText(&c, "YOUR PHONE'S CLOCK", BP.pt(90, 62), ink: ink, alpha: BP.pr(t, 0.3, 0.8))
-        bpText(&c, "SATELLITE'S CLOCK", BP.pt(252, 62), ink: ink, alpha: BP.pr(t, 0.4, 0.9))
+        bpText(&c, "YOUR PHONE'S CLOCK", BP.pt(90, 62), ink: BP.Hue.pistachio, alpha: BP.pr(t, 0.3, 0.8))
+        bpText(&c, "SATELLITE'S CLOCK", BP.pt(252, 62), ink: BP.Hue.ice, alpha: BP.pr(t, 0.4, 0.9))
 
         // the fourth satellite joins in and speaks to the phone's clock
         let sat4 = BP.pt(171, 100)
         let sat4A = BP.pr(u, 3.6, 4.1) * fo
-        bpGroup(&c, alpha: sat4A) { g in gpSat(&g, sat4, s: 0.55, ink: ink) }
+        bpGroup(&c, alpha: sat4A) { g in gpSat(&g, sat4, s: 0.55, ink: BP.Hue.ice) }
         let pk = BP.pr(u, 4.2, fixAt)
         bpGroup(&c, alpha: fo) { g in
             var link = Path(); link.move(to: BP.pt(156, 100)); link.addLine(to: BP.pt(116, 100))
-            bpTrace(&g, link, p: pk, color: ink.opacity(0.45), width: BP.hair, dash: [3, 3])
-            gpPulse(&g, from: BP.pt(156, 100), to: BP.pt(116, 100), k: pk, color: ink)
+            bpTrace(&g, link, p: pk, color: BP.Hue.ice.opacity(0.5), width: BP.hair, dash: [3, 3])
+            gpPulse(&g, from: BP.pt(156, 100), to: BP.pt(116, 100), k: pk, color: BP.Hue.ice)
         }
         bpGroup(&c, alpha: fo) { g in
-            bpLeader(&g, anchor: BP.pt(171, 108), elbow: BP.pt(171, 140), tail: 10, text: "FOURTH SATELLITE", ink: ink, p: BP.pr(u, 3.9, 4.6))
+            bpLeader(&g, anchor: BP.pt(171, 108), elbow: BP.pt(171, 140), tail: 10, text: "FOURTH SATELLITE", ink: BP.Hue.ice, p: BP.pr(u, 3.9, 4.6))
         }
 
         // your position: a ring round the phone that drifts off, then snaps back
@@ -581,14 +584,14 @@ struct GpBPClock: View {
         let pos = BP.pt(ph.x + shift, ph.y)
         var guide = Path(); guide.move(to: BP.pt(90, 124)); guide.addLine(to: BP.pt(90, 208))
         bpTrace(&c, guide, p: BP.pr(t, 0.2, 0.9), color: ink.opacity(0.28), width: BP.hair, dash: [3, 4])
-        bpGroup(&c, alpha: a0) { g in gpPhone(&g, ph, s: 0.9, ink: ink) }
+        bpGroup(&c, alpha: a0) { g in gpPhone(&g, ph, s: 0.9, ink: BP.Hue.pistachio) }
 
         let good = BP.pr(u, fixAt + 0.1, fixed)
         bpGroup(&c, alpha: fo) { g in
             // where it was wrong stays as a dashed ghost with the gap measured
             if hold > 0.5 {
                 let ghostA = BP.pr(u, fixAt, fixed)
-                g.stroke(gpOval(BP.pt(ph.x + hold, ph.y), 25, 25), with: .color(ink.opacity(0.5 * ghostA)), style: StrokeStyle(lineWidth: BP.hair, dash: [3, 3]))
+                g.stroke(gpOval(BP.pt(ph.x + hold, ph.y), 25, 25), with: .color(ink.opacity(0.6 * ghostA)), style: StrokeStyle(lineWidth: BP.hair, dash: [3, 3]))
                 let y = 282.0, x1 = ph.x + hold
                 var dim = Path()
                 dim.move(to: BP.pt(ph.x, y)); dim.addLine(to: BP.pt(x1, y))
@@ -599,6 +602,7 @@ struct GpBPClock: View {
             }
             // the position ring: chalk while it is wrong, mustard once it is right again
             g.fill(gpOval(pos, 25, 25), with: .color(acc.opacity(0.12 * good)))
+            g.fill(gpOval(pos, 25, 25), with: .color(ink.opacity(0.1 * (1 - good))))
             g.stroke(gpOval(pos, 25, 25), with: .color(ink.opacity(1 - good)), lineWidth: BP.edge)
             g.stroke(gpOval(pos, 25, 25), with: .color(acc.opacity(good)), lineWidth: 2)
             var cross = Path()

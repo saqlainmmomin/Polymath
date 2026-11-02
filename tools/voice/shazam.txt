@@ -1,9 +1,9 @@
-How can your phone name a song from a few noisy seconds? It picks one song out of millions, with people talking over it. All it gets is a few seconds of chatter with music somewhere inside. So what is it listening for?
+How can your phone name a {0.9}song from a few noisy seconds? It picks one song out of millions, {1.0}with people talking over it. All it gets is a few seconds of {1.6}chatter with music somewhere {2.9}inside. So what is it listening for?
 
-First it draws the sound as a chart. Time runs left to right, high notes sit higher up, and the louder a sound, the brighter its dot. It keeps only the brightest dots, because the music's loudest moments are the hardest for talking to cover up.
+First it draws the sound as a chart. {0.5}Time runs left to right, high notes sit higher up, and the louder a sound, the brighter its {2.0}dot. {2.0}It keeps only the brightest dots, {2.6}because the {2.9}music's loudest moments are the hardest for talking to {3.4}cover up.
 
-But one dot is just one note at one moment, and nearly every song has that. Two notes with an exact gap between them are much rarer. So it writes each pair down as a short code made of two notes and one gap.
+But one dot is just one note at one {1.2}moment, and nearly every song has that. {1.3}Two notes with an exact gap between them are much {2.5}rarer. {2.6}So it writes each pair down as a short code made of two notes and one {3.8}gap.
 
-The app's makers turned every song they have into codes ahead of time. A giant list works like a book's index, showing every song that has each code, and when.
+The app's makers turned every song they have into codes ahead of {0.9}time. {0.95}A giant list works like a book's index, {2.1}showing every song that has each {2.6}code, and {3.0}when.{3.4}
 
-One code points at lots of songs. But only in the right song do your codes show up in the same order, as far apart in time as in your clip. It never listens for the words or the tune, only for where the brightest dots sit.
+{0.6}One code {1.1}points at lots of songs. {2.0}But only in the right song do your codes show up in the {2.5}same order, as far apart in time as in your {3.2}clip. It never listens for the words or the tune, only for where the brightest dots sit.

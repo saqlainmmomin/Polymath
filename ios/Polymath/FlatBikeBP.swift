@@ -152,7 +152,7 @@ private struct BgRig {
     }
 }
 
-private func bgWheel(_ c: inout GraphicsContext, _ ctr: CGPoint, _ R: Double, rot: Double, ink: Color) {
+private func bgWheel(_ c: inout GraphicsContext, _ ctr: CGPoint, _ R: Double, rot: Double, ink: Color, mark: Color? = nil) {
     let disc = bgOval(ctr, R)
     c.fill(disc, with: .color(BP.paper)); c.fill(disc, with: .color(ink.opacity(0.05)))
     c.stroke(disc, with: .color(ink), lineWidth: BP.edge)
@@ -169,13 +169,14 @@ private func bgWheel(_ c: inout GraphicsContext, _ ctr: CGPoint, _ R: Double, ro
     var m = Path()
     m.move(to: BP.pt(ctr.x + R * 0.62 * cos(am), ctr.y + R * 0.62 * sin(am)))
     m.addLine(to: BP.pt(ctr.x + ri * cos(am), ctr.y + ri * sin(am)))
-    c.stroke(m, with: .color(ink), style: StrokeStyle(lineWidth: max(1.6, R * 0.035), lineCap: .round))
-    c.fill(bgOval(ctr, max(1.4, R * 0.06)), with: .color(ink))
+    c.stroke(m, with: .color(mark ?? ink), style: StrokeStyle(lineWidth: max(1.6, R * 0.035), lineCap: .round))
+    c.fill(bgOval(ctr, max(1.4, R * 0.06)), with: .color(mark ?? ink))
 }
 
-private func bgRing(_ c: inout GraphicsContext, _ ctr: CGPoint, _ r: Double, ang: Double, pitch: Double, tooth: Double, ink: Color, tint: Double) {
+private func bgRing(_ c: inout GraphicsContext, _ ctr: CGPoint, _ r: Double, ang: Double, pitch: Double, tooth: Double, ink: Color, tint: Double, hue: Color? = nil) {
     let disc = bgOval(ctr, r)
-    c.fill(disc, with: .color(BP.paper)); c.fill(disc, with: .color(ink.opacity(tint)))
+    let col = hue ?? ink
+    c.fill(disc, with: .color(BP.paper)); c.fill(disc, with: .color(col.opacity(hue == nil ? tint : min(0.18, tint + 0.05))))
     let n = max(8, Int((2 * Double.pi * r / pitch).rounded()))
     var t = Path()
     for k in 0..<n {
@@ -183,8 +184,8 @@ private func bgRing(_ c: inout GraphicsContext, _ ctr: CGPoint, _ r: Double, ang
         t.move(to: BP.pt(ctr.x + r * cos(a), ctr.y + r * sin(a)))
         t.addLine(to: BP.pt(ctr.x + (r + tooth) * cos(a), ctr.y + (r + tooth) * sin(a)))
     }
-    c.stroke(t, with: .color(ink), style: StrokeStyle(lineWidth: max(1.0, tooth * 0.9), lineCap: .butt))
-    c.stroke(disc, with: .color(ink), lineWidth: BP.hair)
+    c.stroke(t, with: .color(col), style: StrokeStyle(lineWidth: max(1.0, tooth * 0.9), lineCap: .butt))
+    c.stroke(disc, with: .color(col), lineWidth: BP.hair)
 }
 
 private func bgFrame(_ c: inout GraphicsContext, _ g: BgRig, ink: Color) {
@@ -216,10 +217,10 @@ private func bgBar(_ c: inout GraphicsContext, _ g: BgRig, ink: Color) {
 }
 
 /// The whole drivetrain and bike. `pulled` is the length of chain (points) already drawn past the gate on the top run, shown in `pulledColor`.
-private func bgBike(_ c: inout GraphicsContext, _ g: BgRig, ink: Color, pulled: Double = 0, pulledColor: Color? = nil, pulledAlpha: Double = 1) {
+private func bgBike(_ c: inout GraphicsContext, _ g: BgRig, ink: Color, pulled: Double = 0, pulledColor: Color? = nil, pulledAlpha: Double = 1, ringHue: Color? = nil, chainHue: Color? = nil, spokeHue: Color? = nil) {
     let R = g.R
-    bgWheel(&c, g.o, R, rot: g.wheel, ink: ink)
-    if g.frame { bgWheel(&c, g.front, R, rot: g.wheel, ink: ink) }
+    bgWheel(&c, g.o, R, rot: g.wheel, ink: ink, mark: spokeHue)
+    if g.frame { bgWheel(&c, g.front, R, rot: g.wheel, ink: ink, mark: spokeHue) }
     // far pedal and crank half sit behind the frame
     if g.frame {
         bgFrame(&c, g, ink: ink)
@@ -232,16 +233,16 @@ private func bgBike(_ c: inout GraphicsContext, _ g: BgRig, ink: Color, pulled: 
     bgBar(&c, g, ink: ink)
     // the stack of back rings, then the pedal ring
     for (i, r) in bgRingR.enumerated() {
-        bgRing(&c, g.o, r * R, ang: g.wheel, pitch: g.pitch, tooth: g.tooth, ink: ink, tint: 0.05 + 0.05 * Double(i))
+        bgRing(&c, g.o, r * R, ang: g.wheel, pitch: g.pitch, tooth: g.tooth, ink: ink, tint: 0.05 + 0.05 * Double(i), hue: ringHue)
     }
-    bgRing(&c, g.bb, bgRa * R, ang: g.crank, pitch: g.pitch, tooth: g.tooth, ink: ink, tint: 0.08)
+    bgRing(&c, g.bb, bgRa * R, ang: g.crank, pitch: g.pitch, tooth: g.tooth, ink: ink, tint: 0.08, hue: ringHue)
     // the chain: a pale band with the links running along it
     let lp = g.loop, w = g.chainW
     let path = lp.path()
-    c.stroke(path, with: .color(ink.opacity(0.32)), style: StrokeStyle(lineWidth: w, lineJoin: .round))
+    c.stroke(path, with: .color((chainHue ?? ink).opacity(chainHue == nil ? 0.32 : 0.45)), style: StrokeStyle(lineWidth: w, lineJoin: .round))
     var ph = (-g.travel).truncatingRemainder(dividingBy: g.pitch)
     if ph < 0 { ph += g.pitch }
-    c.stroke(path, with: .color(ink), style: StrokeStyle(lineWidth: w, lineJoin: .round, dash: [g.pitch * 0.5, g.pitch * 0.5], dashPhase: ph))
+    c.stroke(path, with: .color(chainHue ?? ink), style: StrokeStyle(lineWidth: w, lineJoin: .round, dash: [g.pitch * 0.5, g.pitch * 0.5], dashPhase: ph))
     // the stretch pulled past the gate
     if let pc = pulledColor, pulled > 0.5 {
         let sg = lp.ell * 0.45
@@ -321,13 +322,18 @@ private func bgHead(hip: CGPoint, lean: Double) -> CGPoint {
 }
 
 /// A rider on the bike: far leg, torso, near leg, arm to the grip.
-private func bgRider(_ c: inout GraphicsContext, _ g: BgRig, lean: Double, ink: Color) {
+private func bgRider(_ c: inout GraphicsContext, _ g: BgRig, lean: Double, ink: Color, hue: Color? = nil) {
     let hip = g.hip, leg = g.R * 1.0
     bgLeg(&c, hip: hip, foot: g.pedal(Double.pi), a: leg, b: leg, ink: ink, alpha: 0.6)
     let sh = bgTorso(&c, hip: hip, lean: lean, ink: ink)
     bgLeg(&c, hip: hip, foot: g.pedal(0), a: leg, b: leg, ink: ink, alpha: 1)
     let gr = g.grip
     bpArm(&c, from: sh, elbow: BP.pt((sh.x + gr.x) / 2, (sh.y + gr.y) / 2 + 11), to: gr, ink: ink)
+    if let hue {   // living: a flat tint on the head
+        let hd = bgHead(hip: hip, lean: lean)
+        let h = bgOval(hd, 8.8)
+        c.fill(h, with: .color(hue.opacity(0.18))); c.stroke(h, with: .color(hue), lineWidth: BP.edge)
+    }
 }
 
 // MARK: - Card 1: the same hill, the same legs; one click
@@ -363,12 +369,12 @@ struct BikeBPHill: View {
         let xl = 14.0, xr = 282.0
         var block = Path()
         block.move(to: BP.pt(xl, yS(xl))); block.addLine(to: BP.pt(xr, yS(xr))); block.addLine(to: BP.pt(xr, 290)); block.addLine(to: BP.pt(xl, 290)); block.closeSubpath()
-        c.fill(block, with: .color(BP.paper)); c.fill(block, with: .color(ink.opacity(0.07)))
+        c.fill(block, with: .color(BP.paper)); c.fill(block, with: .color(BP.Hue.peach.opacity(0.15)))
         var h = c
         h.clip(to: block)
         var hatch = Path()
         for i in stride(from: -200.0, to: 300.0, by: 13.0) { hatch.move(to: BP.pt(xl + i, 300)); hatch.addLine(to: BP.pt(xl + i + 170, 130)) }
-        h.stroke(hatch, with: .color(ink.opacity(0.12)), lineWidth: BP.hair)
+        h.stroke(hatch, with: .color(BP.Hue.peach.opacity(0.3)), lineWidth: BP.hair)
         c.stroke(block, with: .color(ink), style: StrokeStyle(lineWidth: BP.edge, lineJoin: .round))
         var ticks = Path()
         let off28 = dist.truncatingRemainder(dividingBy: 28)
@@ -378,7 +384,7 @@ struct BikeBPHill: View {
             guard p.x > xl + 5, p.x < xr - 5 else { continue }
             ticks.move(to: p); ticks.addLine(to: BP.pt(p.x - n.x * 6, p.y - n.y * 6))
         }
-        c.stroke(ticks, with: .color(ink.opacity(0.75)), style: StrokeStyle(lineWidth: BP.edge, lineCap: .round))
+        c.stroke(ticks, with: .color(ink), style: StrokeStyle(lineWidth: BP.edge, lineCap: .round))
         let off130 = dist.truncatingRemainder(dividingBy: 130)
         for k in -1...3 {
             let s = Double(k) * 130 + 150 - off130
@@ -389,7 +395,7 @@ struct BikeBPHill: View {
             c.stroke(pole, with: .color(ink), style: StrokeStyle(lineWidth: BP.hair, lineCap: .round))
             var pen = Path()
             pen.move(to: top); pen.addLine(to: BP.pt(top.x - d.x * 10 + n.x * -2, top.y - d.y * 10 - n.y * 2)); pen.addLine(to: BP.pt(top.x - n.x * 6, top.y - n.y * 6)); pen.closeSubpath()
-            c.fill(pen, with: .color(ink.opacity(0.4))); c.stroke(pen, with: .color(ink), lineWidth: BP.hair)
+            c.fill(pen, with: .color(ink.opacity(0.12))); c.stroke(pen, with: .color(ink), lineWidth: BP.hair)
         }
 
         // the bike and rider, tilted to the hill
@@ -398,8 +404,8 @@ struct BikeBPHill: View {
         var rig = BgRig(o: BP.pt(0, -R), R: R)
         rig.wheel = wheel; rig.crank = crank; rig.shift = shiftAt(u); rig.travel = crank * bgRa * R
         let lean = 52.0 * Double.pi / 180
-        bgBike(&b, rig, ink: ink)
-        bgRider(&b, rig, lean: lean, ink: ink)
+        bgBike(&b, rig, ink: ink, ringHue: BP.Hue.peach)
+        bgRider(&b, rig, lean: lean, ink: ink, hue: BP.Hue.pistachio)
         // the effort: lines behind the head, drops that fall off it (the same before and after the click)
         let head = bgHead(hip: rig.hip, lean: lean)
         var fx = Path()
@@ -407,7 +413,7 @@ struct BikeBPHill: View {
             let a = Double.pi + 0.5 * Double(i) - lean * 0.5
             fx.move(to: BP.pt(head.x + 13 * cos(a), head.y + 13 * sin(a))); fx.addLine(to: BP.pt(head.x + 19 * cos(a), head.y + 19 * sin(a)))
         }
-        b.stroke(fx, with: .color(ink.opacity(0.55 + 0.35 * sin(u * 9))), style: StrokeStyle(lineWidth: BP.hair + 0.3, lineCap: .round))
+        b.stroke(fx, with: .color(ink.opacity(0.7 + 0.3 * sin(u * 9))), style: StrokeStyle(lineWidth: BP.hair + 0.3, lineCap: .round))
         for i in 0..<2 {
             let f = bgFrac(u / 0.9 + Double(i) * 0.5)
             let q = BP.pt(head.x - 5 - Double(i) * 6, head.y - 8 + f * 20)
@@ -438,8 +444,8 @@ struct BikeBPHill: View {
         bgRipple(&c, lw, p: BP.pr(u, 3.85, 4.5), r: 18, color: acc)
 
         // labels
-        bpLeader(&c, anchor: BP.pt(lw.x, lw.y - 5), elbow: BP.pt(lw.x + 4, 86), tail: 14, text: "GEAR LEVER", ink: ink, p: BP.pr(t, 0.6, 1.3))
-        bpLeader(&c, anchor: BP.pt(236, yS(236) - 1), elbow: BP.pt(240, 128), tail: 12, text: "SAME HILL", ink: ink, p: BP.pr(t, 0.9, 1.6))
+        bpLeader(&c, anchor: BP.pt(lw.x, lw.y - 5), elbow: BP.pt(lw.x + 4, 86), tail: 14, text: "GEAR LEVER", ink: acc, p: BP.pr(t, 0.6, 1.3))
+        bpLeader(&c, anchor: BP.pt(236, yS(236) - 1), elbow: BP.pt(240, 128), tail: 12, text: "SAME HILL", ink: BP.Hue.peach, p: BP.pr(t, 0.9, 1.6))
     }
 
 }
@@ -474,7 +480,7 @@ struct BikeBPRings: View {
         let pcol: Color = firstTurn ? ink : acc
         let palpha = firstTurn ? 0.45 * (1 - BP.pr(u, 3.9, 4.3)) : 1
 
-        bgBike(&c, rig, ink: ink, pulled: pulled, pulledColor: pcol, pulledAlpha: palpha)
+        bgBike(&c, rig, ink: ink, pulled: pulled, pulledColor: pcol, pulledAlpha: palpha, ringHue: BP.Hue.peach, chainHue: BP.Hue.coral)
 
         // the notch the marked spoke passes: count the wheel turns
         let top = BP.pt(rig.o.x, rig.o.y - R)
@@ -492,10 +498,10 @@ struct BikeBPRings: View {
         let lab = BP.pr(t, 0.5, 1.2)
         bpLeader(&c, anchor: BP.pt(lp.x, lp.y - 5), elbow: BP.pt(lp.x - 26, 52), tail: -12, text: "GEAR LEVER", ink: ink, p: lab)
         let bb = rig.bb, rp = bgRa * R
-        bpLeader(&c, anchor: BP.pt(bb.x + rp * cos(-0.9), bb.y + rp * sin(-0.9)), elbow: BP.pt(232, 128), tail: 12, text: "PEDAL RING", ink: ink, p: BP.pr(t, 0.7, 1.4))
-        bpLeader(&c, anchor: BP.pt(143, 155), elbow: BP.pt(150, 112), tail: 12, text: "CHAIN", ink: ink, p: BP.pr(t, 0.9, 1.6))
+        bpLeader(&c, anchor: BP.pt(bb.x + rp * cos(-0.9), bb.y + rp * sin(-0.9)), elbow: BP.pt(232, 128), tail: 12, text: "PEDAL RING", ink: BP.Hue.peach, p: BP.pr(t, 0.7, 1.4))
+        bpLeader(&c, anchor: BP.pt(143, 155), elbow: BP.pt(150, 112), tail: 12, text: "CHAIN", ink: BP.Hue.coral, p: BP.pr(t, 0.9, 1.6))
         let mid = bgRingR[1] * R
-        bpLeader(&c, anchor: BP.pt(rig.o.x + mid * cos(-2.36), rig.o.y + mid * sin(-2.36)), elbow: BP.pt(56, 88), tail: 12, text: "BACK RINGS", ink: ink, p: BP.pr(t, 1.1, 1.8))
+        bpLeader(&c, anchor: BP.pt(rig.o.x + mid * cos(-2.36), rig.o.y + mid * sin(-2.36)), elbow: BP.pt(56, 88), tail: 12, text: "BACK RINGS", ink: BP.Hue.peach, p: BP.pr(t, 1.1, 1.8))
     }
 
 }
@@ -531,7 +537,7 @@ struct BikeBPCarry: View {
             c.stroke(r, with: .color(ink.opacity(a)), style: StrokeStyle(lineWidth: BP.edge, lineCap: .round))
             var tk = Path()
             for k in 0..<23 { let x = 14 + Double(k) * 14; tk.move(to: BP.pt(x, y + 2)); tk.addLine(to: BP.pt(x - 4, y + 6)) }
-            c.stroke(tk, with: .color(ink.opacity(0.3 * a)), lineWidth: BP.hair)
+            c.stroke(tk, with: .color(ink.opacity(0.4 * a)), lineWidth: BP.hair)
         }
         // the start line
         bpGuide(&c, BP.pt(xs, 112), BP.pt(xs, 262), p: BP.pr(u, 0.2, 0.9), color: ink.opacity(0.5))
@@ -543,12 +549,12 @@ struct BikeBPCarry: View {
             var tri = Path(); tri.move(to: BP.pt(x, y + 1)); tri.addLine(to: BP.pt(x - 4.5, y + 9 * p + 1)); tri.addLine(to: BP.pt(x + 4.5, y + 9 * p + 1)); tri.closeSubpath()
             c.fill(tri, with: .color(col))
         }
-        marker(m1, road1, BP.eout(BP.pr(u, 3.0, 3.25)), ink)
+        marker(m1, road1, BP.eout(BP.pr(u, 3.0, 3.25)), BP.Hue.ice)
         marker(m2, road2, BP.eout(BP.pr(u, 7.0, 7.25)), acc)
         if l1 > 0.01 {
-            bpGuide(&c, BP.pt(m1, road1 + 10), BP.pt(m1, road1 + 22), p: l1, color: ink.opacity(0.7))
-            bpDimension(&c, from: BP.pt(xs, road1 + 18), to: BP.pt(m1, road1 + 18), tick: BP.pt(0, 3.5), text: "", labelWidth: 0, ink: ink, p: l1)
-            bpText(&c, "SHORTER WAY", BP.pt((xs + m1) / 2, road1 + 31), ink: ink, alpha: BP.pr(l1, 0.6, 1))
+            bpGuide(&c, BP.pt(m1, road1 + 10), BP.pt(m1, road1 + 22), p: l1, color: BP.Hue.ice.opacity(0.8))
+            bpDimension(&c, from: BP.pt(xs, road1 + 18), to: BP.pt(m1, road1 + 18), tick: BP.pt(0, 3.5), text: "", labelWidth: 0, ink: BP.Hue.ice, p: l1)
+            bpText(&c, "SHORTER WAY", BP.pt((xs + m1) / 2, road1 + 31), ink: BP.Hue.ice, alpha: BP.pr(l1, 0.6, 1))
         }
         if l2 > 0.01 {
             bpGuide(&c, BP.pt(m2, road2 + 10), BP.pt(m2, road2 + 22), p: l2, color: acc.opacity(0.8))
@@ -559,7 +565,7 @@ struct BikeBPCarry: View {
         // lane 1: the bigger back ring
         var r1 = BgRig(o: BP.pt(x1, road1 - R), R: R)
         r1.wheel = a1; r1.crank = a1; r1.shift = 0; r1.travel = bgRa * R * a1
-        bgBike(&c, r1, ink: ink)
+        bgBike(&c, r1, ink: ink, ringHue: BP.Hue.peach)
         bgLever(&c, r1, k: 3.0, pressed: 0, color: ink, hi: false)
 
         // lane 2: the lever clicks, the chain slides to the smaller ring, the same pedal turn rolls it farther
@@ -568,7 +574,7 @@ struct BikeBPCarry: View {
         if lane2 > 0.01 {
             var g = c
             g.opacity = c.opacity * lane2
-            bgBike(&g, r2, ink: ink)
+            bgBike(&g, r2, ink: ink, ringHue: BP.Hue.peach)
             bgLever(&g, r2, k: 3.0, pressed: BP.eout(BP.pr(u, 4.2, 4.4)), color: ink, hi: false)
             bgRipple(&g, r2.leverPos, p: BP.pr(u, 4.3, 4.9), r: 10, color: ink)
         }
@@ -577,8 +583,8 @@ struct BikeBPCarry: View {
         let hub1 = BP.pt(m1, road1 - R), hub2 = BP.pt(m2, road2 - R)
         let bb1 = r1.bb
         bpLeader(&c, anchor: bb1, elbow: BP.pt(150, 66), tail: 12, text: "ONE PEDAL TURN", ink: ink, p: BP.pr(u, 1.0, 1.7))
-        bpLeader(&c, anchor: hub1, elbow: BP.pt(140, 94), tail: 12, text: "BIGGER BACK RING", ink: ink, p: BP.pr(u, 3.1, 3.8))
-        bpLeader(&c, anchor: hub2, elbow: BP.pt(222, 198), tail: -14, text: "SMALLER BACK RING", ink: ink, p: BP.pr(u, 7.0, 7.6))
+        bpLeader(&c, anchor: hub1, elbow: BP.pt(140, 94), tail: 12, text: "BIGGER BACK RING", ink: BP.Hue.peach, p: BP.pr(u, 3.1, 3.8))
+        bpLeader(&c, anchor: hub2, elbow: BP.pt(222, 198), tail: -14, text: "SMALLER BACK RING", ink: BP.Hue.peach, p: BP.pr(u, 7.0, 7.6))
     }
 
 }
@@ -614,12 +620,12 @@ struct BikeBPWalk: View {
             // the hill: a block with the steep path along its top
             var block = Path()
             block.move(to: P0); block.addLine(to: S); block.addLine(to: BP.pt(x0 + rise + 16, topY)); block.addLine(to: BP.pt(x0 + rise + 16, 250)); block.addLine(to: BP.pt(x0, 250)); block.closeSubpath()
-            c.fill(block, with: .color(BP.paper)); c.fill(block, with: .color(ink.opacity(0.07)))
+            c.fill(block, with: .color(BP.paper)); c.fill(block, with: .color(BP.Hue.peach.opacity(0.15)))
             var h = c
             h.clip(to: block)
             var hatch = Path()
             for k in stride(from: -140.0, to: 200.0, by: 13.0) { hatch.move(to: BP.pt(x0 + k, 260)); hatch.addLine(to: BP.pt(x0 + k + 130, 130)) }
-            h.stroke(hatch, with: .color(ink.opacity(0.12)), lineWidth: BP.hair)
+            h.stroke(hatch, with: .color(BP.Hue.peach.opacity(0.3)), lineWidth: BP.hair)
             c.stroke(block, with: .color(ink), style: StrokeStyle(lineWidth: BP.edge, lineJoin: .round))
 
             func ground(_ sp: Double) -> CGPoint {
@@ -643,10 +649,10 @@ struct BikeBPWalk: View {
         }
 
         // labels
-        bpLeader(&c, anchor: BP.pt(163, topY), elbow: BP.pt(172, 70), tail: 12, text: "SAME TOP", ink: ink, p: BP.pr(t, 0.5, 1.2))
-        bpText(&c, "LONG STRIDES", BP.pt(83, 268), ink: ink, alpha: BP.pr(t, 0.7, 1.3))
-        bpText(&c, "SHORT QUICK", BP.pt(239, 264), ink: ink, alpha: BP.pr(t, 0.8, 1.4))
-        bpText(&c, "STEPS", BP.pt(239, 277), ink: ink, alpha: BP.pr(t, 0.8, 1.4))
+        bpLeader(&c, anchor: BP.pt(163, topY), elbow: BP.pt(172, 70), tail: 12, text: "SAME TOP", ink: acc, p: BP.pr(t, 0.5, 1.2))
+        bpText(&c, "LONG STRIDES", BP.pt(83, 268), ink: BP.Hue.pistachio, alpha: BP.pr(t, 0.7, 1.3))
+        bpText(&c, "SHORT QUICK", BP.pt(239, 264), ink: BP.Hue.pistachio, alpha: BP.pr(t, 0.8, 1.4))
+        bpText(&c, "STEPS", BP.pt(239, 277), ink: BP.Hue.pistachio, alpha: BP.pr(t, 0.8, 1.4))
     }
 
 }
@@ -671,6 +677,9 @@ private func bgWalker(_ c: inout GraphicsContext, s: Double, Ls: Double, lift: D
     bgLeg(&c, hip: hip, foot: near.0, a: leg, b: leg, ink: ink, alpha: 1)
     let swing = -near.1 / (Ls / 2) * 8 * amp
     bpArm(&c, from: sh, elbow: BP.pt(sh.x + swing * 0.5 + 1, sh.y + 11), to: BP.pt(sh.x + swing + 4, sh.y + 19), ink: ink)
+    // living: a flat lime tint on the head
+    let hd = bgOval(bgHead(hip: hip, lean: tilt), 8.8)
+    c.fill(hd, with: .color(BP.Hue.pistachio.opacity(0.18))); c.stroke(hd, with: .color(BP.Hue.pistachio), lineWidth: BP.edge)
 }
 
 // MARK: - Card 5: the same speed on flat road, slower pedalling with a smaller back ring
@@ -700,7 +709,7 @@ struct BikeBPFlat: View {
         // the road, with a band of ground, ticks and posts that stream past at one speed
         var band = Path()
         band.move(to: BP.pt(8, roadY)); band.addLine(to: BP.pt(334, roadY)); band.addLine(to: BP.pt(334, roadY + 16)); band.addLine(to: BP.pt(8, roadY + 16)); band.closeSubpath()
-        c.fill(band, with: .color(BP.paper)); c.fill(band, with: .color(ink.opacity(0.07)))
+        c.fill(band, with: .color(BP.paper)); c.fill(band, with: .color(BP.Hue.peach.opacity(0.15)))
         var rd = Path(); rd.move(to: BP.pt(8, roadY)); rd.addLine(to: BP.pt(334, roadY))
         c.stroke(rd, with: .color(ink), style: StrokeStyle(lineWidth: BP.edge, lineCap: .round))
         var tk = Path()
@@ -710,7 +719,7 @@ struct BikeBPFlat: View {
             guard x > 10, x < 330 else { continue }
             tk.move(to: BP.pt(x, roadY + 4)); tk.addLine(to: BP.pt(x - 14, roadY + 4))
         }
-        c.stroke(tk, with: .color(ink.opacity(0.5)), style: StrokeStyle(lineWidth: BP.edge, lineCap: .round))
+        c.stroke(tk, with: .color(ink), style: StrokeStyle(lineWidth: BP.edge, lineCap: .round))
         let o150 = dist.truncatingRemainder(dividingBy: 150)
         for k in -1...3 {
             let x = Double(k) * 150 + 250 - o150
@@ -718,14 +727,14 @@ struct BikeBPFlat: View {
             var pole = Path(); pole.move(to: BP.pt(x, roadY)); pole.addLine(to: BP.pt(x, roadY - 30))
             c.stroke(pole, with: .color(ink), style: StrokeStyle(lineWidth: BP.hair, lineCap: .round))
             var pen = Path(); pen.move(to: BP.pt(x, roadY - 30)); pen.addLine(to: BP.pt(x - 11, roadY - 27)); pen.addLine(to: BP.pt(x, roadY - 22)); pen.closeSubpath()
-            c.fill(pen, with: .color(ink.opacity(0.4))); c.stroke(pen, with: .color(ink), lineWidth: BP.hair)
+            c.fill(pen, with: .color(ink.opacity(0.12))); c.stroke(pen, with: .color(ink), lineWidth: BP.hair)
         }
 
         // the bike and rider
         var rig = BgRig(o: BP.pt(118, roadY - R), R: R)
         rig.wheel = wheel; rig.crank = crank; rig.shift = shift; rig.travel = crank * bgRa * R
-        bgBike(&c, rig, ink: ink)
-        bgRider(&c, rig, lean: 40.0 * Double.pi / 180, ink: ink)
+        bgBike(&c, rig, ink: ink, ringHue: BP.Hue.peach)
+        bgRider(&c, rig, lean: 40.0 * Double.pi / 180, ink: ink, hue: BP.Hue.pistachio)
         bgLever(&c, rig, k: 2.2, pressed: BP.eout(BP.pr(u, 3.8, 4.0)), color: ink, hi: false)
         bgRipple(&c, rig.leverPos, p: BP.pr(u, 3.9, 4.5), r: 16, color: ink)
 
@@ -741,9 +750,9 @@ struct BikeBPFlat: View {
 
         // labels
         let ringBig = bgRingR[0] * R, ringSmall = bgRingR[2] * R
-        bpLeader(&c, anchor: BP.pt(rig.o.x + ringBig * cos(-2.1), rig.o.y + ringBig * sin(-2.1)), elbow: BP.pt(10, 124), tail: 10, text: "BIGGER BACK RING", ink: ink, p: BP.pr(u, 0.6, 1.3))
-        bpLeader(&c, anchor: BP.pt(rig.o.x + ringSmall * cos(-1.75), rig.o.y + ringSmall * sin(-1.75)), elbow: BP.pt(10, 100), tail: 10, text: "SMALLER BACK RING", ink: ink, p: BP.pr(u, 4.4, 5.1))
-        bpText(&c, "FLAT ROAD", BP.pt(250, roadY + 28), ink: ink, alpha: BP.pr(t, 0.5, 1.2))
+        bpLeader(&c, anchor: BP.pt(rig.o.x + ringBig * cos(-2.1), rig.o.y + ringBig * sin(-2.1)), elbow: BP.pt(10, 124), tail: 10, text: "BIGGER BACK RING", ink: BP.Hue.peach, p: BP.pr(u, 0.6, 1.3))
+        bpLeader(&c, anchor: BP.pt(rig.o.x + ringSmall * cos(-1.75), rig.o.y + ringSmall * sin(-1.75)), elbow: BP.pt(10, 100), tail: 10, text: "SMALLER BACK RING", ink: BP.Hue.peach, p: BP.pr(u, 4.4, 5.1))
+        bpText(&c, "FLAT ROAD", BP.pt(250, roadY + 28), ink: BP.Hue.peach, alpha: BP.pr(t, 0.5, 1.2))
     }
 
 }

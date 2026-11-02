@@ -11,8 +11,15 @@ struct Narration: Decodable {
     let duration: Double
     let beats: [Double]      // second each beat starts; beat i plays picture i
     let words: [Word]
+    /// Per beat, [seconds into the beat, picture time] pairs, anchored to words when rendered. Empty: the picture plays at its own pace.
+    var keys: [[[Double]]]? = nil
 
     static var enabled: Bool { ProcessInfo.processInfo.arguments.contains("--voice") }
+    /// `--voice-variant bulbul` plays `voice-<id>-bulbul.*` instead, to compare voices; falls back to the default narration if missing.
+    static var variant: String? {
+        let a = ProcessInfo.processInfo.arguments
+        return a.firstIndex(of: "--voice-variant").flatMap { $0 + 1 < a.count ? a[$0 + 1] : nil }
+    }
 
     /// Read once per topic: the feed asks on every frame of a drag.
     private static var cache: [String: (Narration, URL)?] = [:]
@@ -20,11 +27,24 @@ struct Narration: Decodable {
         guard enabled else { return nil }
         if let hit = cache[id] { return hit }
         var found: (Narration, URL)?
-        if let json = Bundle.main.url(forResource: "voice-\(id)", withExtension: "json"),
-           let audio = Bundle.main.url(forResource: "voice-\(id)", withExtension: "m4a"),
-           let n = try? JSONDecoder().decode(Narration.self, from: Data(contentsOf: json)) { found = (n, audio) }
+        for name in [variant.map { "voice-\(id)-\($0)" }, "voice-\(id)"].compactMap({ $0 }) where found == nil {
+            if let json = Bundle.main.url(forResource: name, withExtension: "json"),
+               let audio = Bundle.main.url(forResource: name, withExtension: "m4a"),
+               let n = try? JSONDecoder().decode(Narration.self, from: Data(contentsOf: json)) { found = (n, audio) }
+        }
         cache[id] = found
         return found
+    }
+
+    /// Picture time for beat `b` at narration time `t`: straight lines between the beat's keyframes from (0, 0), holding after the last.
+    func pictureClock(beat b: Int, at t: Double) -> PictureClock {
+        let s = t - beats[b]
+        let pts = [[0.0, 0.0]] + (keys.flatMap { b < $0.count ? $0[b] : nil } ?? [])
+        guard pts.count > 1 else { return PictureClock(t: s, clock: s) }
+        guard let i = pts.firstIndex(where: { $0[0] > s }) else { return PictureClock(t: pts.last![1], clock: s) }
+        guard i > 0 else { return PictureClock(t: 0, clock: s) }
+        let (a, z) = (pts[i - 1], pts[i])
+        return PictureClock(t: a[1] + (z[1] - a[1]) * (s - a[0]) / max(z[0] - a[0], 0.001), clock: s)
     }
 
     func beat(at t: Double) -> Int { beats.lastIndex { $0 <= t + 0.05 } ?? 0 }
@@ -106,23 +126,30 @@ struct VoiceTopicView: View {
                 .fixedSize(horizontal: false, vertical: true)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal, 21).padding(.top, 4)
-            ZStack {
-                Pictures.view(topic: topic, index: beat, active: isCurrent)
-                    .id(beat)
-                    .transition(.opacity)
-            }
-            .environment(\.stage, S.stage(store.shade(topic)))
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .padding(.horizontal, 8).padding(.vertical, 8)
+            // One clock for everything: the picture, caption and bar all read the voice's time, so pausing or seeking moves them together.
             TimelineView(.animation(paused: !(player?.playing ?? false))) { _ in
                 let t = player?.time ?? 0
-                VStack(spacing: 14) {
-                    caption(t)
-                    controls(t)
+                VStack(spacing: 0) {
+                    ZStack {
+                        ForEach([beat], id: \.self) { b in
+                            Pictures.view(topic: topic, index: b, active: isCurrent)
+                                .environment(\.pictureClock, narration.pictureClock(beat: b, at: t))
+                                .transition(.opacity)
+                        }
+                    }
+                    .environment(\.stage, S.stage(store.shade(topic)))
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .contentShape(Rectangle())
+                    .onTapGesture { togglePlay() }   // tap the picture to pause or resume, as in other shorts apps
+                    .padding(.horizontal, 8).padding(.vertical, 8)
+                    VStack(spacing: 14) {
+                        caption(t)
+                        controls(t)
+                    }
+                    .padding(.horizontal, 21).padding(.bottom, 18)
                 }
                 .onChange(of: narration.beat(at: t)) { _, b in withAnimation(.easeInOut(duration: 0.45)) { beat = b } }
             }
-            .padding(.horizontal, 21).padding(.bottom, 18)
         }
         .task(id: isCurrent) {
             guard let player else { return }
@@ -133,6 +160,12 @@ struct VoiceTopicView: View {
                 player.rewind(); beat = 0
             }
         }
+    }
+
+    private func togglePlay() {
+        guard let player else { return }
+        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+        player.playing ? player.pause() : player.play()
     }
 
     /// The line being spoken: words already said in full colour, the rest faint.
@@ -155,11 +188,7 @@ struct VoiceTopicView: View {
         let playing = player?.playing ?? false
         let total = max(narration.duration, 1)
         return HStack(spacing: 14) {
-            Button {
-                guard let player else { return }
-                UIImpactFeedbackGenerator(style: .light).impactOccurred()
-                playing ? player.pause() : player.play()
-            } label: {
+            Button { togglePlay() } label: {
                 Image(systemName: playing ? "pause.fill" : (player?.finished ?? false) ? "arrow.counterclockwise" : "play.fill")
                     .font(.system(size: 16, weight: .semibold)).foregroundStyle(S.text)
                     .frame(width: 40, height: 40)

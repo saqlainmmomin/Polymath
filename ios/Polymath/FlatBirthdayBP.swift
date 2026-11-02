@@ -39,8 +39,9 @@ private func bbNum(_ c: inout GraphicsContext, _ s: String, _ at: CGPoint, ink: 
 }
 
 /// One small person in a party hat, standing on `feet` (about 26 points tall at s = 1); solid paper fill so lines behind it are hidden.
-private func bbMini(_ c: inout GraphicsContext, _ x: Double, _ feet: Double, ink: Color, alpha: Double = 1, s: Double = 1, hat: Bool = true, tint: Double = 0.14) {
+private func bbMini(_ c: inout GraphicsContext, _ x: Double, _ feet: Double, ink: Color, alpha: Double = 1, s: Double = 1, hat: Bool = true, tint: Double = 0.14, fill: Color? = nil) {
     guard alpha > 0.01 else { return }
+    let fl = fill ?? ink
     var g = c
     g.opacity = alpha
     let hy = feet - 15.5 * s, r = 3.5 * s
@@ -50,16 +51,16 @@ private func bbMini(_ c: inout GraphicsContext, _ x: Double, _ feet: Double, ink
     var body = Path()
     body.move(to: BP.pt(x - 3.2 * s, feet - 11 * s)); body.addLine(to: BP.pt(x + 3.2 * s, feet - 11 * s))
     body.addLine(to: BP.pt(x + 4 * s, feet - 3.5 * s)); body.addLine(to: BP.pt(x - 4 * s, feet - 3.5 * s)); body.closeSubpath()
-    g.fill(body, with: .color(BP.paper)); g.fill(body, with: .color(ink.opacity(tint)))
+    g.fill(body, with: .color(BP.paper)); g.fill(body, with: .color(fl.opacity(tint)))
     g.stroke(body, with: .color(ink), style: StrokeStyle(lineWidth: BP.hair, lineJoin: .round))
     let head = Path(ellipseIn: CGRect(x: x - r, y: hy - r, width: 2 * r, height: 2 * r))
     g.fill(head, with: .color(BP.paper)); g.stroke(head, with: .color(ink), lineWidth: BP.hair)
     if hat {
         var h = Path()
         h.move(to: BP.pt(x, hy - r - 7 * s)); h.addLine(to: BP.pt(x + 3 * s, hy - r + 0.8 * s)); h.addLine(to: BP.pt(x - 3 * s, hy - r + 0.8 * s)); h.closeSubpath()
-        g.fill(h, with: .color(BP.paper)); g.fill(h, with: .color(ink.opacity(0.35)))
+        g.fill(h, with: .color(BP.paper)); g.fill(h, with: .color(fl.opacity(0.18)))
         g.stroke(h, with: .color(ink), style: StrokeStyle(lineWidth: BP.hair, lineJoin: .round))
-        bbDot(&g, BP.pt(x, hy - r - 7 * s), r: 1.1 * s + 0.2, color: ink)
+        bbDot(&g, BP.pt(x, hy - r - 7 * s), r: 1.1 * s + 0.2, color: fill ?? ink)
     }
 }
 
@@ -95,18 +96,18 @@ struct BirthBPRoom: View {
             half.move(to: BP.pt(center.x - radius, center.y))
             for i in 0...48 { half.addLine(to: onDial(Double(i) / 48, radius)) }
             half.closeSubpath()
-            g.fill(half, with: .color(BP.paper)); g.fill(half, with: .color(ink.opacity(0.07)))
-            g.stroke(half, with: .color(ink), style: StrokeStyle(lineWidth: BP.edge, lineJoin: .round))
+            g.fill(half, with: .color(BP.paper)); g.fill(half, with: .color(BP.Hue.ice.opacity(0.16)))
+            g.stroke(half, with: .color(BP.Hue.ice), style: StrokeStyle(lineWidth: BP.edge, lineJoin: .round))
             var ticks = Path()
             for k in 0...20 {
                 let f = Double(k) / 20, len = k % 5 == 0 ? 11.0 : 5.0
                 ticks.move(to: onDial(f, radius)); ticks.addLine(to: onDial(f, radius - len))
             }
-            g.stroke(ticks, with: .color(ink.opacity(0.7)), lineWidth: BP.hair)
+            g.stroke(ticks, with: .color(BP.Hue.ice.opacity(0.85)), lineWidth: BP.hair)
         }
         bpGuide(&c, BP.pt(center.x, center.y - radius - 3), BP.pt(center.x, 56), p: BP.pr(t, 1.6, 2.2), color: acc.opacity(0.7))
         bpText(&c, "ABOUT 50%", BP.pt(center.x, 44), ink: acc, alpha: BP.pr(t, 1.8, 2.4))
-        bpText(&c, "CHANCE", BP.pt(center.x, center.y + 20), ink: ink, alpha: BP.pr(t, 0.2, 0.8))
+        bpText(&c, "CHANCE", BP.pt(center.x, center.y + 20), ink: BP.Hue.ice,alpha: BP.pr(t, 0.2, 0.8))
 
         // the needle: a low guess, a swing up to 50%, a hold, and back down to the guess before the round ends
         let swing = BP.eio(BP.pr(u, 0.9, 2.3)), back = BP.eio(BP.pr(u, Self.story + 1.0, Self.story + 1.6))
@@ -126,9 +127,9 @@ struct BirthBPRoom: View {
             let row = i < 12 ? 0 : 1, k = row == 0 ? i : i - 12
             let x = row == 0 ? 171 + (Double(k) - 5.5) * 22 : 171 + (Double(k) - 5) * 22
             let a = BP.pr(t, 0.05 + 0.014 * Double(i), 0.3 + 0.014 * Double(i))
-            bbMini(&c, x, row == 0 ? 222 : 252, ink: ink, alpha: a, tint: 0.08 + 0.12 * bbHash(i, 3))
+            bbMini(&c, x, row == 0 ? 222 : 252, ink: ink, alpha: a, tint: 0.1 + 0.08 * bbHash(i, 3), fill: BP.Hue.pistachio)
         }
-        bpLeader(&c, anchor: BP.pt(50, 198), elbow: BP.pt(28, 178), tail: 10, text: "23 PEOPLE", ink: ink, p: BP.pr(t, 0.3, 0.9))
+        bpLeader(&c, anchor: BP.pt(50, 198), elbow: BP.pt(28, 178), tail: 10, text: "23 PEOPLE", ink: BP.Hue.pistachio, p: BP.pr(t, 0.3, 0.9))
     }
 }
 
@@ -189,9 +190,9 @@ struct BirthBPYours: View {
         // you, in gold, with a party hat
         bpGroup(&c, alpha: a0) { g in
             g.translateBy(x: 62, y: 118)
-            bpPerson(&g, base: BP.pt(0, 0), facing: 0, ink: acc, shirt: 0.3, hair: 1, talk: false)
+            bpPerson(&g, base: BP.pt(0, 0), facing: 0, ink: acc, shirt: 0.18, hair: 1, talk: false)
             var h = Path(); h.move(to: BP.pt(1.5, -64)); h.addLine(to: BP.pt(8, -44)); h.addLine(to: BP.pt(-6, -44)); h.closeSubpath()
-            g.fill(h, with: .color(BP.paper)); g.fill(h, with: .color(acc.opacity(0.4)))
+            g.fill(h, with: .color(BP.paper)); g.fill(h, with: .color(acc.opacity(0.18)))
             g.stroke(h, with: .color(acc), style: StrokeStyle(lineWidth: BP.edge, lineJoin: .round))
             bbDot(&g, BP.pt(1.5, -64), r: 2, color: acc)
         }
@@ -204,7 +205,7 @@ struct BirthBPYours: View {
             let s0 = 0.5 + 0.095 * Double(i)
             let lit = BP.pr(u, s0, s0 + 0.15)
             let appear = BP.pr(t, 0.05 + 0.02 * Double(i), 0.3 + 0.02 * Double(i))
-            bbMini(&c, x, 246, ink: ink, alpha: appear * (0.5 + 0.5 * lit * fo), s: 0.75, tint: 0.1 + 0.1 * lit * fo)
+            bbMini(&c, x, 246, ink: ink, alpha: appear * (0.5 + 0.5 * lit * fo), s: 0.75, tint: 0.1 + 0.08 * lit * fo, fill: BP.Hue.pistachio)
 
             let fl = BP.pr(u, s0, s0 + 0.55)
             let from = BP.pt(x, 224), to = centre(cells[i])
@@ -212,12 +213,12 @@ struct BirthBPYours: View {
             if fl > 0 && fl < 1 {
                 let k = BP.eio(fl), m = 1 - k
                 let q = BP.pt(m * m * from.x + 2 * m * k * ctrl.x + k * k * to.x, m * m * from.y + 2 * m * k * ctrl.y + k * k * to.y)
-                bbDot(&c, q, r: 2.2, color: ink, alpha: fo)
+                bbDot(&c, q, r: 2.2, color: BP.Hue.ice, alpha: fo)
             } else if fl >= 1 {
                 let pop = BP.pr(u, s0 + 0.55, s0 + 0.85)
                 bpGroup(&c, alpha: fo) { g in
-                    g.fill(Path(CGRect(x: to.x - 2.8, y: to.y - 2.8, width: 5.6, height: 5.6)), with: .color(ink.opacity(0.95)))
-                    if pop < 1 { g.stroke(Path(ellipseIn: CGRect(x: to.x - 3 - 5 * pop, y: to.y - 3 - 5 * pop, width: 6 + 10 * pop, height: 6 + 10 * pop)), with: .color(ink.opacity(0.7 * (1 - pop))), lineWidth: BP.hair) }
+                    g.fill(Path(CGRect(x: to.x - 2.8, y: to.y - 2.8, width: 5.6, height: 5.6)), with: .color(BP.Hue.ice.opacity(0.95)))
+                    if pop < 1 { g.stroke(Path(ellipseIn: CGRect(x: to.x - 3 - 5 * pop, y: to.y - 3 - 5 * pop, width: 6 + 10 * pop, height: 6 + 10 * pop)), with: .color(BP.Hue.ice.opacity(0.7 * (1 - pop))), lineWidth: BP.hair) }
                 }
             }
         }
@@ -225,8 +226,8 @@ struct BirthBPYours: View {
         // a bracket under the strangers
         var br = Path()
         br.move(to: BP.pt(52, 252)); br.addLine(to: BP.pt(52, 257)); br.addLine(to: BP.pt(282, 257)); br.addLine(to: BP.pt(282, 252))
-        bpTrace(&c, br, p: BP.pr(t, 0.3, 0.9), color: ink, width: BP.hair)
-        bpText(&c, "22 STRANGERS", BP.pt(167, 272), ink: ink, alpha: BP.pr(t, 0.6, 1.1))
+        bpTrace(&c, br, p: BP.pr(t, 0.3, 0.9), color: BP.Hue.pistachio, width: BP.hair)
+        bpText(&c, "22 STRANGERS", BP.pt(167, 272), ink: BP.Hue.pistachio, alpha: BP.pr(t, 0.6, 1.1))
     }
 }
 
@@ -238,7 +239,7 @@ struct BirthBPPairs: View {
 
     var body: some View {
         BlueprintStage(active: active, length: Self.story, tick: 3.5,
-                       label: "23 small people in party hats stand in a ring. Handshake lines draw between them one at a time: first the 22 that include you, in gold, then all the others in chalk, while a counter in the middle climbs to 253 handshakes. Labels say: 23 people, handshakes, 22 include you.",
+                       label: "23 small people in party hats stand in a ring. Handshake lines draw between them one at a time: first the 22 that include you, in gold, then all the others in peach, while a counter in the middle climbs to 253 handshakes. Labels say: 23 people, handshakes, 22 include you.",
                        draw: { c, t, pal, clock in let (u, r) = bbCycle(t, clock, story: Self.story); Self.draw(&c, t, pal, u, r) }, size: bbSize)
     }
 
@@ -267,7 +268,7 @@ struct BirthBPPairs: View {
             for (n, (i, j)) in others.enumerated() {
                 let s0 = 1.8 + Double(n) / 231 * 1.6
                 var l = Path(); l.move(to: spot(i)); l.addLine(to: spot(j))
-                bpTrace(&g, l, p: BP.eout(BP.pr(u, s0, s0 + 0.2)), color: ink.opacity(0.3), width: 0.8)
+                bpTrace(&g, l, p: BP.eout(BP.pr(u, s0, s0 + 0.2)), color: BP.Hue.peach.opacity(0.5), width: 0.8)
             }
             for j in 1..<23 {
                 let s0 = 0.4 + Double(j - 1) / 22 * 1.4
@@ -284,20 +285,20 @@ struct BirthBPPairs: View {
         // the people
         for k in 0..<23 {
             let p = spot(k), a = BP.pr(t, 0.03 + 0.012 * Double(k), 0.25 + 0.012 * Double(k))
-            if k == 0 { bbMini(&c, p.x, p.y + 10, ink: acc, alpha: a, s: 1.15, tint: 0.3) }
-            else { bbMini(&c, p.x, p.y + 9, ink: ink, alpha: a, s: 0.95, tint: 0.08 + 0.12 * bbHash(k, 5)) }
+            if k == 0 { bbMini(&c, p.x, p.y + 10, ink: acc, alpha: a, s: 1.15, tint: 0.18) }
+            else { bbMini(&c, p.x, p.y + 9, ink: ink, alpha: a, s: 0.95, tint: 0.1 + 0.08 * bbHash(k, 5), fill: BP.Hue.pistachio) }
         }
 
         // the counter
         bpGroup(&c, alpha: a0) { g in
             let box = Path(roundedRect: CGRect(x: centre.x - 42, y: centre.y - 25, width: 84, height: 50), cornerRadius: 4)
-            g.fill(box, with: .color(BP.paper)); g.fill(box, with: .color(ink.opacity(0.07)))
-            g.stroke(box, with: .color(ink), lineWidth: BP.edge)
+            g.fill(box, with: .color(BP.paper)); g.fill(box, with: .color(BP.Hue.peach.opacity(0.12)))
+            g.stroke(box, with: .color(BP.Hue.peach), lineWidth: BP.edge)
         }
         bbNum(&c, "\(count)", BP.pt(centre.x, centre.y - 6), ink: ink, alpha: a0, size: 24)
-        bpText(&c, "HANDSHAKES", BP.pt(centre.x, centre.y + 14), ink: ink, alpha: BP.pr(t, 0.2, 0.7))
+        bpText(&c, "HANDSHAKES", BP.pt(centre.x, centre.y + 14), ink: BP.Hue.peach,alpha: BP.pr(t, 0.2, 0.7))
 
-        bpLeader(&c, anchor: BP.pt(105, 77), elbow: BP.pt(60, 48), tail: 10, text: "23 PEOPLE", ink: ink, p: BP.pr(t, 0.3, 0.9))
+        bpLeader(&c, anchor: BP.pt(105, 77), elbow: BP.pt(60, 48), tail: 10, text: "23 PEOPLE", ink: BP.Hue.pistachio, p: BP.pr(t, 0.3, 0.9))
         bpLeader(&c, anchor: BP.pt(161, 253), elbow: BP.pt(96, 284), tail: 10, text: "22 INCLUDE YOU", ink: acc, p: BP.pr(t, 0.6, 1.2))
     }
 }
@@ -310,7 +311,7 @@ struct BirthBPRooms: View {
 
     var body: some View {
         BlueprintStage(active: active, length: Self.story, tick: 3.4,
-                       label: "Room after room of 23 people is dealt out as small calendar cards, 24 in a grid. Each room that has a match gets a gold tick, each room without one gets a chalk cross. A bar of gold ticks settles near half. Labels say: 253 pairs, about 50%.",
+                       label: "Room after room of 23 people is dealt out as small pale calendar cards, 24 in a grid. Each room that has a match gets a gold tick, each room without one gets a chalk cross. A bar of gold ticks settles near half. Labels say: 253 pairs, about 50%.",
                        draw: { c, t, pal, clock in let (u, r) = bbCycle(t, clock, story: Self.story); Self.draw(&c, t, pal, u, r) }, size: bbSize)
     }
 
@@ -333,6 +334,7 @@ struct BirthBPRooms: View {
 
     private static func draw(_ c: inout GraphicsContext, _ t: Double, _ pal: StagePalette, _ u: Double, _ still: Bool) {
         let ink = pal.ink, acc = pal.accent
+        let day = BP.Hue.ice
         let fo = bbFade(u, story)
         var ticks = 0, done = 0
 
@@ -349,9 +351,9 @@ struct BirthBPRooms: View {
             bpGroup(&c, alpha: k * fo) { g in
                 g.translateBy(x: x + ox, y: y + oy)
                 let card = Path(roundedRect: CGRect(x: 0, y: 0, width: 38, height: 30), cornerRadius: 2.5)
-                g.fill(card, with: .color(BP.paper)); g.fill(card, with: .color(ink.opacity(0.07)))
-                g.stroke(card, with: .color(ink), lineWidth: BP.hair)
-                g.fill(Path(CGRect(x: 0.5, y: 0.5, width: 37, height: 5)), with: .color(ink.opacity(0.28)))
+                g.fill(card, with: .color(BP.paper)); g.fill(card, with: .color(day.opacity(0.12)))
+                g.stroke(card, with: .color(day), lineWidth: BP.hair)
+                g.fill(Path(CGRect(x: 0.5, y: 0.5, width: 37, height: 5)), with: .color(day.opacity(0.18)))
                 let (cells, dup) = rooms[r]
                 var plain = Path(), marked = Path()
                 for q in 0..<60 {
@@ -362,7 +364,7 @@ struct BirthBPRooms: View {
                     if on { marked.addEllipse(in: e) } else { plain.addEllipse(in: e) }
                 }
                 g.fill(plain, with: .color(ink.opacity(0.3)))
-                g.fill(marked, with: .color(ink.opacity(0.95)))
+                g.fill(marked, with: .color(day))
                 if let q = dup {
                     let px = 4.2 + Double(q % 10) * 3.4, py = 10.5 + Double(q / 10) * 3.4
                     g.stroke(Path(ellipseIn: CGRect(x: px - 2.6, y: py - 2.6, width: 5.2, height: 5.2)), with: .color(acc), lineWidth: BP.hair)
@@ -423,6 +425,7 @@ struct BirthBPCurve: View {
 
     private static func draw(_ c: inout GraphicsContext, _ t: Double, _ pal: StagePalette, _ u: Double, _ still: Bool) {
         let ink = pal.ink, acc = pal.accent
+        let folk = BP.Hue.pistachio, pairHue = BP.Hue.peach
         let a0 = BP.eout(BP.pr(t, 0, 0.4))
         let fo = bbFade(u, story)
 
@@ -446,26 +449,26 @@ struct BirthBPCurve: View {
                 let q = slot(j)
                 l.move(to: BP.pt(to.x, to.y - 9)); l.addLine(to: BP.pt(q.x, q.y - 9))
             }
-            bpGroup(&c, alpha: fo) { g in g.stroke(l, with: .color(ink.opacity(0.5 * (1 - 0.6 * f))), lineWidth: BP.hair) }
+            bpGroup(&c, alpha: fo) { g in g.stroke(l, with: .color(pairHue.opacity(0.85 * (1 - 0.6 * f))), lineWidth: BP.hair) }
         }
         for k in 0..<57 {
             let p = slot(k)
-            if k < n { bbMini(&c, p.x, p.y, ink: ink, alpha: a0 * fo, s: 0.8, tint: 0.08 + 0.12 * bbHash(k, 2)) }
+            if k < n { bbMini(&c, p.x, p.y, ink: folk, alpha: a0 * fo, s: 0.8, tint: 0.1 + 0.08 * bbHash(k, 2)) }
             else if k == n && n < 57 {
                 let w = BP.eout(f)
-                bbMini(&c, p.x - 22 * (1 - w), p.y, ink: ink, alpha: w * a0 * fo, s: 0.8, tint: 0.08 + 0.12 * bbHash(k, 2))
+                bbMini(&c, p.x - 22 * (1 - w), p.y, ink: folk, alpha: w * a0 * fo, s: 0.8, tint: 0.1 + 0.08 * bbHash(k, 2))
             }
         }
 
         // counters
         let people = n, pairs = n * (n - 1) / 2, q = chance(n)
         let pct = n >= 57 ? "OVER 99%" : "\(Int(q * 100))%"
-        bpText(&c, "PEOPLE", BP.pt(24, 226), ink: ink, alpha: BP.pr(t, 0.2, 0.7), anchor: .leading)
-        bpText(&c, "PAIRS", BP.pt(24, 250), ink: ink, alpha: BP.pr(t, 0.3, 0.8), anchor: .leading)
-        bpText(&c, "CHANCE", BP.pt(24, 274), ink: ink, alpha: BP.pr(t, 0.4, 0.9), anchor: .leading)
-        bbNum(&c, "\(people)", BP.pt(100, 225), ink: ink, alpha: a0 * fo, anchor: .leading)
+        bpText(&c, "PEOPLE", BP.pt(24, 226), ink: folk, alpha: BP.pr(t, 0.2, 0.7), anchor: .leading)
+        bpText(&c, "PAIRS", BP.pt(24, 250), ink: pairHue, alpha: BP.pr(t, 0.3, 0.8), anchor: .leading)
+        bpText(&c, "CHANCE", BP.pt(24, 274), ink: acc, alpha: BP.pr(t, 0.4, 0.9), anchor: .leading)
+        bbNum(&c, "\(people)", BP.pt(100, 225), ink: folk, alpha: a0 * fo, anchor: .leading)
         let big = pairs >= 1000 ? "\(pairs / 1000),\(String(format: "%03d", pairs % 1000))" : "\(pairs)"
-        bbNum(&c, big, BP.pt(100, 249), ink: ink, alpha: a0 * fo, anchor: .leading)
+        bbNum(&c, big, BP.pt(100, 249), ink: pairHue, alpha: a0 * fo, anchor: .leading)
         let bar = CGRect(x: 100, y: 270, width: 114, height: 9)
         bpGroup(&c, alpha: a0) { g in
             g.fill(Path(bar), with: .color(ink.opacity(0.07)))

@@ -5,3 +5,5 @@ prototypes/
 ios/build/
 ios/Polymath.xcodeproj/
 ios/.team
+tools/dify/.env
+tools/voice/.env
