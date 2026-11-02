@@ -11,7 +11,6 @@ struct FeedView: View {
     @State private var axis: Axis?
     @State private var showIndex = Launch.showIndex
     @State private var showProfile = false
-    @Environment(\.colorScheme) private var scheme
 
     var body: some View {
         // Each topic fills the whole screen and pads itself by the real safe-area insets, read here before they are ignored.
@@ -23,12 +22,11 @@ struct FeedView: View {
                         if let v = Narration.load(t.id) { VoiceTopicView(topic: t, narration: v.0, audio: v.1, isCurrent: i == index) }
                         else { TopicView(topic: t, isCurrent: i == index, jump: go(to:)) }
                     }
-                        .environment(\.colorScheme, store.isPaper(t) ? .dark : scheme)   // blueprint paper is always blue, so its text is light
+                        .environment(\.colorScheme, t.look.scheme)   // the topic's style decides light or dark, not the phone's setting
                         .padding(.top, geo.safeAreaInsets.top)
                         .padding(.bottom, geo.safeAreaInsets.bottom)
                         .frame(width: geo.size.width, height: h)
-                        .background { if store.isPaper(t) { PaperGrid() } }
-                        .background(S.background(store.shade(t)))
+                        .background { t.look.backdrop }
                         .offset(y: CGFloat(i - index) * h + drag)
                 }
             }
@@ -46,8 +44,8 @@ struct FeedView: View {
             }
             .padding(.horizontal, 16).padding(.top, 2)
         }
-        .background(S.background(store.topics.indices.contains(index) ? store.shade(store.topics[index]) : 0).ignoresSafeArea())
-        .preferredColorScheme(store.topics.indices.contains(index) && store.isPaper(store.topics[index]) ? .dark : nil)   // status bar and avatar match the blue
+        .background((store.topics.indices.contains(index) ? store.topics[index].look : .blueprint).base.ignoresSafeArea())
+        .preferredColorScheme(store.topics.indices.contains(index) ? store.topics[index].look.scheme : nil)   // status bar, logo and avatar match the current topic's style
         .sheet(isPresented: $showIndex) {
             IndexView { id in showIndex = false; go(to: id) }
                 .presentationDetents([.large])
@@ -174,7 +172,7 @@ struct ProfileView: View {
             ForEach(topics) { t in
                 Button { pick(t.id) } label: {
                     HStack(spacing: 12) {
-                        RoundedRectangle(cornerRadius: 8, style: .continuous).fill(S.background(store.shade(t))).frame(width: 28, height: 28)
+                        RoundedRectangle(cornerRadius: 8, style: .continuous).fill(t.look.base).frame(width: 28, height: 28)
                         Text(t.title).font(S.rounded(16, .medium)).foregroundStyle(S.text).multilineTextAlignment(.leading)
                         Spacer(minLength: 8)
                         if shelf.liked.contains(t.id) { Image(systemName: "heart.fill").font(.system(size: 13)).foregroundStyle(Color(hex: 0xF43F5E)) }

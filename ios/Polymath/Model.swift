@@ -6,6 +6,7 @@ struct Topic: Decodable, Identifiable {
     let title: String      // the topic's question
     let kind: String
     let theme: String
+    let style: TopicStyle?   // see TopicStyle; read through `look`
     let cards: [Card]
     var contentCardCount: Int { cards.filter { $0.type != "more" }.count }
 }

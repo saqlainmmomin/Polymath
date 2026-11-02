@@ -146,7 +146,7 @@ struct VoiceTopicView: View {
                                 .transition(.opacity)
                         }
                     }
-                    .environment(\.stage, S.stage(store.shade(topic)))
+                    .environment(\.stage, topic.look.stage)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .overlay {   // tap the picture to hide or show the player, as on X; a layer on top so the picture's own replay tap can't take it
                         Color.clear.contentShape(Rectangle())

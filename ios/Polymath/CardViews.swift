@@ -54,7 +54,7 @@ struct StandardCard: View {
             Group {
                 if let custom = Pictures.view(topic: topic, index: index, active: isActive) { custom } else { VisualPanel(visual: card.visual, active: isActive) }
             }
-                .environment(\.stage, S.stage(store.shade(topic)))
+                .environment(\.stage, topic.look.stage)
                 .frame(maxWidth: .infinity, minHeight: Self.stageMin, maxHeight: .infinity)
                 .padding(.horizontal, 8).padding(.top, 8).padding(.bottom, Self.dotsClearance)
         }

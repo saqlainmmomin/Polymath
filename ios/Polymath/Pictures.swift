@@ -92,10 +92,10 @@ enum Pictures {
         }
         if topic.id == "superglue" {
             switch index {
-            case 0: return AnyView(GlueBPFast(active: active))
-            case 1: return AnyView(GlueBPWater(active: active))
-            case 2: return AnyView(GlueBPFilm(active: active))
-            case 3: return AnyView(GlueBPCap(active: active))
+            case 0: return topic.look == .drafting ? AnyView(GlueDRFast(active: active)) : AnyView(GlueBPFast(active: active))
+            case 1: return topic.look == .drafting ? AnyView(GlueDRWater(active: active)) : AnyView(GlueBPWater(active: active))
+            case 2: return topic.look == .drafting ? AnyView(GlueDRFilm(active: active)) : AnyView(GlueBPFilm(active: active))
+            case 3: return topic.look == .drafting ? AnyView(GlueDRCap(active: active)) : AnyView(GlueBPCap(active: active))
             default: return nil
             }
         }

@@ -67,14 +67,14 @@ struct TopicView: View {
         }
     }
 
-    /// Solid white dots: the current card is a long pill, the rest small at half opacity. They follow the finger, so the pill
+    /// Solid dots in the text colour (white on dark styles, near-black on light ones): the current card is a long pill, the rest small at half opacity. They follow the finger, so the pill
     /// stretches toward the next card as the page slides and springs back with it.
     private var dots: some View {
         let at = min(max(Double(card) - drag / UIScreen.main.bounds.width, 0), Double(topic.cards.count - 1))
         return HStack(spacing: 6) {
             ForEach(0..<topic.cards.count, id: \.self) { i in
                 let k = max(0, 1 - abs(Double(i) - at))   // 1 on the current card, 0 a card or more away
-                Capsule().fill(.white.opacity(0.5 + 0.5 * k)).frame(width: 6 + 16 * k, height: 6)
+                Capsule().fill(S.text.opacity(0.5 + 0.5 * k)).frame(width: 6 + 16 * k, height: 6)
             }
         }
         .frame(height: 30)

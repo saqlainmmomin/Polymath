@@ -18,7 +18,6 @@ enum Launch {
 
 @Observable final class Store {
     let topics: [Topic]
-    private let shades: [String: Int]
 
     init() {
         // Every Topics/<id>.json in the bundle is a topic in the feed: adding a topic is adding its file.
@@ -26,14 +25,7 @@ enum Launch {
         var all = urls.map { try! JSONDecoder().decode(Topic.self, from: Data(contentsOf: $0)) }.shuffled()
         if let first = Launch.topic, let i = all.firstIndex(where: { $0.id == first }) { all.insert(all.remove(at: i), at: 0) }
         topics = all
-        // Each topic keeps one gradient across launches (sorted by id, not by the shuffled order); all differ while there are fewer topics than gradients.
-        shades = Dictionary(uniqueKeysWithValues: all.map(\.id).sorted().enumerated().map { ($1, $0) })
     }
-
-    /// Every topic sits on blueprint paper. The per-topic gradients (`shades`) are kept for now but unused.
-    func shade(_ t: Topic) -> Int { S.paper }
-    /// Topics drawn on blueprint paper (a flat colour with a grid) instead of a gradient.
-    func isPaper(_ t: Topic) -> Bool { shade(t) == S.paper }
 
     func topic(_ id: String) -> Topic? { topics.first { $0.id == id } }
 
