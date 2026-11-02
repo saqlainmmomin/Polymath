@@ -130,7 +130,7 @@ struct Avatar: View {
 }
 
 /// Apple's interactive Liquid Glass circle where the system has it (it lifts and shimmers under the finger); the hand-made glass otherwise.
-private struct NativeGlass: ViewModifier {
+struct NativeGlass: ViewModifier {
     func body(content: Content) -> some View {
         if #available(iOS 26, *) {
             content.buttonStyle(.plain).glassEffect(.regular.interactive(), in: .circle)   // the effect, not .glass style, so the circle stays exactly its frame size

@@ -14,7 +14,10 @@ struct Narration: Decodable {
     /// Per beat, [seconds into the beat, picture time] pairs, anchored to words when rendered. Empty: the picture plays at its own pace.
     var keys: [[[Double]]]? = nil
 
+    /// Launch argument that turns voice on from the start (the feed's own toggle, `voiceMode`, does the same for readers).
     static var enabled: Bool { ProcessInfo.processInfo.arguments.contains("--voice") }
+    /// Whether this topic ships a narration, so the feed knows when to offer the voice toggle.
+    static func available(_ id: String) -> Bool { load(id) != nil }
     /// `--voice-variant bulbul` plays `voice-<id>-bulbul.*` instead, to compare voices; falls back to the default narration if missing.
     static var variant: String? {
         let a = ProcessInfo.processInfo.arguments
@@ -24,7 +27,6 @@ struct Narration: Decodable {
     /// Read once per topic: the feed asks on every frame of a drag.
     private static var cache: [String: (Narration, URL)?] = [:]
     static func load(_ id: String) -> (Narration, URL)? {
-        guard enabled else { return nil }
         if let hit = cache[id] { return hit }
         var found: (Narration, URL)?
         for name in [variant.map { "voice-\(id)-\($0)" }, "voice-\(id)"].compactMap({ $0 }) where found == nil {
@@ -151,6 +153,7 @@ struct VoiceTopicView: View {
                 .onChange(of: narration.beat(at: t)) { _, b in withAnimation(.easeInOut(duration: 0.45)) { beat = b } }
             }
         }
+        .onDisappear { player?.rewind(); beat = 0 }   // switching to the text version must stop the voice
         .task(id: isCurrent) {
             guard let player else { return }
             if isCurrent {
