@@ -32,8 +32,7 @@ struct FeedView: View {
                         .offset(y: CGFloat(i - index) * h + drag)
                 }
             }
-            .frame(width: geo.size.width, height: h, alignment: .top)
-            .clipped()
+            .frame(width: geo.size.width, height: h, alignment: .top)   // not clipped: clipping blanked each page for a couple of frames as a swipe began and ended; neighbours sit off screen anyway
             .contentShape(Rectangle())
             .simultaneousGesture(swipe(height: h))
             .ignoresSafeArea()
