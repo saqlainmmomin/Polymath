@@ -21,8 +21,9 @@ enum Launch {
     private let shades: [String: Int]
 
     init() {
-        let url = Bundle.main.url(forResource: "topics", withExtension: "json")!
-        var all = (try! JSONDecoder().decode(Library.self, from: Data(contentsOf: url))).topics.shuffled()
+        // Every Topics/<id>.json in the bundle is a topic in the feed: adding a topic is adding its file.
+        let urls = Bundle.main.urls(forResourcesWithExtension: "json", subdirectory: "Topics") ?? []
+        var all = urls.map { try! JSONDecoder().decode(Topic.self, from: Data(contentsOf: $0)) }.shuffled()
         if let first = Launch.topic, let i = all.firstIndex(where: { $0.id == first }) { all.insert(all.remove(at: i), at: 0) }
         topics = all
         // Each topic keeps one gradient across launches (sorted by id, not by the shuffled order); all differ while there are fewer topics than gradients.

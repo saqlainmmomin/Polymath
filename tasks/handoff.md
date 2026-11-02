@@ -3,7 +3,7 @@
 You are continuing Tell Me How in `/Users/saqlainmomin/tell-me-how/` from a different Claude account. You cannot see the earlier conversation, so read these first, in order:
 1. `PRODUCT.md`: the goal.
 2. `RECIPE.md`: content rules.
-3. `core/BLOCKS.md`: data format and visual types.
+3. `RECIPE.md` section 9 and `ios/Polymath/Topics/`: the topic file format, with real examples.
 4. `tasks/session-log-2026-10-24.md`: decisions so far and why.
 5. `tasks/fix-log.md`: the mistakes reviewers keep catching.
 
@@ -23,29 +23,26 @@ Tell Me How exists to spark curiosity, organically. A reader should be fascinate
 - **The topic `title`** (shown big in the top bar) must read as a natural, curious hook, not a textbook heading.
 
 ## Production line per topic (use Sonnet subagents)
-1. **Writer:** creates `topics/<id>.js` following RECIPE.md and BLOCKS.md, then builds and screenshots it.
+1. **Writer:** creates `ios/Polymath/Topics/<id>.json` following RECIPE.md (section 9 has the format), then its pictures in a new `ios/Polymath/Flat<Name>BP.swift`, wired in `Pictures.swift`.
 2. **Newcomer reviewer, a separate agent:** reads ONLY the reader-visible text, cold, as an adult with no background. It lists unexplained words, jumps and hanging "why?"s, plus the one-sentence idea and a 1–5 "I get it" score.
-3. **Fact checker, a separate agent:** checks every claim AND the diagram geometry (directions, ratios, what's above or below a line).
+3. **Fact checker, a separate agent:** checks every claim AND the picture geometry (directions, ratios, what's above or below a line).
 4. **Fixes:** the writer applies the combined, prioritised fixes. You trim the word count.
-5. **Phone check:** every card at 375x667 in light and dark. No console errors, no overflow or overlap, and look at the PNGs. Log what each review caught in `tasks/fix-log.md`.
+5. **Phone check:** every card on the iPhone 17 simulator (`ios/run.sh <id> <card> out.png`) in light and dark. No overflow or overlap; look at the PNGs. Log what each review caught in `tasks/fix-log.md`.
 
-## Visual types (see `core/BLOCKS.md`)
-- **`diagram`:** the default. You describe the scene as data: parts (rect/circle/line/path/arrow/dot/text) with styles `ink`, `thin`, `hatch`, `blue` (water/air/data), `heat` (fire/heat), `green` (OK/living), `accent` (the one moving or important part); steps (show/hide/focus/move/restyle); flows (dots along a path); and `scrub: true` for a drag slider. It covers process steps, cycles, before/after, flows and labelled reveals. Keep it to a few parts, 1–3 word labels, at most 5 steps, and one moving idea.
-- **`gears`:** meshing gears. `count: true` adds live lap counters.
-- **`crank`, `strokes`, `cylinders`:** engine-specific.
-- **Colour must mean something.** Spark yellow (`--s-spark`) is for flashes and energy.
-- **Add a new visual type only** when `diagram` really can't show the mechanism (e.g. true rotation, a wave, a map). Make it parametric (data in, no topic text in code), follow BLOCKS.md section 6, and document it.
+## Pictures
+- Every card's picture is Swift drawing code on blueprint paper: a `BlueprintStage` with a `draw` function (see `Blueprint.swift` for the paper, isometric helpers and line styles, `BPColors.swift` for the palette). `FlatGpsBP.swift` is a good model.
+- **Colour must mean something.** Mustard is the one focal thing; other hues sparingly.
+- A narrated topic also needs `voice-<id>.json` and `.m4a` in `Resources/`, rendered by `tools/voice/render.py`.
 
 ## Adding to the feed without clobbering parallel sessions
-- Other sessions may be editing this folder at the same time. **Only create or edit your own `topics/<id>.js` files.** Don't edit `core/`, `RECIPE.md` or other topics unless the owner asks.
-- To register a topic, add its id to `LIBRARY` in `build.mjs`, line 18 (`const LIBRARY = [...]`). **Re-read the line right before editing,** append your ids, and change nothing else. Use small, exact edits; never rewrite the file.
-- `more` links may only use ids that exist in `topics/`. Link related topics across themes, since that is how curiosity travels.
+- Other sessions may be editing this folder at the same time. **Only create or edit your own topic's files** (its JSON, its `Flat*.swift`, its case in `Pictures.swift`). Don't edit shared Swift files, `RECIPE.md` or other topics unless the owner asks.
+- A topic is in the feed as soon as its JSON is in `ios/Polymath/Topics/`. Run `cd ios && xcodegen generate` after adding Swift files.
+- `more` links may only use ids that exist in `ios/Polymath/Topics/`. Link related topics across themes, since that is how curiosity travels.
 - Set `theme` to one of `machines`, `nature`, `internet` or `money`, or add a new one (e.g. `body`, `food`, `home`, `animals`, `cities`, `sport`). The `more` fallback groups topics by theme.
 
 ## Verify and publish
-- Build one topic with `./build.sh <id>` and the feed with `./build.sh library`.
-- Screenshots use Playwright. The recipe is in `tasks/session-log-2026-10-24.md` under "Screenshot helper"; recreate it if the old scratchpad is gone.
-- The owner reviews on the private preview: https://claude.ai/artifact/EmopmpGtn9AR1BFywrdn2t (republish `dist/library.html` with that url).
+- Simulator: `cd ios && ./run.sh [topic-id] [card] [out.png] [light|dark]`. Phone: `./run-device.sh` (see `ios/README.md`).
+- The web feed and its preview links were removed on 2026-11-02; older notes that mention `topics/*.js`, `build.sh` or `core/` describe that removed version.
 - **Never republish the testers' link** https://claude.ai/artifact/47dT3dkGhANEzEWf64UFhP without the owner's explicit OK in chat.
 
 ## Starting list (already done: engines, gears, ice-floats, sky-blue, gps, card-payment)

@@ -1,0 +1,108 @@
+{
+  "id": "bike-gears",
+  "title": "Why does one gear click make the same hill feel easier?",
+  "kind": "full",
+  "theme": "machines",
+  "cards": [
+    {
+      "type": "card",
+      "title": "Same hill, same legs.",
+      "text": "On a steep hill you push as hard as you can and barely move. Click the gear lever once and the same hill feels easier. Your legs aren't stronger, and the hill isn't flatter.",
+      "hook": "So what does the lever change at the back wheel?",
+      "visual": {
+        "type": "diagram",
+        "notes": [
+          "You push as hard as you can and barely move",
+          "Click the gear lever: the same hill feels easier"
+        ],
+        "labels": [
+          "Same hill",
+          "PUSH"
+        ]
+      }
+    },
+    {
+      "type": "card",
+      "title": "A smaller back ring spins the wheel more for each pedal turn",
+      "text": "The chain runs from the pedal ring to a stack of rings on the back wheel. The lever slides it onto another ring. Each link fits one tooth, so a ring with fewer teeth turns more times for the same length of chain.",
+      "hook": "So how far does one pedal turn carry you?",
+      "visual": {
+        "type": "diagram",
+        "notes": [
+          "The chain runs from the pedal ring to a back ring",
+          "The lever slides the chain onto another ring"
+        ],
+        "labels": [
+          "Chain",
+          "Chain",
+          "Pedal ring",
+          "Bigger back ring",
+          "Smaller back ring"
+        ]
+      }
+    },
+    {
+      "type": "card",
+      "title": "A smaller back ring carries you farther with each pedal turn",
+      "text": "More wheel turns means each pedal turn carries you farther. With a bigger back ring, each turn takes you a shorter way.",
+      "hook": "So why does a shorter way per turn make the hill feel easier?",
+      "visual": {
+        "type": "diagram",
+        "notes": [
+          "One pedal turn, smaller back ring: farther",
+          "One pedal turn, bigger back ring: a shorter way"
+        ],
+        "labels": [
+          "Farther",
+          "A shorter way"
+        ]
+      }
+    },
+    {
+      "type": "card",
+      "title": "A shorter way per turn means a lighter push, and more turns to the top",
+      "text": "Think of walking up a steep path. Long strides are hard heaves, short quick steps are light, and you reach the same top either way. A pedal turn is like a stride, and the hill is the same height in every gear. So each turn lifts you only a little way up, and the push can be light.",
+      "hook": "But what about on flat road?",
+      "visual": {
+        "type": "diagram",
+        "notes": [
+          "Long strides are hard heaves",
+          "Short quick steps are light"
+        ],
+        "labels": [
+          "Same top",
+          "LONG STRIDES",
+          "SHORT QUICK STEPS"
+        ]
+      }
+    },
+    {
+      "type": "card",
+      "title": "To go the same speed on flat road, a smaller back ring means slower pedalling",
+      "text": "To go the same speed, a smaller back ring means pedalling slower, with a harder push each time. On flat road that's fine, because legs push best in a narrow range of pedalling speeds.",
+      "takeaway": "A gear can't make the hill any lower. It only decides how many pushes it takes to climb it.",
+      "visual": {
+        "type": "diagram",
+        "notes": [
+          "Bigger back ring: your legs spin fast, each push is light",
+          "Smaller back ring: slower pedalling, a harder push"
+        ],
+        "labels": [
+          "Chain",
+          "Chain",
+          "Pedal ring",
+          "Bigger back ring",
+          "Smaller back ring",
+          "Flat road"
+        ]
+      }
+    },
+    {
+      "type": "more",
+      "links": [
+        "car-engine"
+      ],
+      "note": "Before chains, the pedals of the old penny-farthing were fixed straight to the hub of the huge front wheel, so there were no gears at all: one pedal turn was one wheel turn, and the only way to go farther per turn was a bigger wheel, up to about 60 inches across. The chain and a smaller back ring let a smaller wheel go as far as a big one, and that is the idea your gear lever still plays with. Even today the word \"gear inches\" means how wide a penny-farthing wheel would have to be to match your gear."
+    }
+  ]
+}

@@ -1,0 +1,104 @@
+{
+  "id": "sky-blue",
+  "title": "Why is the sky blue at noon and red at sunset?",
+  "kind": "full",
+  "theme": "nature",
+  "cards": [
+    {
+      "type": "card",
+      "title": "It's the same sky and the same Sun.",
+      "text": "The Sun looks yellow, but its light is really all colours mixed together. Air looks clear, but it isn't quite.",
+      "hook": "So how does clear air turn sunlight into a blue sky, and later a red and orange sunset?",
+      "visual": {
+        "type": "diagram",
+        "notes": [
+          "The Sun looks yellow, but its light is all colours mixed",
+          "How does clear air turn it into a blue sky, and later a red and orange sunset?"
+        ],
+        "labels": [
+          "THE SUN",
+          "ALL COLOURS MIXED",
+          "CLEAR AIR",
+          "NOON ?",
+          "SUNSET ?"
+        ]
+      }
+    },
+    {
+      "type": "card",
+      "title": "Air is made of molecules that scatter light in all directions",
+      "text": "Light travels in waves, and each colour has its own length. Blue waves are short and red waves are long. Air is made of molecules, tiny bits of gas far too small to see. They scatter light, which means they send it off in all directions.",
+      "hook": "So does air scatter blue light the same as red light?",
+      "visual": {
+        "type": "diagram",
+        "tip": "Tap a dot to jump",
+        "notes": [
+          "Light travels in waves, and each colour has its own length",
+          "Air is made of molecules, tiny bits of gas far too small to see",
+          "They scatter light: they send it off in all directions"
+        ],
+        "labels": [
+          "BLUE WAVE: SHORT",
+          "RED WAVE: LONG",
+          "MOLECULE OF AIR",
+          "SCATTERED IN ALL DIRECTIONS"
+        ]
+      }
+    },
+    {
+      "type": "card",
+      "title": "Air scatters blue about four times as strongly as red, so the blue comes from all over the sky",
+      "text": "Air scatters blue about four times as strongly as red, so far more blue than red is sent off. That scattered blue reaches your eyes from all over the sky. The sky has no blue of its own. The blue was in the sunlight all along.",
+      "hook": "So why is a sunset red and orange?",
+      "visual": {
+        "type": "diagram",
+        "tip": "Tap a dot to jump",
+        "notes": [
+          "Sunlight crosses the air",
+          "Air scatters blue about four times as strongly as red",
+          "That scattered blue reaches your eyes from all over the sky"
+        ],
+        "labels": [
+          "AIR",
+          "SUNLIGHT",
+          "BLUE: ABOUT FOUR TIMES",
+          "AS STRONGLY AS RED",
+          "RED",
+          "YOUR EYES",
+          "ALL OVER THE SKY"
+        ]
+      }
+    },
+    {
+      "type": "card",
+      "title": "At sunset the Sun's light slants through far more air, so red and orange are what is left",
+      "text": "At sunset the Sun is low, so its light slants through far more air. Right at the horizon, that is about 38 times as much air as when the Sun is straight overhead. On the way, much of the blue is scattered off in other directions and never reaches you. Red and orange are what is left. The Sun looks yellow at noon for the same reason. The air has already scattered some blue out of its light.",
+      "takeaway": "The same scattering that makes the sky blue takes much of the blue out of the sunset.",
+      "visual": {
+        "type": "diagram",
+        "tip": "Tap a dot to jump",
+        "notes": [
+          "Sun overhead: a short path through the air",
+          "At sunset the Sun is low, so its light slants through far more air",
+          "Much of the blue is scattered off in other directions",
+          "Red and orange are what is left"
+        ],
+        "labels": [
+          "FAR MORE AIR",
+          "SUN OVERHEAD",
+          "LOW SUN",
+          "BLUE SCATTERED OFF",
+          "RED AND ORANGE",
+          "YOUR EYES"
+        ]
+      }
+    },
+    {
+      "type": "more",
+      "links": [
+        "moon-tides"
+      ],
+      "note": "Clouds are white because their drops of water are much bigger than air molecules, and they scatter all the colours alike."
+    }
+  ]
+}

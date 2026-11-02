@@ -1,0 +1,92 @@
+{
+  "id": "superglue",
+  "title": "Why doesn't instant glue stick inside its own tube?",
+  "kind": "full",
+  "theme": "nature",
+  "cards": [
+    {
+      "type": "card",
+      "title": "It goes hard on your fingers in seconds.",
+      "text": "But it can sit in its tube for months and stay runny.",
+      "hook": "So what is it waiting for?",
+      "visual": {
+        "type": "diagram",
+        "notes": [
+          "Both start runny",
+          "Finger: hard in seconds",
+          "Tube: runny for months"
+        ],
+        "labels": [
+          "Runny",
+          "Hard",
+          "In the tube",
+          "On your finger"
+        ]
+      }
+    },
+    {
+      "type": "card",
+      "title": "Superglue goes hard when it touches water",
+      "text": "White school glue goes hard as its water dries away. Superglue works the other way round. Even the moisture in the air is enough to make it go hard.",
+      "hook": "So where does it find water on your fingers?",
+      "visual": {
+        "type": "diagram",
+        "notes": [
+          "Both start runny",
+          "Both go hard"
+        ],
+        "labels": [
+          "School glue",
+          "Superglue",
+          "Water leaves",
+          "Water arrives"
+        ]
+      }
+    },
+    {
+      "type": "card",
+      "title": "Your skin carries a thin film of water",
+      "text": "It's too thin to feel, and almost everything around you has one too. When superglue lands on it, the glue touches water straight away. That's why it goes hard on your fingers in seconds.",
+      "hook": "So why doesn't it go hard inside the tube?",
+      "visual": {
+        "type": "diagram",
+        "notes": [
+          "Film drawn much thicker",
+          "Glue lands on the film",
+          "Glue goes hard"
+        ],
+        "labels": [
+          "Film of water",
+          "Skin"
+        ]
+      }
+    },
+    {
+      "type": "card",
+      "title": "A sealed tube lets no water in",
+      "text": "So the glue inside just waits, runny, for months. Leave the cap off, though, and moisture from the air creeps in. The glue at the tip goes hard and blocks it.",
+      "takeaway": "School glue goes hard when water leaves. Superglue goes hard when water arrives.",
+      "visual": {
+        "type": "diagram",
+        "tip": "Slide the cap off",
+        "notes": [
+          "Cap on: no water in",
+          "Cap off: moisture creeps in",
+          "Hard glue blocks the tip"
+        ],
+        "labels": [
+          "Runny glue",
+          "Hard glue",
+          "Moisture"
+        ]
+      }
+    },
+    {
+      "type": "more",
+      "links": [
+        "feel-wet"
+      ],
+      "note": "What does the water actually do? It makes the glue's tiny building blocks hook onto each other in long chains, and long chains can't flow. Makers also add a tiny dash of acid that stops any chain that starts by accident."
+    }
+  ]
+}

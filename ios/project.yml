@@ -16,7 +16,10 @@ targets:
     type: application
     platform: iOS
     sources:
-      - Polymath
+      - path: Polymath
+        excludes: [Topics]
+      - path: Polymath/Topics
+        type: folder        # copied as a Topics folder, so the app can list every topic file in it
     info:
       path: Polymath/Info.plist
       properties:

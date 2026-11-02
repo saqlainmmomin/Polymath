@@ -13,4 +13,4 @@
 Not edtech: no lessons, quizzes, scores or homework tone. It sits between entertainment and education, closer to entertainment.
 
 ## Format (current)
-A shorts feed on a phone. Swipe up for a new random topic; swipe sideways through its cards. Each topic is one big question (its title) answered in 1–6 cards, each a headline, an animated picture and a short paragraph. Pictures that can be touched say so with a small fading cue. How to write one: `RECIPE.md`. How it is built: `core/BLOCKS.md`. Plan and decisions: `tasks/todo.md`.
+A shorts feed on a phone. Swipe up for a new random topic; swipe sideways through its cards. Each topic is one big question (its title) answered in 1–6 cards, each a headline, an animated picture and a short paragraph. How to write one: `RECIPE.md`. How it is built: `ios/README.md`. Plan and decisions: `tasks/todo.md`.

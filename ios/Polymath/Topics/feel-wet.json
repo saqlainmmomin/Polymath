@@ -1,0 +1,99 @@
+{
+  "id": "feel-wet",
+  "title": "Can your skin feel wet when it is dry?",
+  "kind": "full",
+  "theme": "nature",
+  "cards": [
+    {
+      "type": "card",
+      "title": "Your skin has no sensor made just for wet.",
+      "text": "Your skin has tiny nerve endings, called sensors, that react to things such as cold, warmth and touch. But scientists have looked for one and found none made just for wet.",
+      "hook": "So what do your sensors feel when water touches you?",
+      "visual": {
+        "type": "diagram",
+        "notes": [
+          "Tiny sensors react to cold, warmth and touch",
+          "No sensor made just for wet"
+        ],
+        "labels": [
+          "SKIN",
+          "COLD SENSOR",
+          "WARM SENSOR",
+          "TOUCH SENSOR",
+          "NO SENSOR JUST FOR WET"
+        ]
+      }
+    },
+    {
+      "type": "card",
+      "title": "Water cooler than your skin takes heat out of it, and your cold sensors notice",
+      "text": "When something wet touches you, water cooler than your skin takes heat out of it fast. Your cold sensors notice your skin getting colder and send a cold signal to your brain.",
+      "hook": "But is a cold signal all it takes to feel wet?",
+      "visual": {
+        "type": "diagram",
+        "notes": [
+          "Water touches your skin",
+          "Water cooler than your skin takes heat out of it",
+          "Your cold sensors notice and send a cold signal to your brain"
+        ],
+        "labels": [
+          "WATER",
+          "HEAT OUT",
+          "COLD SENSOR",
+          "COLD SIGNAL",
+          "YOUR BRAIN"
+        ]
+      }
+    },
+    {
+      "type": "card",
+      "title": "Your brain puts a cold signal and a close, even touch together into wet",
+      "text": "A wet thing also gives your skin a close, even touch, and your touch sensors feel it. Your brain puts the cold signal and the touch together into wet.",
+      "hook": "So could a dry finger feel wet?",
+      "visual": {
+        "type": "diagram",
+        "notes": [
+          "The cold signal",
+          "A wet thing also gives your skin a close, even touch",
+          "Your brain puts the cold signal and the touch together into wet"
+        ],
+        "labels": [
+          "CLOSE, EVEN TOUCH",
+          "COLD SIGNAL",
+          "TOUCH SENSOR",
+          "YOUR BRAIN",
+          "WET"
+        ]
+      }
+    },
+    {
+      "type": "card",
+      "title": "In 1900, a dry finger in a thin rubber sheath felt wet in water",
+      "text": "So you can feel wet when you are dry. In 1900, a psychologist covered a finger with a thin rubber sheath, like a glove for one finger. The finger was then lowered into water, and it stayed dry but felt wet. The people who tried it at first refused to believe the finger was dry. In the same test, warmer water felt less wet, and lukewarm water barely at all.",
+      "takeaway": "Wet is not a sense of its own. Your brain builds it from cold and touch.",
+      "visual": {
+        "type": "diagram",
+        "notes": [
+          "A finger in a thin rubber sheath",
+          "The finger stays dry, but it feels wet",
+          "Warmer water felt less wet",
+          "Lukewarm water barely at all"
+        ],
+        "labels": [
+          "DRY FINGER",
+          "THIN RUBBER SHEATH",
+          "FEELS WET",
+          "WARMER: LESS WET",
+          "LUKEWARM: BARELY"
+        ]
+      }
+    },
+    {
+      "type": "more",
+      "links": [
+        "sky-blue"
+      ],
+      "note": "Some animals do have a sensor for how damp the air is, which people do not. Fruit flies keep humidity sensors in their antennae, and mosquitoes have two kinds on theirs: one that reacts to dry air and one to damp air. Up close the sensors help a mosquito tell a person is near, and the damp-air kind helps it find water to lay eggs in. They sense water vapour in the air, not the feeling of a wet surface."
+    }
+  ]
+}

@@ -1,0 +1,109 @@
+{
+  "id": "moon-tides",
+  "title": "Why does one Moon give most beaches two high tides a day?",
+  "kind": "full",
+  "theme": "nature",
+  "cards": [
+    {
+      "type": "card",
+      "title": "There's only one Moon, and it's on one side of the sky at a time.",
+      "text": "The Moon pulls the sea toward it, so you'd expect one high tide a day. But most beaches get two.",
+      "hook": "So how does the Moon's pull make a second high tide?",
+      "visual": {
+        "type": "diagram",
+        "notes": [
+          "Low tide",
+          "High tide",
+          "Low tide",
+          "High tide"
+        ]
+      }
+    },
+    {
+      "type": "card",
+      "title": "The Moon pulls the near sea harder than the ground, and the far sea less",
+      "text": "The Moon pulls harder on whatever is closer. So the sea facing it, the near sea, is pulled harder than the ground. The sea on the far side, the far sea, is pulled less hard than the ground.",
+      "hook": "So where does all that pulling make the sea pile up?",
+      "visual": {
+        "type": "diagram",
+        "notes": [
+          "The near sea is pulled most",
+          "The far sea is pulled least"
+        ],
+        "labels": [
+          "Moon",
+          "Near sea",
+          "Ground",
+          "Far sea"
+        ]
+      }
+    },
+    {
+      "type": "card",
+      "title": "The sea piles up on both sides of Earth, in two bulges",
+      "text": "Picture three runners in a line. One magnet ahead pulls them all, the front one hardest and the back one least. The front runner is the near sea, the middle one the ground, the back one the far sea. The near sea is pulled ahead of the ground, and the ground is pulled ahead of the far sea. So the sea piles up on both sides of Earth, in two bulges.",
+      "hook": "So what happens to your beach as Earth turns?",
+      "visual": {
+        "type": "diagram",
+        "notes": [
+          "One magnet pulls all three",
+          "The front one is pulled hardest",
+          "The sea piles up on both sides"
+        ],
+        "labels": [
+          "Far sea",
+          "Ground",
+          "Near sea",
+          "Moon",
+          "Two bulges"
+        ]
+      }
+    },
+    {
+      "type": "card",
+      "title": "As Earth turns under the bulges, your beach gets two high tides",
+      "text": "The bulges stay lined up with the Moon while Earth turns once a day beneath them. Your beach passes under one, then the other. That's two high tides, a bit over twelve hours apart.",
+      "hook": "But why does each day's high tide come a little later?",
+      "visual": {
+        "type": "diagram",
+        "notes": [
+          "Low tide",
+          "High tide",
+          "Low tide",
+          "High tide"
+        ],
+        "labels": [
+          "Bulge",
+          "Bulge",
+          "Your beach"
+        ]
+      }
+    },
+    {
+      "type": "card",
+      "title": "The Moon moves on, so each day's high tide comes about 50 minutes later",
+      "text": "The Moon also moves round Earth the way Earth spins. So each day your beach needs about 50 extra minutes to catch up with it.",
+      "takeaway": "One Moon stretches the sea on both sides of Earth, and Earth turns your beach through both.",
+      "visual": {
+        "type": "diagram",
+        "notes": [
+          "High tide",
+          "A day later the Moon has moved on",
+          "The beach needs about 50 extra minutes"
+        ],
+        "labels": [
+          "Your beach",
+          "Moon",
+          "About 50 extra minutes"
+        ]
+      }
+    },
+    {
+      "type": "more",
+      "links": [
+        "sky-blue"
+      ],
+      "note": "A tide is really a very slow wave moving through the sea, and in each ocean it circles a point where the sea hardly rises or falls at all, called an amphidromic point. That is why high tide never lines up neatly with the Moon overhead. In 1687 Isaac Newton explained tides as the pull of the Moon and Sun on the sea."
+    }
+  ]
+}

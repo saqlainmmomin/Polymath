@@ -7,7 +7,6 @@ cd "$(dirname "$0")"
 SIM="${SIM:-A6226E77-4321-425A-A537-3A955E4C32A7}"   # iPhone 17 (list yours with: xcrun simctl list devices available)
 TOPIC="$1"; CARD="$2"; OUT="${3:-}"; MODE="${4:-light}"
 [ -d Polymath.xcodeproj ] || xcodegen generate >/dev/null
-node ../tools/export-topics.mjs >/dev/null
 xcodebuild -project Polymath.xcodeproj -target Polymath -sdk iphonesimulator -configuration Debug CODE_SIGNING_ALLOWED=NO SYMROOT="$PWD/build/products" build 2>&1 | grep -E "error: |\*\* BUILD" || true
 xcrun simctl boot "$SIM" 2>/dev/null || true
 xcrun simctl bootstatus "$SIM" -b >/dev/null 2>&1

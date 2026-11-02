@@ -1,0 +1,102 @@
+{
+  "id": "card-payment",
+  "title": "Why isn't the shop paid the moment you tap your card?",
+  "kind": "full",
+  "theme": "money",
+  "cards": [
+    {
+      "type": "card",
+      "title": "You tap, it beeps, and you walk away.",
+      "text": "Tapping your card feels like paying. But the card reader only sends a short message asking your bank if this card can pay.",
+      "hook": "So where does that message go before it comes back with a yes?",
+      "visual": {
+        "type": "diagram",
+        "notes": [
+          "You tap your card",
+          "The reader sends a short message: can this card pay?"
+        ],
+        "labels": [
+          "CARD",
+          "CARD READER",
+          "Message",
+          "CAN THIS CARD PAY?"
+        ]
+      }
+    },
+    {
+      "type": "card",
+      "title": "The message goes to the shop's bank, then a card network, then your bank",
+      "text": "The reader's message reaches the shop's bank. That bank passes it to a card network, a company such as Visa or Mastercard that links banks. The network passes it to your bank, which answers yes or no. The answer travels back the same way, in a couple of seconds.",
+      "hook": "So when your bank says yes, does the shop get the money?",
+      "visual": {
+        "type": "diagram",
+        "tip": "Tap a dot to jump",
+        "notes": [
+          "You tap your card",
+          "The message goes to the shop's bank, then a card network, then your bank",
+          "Your bank says yes",
+          "The yes comes back the same way"
+        ],
+        "labels": [
+          "CARD READER",
+          "SHOP'S BANK",
+          "CARD NETWORK",
+          "YOUR BANK",
+          "YES"
+        ]
+      }
+    },
+    {
+      "type": "card",
+      "title": "Your bank's yes is a promise to pay, and the money hasn't reached the shop yet",
+      "text": "Your bank checks that the card is real and that you have enough money or credit. If so, it takes that amount off what you can spend straight away. So you can't spend the same money twice. But the money hasn't reached the shop yet.",
+      "hook": "So why does the shop have to wait to be paid?",
+      "visual": {
+        "type": "diagram",
+        "tip": "Tap a dot to jump",
+        "notes": [
+          "This is what you can spend",
+          "The yes takes the amount off what you can spend",
+          "The money hasn't reached the shop yet"
+        ],
+        "labels": [
+          "WHAT YOU CAN SPEND",
+          "YOUR BANK",
+          "YOUR BANK'S YES",
+          "THE SHOP",
+          "NO MONEY YET"
+        ]
+      }
+    },
+    {
+      "type": "card",
+      "title": "Banks move money in totals, so the shop is usually paid a few working days later",
+      "text": "Banks don't move money for every single tap. They gather many payments and add them up, and the shop's bank is paid in totals. So the shop is usually paid a few working days after your tap.",
+      "takeaway": "The yes comes back in seconds, and the shop is usually paid a few working days later.",
+      "visual": {
+        "type": "diagram",
+        "tip": "Tap a dot to jump",
+        "notes": [
+          "Many taps",
+          "Banks add many payments up into totals",
+          "A few working days later the totals reach the shop"
+        ],
+        "labels": [
+          "MANY PAYMENTS",
+          "TOTALS",
+          "A FEW WORKING DAYS",
+          "THE BANKS",
+          "THE SHOP",
+          "TOTALS"
+        ]
+      }
+    },
+    {
+      "type": "more",
+      "links": [
+        "gps"
+      ],
+      "note": "The shop gets a little less than you paid, because a small fee is shared among your bank, the card network and the shop's bank. The fee that goes to your bank is called the interchange fee."
+    }
+  ]
+}

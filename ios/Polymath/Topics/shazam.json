@@ -1,0 +1,108 @@
+{
+  "id": "shazam",
+  "title": "How can your phone name a song from a few noisy seconds?",
+  "kind": "full",
+  "theme": "internet",
+  "cards": [
+    {
+      "type": "card",
+      "title": "It picks one song out of millions, with people talking over it.",
+      "text": "All it gets is a few seconds of chatter with music somewhere inside.",
+      "hook": "So what does it keep, and what does it throw away?",
+      "visual": {
+        "type": "diagram",
+        "labels": [
+          "Chatter",
+          "Music",
+          "A few seconds"
+        ]
+      }
+    },
+    {
+      "type": "card",
+      "title": "It draws the sound and keeps only the loudest dots",
+      "text": "On the chart, time runs left to right and high notes sit higher. The louder a sound, the brighter its dot. It keeps only the dots brighter than everything right around them, and throws the rest away. They're the hardest for chatter to cover up.",
+      "hook": "But one dot is just one note, and nearly every song has that. So what's rarer?",
+      "visual": {
+        "type": "diagram",
+        "notes": [
+          "Louder sound, brighter dot",
+          "Brighter than all around it"
+        ],
+        "labels": [
+          "Time",
+          "High notes",
+          "Brighter than around it"
+        ]
+      }
+    },
+    {
+      "type": "card",
+      "title": "A pair of notes is much rarer than one",
+      "text": "So it joins each dot to a few dots just after it. Each pair is two notes and the exact gap between them. It writes each pair down as a short code.",
+      "hook": "So how does it find the songs with your codes?",
+      "visual": {
+        "type": "diagram",
+        "notes": [
+          "One note: in nearly every song",
+          "Joined to dots just after it",
+          "Two notes and the gap"
+        ],
+        "labels": [
+          "A pair",
+          "One note",
+          "Code",
+          "Note, note, gap"
+        ]
+      }
+    },
+    {
+      "type": "card",
+      "title": "A giant list shows every song with each code",
+      "text": "The app's makers turned every song they have into codes ahead of time. The list works like a book's index, giving each song with that code and the moment it turns up.",
+      "hook": "But one code points at lots of songs. So which is the right one?",
+      "visual": {
+        "type": "diagram",
+        "notes": [
+          "Look up one code",
+          "Every song, and when"
+        ],
+        "labels": [
+          "Code",
+          "Every song with this code",
+          "Song A · 0:49",
+          "Song B · 1:43",
+          "Song C · 2:35",
+          "And when"
+        ]
+      }
+    },
+    {
+      "type": "card",
+      "title": "In the right song, many of your codes line up",
+      "text": "In wrong songs, a few codes match but turn up scattered. In the right one, they come in the same order, as far apart in time as in those few seconds.",
+      "takeaway": "It never listens for the words or the tune, only for where the loudest dots sit.",
+      "visual": {
+        "type": "diagram",
+        "tip": "Slide your codes along",
+        "notes": [
+          "Three of your codes",
+          "Still scattered",
+          "They line up"
+        ],
+        "labels": [
+          "Wrong song: scattered",
+          "Right song: same order",
+          "Your few seconds"
+        ]
+      }
+    },
+    {
+      "type": "more",
+      "links": [
+        "feel-wet"
+      ],
+      "note": "In 2002 it wasn't an app. You dialled 2580, held your phone up to the music, and a text message came back with the song and the singer."
+    }
+  ]
+}

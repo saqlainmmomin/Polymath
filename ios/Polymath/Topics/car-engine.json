@@ -1,0 +1,99 @@
+{
+  "id": "car-engine",
+  "title": "Why does a car engine need an electric motor just to start?",
+  "kind": "full",
+  "theme": "machines",
+  "cards": [
+    {
+      "type": "card",
+      "title": "Once it's running, it keeps itself going for hours.",
+      "text": "Press start, and a small electric motor turns the engine for a moment before it runs by itself.",
+      "hook": "So how does burning petrol turn an engine at all?",
+      "visual": {
+        "type": "diagram",
+        "notes": [
+          "Press start",
+          "The motor turns the engine",
+          "Then it runs by itself"
+        ],
+        "labels": [
+          "Engine",
+          "Electric motor",
+          "Start",
+          "Runs by itself"
+        ]
+      }
+    },
+    {
+      "type": "card",
+      "title": "Hot gas pushes a sliding plug that turns a shaft",
+      "text": "Inside, petrol and air burn in a metal tube called a cylinder. The hot gas pushes a sliding plug, the piston, along the tube. A rod links the piston to a bent shaft. Each push turns the shaft, like your leg on a bike pedal.",
+      "hook": "But can the piston push every time it moves?",
+      "visual": {
+        "type": "crank",
+        "labels": [
+          "Bent shaft",
+          "Cylinder",
+          "Piston",
+          "Rod"
+        ]
+      }
+    },
+    {
+      "type": "card",
+      "title": "The piston makes four moves, and only one pushes",
+      "text": "First it pulls fuel and air in, then squeezes them tight. Then a spark lights them. Packed tight, the burning gas pushes the piston much harder. Last, it clears the used gas out of the engine.",
+      "hook": "So what moves the piston for the other three?",
+      "visual": {
+        "type": "strokes",
+        "labels": [
+          "Used gas out",
+          "Fuel and air in",
+          "Spark"
+        ]
+      }
+    },
+    {
+      "type": "card",
+      "title": "The turning shaft drags the piston through the other three",
+      "text": "At the start nothing is turning yet, so nothing can drag it. The electric motor turns the shaft until a spark lights the first squeezed load.",
+      "hook": "So once it's going, what keeps the shaft turning?",
+      "visual": {
+        "type": "diagram",
+        "notes": [
+          "The motor pulls fuel and air in",
+          "The motor squeezes it",
+          "A spark lights the load",
+          "The push: the motor lets go"
+        ],
+        "labels": [
+          "Cylinder",
+          "Shaft drags the piston",
+          "Electric motor",
+          "First spark"
+        ]
+      }
+    },
+    {
+      "type": "card",
+      "title": "A heavy wheel keeps the shaft turning between pushes",
+      "text": "Its weight carries the piston through the other three moves. And several cylinders take turns, so the pushes come close together and the engine runs smoothly.",
+      "takeaway": "An engine can only push once it has pulled in and squeezed its fuel, so something else turns it first.",
+      "visual": {
+        "type": "cylinders",
+        "tip": "Tap 4 to compare",
+        "labels": [
+          "Push on the shaft",
+          "Cylinders"
+        ]
+      }
+    },
+    {
+      "type": "more",
+      "links": [
+        "bike-gears"
+      ],
+      "note": "The first engine to squeeze its fuel and air before lighting it was built by Nicolaus Otto in Germany in 1876, and it ran far better than every engine before it. Engines that squeeze their fuel and air and work in four moves still run on what's called the Otto cycle."
+    }
+  ]
+}

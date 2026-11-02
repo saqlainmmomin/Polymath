@@ -1,8 +1,6 @@
 import Foundation
 
-/// topics.json, written by tools/export-topics.mjs from topics/*.js.
-struct Library: Decodable { let topics: [Topic] }
-
+/// One topic, read from Topics/<id>.json in the app bundle. Those files are the source of truth for every topic's words.
 struct Topic: Decodable, Identifiable {
     let id: String
     let title: String      // the topic's question
@@ -28,26 +26,19 @@ struct Card: Decodable {
     let visual: Visual?
 }
 
-/// Wireframe view of a picture: what it is, what it would say on screen, and its interaction cue.
-/// The full spec stays in topics.json for the native renderers that come later.
+/// A short description of a card's picture, for cards without a native picture: what it is, its step notes and labels, and its interaction cue.
 struct Visual: Decodable {
     let type: String
     let tip: String?
     let notes: [String]    // step notes, in order
     let labels: [String]   // on-picture labels
 
-    private enum K: String, CodingKey { case type, tip, steps, parts, labels }
-    private struct Step: Decodable { let note: String? }
-    private struct Part: Decodable { let label: String?; let text: String? }
-
+    private enum K: String, CodingKey { case type, tip, notes, labels }
     init(from decoder: Decoder) throws {
         let c = try decoder.container(keyedBy: K.self)
         type = try c.decode(String.self, forKey: .type)
         tip = try c.decodeIfPresent(String.self, forKey: .tip)
-        // `parts` is a list for diagrams but a Bool for crank, `labels` a dictionary or false: decode leniently.
-        notes = ((try? c.decode([Step].self, forKey: .steps)) ?? []).compactMap(\.note)
-        var ls = ((try? c.decode([Part].self, forKey: .parts)) ?? []).compactMap { $0.label ?? $0.text }
-        if let d = try? c.decode([String: String].self, forKey: .labels) { ls += d.keys.sorted().compactMap { d[$0] } }
-        labels = ls
+        notes = try c.decodeIfPresent([String].self, forKey: .notes) ?? []
+        labels = try c.decodeIfPresent([String].self, forKey: .labels) ?? []
     }
 }

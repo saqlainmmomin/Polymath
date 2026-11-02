@@ -1,6 +1,6 @@
 # Topic recipe (v3)
 
-How to turn a big everyday question into a Tell Me How topic. A topic is data (`topics/<id>.js`, start from `topics/_template.js`) rendered by shared blocks. Card and visual types: `core/BLOCKS.md`. Build and lint with `./build.sh <id>`; it warns when a topic breaks the rules marked (lint) below.
+How to turn a big everyday question into a Tell Me How topic. A topic is a JSON file of words (`ios/Polymath/Topics/<id>.json`, format in section 9) plus its pictures in Swift (`ios/Polymath/Flat*BP.swift`). Rules marked (lint) below are checked by hand now; there is no build lint since the web feed was removed.
 
 ## Who it's for
 A curious adult with no background, on a phone, swiping a feed like shorts. It sits between entertainment and education, closer to entertainment, and never feels like edtech: no quizzes, scores, lessons or homework tone. They should enjoy it and be able to explain the thing to a friend two days later.
@@ -12,12 +12,12 @@ A topic answers ONE question people already half-have in their head ("How does a
 | Quick (`kind: 'bite'`) | 1-2 | One surprise, one picture (a single fact that clicks) |
 | Standard (`kind: 'full'`) | 3-4 | Most topics |
 | Big (`kind: 'full'`) | 5-6, the most | Flagship machines and systems |
-Plus a `more` card at the end (lint: 1 to 6 content cards). Never more than 6: if it needs 7, it is two questions, so it is two topics, each with its own question title. Small pieces of a big machine are cards, not topics: nobody opens the app to learn "how a crank turns".
+Plus a `more` card at the end (1 to 6 content cards). Never more than 6: if it needs 7, it is two questions, so it is two topics, each with its own question title. Small pieces of a big machine are cards, not topics: nobody opens the app to learn "how a crank turns".
 A foundation the idea needs is a card inside the topic, not a separate topic. Every topic still defines its own words (topics arrive in random order).
 
 ## 2. The title is the hook
 The title is the topic's question, shown huge on card 1. It is the first thing read, so it carries the whole curiosity.
-- **A full question a friend would ask out loud,** at most 12 words, ending in `?` (lint). "Why does ice float on water?" not "Why ice floats".
+- **A full question a friend would ask out loud,** at most 12 words, ending in `?`. "Why does ice float on water?" not "Why ice floats".
 - **Give it a tension or a stake:** a paradox ("Why does ice float on the very water it came from?"), the reader themselves ("How does your phone know where you are?"), or a hidden moment ("What happens in the two seconds after you tap your card?").
 - **Plain words only,** no jargon, acronyms or brand names in the title. It must make sense to someone who has never studied the subject.
 - **No premise the reader doesn't hold.** Don't correct a belief in the title, and don't invent a false assumption to knock down. A multiple-choice title ("a solid, a liquid or a gas?") is only allowed if the answer is one of the choices.
@@ -36,7 +36,7 @@ Three zones, no dead space: **headline (and setup on card 1), then the text, the
 - **Card 1 (opener).** The topic question is the headline (33px). The card's own `title` is optional and becomes a smaller setup line under it (one line of stakes). The picture shows the mystery at once. The paragraph gives the first piece of the answer.
 - **Cards 2-N.** `title` is the headline (about 8 words, 26px): a statement or question that tells the reader what to watch. `text` proves it in 1-2 short sentences. Optional bold `takeaway` on the card where the idea lands, nowhere else.
 - **Thread:** the end of each paragraph raises the question the next headline answers. The reader should want the next card.
-- Budget (owner 2026-10-27, from the `write-explainer` skill): sentences about 8 to 18 words and none over 20, at most 7 sentences per card, headline about 8 words, a visual on every card. The build lint still warns above 15 words, so expect warnings until it is aligned.
+- Budget (owner 2026-10-27, from the `write-explainer` skill): sentences about 8 to 18 words and none over 20, at most 7 sentences per card, headline about 8 words, a visual on every card.
 - **Bridges (`type: 'bridge'`) are not used by default** (owner 2026-10-27). Fold one sentence of context into the card that needs it. A bridge is allowed only when the owner asks for one or a cold reader gets lost without it; it is text-only, about 35 words, and does not count toward the 6.
 - The last content card lands the idea in one sentence a friend would repeat, then `more` offers where to go next.
 
@@ -59,23 +59,41 @@ Before and after:
 | Water is made of tiny pieces called molecules. When it freezes, they lock into a pattern with gaps. | Water's tiny building blocks slide past each other. Freeze it and they lock in place, leaving gaps. |
 | Thanks to those gaps, ice takes about 9% more room. So a cupful of ice weighs less than a cupful of water. | Those gaps make ice about a tenth bigger. So a glass of ice is lighter than a glass of water, and the water pushes it up. |
 
-## 5. Interaction cue (automatic)
-Visuals that can be touched (drag a crank or gear, scrub a slider, tap a count or a step dot) show a small dark pill on the picture's bottom edge, for example "Drag the crank". It fades in about 0.7s after the card appears, goes after a few seconds or on the first touch, and stays away for the rest of the session once the reader has used any visual by hand. Defaults are built in per visual; override with `tip: '<verb first, 4 words or fewer>'`, remove with `tip: false`. Design rule: pictures play and loop by themselves and must still make sense untouched; a topic offers at most one thing to touch in total, on the card where touching teaches most.
+## 5. Touch
+Pictures play and loop by themselves and must make sense untouched. Tapping a picture replays it. A topic offers at most one other thing to touch, on the card where touching teaches most.
 
 ## 6. Guess cards
 Optional, at most one per topic, only when it is the most fun way into the idea. The headline is the question; 2 or 3 real misconceptions as options, never jokes; the right answer does not echo the previous card's wording and is not the longest option; vary its position. `why` is 1-2 sentences. Unscored.
 
 ## 7. Visuals
-- Every card has a visual from `core/BLOCKS.md`. `diagram` covers process steps, cycles, before/after, flows and labelled reveals; flagships may add a parametric custom type.
-- Technical line art; colour carries meaning (blue water/air/data, heat orange fire, green OK/living, yellow only for sparks and energy, rust accent for the one moving or important part).
-- The visual is the explanation, not decoration. Only the explaining part moves. Fill the panel: draw big, no empty bands.
+- Every card has a picture, drawn in Swift on blueprint paper (`Blueprint.swift`, palette in `BPColors.swift`), one `BlueprintStage` per card, picked in `Pictures.swift`.
+- Technical line art; colour carries meaning: mustard for the one focal thing, other hues sparingly.
+- The visual is the explanation, not decoration. Only the explaining part moves. Fill the stage: draw big, no empty bands.
 
 ## 8. Production line (the quality bar)
 Spine-first since 2026-10-27; the stages and gates are in the `write-explainer` skill.
 1. **Facts sheet** by a separate fact-checker agent, before any writing: plain true claims, myths, one number.
 2. **One spoken paragraph** (about 100-150 words) with slide marks; the owner approves it before any slide exists.
 3. **Slices:** slides cut from the paragraph, shown as a spine (title, hooks, headlines in order), then the slides. Owner approves.
-4. **Fact recheck** of the slides against the facts sheet; then write `topics/<id>.js` from `_template.js`, lint-clean. The fact checker also checks the diagram geometry (directions, ratios, above/below).
+4. **Fact recheck** of the slides against the facts sheet; then write `ios/Polymath/Topics/<id>.json` (section 9) and its pictures. The fact checker also checks the diagram geometry (directions, ratios, above/below).
 5. **Human cold read:** two people new to the topic read it once and say the answer back. This decides "done".
-6. **Phone check** at 375x667, light and dark: nothing overflows or overlaps, no dead space, cue pill clear of labels, no console errors.
+6. **Phone check** on the iPhone simulator (`ios/run.sh`), light and dark: nothing overflows or overlaps, no dead space.
 Fix every finding, trim words again, log fixes in `tasks/fix-log.md`. `more` links only use ids of existing topics.
+
+## 9. Topic file format
+`ios/Polymath/Topics/<id>.json`; the file name is the id. Every file in that folder is in the feed.
+```json
+{
+  "id": "gps",
+  "title": "How does your phone find you with no mobile signal?",
+  "kind": "full",
+  "theme": "internet",
+  "cards": [
+    { "type": "card", "title": "Headline", "text": "Paragraph.", "hook": "Question the next card answers?",
+      "visual": { "type": "diagram", "notes": ["step note"], "labels": ["LABEL"] } },
+    { "type": "guess", "title": "Question?", "options": ["A", "B", "C"], "answer": 1, "why": "One or two sentences." },
+    { "type": "more", "links": ["sky-blue", "moon-tides"] }
+  ]
+}
+```
+Card fields: `type` (`card`, `guess`, `bridge`, `more`), `title`, `text`, `takeaway`, `hook`, `marks` (words coloured like their part of the picture), `options`/`answer`/`why` (guess), `links`/`note` (more), `visual` (`type` plus optional `tip`, `notes`, `labels`, shown only when a card has no Swift picture yet). Leave out fields a card doesn't use.

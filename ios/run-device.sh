@@ -15,7 +15,6 @@ state=$(xcrun devicectl list devices 2>/dev/null | grep -F "$DEVICE" | head -1)
 case "$state" in *unavailable*|"") echo "iPhone not available. Plug it in by cable, unlock it, tap Trust, enable Developer Mode, keep it unlocked."; exit 2;; esac
 
 [ -d Polymath.xcodeproj ] || xcodegen generate >/dev/null
-node ../tools/export-topics.mjs >/dev/null
 xcodebuild -project Polymath.xcodeproj -target Polymath -sdk iphoneos -configuration Debug \
   -allowProvisioningUpdates DEVELOPMENT_TEAM="$TEAM" CODE_SIGN_STYLE=Automatic PRODUCT_BUNDLE_IDENTIFIER="$BUNDLE" \
   SYMROOT="$PWD/build/device" build 2>&1 | grep -E "error: |\*\* BUILD" | tee build/device-build.log || true
