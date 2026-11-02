@@ -2,6 +2,8 @@
 
 A phone-first shorts feed of tiny animated "how things work" topics whose one job is to make people curious (read `PRODUCT.md` first). It is an iOS app (SwiftUI) only: each topic's words are a JSON file, and its pictures are Swift drawing code.
 
+**Words we use:** a topic comes in two versions. **Narrated** is the audio + animation version: one screen, a voice plays, the picture changes on each beat, captions light up (Shazam so far; code: `Narration`, `VoiceTopicView`). **Cards** is the version you read and swipe sideways through (`TopicView`).
+
 | File | What |
 |---|---|
 | `PRODUCT.md` | Product goal: curiosity, effortless, broad appeal |
