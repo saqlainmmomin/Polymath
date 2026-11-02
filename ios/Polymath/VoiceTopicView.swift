@@ -83,12 +83,22 @@ struct Narration: Decodable {
         player = p
         super.init()
         p.delegate = self
+        p.enableRate = true   // must be set before prepareToPlay for speed changes to work
         p.prepareToPlay()
     }
 
     /// Seconds into the narration; holds at the end once it has finished.
     var time: Double { _ = seeks; return finished ? player.duration : player.currentTime }
     var duration: Double { player.duration }
+
+    /// Playback speed, stepped through by the speed button.
+    private(set) var rate: Float = 1
+    func nextRate() {
+        let steps: [Float] = [1, 1.25, 1.5, 2]
+        rate = steps[((steps.firstIndex(of: rate) ?? 0) + 1) % steps.count]
+        player.rate = rate
+    }
+    var muted = false { didSet { player.volume = muted ? 0 : 1 } }
 
     func play() {
         if finished { player.currentTime = 0; finished = false }
@@ -110,6 +120,7 @@ struct VoiceTopicView: View {
     let isCurrent: Bool
     @State private var player: NarrationPlayer?
     @State private var beat = 0
+    @State private var chrome = true   // the player bar and its buttons; tapping the picture hides and shows them, as on X
     private let lines: [Range<Int>]
 
     init(topic: Topic, narration: Narration, audio: URL, isCurrent: Bool) {
@@ -127,7 +138,7 @@ struct VoiceTopicView: View {
                 .font(S.rounded(24, .bold)).lineSpacing(2).foregroundStyle(S.text)
                 .fixedSize(horizontal: false, vertical: true)
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.horizontal, 21).padding(.top, 4)
+                .padding(.horizontal, 21).padding(.top, 16)   // 12pt more than the cards, so the title clears the top bar
             // One clock for everything: the picture, caption and bar all read the voice's time, so pausing or seeking moves them together.
             TimelineView(.animation(paused: !(player?.playing ?? false))) { _ in
                 let t = player?.time ?? 0
@@ -141,12 +152,15 @@ struct VoiceTopicView: View {
                     }
                     .environment(\.stage, S.stage(store.shade(topic)))
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .contentShape(Rectangle())
-                    .onTapGesture { togglePlay() }   // tap the picture to pause or resume, as in other shorts apps
+                    .overlay {   // tap the picture to hide or show the player, as on X; a layer on top so the picture's own replay tap can't take it
+                        Color.clear.contentShape(Rectangle())
+                            .onTapGesture { withAnimation(.easeInOut(duration: 0.2)) { chrome.toggle() } }
+                    }
                     .padding(.horizontal, 8).padding(.vertical, 8)
                     VStack(spacing: 14) {
                         caption(t)
                         controls(t)
+                            .opacity(chrome ? 1 : 0).allowsHitTesting(chrome)   // hidden in place, so the picture and caption don't jump
                     }
                     .padding(.horizontal, 21).padding(.bottom, 18)
                 }
@@ -186,18 +200,12 @@ struct VoiceTopicView: View {
             .animation(nil, value: w)
     }
 
-    /// Play or pause, and a bar with a notch at each beat; drag along it to jump.
+    /// Laid out like X's video player: a full-width bar with a notch at each beat (drag along it to jump), and under it
+    /// play or pause with the time left, then speed and mute on the right.
     private func controls(_ t: Double) -> some View {
         let playing = player?.playing ?? false
         let total = max(narration.duration, 1)
-        return HStack(spacing: 14) {
-            Button { togglePlay() } label: {
-                Image(systemName: playing ? "pause.fill" : (player?.finished ?? false) ? "arrow.counterclockwise" : "play.fill")
-                    .font(.system(size: 16, weight: .semibold)).foregroundStyle(S.text)
-                    .frame(width: 40, height: 40)
-            }
-            .glass()
-            .accessibilityLabel(playing ? "Pause" : "Play")
+        return VStack(spacing: 6) {
             GeometryReader { geo in
                 let w = geo.size.width
                 ZStack(alignment: .leading) {
@@ -207,11 +215,39 @@ struct VoiceTopicView: View {
                         Circle().fill(S.text.opacity(0.7)).frame(width: 6, height: 6).offset(x: w * b / total - 3)
                     }
                 }
-                .frame(height: 40)
+                .frame(height: 24)
                 .contentShape(Rectangle())
                 .gesture(DragGesture(minimumDistance: 0).onChanged { v in player?.seek(Double(v.location.x / w) * total) })
             }
-            .frame(height: 40)
+            .frame(height: 24)
+            HStack(spacing: 18) {
+                Button { togglePlay() } label: {
+                    Image(systemName: playing ? "pause.fill" : (player?.finished ?? false) ? "arrow.counterclockwise" : "play.fill")
+                        .font(.system(size: 20, weight: .semibold)).frame(width: 32, height: 36)
+                }
+                .accessibilityLabel(playing ? "Pause" : "Play")
+                Text("-" + clock(max(0, total - t))).font(.system(size: 15, weight: .medium).monospacedDigit()).foregroundStyle(S.text2)
+                Spacer()
+                Button { player?.nextRate() } label: {
+                    Text(rateLabel).font(.system(size: 17, weight: .semibold)).frame(minWidth: 36, minHeight: 36)
+                }
+                .accessibilityLabel("Speed \(rateLabel)")
+                Button { player?.muted.toggle() } label: {
+                    Image(systemName: (player?.muted ?? false) ? "speaker.slash" : "speaker.wave.2")
+                        .font(.system(size: 18, weight: .medium)).frame(width: 36, height: 36)
+                }
+                .accessibilityLabel((player?.muted ?? false) ? "Unmute" : "Mute")
+            }
+            .buttonStyle(.plain).foregroundStyle(S.text)
         }
     }
+
+    private var rateLabel: String {
+        let r = player?.rate ?? 1
+        return (r == r.rounded() ? String(Int(r)) : String(r)) + "x"
+    }
+
+    /// "1:05" from seconds.
+    private func clock(_ s: Double) -> String { let n = Int(s.rounded(.up)); return "\(n / 60):" + String(format: "%02d", n % 60) }
+
 }
