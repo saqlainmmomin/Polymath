@@ -13,7 +13,7 @@ struct TopicView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            Color.clear.frame(height: 42)   // under the avatar, which stays put while topics move
+            Color.clear.frame(height: 50)   // with the headline's 4pt, 54pt under the avatar, which stays put while topics move
             // Cards side by side, slid by hand rather than a horizontal ScrollView, whose pan only caught swipes that started on text.
             GeometryReader { geo in
                 HStack(spacing: 0) {
@@ -67,21 +67,14 @@ struct TopicView: View {
         }
     }
 
+    /// Solid white dots: the current card is a long pill, the rest small at half opacity. They follow the finger, so the pill
+    /// stretches toward the next card as the page slides and springs back with it.
     private var dots: some View {
-        let cur = card
-        return ZStack {
-            HStack(spacing: 6) {
-                ForEach(0..<topic.cards.count, id: \.self) { i in
-                    if i == cur {
-                        Capsule().fill(.white).frame(width: 22, height: 6).shadow(color: .black.opacity(0.18), radius: 1.5, y: 0.5)
-                    } else {
-                        Capsule().fill(.white.opacity(0.18)).frame(width: 6, height: 6).modifier(DotGlass())
-                    }
-                }
-            }
-            .animation(.easeOut(duration: 0.25), value: cur)
-            if cur == 0 && topic.cards.count > 1 {
-                HStack { Spacer(); NudgeSwipe() }.padding(.trailing, 21)
+        let at = min(max(Double(card) - drag / UIScreen.main.bounds.width, 0), Double(topic.cards.count - 1))
+        return HStack(spacing: 6) {
+            ForEach(0..<topic.cards.count, id: \.self) { i in
+                let k = max(0, 1 - abs(Double(i) - at))   // 1 on the current card, 0 a card or more away
+                Capsule().fill(.white.opacity(0.5 + 0.5 * k)).frame(width: 6 + 16 * k, height: 6)
             }
         }
         .frame(height: 30)
@@ -129,6 +122,24 @@ struct Avatar: View {
     }
 }
 
+/// The app icon's mark without its night-sky tile: three overlapping rings (blue, purple, green) and the orange dot where they meet.
+struct Logo: View {
+    var body: some View {
+        Canvas { c, size in
+            let u = min(size.width, size.height) / 760   // the mark spans about 760 of the icon's 1024 points, centred on (512, 516)
+            c.translateBy(x: size.width / 2, y: size.height / 2)
+            c.scaleBy(x: u, y: u)
+            c.translateBy(x: -512, y: -516)
+            for (x, y, hex) in [(512.0, 360.0, 0x82B8FF), (340.0, 662.0, 0xC9A0FF), (685.0, 662.0, 0x7DDFC3)] {
+                c.stroke(Path(ellipseIn: CGRect(x: x - 188, y: y - 188, width: 376, height: 376)), with: .color(Color(hex: UInt32(hex))), lineWidth: 26)
+            }
+            c.fill(Path(ellipseIn: CGRect(x: 467, y: 515, width: 90, height: 90)), with: .color(Color(hex: 0xFF5A3C)))
+            c.fill(Path(ellipseIn: CGRect(x: 494, y: 542, width: 36, height: 36)), with: .color(Color(hex: 0xFFE4D6)))
+        }
+        .accessibilityLabel("Polymath")
+    }
+}
+
 /// Apple's interactive Liquid Glass circle where the system has it (it lifts and shimmers under the finger); the hand-made glass otherwise.
 struct NativeGlass: ViewModifier {
     func body(content: Content) -> some View {
@@ -136,17 +147,6 @@ struct NativeGlass: ViewModifier {
             content.buttonStyle(.plain).glassEffect(.regular.interactive(), in: .circle)   // the effect, not .glass style, so the circle stays exactly its frame size
         } else {
             content.buttonStyle(.plain).glass()
-        }
-    }
-}
-
-/// A see-through page dot: clear Liquid Glass where the system has it, so the gradient shows through; frosted material before.
-private struct DotGlass: ViewModifier {
-    func body(content: Content) -> some View {
-        if #available(iOS 26, *) {
-            content.glassEffect(.clear, in: .capsule)
-        } else {
-            content.background(.ultraThinMaterial, in: Capsule()).overlay(Capsule().strokeBorder(.white.opacity(0.5), lineWidth: 0.5))
         }
     }
 }
@@ -165,16 +165,3 @@ private struct Glass: ViewModifier {
     }
 }
 extension View { func glass() -> some View { modifier(Glass()) } }
-
-/// "Swipe →" with the arrow nudging, shown on card 1 only.
-struct NudgeSwipe: View {
-    @State private var out = false
-    var body: some View {
-        HStack(spacing: 6) {
-            Text("Swipe")
-            Text("→").offset(x: out ? 5 : 0)
-        }
-        .font(S.rounded(13, .medium)).foregroundStyle(S.faint)
-        .onAppear { withAnimation(.easeInOut(duration: 0.7).repeatForever(autoreverses: true)) { out = true } }
-    }
-}

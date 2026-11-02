@@ -38,13 +38,15 @@ struct FeedView: View {
             .simultaneousGesture(swipe(height: h))
             .ignoresSafeArea()
         }
-        .overlay(alignment: .topTrailing) {
-            // Fixed to the screen, above every topic, so it doesn't slide away with a swipe.
+        .overlay(alignment: .top) {
+            // Fixed to the screen, above every topic, so they don't slide away with a swipe.
             HStack(spacing: 10) {
+                Logo().frame(width: 32, height: 32)
+                Spacer()
                 if store.topics.indices.contains(index), Narration.available(store.topics[index].id) { voiceToggle }
                 Avatar(name: profile.name) { showProfile = true }
             }
-            .padding(.trailing, 16).padding(.top, 2)
+            .padding(.horizontal, 16).padding(.top, 2)
         }
         .background(S.background(store.topics.indices.contains(index) ? store.shade(store.topics[index]) : 0).ignoresSafeArea())
         .preferredColorScheme(store.topics.indices.contains(index) && store.isPaper(store.topics[index]) ? .dark : nil)   // status bar and avatar match the blue
