@@ -1,0 +1,9 @@
+Why does a car engine need an electric {0.3}motor just to start? Press start, and a small {0.6}electric motor turns the engine for a moment. {1.7}Then the engine runs by {2.6}itself, for hours. So why can't it get going on its own?
+
+Inside, petrol and air burn in a metal tube called a {0.5}cylinder. {0.75}The hot gas {1.05}pushes a sliding plug, the piston, along the tube. A rod links the piston to a bent shaft, so each push turns the shaft, like your leg on a bike {1.1}pedal. But can the piston push every time it {3.2}moves?
+
+The piston makes four moves, and only one of them pushes. {0.3}First it pulls fuel and air in, then squeezes them tight, because packed tight they burn with a much bigger push. {0.6}Then a spark lights them, and the hot gas pushes the piston. {0.9}Last, it clears the used gas out of the engine. So what moves the piston for the other {3.4}three?
+
+The turning shaft has to drag the piston {0.3}along. But at the start, nothing is turning yet. So the electric {0.6}motor turns the shaft, {2.35}until a spark lights the first squeezed {2.9}load.
+
+After that, the engine carries {0.2}itself. A {0.5}heavy wheel on the shaft is hard to stop once it spins, so it keeps turning between pushes. And {1.8}several cylinders take turns to push, so the engine runs {2.4}smoothly. An engine can only push after it has pulled in and squeezed its fuel, so something else has to turn it {3.4}first.

@@ -14,10 +14,6 @@ struct Narration: Decodable {
     /// Per beat, [seconds into the beat, picture time] pairs, anchored to words when rendered. Empty: the picture plays at its own pace.
     var keys: [[[Double]]]? = nil
 
-    /// Launch argument that turns voice on from the start (the feed's own toggle, `voiceMode`, does the same for readers).
-    static var enabled: Bool { ProcessInfo.processInfo.arguments.contains("--voice") }
-    /// Whether this topic ships a narration, so the feed knows when to offer the voice toggle.
-    static func available(_ id: String) -> Bool { load(id) != nil }
     /// `--voice-variant bulbul` plays `voice-<id>-bulbul.*` instead, to compare voices; falls back to the default narration if missing.
     static var variant: String? {
         let a = ProcessInfo.processInfo.arguments

@@ -11,7 +11,6 @@ struct FeedView: View {
     @State private var axis: Axis?
     @State private var showIndex = Launch.showIndex
     @State private var showProfile = false
-    @AppStorage("voiceMode") private var voiceMode = false     // the reader's choice; only topics that ship a narration can use it
     @Environment(\.colorScheme) private var scheme
 
     var body: some View {
@@ -21,7 +20,7 @@ struct FeedView: View {
             ZStack {
                 ForEach(window, id: \.offset) { i, t in
                     Group {
-                        if voiceMode, let v = Narration.load(t.id) { VoiceTopicView(topic: t, narration: v.0, audio: v.1, isCurrent: i == index) }
+                        if let v = Narration.load(t.id) { VoiceTopicView(topic: t, narration: v.0, audio: v.1, isCurrent: i == index) }
                         else { TopicView(topic: t, isCurrent: i == index, jump: go(to:)) }
                     }
                         .environment(\.colorScheme, store.isPaper(t) ? .dark : scheme)   // blueprint paper is always blue, so its text is light
@@ -43,14 +42,12 @@ struct FeedView: View {
             HStack(spacing: 10) {
                 Logo().frame(width: 32, height: 32)
                 Spacer()
-                if store.topics.indices.contains(index), Narration.available(store.topics[index].id) { voiceToggle }
                 Avatar(name: profile.name) { showProfile = true }
             }
             .padding(.horizontal, 16).padding(.top, 2)
         }
         .background(S.background(store.topics.indices.contains(index) ? store.shade(store.topics[index]) : 0).ignoresSafeArea())
         .preferredColorScheme(store.topics.indices.contains(index) && store.isPaper(store.topics[index]) ? .dark : nil)   // status bar and avatar match the blue
-        .onAppear { if Narration.enabled { voiceMode = true } }   // `--voice` still starts the app in voice
         .sheet(isPresented: $showIndex) {
             IndexView { id in showIndex = false; go(to: id) }
                 .presentationDetents([.large])
@@ -59,21 +56,6 @@ struct FeedView: View {
             ProfileView { id in showProfile = false; go(to: id) }
                 .presentationDetents([.medium, .large])
         }
-    }
-
-    /// Switches every topic that has a narration between the narrated screen and the swipeable cards; shown only on those topics.
-    private var voiceToggle: some View {
-        let listening = voiceMode
-        return Button {
-            UIImpactFeedbackGenerator(style: .light).impactOccurred()
-            voiceMode.toggle()
-        } label: {
-            Image(systemName: listening ? "text.alignleft" : "speaker.wave.2.fill")
-                .font(.system(size: 16, weight: .semibold)).foregroundStyle(S.text)
-                .frame(width: 40, height: 40)
-        }
-        .modifier(NativeGlass())
-        .accessibilityLabel(listening ? "Switch to reading" : "Switch to listening")
     }
 
     /// The current topic and its neighbours: the only ones built, so a swipe always has a page to reveal.
