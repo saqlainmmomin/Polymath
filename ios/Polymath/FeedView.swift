@@ -1,14 +1,13 @@
 import SwiftUI
 
-/// The shorts feed: any upward swipe anywhere on the page goes to the next topic, downward to the previous one.
-/// Not a vertical ScrollView: its pan lost to the card pager and to pictures mid-animation. One drag watched alongside
-/// every child gesture decides instead: the page follows the finger once the drag is mostly vertical, and a short flick is enough.
+/// The shorts feed: a native paging scroll, as on Reels and Shorts, one topic per screen (owner, 2026-11-03: the hand-rolled
+/// drag stuttered, since every frame of a swipe rebuilt the pages). The old reason for avoiding a ScrollView, its pan losing
+/// to the Cards pager, is gone: the feed shows Narrated topics only, which have no sideways swipe.
 struct FeedView: View {
     @Environment(Store.self) private var store
     @Environment(Profile.self) private var profile
     @State private var index = 0
-    @State private var drag: CGFloat = 0
-    @State private var axis: Axis?
+    @State private var position: Int? = 0
     @State private var showIndex = Launch.showIndex
     @State private var showProfile = false
 
@@ -16,25 +15,29 @@ struct FeedView: View {
         // Each topic fills the whole screen and pads itself by the real safe-area insets, read here before they are ignored.
         GeometryReader { geo in
             let h = geo.size.height + geo.safeAreaInsets.top + geo.safeAreaInsets.bottom
-            ZStack {
-                ForEach(window, id: \.offset) { i, t in
-                    Group {
-                        if let v = Narration.load(t.id) { VoiceTopicView(topic: t, narration: v.0, audio: v.1, isCurrent: i == index) }
-                        else if Launch.preview { PicturePreview(topic: t, isCurrent: i == index) }
-                        else { TopicView(topic: t, isCurrent: i == index, jump: go(to:)) }
+            ScrollView(.vertical) {
+                LazyVStack(spacing: 0) {
+                    ForEach(Array(store.topics.enumerated()), id: \.element.id) { i, t in
+                        Group {
+                            if let v = Narration.load(t.id) { VoiceTopicView(topic: t, narration: v.0, audio: v.1, isCurrent: i == index) }
+                            else if Launch.preview { PicturePreview(topic: t, isCurrent: i == index) }
+                            else { TopicView(topic: t, isCurrent: i == index, jump: go(to:)) }
+                        }
+                            .environment(\.colorScheme, t.look.scheme)   // the topic's style decides light or dark, not the phone's setting
+                            .padding(.top, geo.safeAreaInsets.top)
+                            .padding(.bottom, geo.safeAreaInsets.bottom)
+                            .frame(width: geo.size.width, height: h)
+                            .background { t.look.backdrop }
+                            .id(i)
                     }
-                        .environment(\.colorScheme, t.look.scheme)   // the topic's style decides light or dark, not the phone's setting
-                        .padding(.top, geo.safeAreaInsets.top)
-                        .padding(.bottom, geo.safeAreaInsets.bottom)
-                        .frame(width: geo.size.width, height: h)
-                        .background { t.look.backdrop }
-                        .offset(y: CGFloat(i - index) * h + drag)
                 }
+                .scrollTargetLayout()
             }
-            .frame(width: geo.size.width, height: h, alignment: .top)   // not clipped: clipping blanked each page for a couple of frames as a swipe began and ended; neighbours sit off screen anyway
-            .contentShape(Rectangle())
-            .simultaneousGesture(swipe(height: h))
+            .scrollTargetBehavior(.paging)
+            .scrollPosition(id: $position)
+            .scrollIndicators(.hidden)
             .ignoresSafeArea()
+            .onChange(of: position) { _, p in if let p { index = p } }
         }
         .overlay(alignment: .top) {
             // Fixed to the screen, above every topic, so they don't slide away with a swipe.
@@ -57,37 +60,9 @@ struct FeedView: View {
         }
     }
 
-    /// The current topic and its neighbours: the only ones built, so a swipe always has a page to reveal.
-    private var window: [(offset: Int, element: Topic)] {
-        let all = Array(store.topics.enumerated())
-        return Array(all[max(0, index - 1)...min(all.count - 1, index + 1)])
-    }
-
-    private func swipe(height h: CGFloat) -> some Gesture {
-        DragGesture(minimumDistance: 10, coordinateSpace: .global)
-            .onChanged { v in
-                if axis == nil { axis = abs(v.translation.height) > abs(v.translation.width) ? .vertical : .horizontal }
-                guard axis == .vertical else { return }
-                let atEnd = (v.translation.height < 0 && index == store.topics.count - 1) || (v.translation.height > 0 && index == 0)
-                drag = v.translation.height * (atEnd ? 0.25 : 1)   // rubber band past the first and last topic
-            }
-            .onEnded { v in
-                defer { axis = nil }
-                guard axis == .vertical else { return }
-                let dy = v.translation.height, fling = v.predictedEndTranslation.height
-                var next = index
-                if dy < -40 || fling < -h * 0.25 { next = min(index + 1, store.topics.count - 1) }
-                else if dy > 40 || fling > h * 0.25 { next = max(index - 1, 0) }
-                // Keep the page where the finger left it, then spring to the new slot.
-                drag += CGFloat(next - index) * h
-                index = next
-                withAnimation(.spring(response: 0.38, dampingFraction: 0.9)) { drag = 0 }
-            }
-    }
-
     private func go(to id: String) {
         guard let i = store.topics.firstIndex(where: { $0.id == id }) else { return }
-        withAnimation(.easeInOut(duration: 0.35)) { index = i }
+        withAnimation(.easeInOut(duration: 0.35)) { position = i }
     }
 }
 
