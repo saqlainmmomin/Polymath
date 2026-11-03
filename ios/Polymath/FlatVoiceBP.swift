@@ -9,7 +9,8 @@ import SwiftUI
 // MARK: - Shared helpers
 
 /// Loop time plus whether the picture is held (Reduce Motion: the stage clock stands still behind `t`, so show the end state).
-private func voCycle(_ t: Double, _ clock: Double, story: Double, extra: Double = 1.5) -> (Double, Bool) {
+private func voCycle(_ t: Double, _ clock: Double, story: Double, extra: Double = 1.5, narrated: Bool = false) -> (Double, Bool) {
+    if narrated { return (t, false) }      // the voice sets the picture time through its cues, so the picture never loops on its own
     if clock < t { return (story, true) }
     return (clock.truncatingRemainder(dividingBy: story + extra), false)
 }
@@ -279,6 +280,7 @@ private func voAirLine(_ c: inout GraphicsContext, _ a: CGPoint, _ b: CGPoint, p
 // MARK: - Card 1: you talk, then hear the recording
 
 struct VoiceBPTalk: View {
+    @Environment(\.pictureClock) private var narrated
     let active: Bool
     private static let story = 4.8
 
@@ -286,7 +288,7 @@ struct VoiceBPTalk: View {
         BlueprintStage(active: active, length: Self.story, tick: 3.2,
                        label: "A person in profile is talking. A speech bubble from their mouth, in gold, holds a full, thick sound wave: the voice you hear when you talk. Then a phone with a play button stands beside them and a second speech bubble comes out of it, holding a thinner, smaller sound wave: the recording. The phone and the recording are peach, and the person's ear is marked in green. The person's mouth turns into a frown as they listen. Labels say: the voice you hear when you talk; the recording.",
                        draw: { c, t, pal, clock in
-                           let (u, still) = voCycle(t, clock, story: Self.story)
+                           let (u, still) = voCycle(t, clock, story: Self.story, narrated: narrated != nil)
                            voGroup(&c, alpha: still ? 1 : voFade(u, Self.story)) { g in Self.draw(&g, u, pal, clock, still) }
                        })
     }
@@ -355,6 +357,7 @@ struct VoiceBPTalk: View {
 // MARK: - Card 2: two routes to your own ear
 
 struct VoiceBPRoutes: View {
+    @Environment(\.pictureClock) private var narrated
     let active: Bool
     private static let story = 6.6
 
@@ -362,7 +365,7 @@ struct VoiceBPRoutes: View {
         BlueprintStage(active: active, length: Self.story, tick: 2.8,
                        label: "A head in profile on the left, cut away and hatched like bone and flesh, with an ear. Sound leaves the mouth along two routes to the ear. One route, in pale dashes, curves out through the air round the face. The other, in gold, runs inside the head from the mouth to the ear. Then a friend's head faces the speaker from the right, and only a straight dashed route through the air reaches them. Labels say: air route; inside route, bone and flesh; your friend gets only the air route.",
                        draw: { c, t, pal, clock in
-                           let (u, still) = voCycle(t, clock, story: Self.story)
+                           let (u, still) = voCycle(t, clock, story: Self.story, narrated: narrated != nil)
                            voGroup(&c, alpha: still ? 1 : voFade(u, Self.story)) { g in Self.draw(&g, u, pal, clock, still) }
                        })
     }
@@ -397,6 +400,7 @@ struct VoiceBPRoutes: View {
 // MARK: - Card 3: low part and high part, then fingers in the ears
 
 struct VoiceBPBands: View {
+    @Environment(\.pictureClock) private var narrated
     let active: Bool
     private static let story = 8.0
 
@@ -404,7 +408,7 @@ struct VoiceBPBands: View {
         BlueprintStage(active: active, length: Self.story, tick: 5.0,
                        label: "A voice drawn as two bands of sound wave. A thick, long, slow wave is the low, deep part, and a thin, small, fast wave is the high part. Both travel along the air route, in a pale dashed box at the top, to a green ear on the right. Below, in a gold box, the inside route carries the thick low part clearly, in gold, but a hatched block stops almost all of the thin high part. The ear's picture of what it hears is a full pale wave. Then two fingers slide in to plug the ear: the air route is crossed out, the gold low part gets bigger and louder, and the wave grows boomy. Labels say: low, deep part; high part; inside route; fingers in ears, boomy.",
                        draw: { c, t, pal, clock in
-                           let (u, still) = voCycle(t, clock, story: Self.story)
+                           let (u, still) = voCycle(t, clock, story: Self.story, narrated: narrated != nil)
                            voGroup(&c, alpha: still ? 1 : voFade(u, Self.story)) { g in Self.draw(&g, u, pal, clock, still) }
                        })
     }
@@ -516,6 +520,7 @@ struct VoiceBPBands: View {
 // MARK: - Card 4: the microphone and your friend only get the air route
 
 struct VoiceBPMic: View {
+    @Environment(\.pictureClock) private var narrated
     let active: Bool
     private static let story = 6.2
 
@@ -523,7 +528,7 @@ struct VoiceBPMic: View {
         BlueprintStage(active: active, length: Self.story, tick: 3.0,
                        label: "A speaker's head in profile on the left, cut away and hatched. Sound leaves the mouth along pale dashed air routes to three listeners, whose ears are green. A microphone on a stand at the top right gets only the air route. A friend's head facing the speaker at the right gets only the air route. The speaker's own ear gets the air route and, in gold, the extra inside route through the head, which flashes. Labels say: microphone, air route only; your friend, air route only; you, air route and inside route.",
                        draw: { c, t, pal, clock in
-                           let (u, still) = voCycle(t, clock, story: Self.story)
+                           let (u, still) = voCycle(t, clock, story: Self.story, narrated: narrated != nil)
                            voGroup(&c, alpha: still ? 1 : voFade(u, Self.story)) { g in Self.draw(&g, u, pal, clock, still) }
                        })
     }
