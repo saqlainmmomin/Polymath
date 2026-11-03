@@ -13,7 +13,8 @@ private let bbSize = CGSize(width: 343, height: 340)
 
 /// Loop time: (seconds into the round, reduce). The round lasts `story` + 1.6 s: the story, 1 s of holding the end, then 0.6 s of reset.
 /// Reduce Motion (the stage's clock stands still behind `t`) shows the held end state.
-private func bbCycle(_ t: Double, _ clock: Double, story: Double) -> (Double, Bool) {
+private func bbCycle(_ t: Double, _ clock: Double, story: Double, narrated: Bool = false) -> (Double, Bool) {
+    if narrated { return (t, false) }      // the voice sets the picture time through its cues, so the picture never loops on its own
     if clock < t { return (story, true) }
     return (clock.truncatingRemainder(dividingBy: story + 1.6), false)
 }
@@ -69,13 +70,14 @@ private func bbPoly(_ pts: [CGPoint]) -> Path { var q = Path(); q.addLines(pts);
 // MARK: - Card 1: a room of 23, and a dial that guesses low then swings to about 50%
 
 struct BirthBPRoom: View {
+    @Environment(\.pictureClock) private var narrated
     let active: Bool
     private static let story = 2.7
 
     var body: some View {
         BlueprintStage(active: active, length: Self.story, tick: 2.3,
                        label: "A room of 23 small people in party hats, standing in two rows. Above them a dial reads chance. Its gold needle first sits low, the small guess, then swings up to about 50 percent and holds, then eases back and starts again. Labels say: 23 people, chance, about 50%.",
-                       draw: { c, t, pal, clock in let (u, r) = bbCycle(t, clock, story: Self.story); Self.draw(&c, t, pal, u, r) }, size: bbSize)
+                       draw: { c, t, pal, clock in let (u, r) = bbCycle(t, clock, story: Self.story, narrated: narrated != nil); Self.draw(&c, t, pal, u, r) }, size: bbSize)
     }
 
     private static let center = BP.pt(171, 150)
@@ -136,13 +138,14 @@ struct BirthBPRoom: View {
 // MARK: - Card 2: you in gold, and 22 strangers each dropping a birthday on a year calendar
 
 struct BirthBPYours: View {
+    @Environment(\.pictureClock) private var narrated
     let active: Bool
     private static let story = 3.3
 
     var body: some View {
         BlueprintStage(active: active, length: Self.story, tick: 3.05,
                        label: "You, in gold, wearing a party hat, next to a calendar grid of the year with your birthday marked in gold. Below, a row of 22 strangers in party hats each drops a birthday onto the calendar, one after another, and none lands on your day. Labels say: you, 22 strangers, less than 6%.",
-                       draw: { c, t, pal, clock in let (u, r) = bbCycle(t, clock, story: Self.story); Self.draw(&c, t, pal, u, r) }, size: bbSize)
+                       draw: { c, t, pal, clock in let (u, r) = bbCycle(t, clock, story: Self.story, narrated: narrated != nil); Self.draw(&c, t, pal, u, r) }, size: bbSize)
     }
 
     private static let gx = 140.0, gy = 44.0, cell = 7.0, cols = 19
@@ -234,13 +237,14 @@ struct BirthBPYours: View {
 // MARK: - Card 3: 23 people in a ring and every handshake between them
 
 struct BirthBPPairs: View {
+    @Environment(\.pictureClock) private var narrated
     let active: Bool
     private static let story = 3.7
 
     var body: some View {
         BlueprintStage(active: active, length: Self.story, tick: 3.5,
                        label: "23 small people in party hats stand in a ring. Handshake lines draw between them one at a time: first the 22 that include you, in gold, then all the others in peach, while a counter in the middle climbs to 253 handshakes. Labels say: 23 people, handshakes, 22 include you.",
-                       draw: { c, t, pal, clock in let (u, r) = bbCycle(t, clock, story: Self.story); Self.draw(&c, t, pal, u, r) }, size: bbSize)
+                       draw: { c, t, pal, clock in let (u, r) = bbCycle(t, clock, story: Self.story, narrated: narrated != nil); Self.draw(&c, t, pal, u, r) }, size: bbSize)
     }
 
     private static let centre = BP.pt(171, 158)
@@ -306,13 +310,14 @@ struct BirthBPPairs: View {
 // MARK: - Card 4: room after room of 23 dealt onto calendars; rooms with a match get a gold tick
 
 struct BirthBPRooms: View {
+    @Environment(\.pictureClock) private var narrated
     let active: Bool
     private static let story = 3.7
 
     var body: some View {
         BlueprintStage(active: active, length: Self.story, tick: 3.4,
                        label: "Room after room of 23 people is dealt out as small pale calendar cards, 24 in a grid. Each room that has a match gets a gold tick, each room without one gets a chalk cross. A bar of gold ticks settles near half. Labels say: 253 pairs, about 50%.",
-                       draw: { c, t, pal, clock in let (u, r) = bbCycle(t, clock, story: Self.story); Self.draw(&c, t, pal, u, r) }, size: bbSize)
+                       draw: { c, t, pal, clock in let (u, r) = bbCycle(t, clock, story: Self.story, narrated: narrated != nil); Self.draw(&c, t, pal, u, r) }, size: bbSize)
     }
 
     private static let gx = 42.0, gy = 54.0
@@ -406,13 +411,14 @@ struct BirthBPRooms: View {
 // MARK: - Card 5: people walk in one by one; people, pairs and chance climb together
 
 struct BirthBPCurve: View {
+    @Environment(\.pictureClock) private var narrated
     let active: Bool
     private static let story = 3.6
 
     var body: some View {
         BlueprintStage(active: active, length: Self.story, tick: 3.3,
                        label: "People walk one by one into a room until 57 have arrived, and each new person makes a few new lines to those already there. Three counters climb together: people, pairs, and chance, shown as a gold bar. At the end they read 57 people, 1,596 pairs, over 99%.",
-                       draw: { c, t, pal, clock in let (u, r) = bbCycle(t, clock, story: Self.story); Self.draw(&c, t, pal, u, r) }, size: bbSize)
+                       draw: { c, t, pal, clock in let (u, r) = bbCycle(t, clock, story: Self.story, narrated: narrated != nil); Self.draw(&c, t, pal, u, r) }, size: bbSize)
     }
 
     private static func slot(_ k: Int) -> CGPoint { BP.pt(56 + Double(k % 12) * 22, 82 + Double(k / 12) * 29) }

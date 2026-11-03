@@ -1,0 +1,1136 @@
+{
+ "voice": "af_heart",
+ "duration": 75.0,
+ "beats": [
+  0.0,
+  16.32,
+  30.88,
+  47.15,
+  59.6
+ ],
+ "words": [
+  {
+   "text": "In",
+   "start": 0.3,
+   "end": 0.4
+  },
+  {
+   "text": "a",
+   "start": 0.4,
+   "end": 0.51
+  },
+  {
+   "text": "room",
+   "start": 0.51,
+   "end": 0.81
+  },
+  {
+   "text": "of",
+   "start": 0.81,
+   "end": 0.93
+  },
+  {
+   "text": "23",
+   "start": 0.93,
+   "end": 1.48
+  },
+  {
+   "text": "people,",
+   "start": 1.48,
+   "end": 2.17
+  },
+  {
+   "text": "what's",
+   "start": 2.17,
+   "end": 2.42
+  },
+  {
+   "text": "the",
+   "start": 2.42,
+   "end": 2.54
+  },
+  {
+   "text": "chance",
+   "start": 2.54,
+   "end": 2.91
+  },
+  {
+   "text": "two",
+   "start": 2.91,
+   "end": 3.12
+  },
+  {
+   "text": "of",
+   "start": 3.12,
+   "end": 3.24
+  },
+  {
+   "text": "them",
+   "start": 3.24,
+   "end": 3.44
+  },
+  {
+   "text": "share",
+   "start": 3.44,
+   "end": 3.69
+  },
+  {
+   "text": "a",
+   "start": 3.69,
+   "end": 3.75
+  },
+  {
+   "text": "birthday?",
+   "start": 3.75,
+   "end": 4.72
+  },
+  {
+   "text": "Most",
+   "start": 4.72,
+   "end": 5.0
+  },
+  {
+   "text": "people",
+   "start": 5.0,
+   "end": 5.33
+  },
+  {
+   "text": "guess",
+   "start": 5.33,
+   "end": 5.56
+  },
+  {
+   "text": "small,",
+   "start": 5.56,
+   "end": 6.1
+  },
+  {
+   "text": "but",
+   "start": 6.1,
+   "end": 6.24
+  },
+  {
+   "text": "it's",
+   "start": 6.24,
+   "end": 6.34
+  },
+  {
+   "text": "about",
+   "start": 6.34,
+   "end": 6.66
+  },
+  {
+   "text": "50%.",
+   "start": 6.66,
+   "end": 7.99
+  },
+  {
+   "text": "A",
+   "start": 7.99,
+   "end": 8.11
+  },
+  {
+   "text": "true",
+   "start": 8.11,
+   "end": 8.41
+  },
+  {
+   "text": "fact",
+   "start": 8.41,
+   "end": 8.75
+  },
+  {
+   "text": "that",
+   "start": 8.75,
+   "end": 8.96
+  },
+  {
+   "text": "sounds",
+   "start": 8.96,
+   "end": 9.34
+  },
+  {
+   "text": "wrong",
+   "start": 9.34,
+   "end": 9.72
+  },
+  {
+   "text": "is",
+   "start": 9.72,
+   "end": 9.88
+  },
+  {
+   "text": "called",
+   "start": 9.88,
+   "end": 10.14
+  },
+  {
+   "text": "a",
+   "start": 10.14,
+   "end": 10.2
+  },
+  {
+   "text": "paradox,",
+   "start": 10.2,
+   "end": 11.15
+  },
+  {
+   "text": "and",
+   "start": 11.15,
+   "end": 11.28
+  },
+  {
+   "text": "this",
+   "start": 11.28,
+   "end": 11.5
+  },
+  {
+   "text": "one",
+   "start": 11.5,
+   "end": 11.76
+  },
+  {
+   "text": "is",
+   "start": 11.76,
+   "end": 11.93
+  },
+  {
+   "text": "the",
+   "start": 11.93,
+   "end": 12.06
+  },
+  {
+   "text": "birthday",
+   "start": 12.06,
+   "end": 12.57
+  },
+  {
+   "text": "paradox.",
+   "start": 12.57,
+   "end": 13.69
+  },
+  {
+   "text": "So",
+   "start": 13.69,
+   "end": 13.89
+  },
+  {
+   "text": "why",
+   "start": 13.89,
+   "end": 14.09
+  },
+  {
+   "text": "does",
+   "start": 14.09,
+   "end": 14.21
+  },
+  {
+   "text": "it",
+   "start": 14.21,
+   "end": 14.35
+  },
+  {
+   "text": "sound",
+   "start": 14.35,
+   "end": 14.68
+  },
+  {
+   "text": "so",
+   "start": 14.68,
+   "end": 14.85
+  },
+  {
+   "text": "wrong?",
+   "start": 14.85,
+   "end": 15.62
+  },
+  {
+   "text": "It",
+   "start": 16.57,
+   "end": 16.72
+  },
+  {
+   "text": "feels",
+   "start": 16.72,
+   "end": 17.06
+  },
+  {
+   "text": "wrong",
+   "start": 17.06,
+   "end": 17.57
+  },
+  {
+   "text": "because",
+   "start": 17.57,
+   "end": 17.85
+  },
+  {
+   "text": "we",
+   "start": 17.85,
+   "end": 18.01
+  },
+  {
+   "text": "think",
+   "start": 18.01,
+   "end": 18.21
+  },
+  {
+   "text": "about",
+   "start": 18.21,
+   "end": 18.49
+  },
+  {
+   "text": "our",
+   "start": 18.49,
+   "end": 18.66
+  },
+  {
+   "text": "own",
+   "start": 18.66,
+   "end": 18.93
+  },
+  {
+   "text": "birthday.",
+   "start": 18.93,
+   "end": 20.0
+  },
+  {
+   "text": "Walk",
+   "start": 20.0,
+   "end": 20.31
+  },
+  {
+   "text": "into",
+   "start": 20.31,
+   "end": 20.57
+  },
+  {
+   "text": "a",
+   "start": 20.57,
+   "end": 20.69
+  },
+  {
+   "text": "room",
+   "start": 20.69,
+   "end": 21.05
+  },
+  {
+   "text": "of",
+   "start": 21.05,
+   "end": 21.19
+  },
+  {
+   "text": "22",
+   "start": 21.19,
+   "end": 21.75
+  },
+  {
+   "text": "strangers,",
+   "start": 21.75,
+   "end": 22.75
+  },
+  {
+   "text": "and",
+   "start": 22.75,
+   "end": 22.86
+  },
+  {
+   "text": "the",
+   "start": 22.86,
+   "end": 22.96
+  },
+  {
+   "text": "chance",
+   "start": 22.96,
+   "end": 23.35
+  },
+  {
+   "text": "that",
+   "start": 23.35,
+   "end": 23.56
+  },
+  {
+   "text": "someone",
+   "start": 23.56,
+   "end": 23.98
+  },
+  {
+   "text": "shares",
+   "start": 23.98,
+   "end": 24.29
+  },
+  {
+   "text": "your",
+   "start": 24.29,
+   "end": 24.4
+  },
+  {
+   "text": "birthday",
+   "start": 24.4,
+   "end": 24.99
+  },
+  {
+   "text": "is",
+   "start": 24.99,
+   "end": 25.16
+  },
+  {
+   "text": "less",
+   "start": 25.16,
+   "end": 25.5
+  },
+  {
+   "text": "than",
+   "start": 25.5,
+   "end": 25.7
+  },
+  {
+   "text": "6%.",
+   "start": 25.7,
+   "end": 27.02
+  },
+  {
+   "text": "So",
+   "start": 27.02,
+   "end": 27.23
+  },
+  {
+   "text": "where",
+   "start": 27.23,
+   "end": 27.41
+  },
+  {
+   "text": "does",
+   "start": 27.41,
+   "end": 27.56
+  },
+  {
+   "text": "the",
+   "start": 27.56,
+   "end": 27.65
+  },
+  {
+   "text": "other",
+   "start": 27.65,
+   "end": 27.95
+  },
+  {
+   "text": "half",
+   "start": 27.95,
+   "end": 28.21
+  },
+  {
+   "text": "of",
+   "start": 28.21,
+   "end": 28.3
+  },
+  {
+   "text": "that",
+   "start": 28.3,
+   "end": 28.56
+  },
+  {
+   "text": "50%",
+   "start": 28.56,
+   "end": 29.25
+  },
+  {
+   "text": "come",
+   "start": 29.25,
+   "end": 29.48
+  },
+  {
+   "text": "from?",
+   "start": 29.48,
+   "end": 30.17
+  },
+  {
+   "text": "The",
+   "start": 31.12,
+   "end": 31.23
+  },
+  {
+   "text": "match",
+   "start": 31.23,
+   "end": 31.6
+  },
+  {
+   "text": "doesn't",
+   "start": 31.6,
+   "end": 31.88
+  },
+  {
+   "text": "have",
+   "start": 31.88,
+   "end": 32.1
+  },
+  {
+   "text": "to",
+   "start": 32.1,
+   "end": 32.25
+  },
+  {
+   "text": "include",
+   "start": 32.25,
+   "end": 32.67
+  },
+  {
+   "text": "you.",
+   "start": 32.67,
+   "end": 33.35
+  },
+  {
+   "text": "If",
+   "start": 33.35,
+   "end": 33.52
+  },
+  {
+   "text": "all",
+   "start": 33.52,
+   "end": 33.76
+  },
+  {
+   "text": "23",
+   "start": 33.76,
+   "end": 34.38
+  },
+  {
+   "text": "of",
+   "start": 34.38,
+   "end": 34.46
+  },
+  {
+   "text": "you",
+   "start": 34.46,
+   "end": 34.59
+  },
+  {
+   "text": "shook",
+   "start": 34.59,
+   "end": 34.83
+  },
+  {
+   "text": "hands",
+   "start": 34.83,
+   "end": 35.15
+  },
+  {
+   "text": "once",
+   "start": 35.15,
+   "end": 35.41
+  },
+  {
+   "text": "with",
+   "start": 35.41,
+   "end": 35.54
+  },
+  {
+   "text": "each",
+   "start": 35.54,
+   "end": 35.71
+  },
+  {
+   "text": "other,",
+   "start": 35.71,
+   "end": 36.33
+  },
+  {
+   "text": "there'd",
+   "start": 36.33,
+   "end": 36.54
+  },
+  {
+   "text": "be",
+   "start": 36.54,
+   "end": 36.7
+  },
+  {
+   "text": "253",
+   "start": 36.7,
+   "end": 37.83
+  },
+  {
+   "text": "handshakes.",
+   "start": 37.83,
+   "end": 39.09
+  },
+  {
+   "text": "Each",
+   "start": 39.09,
+   "end": 39.35
+  },
+  {
+   "text": "handshake",
+   "start": 39.35,
+   "end": 39.9
+  },
+  {
+   "text": "is",
+   "start": 39.9,
+   "end": 40.01
+  },
+  {
+   "text": "a",
+   "start": 40.01,
+   "end": 40.11
+  },
+  {
+   "text": "pair",
+   "start": 40.11,
+   "end": 40.45
+  },
+  {
+   "text": "who",
+   "start": 40.45,
+   "end": 40.58
+  },
+  {
+   "text": "could",
+   "start": 40.58,
+   "end": 40.76
+  },
+  {
+   "text": "share",
+   "start": 40.76,
+   "end": 41.01
+  },
+  {
+   "text": "a",
+   "start": 41.01,
+   "end": 41.08
+  },
+  {
+   "text": "birthday,",
+   "start": 41.08,
+   "end": 41.9
+  },
+  {
+   "text": "and",
+   "start": 41.9,
+   "end": 42.01
+  },
+  {
+   "text": "only",
+   "start": 42.01,
+   "end": 42.26
+  },
+  {
+   "text": "22",
+   "start": 42.26,
+   "end": 42.83
+  },
+  {
+   "text": "of",
+   "start": 42.83,
+   "end": 42.91
+  },
+  {
+   "text": "them",
+   "start": 42.91,
+   "end": 43.12
+  },
+  {
+   "text": "include",
+   "start": 43.12,
+   "end": 43.55
+  },
+  {
+   "text": "you.",
+   "start": 43.55,
+   "end": 44.16
+  },
+  {
+   "text": "So",
+   "start": 44.16,
+   "end": 44.35
+  },
+  {
+   "text": "what",
+   "start": 44.35,
+   "end": 44.49
+  },
+  {
+   "text": "do",
+   "start": 44.49,
+   "end": 44.59
+  },
+  {
+   "text": "all",
+   "start": 44.59,
+   "end": 44.75
+  },
+  {
+   "text": "those",
+   "start": 44.75,
+   "end": 44.98
+  },
+  {
+   "text": "pairs",
+   "start": 44.98,
+   "end": 45.34
+  },
+  {
+   "text": "add",
+   "start": 45.34,
+   "end": 45.54
+  },
+  {
+   "text": "up",
+   "start": 45.54,
+   "end": 45.74
+  },
+  {
+   "text": "to?",
+   "start": 45.74,
+   "end": 46.45
+  },
+  {
+   "text": "Any",
+   "start": 47.42,
+   "end": 47.61
+  },
+  {
+   "text": "one",
+   "start": 47.61,
+   "end": 47.8
+  },
+  {
+   "text": "pair",
+   "start": 47.8,
+   "end": 48.09
+  },
+  {
+   "text": "almost",
+   "start": 48.09,
+   "end": 48.59
+  },
+  {
+   "text": "never",
+   "start": 48.59,
+   "end": 48.88
+  },
+  {
+   "text": "matches.",
+   "start": 48.88,
+   "end": 49.9
+  },
+  {
+   "text": "But",
+   "start": 49.9,
+   "end": 50.07
+  },
+  {
+   "text": "more",
+   "start": 50.07,
+   "end": 50.31
+  },
+  {
+   "text": "pairs",
+   "start": 50.31,
+   "end": 50.73
+  },
+  {
+   "text": "means",
+   "start": 50.73,
+   "end": 50.98
+  },
+  {
+   "text": "a",
+   "start": 50.98,
+   "end": 51.09
+  },
+  {
+   "text": "higher",
+   "start": 51.09,
+   "end": 51.49
+  },
+  {
+   "text": "chance",
+   "start": 51.49,
+   "end": 51.81
+  },
+  {
+   "text": "of",
+   "start": 51.81,
+   "end": 51.89
+  },
+  {
+   "text": "a",
+   "start": 51.89,
+   "end": 51.95
+  },
+  {
+   "text": "match,",
+   "start": 51.95,
+   "end": 52.67
+  },
+  {
+   "text": "and",
+   "start": 52.67,
+   "end": 52.81
+  },
+  {
+   "text": "253",
+   "start": 52.81,
+   "end": 53.84
+  },
+  {
+   "text": "pairs",
+   "start": 53.84,
+   "end": 54.31
+  },
+  {
+   "text": "push",
+   "start": 54.31,
+   "end": 54.6
+  },
+  {
+   "text": "it",
+   "start": 54.6,
+   "end": 54.73
+  },
+  {
+   "text": "to",
+   "start": 54.73,
+   "end": 54.88
+  },
+  {
+   "text": "about",
+   "start": 54.88,
+   "end": 55.21
+  },
+  {
+   "text": "50%.",
+   "start": 55.21,
+   "end": 56.5
+  },
+  {
+   "text": "So",
+   "start": 56.5,
+   "end": 56.72
+  },
+  {
+   "text": "what",
+   "start": 56.72,
+   "end": 56.88
+  },
+  {
+   "text": "happens",
+   "start": 56.88,
+   "end": 57.34
+  },
+  {
+   "text": "when",
+   "start": 57.34,
+   "end": 57.46
+  },
+  {
+   "text": "the",
+   "start": 57.46,
+   "end": 57.56
+  },
+  {
+   "text": "room",
+   "start": 57.56,
+   "end": 57.85
+  },
+  {
+   "text": "gets",
+   "start": 57.85,
+   "end": 58.1
+  },
+  {
+   "text": "bigger?",
+   "start": 58.1,
+   "end": 58.9
+  },
+  {
+   "text": "Each",
+   "start": 59.9,
+   "end": 60.19
+  },
+  {
+   "text": "new",
+   "start": 60.19,
+   "end": 60.38
+  },
+  {
+   "text": "person",
+   "start": 60.38,
+   "end": 60.83
+  },
+  {
+   "text": "makes",
+   "start": 60.83,
+   "end": 61.06
+  },
+  {
+   "text": "a",
+   "start": 61.06,
+   "end": 61.16
+  },
+  {
+   "text": "new",
+   "start": 61.16,
+   "end": 61.36
+  },
+  {
+   "text": "pair",
+   "start": 61.36,
+   "end": 61.68
+  },
+  {
+   "text": "with",
+   "start": 61.68,
+   "end": 61.85
+  },
+  {
+   "text": "everyone",
+   "start": 61.85,
+   "end": 62.33
+  },
+  {
+   "text": "already",
+   "start": 62.33,
+   "end": 62.76
+  },
+  {
+   "text": "in",
+   "start": 62.76,
+   "end": 62.84
+  },
+  {
+   "text": "the",
+   "start": 62.84,
+   "end": 62.93
+  },
+  {
+   "text": "room,",
+   "start": 62.93,
+   "end": 63.58
+  },
+  {
+   "text": "so",
+   "start": 63.58,
+   "end": 63.76
+  },
+  {
+   "text": "pairs",
+   "start": 63.76,
+   "end": 64.24
+  },
+  {
+   "text": "pile",
+   "start": 64.24,
+   "end": 64.56
+  },
+  {
+   "text": "up",
+   "start": 64.56,
+   "end": 64.75
+  },
+  {
+   "text": "fast.",
+   "start": 64.75,
+   "end": 65.69
+  },
+  {
+   "text": "By",
+   "start": 65.69,
+   "end": 65.89
+  },
+  {
+   "text": "57",
+   "start": 65.89,
+   "end": 66.53
+  },
+  {
+   "text": "people",
+   "start": 66.53,
+   "end": 66.9
+  },
+  {
+   "text": "there",
+   "start": 66.9,
+   "end": 67.05
+  },
+  {
+   "text": "are",
+   "start": 67.05,
+   "end": 67.2
+  },
+  {
+   "text": "1,596",
+   "start": 67.2,
+   "end": 68.85
+  },
+  {
+   "text": "pairs,",
+   "start": 68.85,
+   "end": 69.67
+  },
+  {
+   "text": "and",
+   "start": 69.67,
+   "end": 69.79
+  },
+  {
+   "text": "the",
+   "start": 69.79,
+   "end": 69.89
+  },
+  {
+   "text": "chance",
+   "start": 69.89,
+   "end": 70.21
+  },
+  {
+   "text": "of",
+   "start": 70.21,
+   "end": 70.29
+  },
+  {
+   "text": "a",
+   "start": 70.29,
+   "end": 70.35
+  },
+  {
+   "text": "match",
+   "start": 70.35,
+   "end": 70.75
+  },
+  {
+   "text": "is",
+   "start": 70.75,
+   "end": 70.88
+  },
+  {
+   "text": "over",
+   "start": 70.88,
+   "end": 71.19
+  },
+  {
+   "text": "99%.",
+   "start": 71.19,
+   "end": 72.81
+  },
+  {
+   "text": "Count",
+   "start": 72.81,
+   "end": 73.11
+  },
+  {
+   "text": "the",
+   "start": 73.11,
+   "end": 73.2
+  },
+  {
+   "text": "pairs,",
+   "start": 73.2,
+   "end": 73.78
+  },
+  {
+   "text": "not",
+   "start": 73.78,
+   "end": 73.99
+  },
+  {
+   "text": "the",
+   "start": 73.99,
+   "end": 74.08
+  },
+  {
+   "text": "people.",
+   "start": 74.08,
+   "end": 74.9
+  }
+ ],
+ "keys": [
+  [
+   [
+    2.54,
+    0.5
+   ],
+   [
+    5.0,
+    0.6
+   ],
+   [
+    6.34,
+    2.1
+   ],
+   [
+    15.62,
+    2.7
+   ]
+  ],
+  [
+   [
+    2.34,
+    0.45
+   ],
+   [
+    5.43,
+    0.85
+   ],
+   [
+    8.84,
+    2.75
+   ],
+   [
+    13.85,
+    3.3
+   ]
+  ],
+  [
+   [
+    2.89,
+    0.45
+   ],
+   [
+    6.95,
+    0.75
+   ],
+   [
+    11.39,
+    1.05
+   ],
+   [
+    15.58,
+    3.7
+   ]
+  ],
+  [
+   [
+    0.65,
+    0.5
+   ],
+   [
+    7.73,
+    3.4
+   ],
+   [
+    11.75,
+    3.7
+   ]
+  ],
+  [
+   [
+    0.77,
+    0.45
+   ],
+   [
+    1.76,
+    0.55
+   ],
+   [
+    10.29,
+    0.65
+   ],
+   [
+    15.3,
+    3.6
+   ]
+  ]
+ ]
+}
