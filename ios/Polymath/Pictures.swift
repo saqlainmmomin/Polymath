@@ -72,11 +72,11 @@ enum Pictures {
         }
         if topic.id == "birthday" {
             switch index {
-            case 0: return AnyView(BirthBPRoom(active: active))
-            case 1: return AnyView(BirthBPYours(active: active))
-            case 2: return AnyView(BirthBPPairs(active: active))
-            case 3: return AnyView(BirthBPRooms(active: active))
-            case 4: return AnyView(BirthBPCurve(active: active))
+            case 0: return topic.look == .drafting ? AnyView(BirthDRRoom(active: active)) : AnyView(BirthBPRoom(active: active))
+            case 1: return topic.look == .drafting ? AnyView(BirthDRYours(active: active)) : AnyView(BirthBPYours(active: active))
+            case 2: return topic.look == .drafting ? AnyView(BirthDRPairs(active: active)) : AnyView(BirthBPPairs(active: active))
+            case 3: return topic.look == .drafting ? AnyView(BirthDRRooms(active: active)) : AnyView(BirthBPRooms(active: active))
+            case 4: return topic.look == .drafting ? AnyView(BirthDRCurve(active: active)) : AnyView(BirthBPCurve(active: active))
             default: return nil
             }
         }

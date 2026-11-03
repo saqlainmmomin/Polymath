@@ -873,3 +873,84 @@ extension DR {
     }
 }
 
+
+// MARK: - People
+
+// A standing person drawn front-on in clean line art (after a small line-figure prototype): round head with hair, neck, shirt or dress,
+// two arms, trousers and shoes, and a party hat. Drawn in a 56-unit-tall space and scaled, so `s` 0.5 is about 28 points tall.
+extension DR {
+    /// `feet` is the middle of the ground under the person; `variant` 0 trousers, 1 dress; `hat` puts on a party hat (its pom takes the
+    /// accent when `gold` is set, so one person can stand out). `fill` is the white and the hatching, `on` draws the outlines.
+    static func person(_ c: inout GraphicsContext, x: Double, feet: Double, s: Double = 0.5, variant: Int = 0, hat: Bool = true, gold: Bool = false,
+                       on: Double = 1, alpha: Double = 1) {
+        guard alpha > 0.01, on > 0.001 else { return }
+        var g = c
+        g.opacity = c.opacity * alpha
+        g.translateBy(x: x, y: feet); g.scaleBy(x: s, y: s)
+        let w = max(0.7, 0.95 * s) / s                                  // keep the outline about the same thickness at any size
+        let st = StrokeStyle(lineWidth: w, lineCap: .round, lineJoin: .round)
+        func p(_ x: Double, _ y: Double) -> CGPoint { CGPoint(x: x, y: y) }
+        func put(_ path: Path, fill: Color = .white) {
+            g.fill(path, with: .color(fill))
+            g.stroke(path, with: .color(DR.ink), style: st)
+        }
+        func arm(_ sx: Double) -> Path {
+            var a = Path()
+            a.move(to: p(sx * 8.2, -39)); a.addQuadCurve(to: p(sx * 11, -33), control: p(sx * 11.2, -38))
+            a.addLine(to: p(sx * 10.8, -24)); a.addQuadCurve(to: p(sx * 9.2, -22.4), control: p(sx * 10.8, -22.4))
+            a.addQuadCurve(to: p(sx * 7.6, -24), control: p(sx * 7.6, -22.4)); a.addLine(to: p(sx * 7.6, -34)); a.closeSubpath()
+            return a
+        }
+        put(arm(-1)); put(arm(1))
+        if variant == 0 {
+            for sx in [-1.0, 1.0] {
+                var l = Path()
+                l.move(to: p(sx * 6.2, -24)); l.addLine(to: p(sx * 6.4, -3)); l.addQuadCurve(to: p(sx * 8.6, -0.6), control: p(sx * 6.4, -1))
+                l.addLine(to: p(sx * 8.6, 0.8)); l.addLine(to: p(sx * 1, 0.8)); l.addLine(to: p(sx * 0.9, -24)); l.closeSubpath()
+                put(l)
+            }
+            var t = Path()
+            t.move(to: p(-3, -42)); t.addQuadCurve(to: p(-8.2, -37), control: p(-8.2, -41.4)); t.addLine(to: p(-7, -23)); t.addLine(to: p(7, -23)); t.addLine(to: p(8.2, -37))
+            t.addQuadCurve(to: p(3, -42), control: p(8.2, -41.4)); t.addQuadCurve(to: p(-3, -42), control: p(0, -39.6)); t.closeSubpath()
+            put(t)
+            var h = Path()
+            for (a, b) in [(-6.6, -4.2), (-4.0, -2.2), (-1.5, 0.0)] { h.move(to: p(a, -30 - 3 * (a + 6.6) / 5)); h.addLine(to: p(b, -23.4)) }
+            g.stroke(h, with: .color(DR.ink.opacity(0.4)), lineWidth: w * 0.6)
+        } else {
+            for sx in [-1.0, 1.0] {
+                var l = Path()
+                l.move(to: p(sx * 4.4, -24)); l.addLine(to: p(sx * 4.6, -3)); l.addLine(to: p(sx * 6.6, -0.6)); l.addLine(to: p(sx * 0.8, 0.8)); l.addLine(to: p(sx * 0.8, -24)); l.closeSubpath()
+                put(l)
+            }
+            var d = Path()
+            d.move(to: p(-3, -42)); d.addQuadCurve(to: p(-7.2, -37), control: p(-7.2, -41.4)); d.addLine(to: p(-6, -31)); d.addLine(to: p(-10, -17)); d.addLine(to: p(10, -17)); d.addLine(to: p(6, -31))
+            d.addLine(to: p(7.2, -37)); d.addQuadCurve(to: p(3, -42), control: p(7.2, -41.4)); d.addQuadCurve(to: p(-3, -42), control: p(0, -39.6)); d.closeSubpath()
+            put(d)
+            var h = Path()
+            for (a, b) in [(-7.0, -5.0), (-3.6, -2.4), (0.0, 0.0), (3.6, 2.4), (7.0, 5.0)] { h.move(to: p(a, -18)); h.addLine(to: p(b, -25 - abs(b))) }
+            g.stroke(h, with: .color(DR.ink.opacity(0.4)), lineWidth: w * 0.6)
+        }
+        var neck = Path()
+        neck.move(to: p(-1.7, -43.5)); neck.addLine(to: p(-1.7, -41)); neck.move(to: p(1.7, -43.5)); neck.addLine(to: p(1.7, -41))
+        g.stroke(neck, with: .color(DR.ink), style: st)
+        put(Path(ellipseIn: CGRect(x: -4.4, y: -53.1, width: 8.8, height: 10.2)))
+        var hair = Path()
+        if variant == 0 {
+            hair.move(to: p(-4.3, -49)); hair.addQuadCurve(to: p(0, -53.2), control: p(-4, -53.2)); hair.addQuadCurve(to: p(4.3, -49), control: p(4, -53.2))
+            hair.addQuadCurve(to: p(-1.4, -50.6), control: p(2, -51.4)); hair.addQuadCurve(to: p(-4.3, -49), control: p(-3.6, -50.2))
+        } else {
+            hair.move(to: p(-4.6, -47)); hair.addQuadCurve(to: p(0, -54), control: p(-5, -54)); hair.addQuadCurve(to: p(4.6, -47), control: p(5, -54))
+            hair.addQuadCurve(to: p(3.6, -41.6), control: p(4.8, -43)); hair.addQuadCurve(to: p(0, -49), control: p(3, -47)); hair.addQuadCurve(to: p(-3.6, -41.6), control: p(-3, -47))
+            hair.addQuadCurve(to: p(-4.6, -47), control: p(-4.8, -43))
+        }
+        g.fill(hair, with: .color(DR.ink.opacity(0.78)))
+        guard hat else { return }
+        var cone = Path()
+        cone.move(to: p(-4.6, -52.6)); cone.addQuadCurve(to: p(4.6, -52.6), control: p(0, -54)); cone.addLine(to: p(0.6, -66)); cone.addQuadCurve(to: p(-0.6, -66), control: p(0, -67)); cone.closeSubpath()
+        put(cone, fill: gold ? DR.accent : .white)
+        var band = Path()
+        band.move(to: p(-2.6, -59)); band.addLine(to: p(2.2, -57.4)); band.move(to: p(-3.6, -55.6)); band.addLine(to: p(3.6, -54.9))
+        g.stroke(band, with: .color(DR.ink), style: StrokeStyle(lineWidth: w * 0.75, lineCap: .round))
+        put(Path(ellipseIn: CGRect(x: -1.5, y: -67.7, width: 3, height: 3)), fill: gold ? DR.accent : .white)
+    }
+}
