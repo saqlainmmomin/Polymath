@@ -575,3 +575,301 @@ struct GlueDRFast: View {
         DR.label(&c, "ON YOUR FINGER\nHARD IN SECONDS", anchor: pt(270, 192), at: pt(276, 268), align: .center, p: BP.pr(t, 2.8, 3.3))
     }
 }
+
+// MARK: - Everyday objects (made for card payment, free for any drafting topic)
+
+// A card terminal, a bank card, a hand holding a card (drawn after a line-art reference), an envelope, a bank, a card network, a shop,
+// a yes pill and a payment slip. Each takes `on` (outline progress) and `fill` (white and hatching) like `glueTube`.
+extension DR {
+    /// The card terminal on its foot, front face with a little thickness to the right. Body 72 x 106 with its top left at `at`;
+    /// the foot reaches 12 below. `on` draws the outlines, `fill` the white and the hatching.
+    static func terminal(_ c: inout GraphicsContext, at o: CGPoint, on: Double, fill: Double) {
+        var g = c; g.opacity = fill
+        let r = CGRect(x: o.x, y: o.y, width: 72, height: 106)
+        let dx = 10.0, dy = -7.0
+        // thickness: the body again, up and to the right, with the corners joined
+        let back = Path(roundedRect: r.offsetBy(dx: dx, dy: dy), cornerRadius: 9)
+        g.fill(back, with: .color(DR.side))
+        DR.hatch(&g, back, in: r.offsetBy(dx: dx, dy: dy), spacing: 3.2, alpha: 0.3)
+        DR.draw(&c, back, p: on, width: DR.hair + 0.2)
+        var join = Path()
+        join.move(to: pt(r.maxX - 2.6, r.minY + 2.6)); join.addLine(to: pt(r.maxX - 2.6 + dx, r.minY + 2.6 + dy))
+        join.move(to: pt(r.maxX - 2.6, r.maxY - 2.6)); join.addLine(to: pt(r.maxX - 2.6 + dx, r.maxY - 2.6 + dy))
+        join.move(to: pt(r.minX + 2.6, r.minY + 2.6)); join.addLine(to: pt(r.minX + 2.6 + dx, r.minY + 2.6 + dy))
+        DR.draw(&c, join, p: on, width: DR.hair + 0.2)
+        // the foot
+        var foot = Path()
+        foot.move(to: pt(o.x + 12, r.maxY - 1)); foot.addLine(to: pt(o.x + 60, r.maxY - 1))
+        foot.addLine(to: pt(o.x + 66, r.maxY + 12)); foot.addLine(to: pt(o.x + 6, r.maxY + 12)); foot.closeSubpath()
+        g.fill(foot, with: .color(DR.side))
+        DR.hatch(&g, foot, in: foot.boundingRect, spacing: 3, alpha: 0.35)
+        DR.draw(&c, foot, p: on)
+        // the front
+        let front = Path(roundedRect: r, cornerRadius: 9)
+        g.fill(front, with: .color(DR.face))
+        DR.draw(&c, front, p: on, width: DR.line + 0.15)
+        // contactless panel with the symbol
+        let panel = CGRect(x: o.x + 8, y: o.y + 8, width: 56, height: 26)
+        g.fill(Path(roundedRect: panel, cornerRadius: 4), with: .color(DR.side))
+        DR.draw(&c, Path(roundedRect: panel, cornerRadius: 4), p: on, width: DR.hair)
+        symbol(&c, at: pt(o.x + 21, o.y + 21), on: on)
+        // screen: a dark glass with the amount as two short bars
+        let screen = Path(roundedRect: CGRect(x: o.x + 8, y: o.y + 40, width: 56, height: 20), cornerRadius: 3)
+        g.fill(screen, with: .color(DR.ink.opacity(0.88)))
+        DR.draw(&c, screen, p: on, width: DR.hair + 0.2)
+        if fill > 0 {
+            var bars = Path()
+            bars.addRoundedRect(in: CGRect(x: o.x + 14, y: o.y + 46, width: 22, height: 3), cornerSize: CGSize(width: 1.5, height: 1.5))
+            bars.addRoundedRect(in: CGRect(x: o.x + 14, y: o.y + 52, width: 34, height: 2.4), cornerSize: CGSize(width: 1.2, height: 1.2))
+            g.fill(bars, with: .color(.white.opacity(0.85)))
+        }
+        // keypad: three by four keys
+        var keys = Path()
+        for row in 0..<4 { for col in 0..<3 {
+            keys.addRoundedRect(in: CGRect(x: o.x + 11 + 17.5 * Double(col), y: o.y + 66 + 9.5 * Double(row), width: 13, height: 6.5), cornerSize: CGSize(width: 2, height: 2))
+        } }
+        g.fill(keys, with: .color(DR.face))
+        DR.draw(&c, keys, p: on, width: DR.hair)
+    }
+
+    /// The contactless symbol: a dot and three arcs opening to the right.
+    static func symbol(_ c: inout GraphicsContext, at p: CGPoint, on: Double) {
+        var s = Path()
+        for r in [5.0, 9.0, 13.0] {
+            for i in 0...8 {
+                let a = -0.8 + 1.6 * Double(i) / 8
+                let q = pt(p.x - 7 + r * cos(a), p.y + r * sin(a))
+                if i == 0 { s.move(to: q) } else { s.addLine(to: q) }
+            }
+        }
+        DR.draw(&c, s, p: on, width: DR.hair + 0.15)
+        if on > 0.2 { c.fill(Path(ellipseIn: CGRect(x: p.x - 8.8, y: p.y - 1.8, width: 3.6, height: 3.6)), with: .color(DR.ink)) }
+    }
+
+    /// A bank card, 52 x 33, centred on `at`: magnetic stripe, chip and a few number marks.
+    static func card(_ c: inout GraphicsContext, at: CGPoint, on: Double, fill: Double) {
+        let r = CGRect(x: at.x - 26, y: at.y - 16.5, width: 52, height: 33)
+        var g = c; g.opacity = fill
+        let body = Path(roundedRect: r, cornerRadius: 3.5)
+        g.fill(body, with: .color(DR.face))
+        DR.draw(&c, body, p: on)
+        g.fill(Path(CGRect(x: r.minX + 0.6, y: r.minY + 5.5, width: r.width - 1.2, height: 5.5)), with: .color(DR.ink.opacity(0.85)))
+        let chip = Path(roundedRect: CGRect(x: r.minX + 6, y: r.minY + 15, width: 10, height: 8), cornerRadius: 1.2)
+        DR.draw(&c, chip, p: on, width: DR.hair)
+        var marks = Path()
+        marks.move(to: pt(r.minX + 6, r.maxY - 4)); marks.addLine(to: pt(r.minX + 30, r.maxY - 4))
+        marks.move(to: pt(r.minX + 34, r.maxY - 4)); marks.addLine(to: pt(r.minX + 44, r.maxY - 4))
+        marks.move(to: pt(r.minX + 20, r.minY + 19)); marks.addLine(to: pt(r.minX + 44, r.minY + 19))
+        DR.draw(&c, marks, p: on, width: DR.hair, color: DR.ink.opacity(0.55))
+    }
+
+    /// A hand holding a card by its lower right corner, as in a tap (drawn after a line-art reference, 2026-11-03): the thumb lies across the card with
+    /// its nail, the back of the hand is a big rounded shape beside it, three curled fingers hang behind the card, then a cuff and the forearm
+    /// running off down to the right. `at` is the card's centre. Draws the card too, so card and hand stack in the right order.
+    static func heldCard(_ c: inout GraphicsContext, at: CGPoint, on: Double, fill: Double) {
+        var h = c
+        h.translateBy(x: at.x, y: at.y)
+        var f = h; f.opacity = fill
+        func fillDraw(_ p: Path, width: Double = DR.line + 0.1) { f.fill(p, with: .color(DR.face)); DR.draw(&h, p, p: on, width: width) }
+        func capsule(_ top: CGPoint, _ tip: CGPoint, _ w: Double) -> Path {
+            let len = hypot(tip.x - top.x, tip.y - top.y), ang = atan2(tip.y - top.y, tip.x - top.x)
+            return Path(roundedRect: CGRect(x: 0, y: -w / 2, width: len, height: w), cornerRadius: w / 2)
+                .applying(CGAffineTransform(translationX: top.x, y: top.y).rotated(by: ang).concatenating(.identity))
+                .applying(.identity)
+        }
+        func rotated(_ p: Path, _ o: CGPoint, _ a: Double) -> Path {
+            p.applying(CGAffineTransform(translationX: -o.x, y: -o.y).concatenating(CGAffineTransform(rotationAngle: a)).concatenating(CGAffineTransform(translationX: o.x, y: o.y)))
+        }
+        // three curled fingers and a fourth tip, hanging behind the card
+        for (top, tip, w) in [(pt(11, 10), pt(7, 22), 7.0), (pt(24, 14), pt(14.5, 37), 7.5), (pt(30, 20), pt(19.5, 46), 7.5), (pt(36, 26), pt(25, 51), 7.5)] {
+            let p = capsule(top, tip, w)
+            f.fill(p, with: .color(DR.face)); DR.draw(&h, p, p: on)
+        }
+        DR.card(&h, at: .zero, on: on, fill: fill)
+        // the forearm and cuff
+        var arm = Path()
+        arm.move(to: pt(95, 59)); arm.addLine(to: pt(150, 112)); arm.addLine(to: pt(118, 150)); arm.addLine(to: pt(79, 76))
+        fillDraw(arm)
+        DR.hatch(&f, arm, in: arm.boundingRect, spacing: 3.2, alpha: 0.3)
+        var cuff = Path()
+        cuff.move(to: pt(84, 50)); cuff.addLine(to: pt(95, 59)); cuff.addLine(to: pt(79, 76)); cuff.addLine(to: pt(66, 71)); cuff.closeSubpath()
+        fillDraw(cuff)
+        // the back of the hand
+        var back = Path()
+        back.move(to: pt(26, 6))
+        back.addCurve(to: pt(42, 4), control1: pt(31, 4), control2: pt(36, 3.8))
+        back.addLine(to: pt(58, 5))
+        back.addCurve(to: pt(70, 12), control1: pt(66, 5), control2: pt(69, 7))
+        back.addCurve(to: pt(76, 33), control1: pt(72, 19), control2: pt(73, 25))
+        back.addCurve(to: pt(85, 52), control1: pt(78, 40), control2: pt(81, 46))
+        back.addLine(to: pt(66, 71))
+        back.addCurve(to: pt(46, 46), control1: pt(58, 64), control2: pt(50, 56))
+        back.addCurve(to: pt(42, 30), control1: pt(44, 40), control2: pt(44, 34))
+        back.addCurve(to: pt(24, 10), control1: pt(38, 24), control2: pt(30, 16))
+        back.closeSubpath()
+        fillDraw(back)
+        DR.hatch(&f, back, in: back.boundingRect, spacing: 3.4, alpha: 0.0)
+        var shade = Path()
+        for i in 0..<7 { let x = 50.0 + 4 * Double(i); shade.move(to: pt(x + 2, 56 - Double(i) * 1.6 + 8)); shade.addLine(to: pt(x, 44 - Double(i) * 1.6 + 4)) }
+        DR.draw(&h, shade, p: on, width: DR.hair, color: DR.ink.opacity(0.5))
+        var knuckles = Path()
+        knuckles.move(to: pt(46, 6)); knuckles.addCurve(to: pt(52, 14), control1: pt(46, 9), control2: pt(48, 12))
+        knuckles.move(to: pt(56, 5)); knuckles.addCurve(to: pt(62, 12), control1: pt(56, 8), control2: pt(58, 11))
+        DR.draw(&h, knuckles, p: on, width: DR.hair, color: DR.ink.opacity(0.6))
+        // the thumb across the card, nail at its tip; the base melts into the hand, so only the outline is stroked
+        var thumb = Path()
+        thumb.move(to: pt(48, 31))
+        thumb.addCurve(to: pt(20, 7.5), control1: pt(40, 24), control2: pt(24, 12))
+        thumb.addCurve(to: pt(11.5, 12), control1: pt(16, 5), control2: pt(11, 8))
+        thumb.addCurve(to: pt(22, 26), control1: pt(12, 15), control2: pt(16, 18))
+        thumb.addCurve(to: pt(46, 41), control1: pt(28, 33), control2: pt(36, 38))
+        f.fill(thumb, with: .color(DR.face))
+        DR.draw(&h, thumb, p: on, width: DR.line + 0.1)
+        let nail = rotated(Path(ellipseIn: CGRect(x: 11.5, y: 7.5, width: 9, height: 6.5)), pt(16, 10.8), 0.6)
+        DR.draw(&h, nail, p: on, width: DR.hair + 0.1)
+        var crease = Path(); crease.move(to: pt(30, 18)); crease.addCurve(to: pt(34, 26), control1: pt(32, 20), control2: pt(34, 23))
+        DR.draw(&h, crease, p: on, width: DR.hair, color: DR.ink.opacity(0.6))
+    }
+
+    /// The message: an envelope in the accent, 34 x 24, with a question mark on it, centred on `at`.
+    static func envelope(_ c: inout GraphicsContext, at: CGPoint, alpha: Double) {
+        guard alpha > 0.01 else { return }
+        var g = c; g.opacity = alpha
+        let r = CGRect(x: at.x - 17, y: at.y - 12, width: 34, height: 24)
+        let body = Path(roundedRect: r, cornerRadius: 2.5)
+        g.fill(body, with: .color(DR.accent))
+        g.stroke(body, with: .color(DR.ink), style: StrokeStyle(lineWidth: DR.line, lineJoin: .round))
+        var flap = Path()
+        flap.move(to: pt(r.minX, r.minY)); flap.addLine(to: pt(at.x, at.y - 1)); flap.addLine(to: pt(r.maxX, r.minY))
+        g.stroke(flap, with: .color(DR.ink), style: StrokeStyle(lineWidth: DR.hair + 0.2, lineJoin: .round))
+        let q = g.resolve(Text("?").font(.system(size: 11, weight: .bold, design: .rounded)).foregroundColor(DR.ink))
+        g.draw(q, at: pt(at.x, at.y + 5.5), anchor: .center)
+    }
+}
+
+
+// (more everyday objects)
+extension DR {
+    /// A bank, front-on: pediment, entablature, four fluted columns, two steps. 56 wide, 58 high, standing on `base` at x = `cx`.
+    static func bank(_ c: inout GraphicsContext, cx: Double, base: Double, on: Double, fill: Double) {
+        var g = c; g.opacity = fill
+        func box(_ r: CGRect, _ shade: Bool = false, _ w: Double = DR.line) {
+            let p = Path(r)
+            g.fill(p, with: .color(shade ? DR.side : DR.face))
+            DR.draw(&c, p, p: on, width: w)
+        }
+        box(CGRect(x: cx - 28, y: base - 5, width: 56, height: 5), true)
+        box(CGRect(x: cx - 25, y: base - 10, width: 50, height: 5), true)
+        for dx in [-18.0, -6, 6, 18] {
+            box(CGRect(x: cx + dx - 3.5, y: base - 38, width: 7, height: 28), false, DR.hair + 0.3)
+            var flute = Path()
+            for fx in [-1.2, 1.2] { flute.move(to: pt(cx + dx + fx, base - 35)); flute.addLine(to: pt(cx + dx + fx, base - 13)) }
+            DR.draw(&c, flute, p: on, width: DR.hair - 0.15, color: DR.ink.opacity(0.55))
+            box(CGRect(x: cx + dx - 4.5, y: base - 40, width: 9, height: 2.5), false, DR.hair + 0.3)
+            box(CGRect(x: cx + dx - 4.5, y: base - 12.5, width: 9, height: 2.5), false, DR.hair + 0.3)
+        }
+        box(CGRect(x: cx - 27, y: base - 46, width: 54, height: 6), true)
+        var roof = Path()
+        roof.move(to: pt(cx - 29, base - 46)); roof.addLine(to: pt(cx, base - 60)); roof.addLine(to: pt(cx + 29, base - 46)); roof.closeSubpath()
+        g.fill(roof, with: .color(DR.face))
+        DR.hatch(&g, roof, in: roof.boundingRect, spacing: 3.4, alpha: 0.28)
+        DR.draw(&c, roof, p: on)
+        DR.draw(&c, Path(ellipseIn: CGRect(x: cx - 3.5, y: base - 55, width: 7, height: 7)), p: on, width: DR.hair)
+    }
+
+    /// A card network: a little globe in the middle with spokes to five nodes. About 60 wide, 56 high, centred on `at`.
+    static func network(_ c: inout GraphicsContext, at: CGPoint, on: Double, fill: Double) {
+        var g = c; g.opacity = fill
+        var nodes: [CGPoint] = []
+        for i in 0..<5 {
+            let a = -Double.pi / 2 + 2 * Double.pi * Double(i) / 5
+            nodes.append(pt(at.x + 27 * cos(a) * 1.05, at.y + 25 * sin(a)))
+        }
+        var spokes = Path()
+        for n in nodes { spokes.move(to: at); spokes.addLine(to: n) }
+        DR.draw(&c, spokes, p: on, width: DR.hair + 0.2)
+        for n in nodes {
+            let d = Path(ellipseIn: CGRect(x: n.x - 5.5, y: n.y - 5.5, width: 11, height: 11))
+            g.fill(d, with: .color(DR.face))
+            DR.hatch(&g, d, in: d.boundingRect, spacing: 2.6, alpha: 0.3)
+            DR.draw(&c, d, p: on)
+        }
+        let globe = Path(ellipseIn: CGRect(x: at.x - 11, y: at.y - 11, width: 22, height: 22))
+        g.fill(globe, with: .color(DR.face))
+        DR.hatch(&g, globe, in: globe.boundingRect, spacing: 3, alpha: 0.28)
+        DR.draw(&c, globe, p: on, width: DR.line + 0.1)
+        var lines = Path()
+        lines.addEllipse(in: CGRect(x: at.x - 5, y: at.y - 11, width: 10, height: 22))
+        lines.move(to: pt(at.x - 11, at.y)); lines.addLine(to: pt(at.x + 11, at.y))
+        DR.draw(&c, lines, p: on, width: DR.hair, color: DR.ink.opacity(0.7))
+    }
+
+    /// A shop, front-on: striped scalloped awning, two posts, a counter with a till on it. 64 wide, 62 high, standing on `base` at x = `cx`.
+    /// `tray` is an open, empty money tray in the counter's front.
+    static func shop(_ c: inout GraphicsContext, cx: Double, base: Double, on: Double, fill: Double, tray: Bool = true) {
+        var g = c; g.opacity = fill
+        var posts = Path()
+        for sx in [-1.0, 1.0] { posts.move(to: pt(cx + sx * 29, base - 48)); posts.addLine(to: pt(cx + sx * 29, base)) }
+        DR.draw(&c, posts, p: on, width: DR.line)
+        let counter = Path(CGRect(x: cx - 29, y: base - 24, width: 58, height: 24))
+        g.fill(counter, with: .color(DR.side))
+        DR.hatch(&g, counter, in: counter.boundingRect, spacing: 3.4, alpha: 0.25)
+        DR.draw(&c, counter, p: on)
+        let till = Path(roundedRect: CGRect(x: cx - 12, y: base - 38, width: 24, height: 14), cornerRadius: 2)
+        g.fill(till, with: .color(DR.face)); DR.draw(&c, till, p: on)
+        let screen = Path(roundedRect: CGRect(x: cx - 8, y: base - 36, width: 16, height: 5), cornerRadius: 1)
+        g.fill(screen, with: .color(DR.ink.opacity(0.85)))
+        var keys = Path()
+        for k in 0..<4 { keys.addRect(CGRect(x: cx - 8 + 4.2 * Double(k), y: base - 28, width: 3, height: 2.4)) }
+        g.fill(keys, with: .color(DR.ink.opacity(0.7)))
+        if tray {
+            let t = Path(roundedRect: CGRect(x: cx - 22, y: base - 17, width: 44, height: 10), cornerRadius: 2)
+            g.fill(t, with: .color(DR.face)); DR.draw(&c, t, p: on)
+            var mid = Path(); mid.move(to: pt(cx, base - 15)); mid.addLine(to: pt(cx, base - 9))
+            DR.draw(&c, mid, p: on, width: DR.hair, color: DR.ink.opacity(0.5), dash: [2, 2])
+        }
+        for i in 0..<4 {
+            let x0 = cx - 32 + 16 * Double(i), x1 = x0 + 16, yb = base - 48
+            var p = Path()
+            p.move(to: pt(x0, base - 62)); p.addLine(to: pt(x1, base - 62)); p.addLine(to: pt(x1, yb))
+            for k in 0...10 { let a = Double.pi * Double(k) / 10; p.addLine(to: pt((x0 + x1) / 2 + 8 * cos(a), yb + 7 * sin(a))) }
+            p.closeSubpath()
+            g.fill(p, with: .color(DR.face))
+            if i % 2 == 0 { DR.hatch(&g, p, in: p.boundingRect, spacing: 2.6, alpha: 0.5) }
+            DR.draw(&c, p, p: on)
+        }
+    }
+
+    /// The yes: a pill in the accent, with the word YES or a tick, centred on `at`.
+    static func yes(_ c: inout GraphicsContext, at: CGPoint, alpha: Double, word: Bool) {
+        guard alpha > 0.01 else { return }
+        var g = c; g.opacity = alpha
+        let pill = Path(roundedRect: CGRect(x: at.x - 18, y: at.y - 9, width: 36, height: 18), cornerRadius: 9)
+        g.fill(pill, with: .color(DR.accent))
+        g.stroke(pill, with: .color(DR.ink), style: StrokeStyle(lineWidth: DR.line, lineJoin: .round))
+        if word {
+            g.draw(g.resolve(Text("YES").font(.system(size: 9.5, weight: .bold, design: .rounded)).tracking(0.8).foregroundColor(DR.ink)), at: at, anchor: .center)
+        } else {
+            var tick = Path()
+            tick.move(to: pt(at.x - 5, at.y)); tick.addLine(to: pt(at.x - 1.5, at.y + 3.5)); tick.addLine(to: pt(at.x + 6, at.y - 4))
+            g.stroke(tick, with: .color(DR.ink), style: StrokeStyle(lineWidth: 2, lineCap: .round, lineJoin: .round))
+        }
+    }
+
+    /// A slip of paper (a payment, or a total when `big`) with two lines on it; `set` turns it to the accent.
+    static func slip(_ c: inout GraphicsContext, at: CGPoint, big: Bool, set: Double = 0, alpha: Double) {
+        guard alpha > 0.01 else { return }
+        var g = c; g.opacity = alpha
+        let w = big ? 22.0 : 11.0, h = big ? 14.0 : 7.0
+        let r = Path(roundedRect: CGRect(x: at.x - w / 2, y: at.y - h / 2, width: w, height: h), cornerRadius: big ? 2 : 1.2)
+        g.fill(r, with: .color(DR.face))
+        if set > 0 { g.fill(r, with: .color(DR.accent.opacity(set))) }
+        g.stroke(r, with: .color(DR.ink), style: StrokeStyle(lineWidth: big ? DR.line : DR.hair + 0.2, lineJoin: .round))
+        if big {
+            var l = Path()
+            for dy in [-2.0, 2.2] { l.move(to: pt(at.x - 6, at.y + dy)); l.addLine(to: pt(at.x + 6, at.y + dy)) }
+            g.stroke(l, with: .color(DR.ink.opacity(0.7)), lineWidth: DR.hair)
+        }
+    }
+}
+

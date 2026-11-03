@@ -27,6 +27,10 @@ What to check in its output:
 
 How well it matches hand placing (afterimage, shazam, car-engine; scripts stripped of markers, compared with the committed `voice-*.json`): see `tasks/fix-log.md`, 2026-11-03.
 
+## Pacing: keep moves brisk (owner, 2026-11-03)
+
+Markers stretch the picture's clock between them, so a move that takes 0.5 s of picture time crawls if its two nearest markers sit on words several seconds apart (a hop took 3.5 s, a tick 9 s in card payment). Put the marker at the start of a move on the word where it should begin and the next marker a few words later (0.4 to 1 s of speech); two markers with the same picture time hold the picture still in between. Check each move's real duration in `voice-<id>.json` `keys` before the owner sees it.
+
 ## render.py
 
 `render.py` turns a script (one paragraph = one beat) into `voice-<name>.m4a` plus a
