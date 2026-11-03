@@ -6,7 +6,7 @@ enum TopicStyle: String, Decodable {
     case blueprint      // navy paper with a grid, thin white isometric line art (Blueprint.swift)
     case drafting       // plain white, realistic line art in crisp black, hatching, one yellow accent (Drafting.swift)
     case wireframe      // black, fine white wireframe meshes in 3D, lowercase mono labels, one pastel pink accent (Wireframe.swift)
-    case airbrush       // paper texture, thin black line, sprayed colour clouds and soft airbrushed glows, green condensed labels (Airbrush.swift)
+    case airbrush       // photo-of-paper backdrop, thin black line, sprayed colour clouds and soft airbrushed glows, green condensed labels (Airbrush.swift)
 
     /// Light or dark screen: decides text, buttons and the status bar.
     var scheme: ColorScheme { self == .drafting || self == .airbrush ? .light : .dark }

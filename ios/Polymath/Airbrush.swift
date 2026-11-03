@@ -2,11 +2,11 @@ import SwiftUI
 
 // Airbrush style (owner, 2026-11-03, from a tree illustration and a set of loose line drawings): thin near-black line with its colour sitting
 // a little off the outline, sprayed blue clouds with grainy edges, soft airbrushed glows, a round simple figure, and green condensed words.
-// It sits on programmatic paper (`PaperTexture`). Same 343 x 320 design space and timing shell as the other styles (`BlueprintStage`), so
+// It sits on a photo of real paper (`PaperTexture`). Same 343 x 320 design space and timing shell as the other styles (`BlueprintStage`), so
 // pictures follow the narration's clock too. Keep clear of the bottom-right corner (x > 288, y > 235).
 
 enum AB {
-    static let paper = Color(hex: 0xF5F1E6)
+    static let paper = Color(hex: 0xEBE3D7)         // the average colour of the paper photo (paper.jpg)
     static let ink = Color(hex: 0x1B1B1B)
     static let blue = Color(hex: 0x2F86F2)
     static let orange = Color(hex: 0xF7924A)
@@ -205,34 +205,17 @@ enum AB {
     }
 }
 
-/// Paper, made in code: a warm off-white with soft mottling, fine fibres and specks, the same on every launch (seeded). Fills the screen.
+/// The paper behind an airbrush topic: a photo of real paper (owner's, 2026-11-03), cropped to the sheet and filling the screen.
+/// Falls back to the plain paper colour if the file is missing.
 struct PaperTexture: View {
+    private static let image: UIImage? = Bundle.main.path(forResource: "paper", ofType: "jpg").flatMap { UIImage(contentsOfFile: $0) }
+
     var body: some View {
-        Canvas { c, size in
-            c.fill(Path(CGRect(origin: .zero, size: size)), with: .color(AB.paper))
-            for i in 0..<36 {
-                let x = Sketch.rnd(i * 5) * size.width, y = Sketch.rnd(i * 5 + 1) * size.height, r = 60 + Sketch.rnd(i * 5 + 2) * 140
-                let tint = Sketch.rnd(i * 5 + 3) > 0.5 ? Color(hex: 0xE6DAC0) : Color.white
-                c.fill(Path(ellipseIn: CGRect(x: x - r, y: y - r, width: 2 * r, height: 2 * r)),
-                       with: .radialGradient(Gradient(colors: [tint.opacity(0.4), tint.opacity(0)]), center: CGPoint(x: x, y: y), startRadius: 0, endRadius: r))
+        GeometryReader { g in
+            ZStack {
+                AB.paper
+                if let img = Self.image { Image(uiImage: img).resizable().scaledToFill().frame(width: g.size.width, height: g.size.height).clipped() }
             }
-            let area = size.width * size.height
-            for (n, color, alpha) in [(Int(area / 240), Color(hex: 0x8B7B5E), 0.10), (Int(area / 520), Color.white, 0.55)] {
-                var fibres = Path()
-                for i in 0..<n {
-                    let x = Sketch.rnd(i * 4 + 9_000) * size.width, y = Sketch.rnd(i * 4 + 9_001) * size.height
-                    let a = Sketch.rnd(i * 4 + 9_002) * .pi, len = 5 + Sketch.rnd(i * 4 + 9_003) * 12, bend = (Sketch.rnd(i * 4 + 9_004) - 0.5) * 6
-                    fibres.move(to: CGPoint(x: x, y: y))
-                    fibres.addQuadCurve(to: CGPoint(x: x + cos(a) * len, y: y + sin(a) * len), control: CGPoint(x: x + cos(a) * len / 2 + bend, y: y + sin(a) * len / 2 + bend))
-                }
-                c.stroke(fibres, with: .color(color.opacity(alpha)), lineWidth: 0.6)
-            }
-            var specks = Path()
-            for i in 0..<Int(area / 900) {
-                let x = Sketch.rnd(i * 3 + 20_000) * size.width, y = Sketch.rnd(i * 3 + 20_001) * size.height, r = 0.4 + Sketch.rnd(i * 3 + 20_002) * 0.9
-                specks.addEllipse(in: CGRect(x: x - r, y: y - r, width: 2 * r, height: 2 * r))
-            }
-            c.fill(specks, with: .color(Color(hex: 0x3A3326).opacity(0.22)))
         }
         .allowsHitTesting(false)
         .ignoresSafeArea()
