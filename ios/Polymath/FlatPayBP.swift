@@ -226,11 +226,12 @@ struct PayBPTap: View {
 
 struct PayBPHops: View {
     let active: Bool
+    @Environment(\.pictureClock) private var narrated
 
     var body: some View {
-        BlueprintStage(active: active, length: pyLength, tick: 6.55,
+        BlueprintStage(active: active, length: narrated != nil ? 8.8 : pyLength, tick: 6.55,
                        label: "Four places in a row: a card reader, the shop's bank, a card network and your bank. A message, a small envelope shown in gold, hops along them one by one. The card reader is peach and the banks red. Then a yes hops back along the same path to the card reader. Labels say: card reader, shop's bank, card network, your bank, yes.",
-                       draw: { c, t, pal, clock in let (u, _) = pyCycle(t, clock, hold: 6.9, loop: 8.8); Self.draw(&c, t, pal, u) }, size: pySize)
+                       draw: { c, t, pal, clock in let (u, _) = narrated != nil ? (t, false) : pyCycle(t, clock, hold: 6.9, loop: 8.8); Self.draw(&c, t, pal, u) }, size: pySize)
     }
 
     private static let xs: [Double] = [50, 134, 218, 302]
