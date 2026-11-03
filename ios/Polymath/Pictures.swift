@@ -82,11 +82,11 @@ enum Pictures {
         }
         if topic.id == "seasons" {
             switch index {
-            case 0: return AnyView(SeasonsBPFar(active: active))
-            case 1: return AnyView(SeasonsBPSteps(active: active))
-            case 2: return AnyView(SeasonsBPLean(active: active))
-            case 3: return AnyView(SeasonsBPTorch(active: active))
-            case 4: return AnyView(SeasonsBPDay(active: active))
+            case 0: return topic.look == .wireframe ? AnyView(SeasonsWFFar(active: active)) : AnyView(SeasonsBPFar(active: active))
+            case 1: return topic.look == .wireframe ? AnyView(SeasonsWFSteps(active: active)) : AnyView(SeasonsBPSteps(active: active))
+            case 2: return topic.look == .wireframe ? AnyView(SeasonsWFLean(active: active)) : AnyView(SeasonsBPLean(active: active))
+            case 3: return topic.look == .wireframe ? AnyView(SeasonsWFTorch(active: active)) : AnyView(SeasonsBPTorch(active: active))
+            case 4: return topic.look == .wireframe ? AnyView(SeasonsWFDay(active: active)) : AnyView(SeasonsBPDay(active: active))
             default: return nil
             }
         }

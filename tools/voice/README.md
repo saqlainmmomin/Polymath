@@ -1,5 +1,15 @@
 # Offline narration (Kokoro-82M)
 
+## Making a topic Narrated
+
+    python3 narrate.py new <id>       # drafts <id>.txt from the cards, prints each picture's timings
+    python3 narrate.py moments <id>   # timings again: picture length and when each label appears
+    python3 narrate.py render <id>    # checks one paragraph per card, renders with Kokoro, regenerates the Xcode project
+
+Rewrite the draft as speech, place `{t}` markers against the timings, get the owner's OK, then render. Once `voice-<id>.*` is bundled the topic opens Narrated.
+
+## render.py
+
 `render.py` turns a script (one paragraph = one beat) into `voice-<name>.m4a` plus a
 `voice-<name>.json` with the voice, duration, beat start times and per-word times.
 

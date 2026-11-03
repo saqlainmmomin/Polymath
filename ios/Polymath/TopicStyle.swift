@@ -4,16 +4,18 @@ import SwiftUI
 /// screen: backdrop, light or dark text, status bar and the pictures' palette. One per topic, from `"style"` in its JSON; blueprint if absent.
 enum TopicStyle: String, Decodable {
     case blueprint      // navy paper with a grid, thin white isometric line art (Blueprint.swift)
-    case drafting       // plain white, crisp black outlines, rounded slabs with stitched seams, one yellow accent (Drafting.swift)
+    case drafting       // plain white, realistic line art in crisp black, hatching, one yellow accent (Drafting.swift)
+    case wireframe      // black, fine white wireframe meshes in 3D, lowercase mono labels, one pastel pink accent (Wireframe.swift)
 
     /// Light or dark screen: decides text, buttons and the status bar.
-    var scheme: ColorScheme { self == .blueprint ? .dark : .light }
+    var scheme: ColorScheme { self == .drafting ? .light : .dark }
 
     /// The flat colour under everything, also used where a whole backdrop is too much (profile thumbnails).
     var base: Color {
         switch self {
         case .blueprint: BP.paper
         case .drafting: DR.paper
+        case .wireframe: WF.paper
         }
     }
 
@@ -22,6 +24,7 @@ enum TopicStyle: String, Decodable {
         switch self {
         case .blueprint: PaperGrid()
         case .drafting: DR.paper.ignoresSafeArea()
+        case .wireframe: WF.paper.ignoresSafeArea()
         }
     }
 
@@ -30,6 +33,7 @@ enum TopicStyle: String, Decodable {
         switch self {
         case .blueprint: S.stage(S.paper)
         case .drafting: StagePalette(ink: DR.ink, soft: DR.ink.opacity(0.45), accent: DR.accent)
+        case .wireframe: StagePalette(ink: WF.ink, soft: WF.ink.opacity(0.4), accent: WF.accent)
         }
     }
 }

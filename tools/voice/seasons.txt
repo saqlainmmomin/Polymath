@@ -1,0 +1,9 @@
+Why is it summer when Earth is farthest from the {0.9}Sun? Summer feels like the Sun has come closer. But in early {1.0}January, in winter for Europe and the USA, Earth is at its closest.{1.5} And in early July, in their summer, it's at its {3.0}farthest.{3.5} So is it much farther away in July than in January?
+
+Earth is only about 3 percent farther in July than in {1.75}January. If January's distance were 100 steps, July's would be {2.3}103. And when Australia has summer, Canada has winter, at the same distance from the Sun.{3.1} Distance can't be it. So if it isn't distance, what is it?
+
+Each half of Earth takes a turn leaning toward the Sun. Earth leans about 23 degrees from {1.3}upright, like a classroom globe, and the lean always points toward the same faraway spot. So in {1.3}June the north half leans toward the Sun, and in December, on the other side of its trip,{3.5} it leans away. The south half does the opposite. But why would leaning toward the Sun make it warmer?
+
+Leaning toward the Sun packs its light into a smaller patch. Shine a torch straight down at a table and you get a small, bright spot.{1.7} Tilt it,{1.9} and the same light spreads into a long, dim patch.{3.0} The half leaning toward the Sun gets light more like the straight beam, so each bit of ground warms more. Does the lean change anything else?
+
+The lean also makes summer days {1.0}longer. It puts more of that half on the sunny side as Earth spins.{2.0} In London, a June day is about twice as long as a December one.{3.2} Summer doesn't come when Earth is closer to the Sun. It comes when your half leans toward it.

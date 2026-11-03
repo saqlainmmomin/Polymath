@@ -1,0 +1,1558 @@
+{
+ "voice": "af_heart",
+ "duration": 98.38,
+ "beats": [
+  0.0,
+  19.48,
+  38.6,
+  61.42,
+  81.83
+ ],
+ "words": [
+  {
+   "text": "Why",
+   "start": 0.3,
+   "end": 0.55
+  },
+  {
+   "text": "is",
+   "start": 0.55,
+   "end": 0.68
+  },
+  {
+   "text": "it",
+   "start": 0.68,
+   "end": 0.84
+  },
+  {
+   "text": "summer",
+   "start": 0.84,
+   "end": 1.2
+  },
+  {
+   "text": "when",
+   "start": 1.2,
+   "end": 1.38
+  },
+  {
+   "text": "Earth",
+   "start": 1.38,
+   "end": 1.65
+  },
+  {
+   "text": "is",
+   "start": 1.65,
+   "end": 1.8
+  },
+  {
+   "text": "farthest",
+   "start": 1.8,
+   "end": 2.16
+  },
+  {
+   "text": "from",
+   "start": 2.16,
+   "end": 2.29
+  },
+  {
+   "text": "the",
+   "start": 2.29,
+   "end": 2.39
+  },
+  {
+   "text": "Sun?",
+   "start": 2.39,
+   "end": 3.31
+  },
+  {
+   "text": "Summer",
+   "start": 3.31,
+   "end": 3.71
+  },
+  {
+   "text": "feels",
+   "start": 3.71,
+   "end": 4.1
+  },
+  {
+   "text": "like",
+   "start": 4.1,
+   "end": 4.29
+  },
+  {
+   "text": "the",
+   "start": 4.29,
+   "end": 4.41
+  },
+  {
+   "text": "Sun",
+   "start": 4.41,
+   "end": 4.75
+  },
+  {
+   "text": "has",
+   "start": 4.75,
+   "end": 4.92
+  },
+  {
+   "text": "come",
+   "start": 4.92,
+   "end": 5.15
+  },
+  {
+   "text": "closer.",
+   "start": 5.15,
+   "end": 6.14
+  },
+  {
+   "text": "But",
+   "start": 6.14,
+   "end": 6.3
+  },
+  {
+   "text": "in",
+   "start": 6.3,
+   "end": 6.46
+  },
+  {
+   "text": "early",
+   "start": 6.46,
+   "end": 6.86
+  },
+  {
+   "text": "January,",
+   "start": 6.86,
+   "end": 7.72
+  },
+  {
+   "text": "in",
+   "start": 7.72,
+   "end": 7.88
+  },
+  {
+   "text": "winter",
+   "start": 7.88,
+   "end": 8.2
+  },
+  {
+   "text": "for",
+   "start": 8.2,
+   "end": 8.36
+  },
+  {
+   "text": "Europe",
+   "start": 8.36,
+   "end": 8.75
+  },
+  {
+   "text": "and",
+   "start": 8.75,
+   "end": 8.86
+  },
+  {
+   "text": "the",
+   "start": 8.86,
+   "end": 8.95
+  },
+  {
+   "text": "USA,",
+   "start": 8.95,
+   "end": 9.89
+  },
+  {
+   "text": "Earth",
+   "start": 9.89,
+   "end": 10.25
+  },
+  {
+   "text": "is",
+   "start": 10.25,
+   "end": 10.43
+  },
+  {
+   "text": "at",
+   "start": 10.43,
+   "end": 10.56
+  },
+  {
+   "text": "its",
+   "start": 10.56,
+   "end": 10.75
+  },
+  {
+   "text": "closest.",
+   "start": 10.75,
+   "end": 11.78
+  },
+  {
+   "text": "And",
+   "start": 11.78,
+   "end": 11.94
+  },
+  {
+   "text": "in",
+   "start": 11.94,
+   "end": 12.09
+  },
+  {
+   "text": "early",
+   "start": 12.09,
+   "end": 12.43
+  },
+  {
+   "text": "July,",
+   "start": 12.43,
+   "end": 12.97
+  },
+  {
+   "text": "in",
+   "start": 12.97,
+   "end": 13.09
+  },
+  {
+   "text": "their",
+   "start": 13.09,
+   "end": 13.26
+  },
+  {
+   "text": "summer,",
+   "start": 13.26,
+   "end": 13.88
+  },
+  {
+   "text": "it's",
+   "start": 13.88,
+   "end": 14.06
+  },
+  {
+   "text": "at",
+   "start": 14.06,
+   "end": 14.16
+  },
+  {
+   "text": "its",
+   "start": 14.16,
+   "end": 14.35
+  },
+  {
+   "text": "farthest.",
+   "start": 14.35,
+   "end": 15.32
+  },
+  {
+   "text": "So",
+   "start": 15.32,
+   "end": 15.53
+  },
+  {
+   "text": "is",
+   "start": 15.53,
+   "end": 15.65
+  },
+  {
+   "text": "it",
+   "start": 15.65,
+   "end": 15.78
+  },
+  {
+   "text": "much",
+   "start": 15.78,
+   "end": 16.06
+  },
+  {
+   "text": "farther",
+   "start": 16.06,
+   "end": 16.43
+  },
+  {
+   "text": "away",
+   "start": 16.43,
+   "end": 16.77
+  },
+  {
+   "text": "in",
+   "start": 16.77,
+   "end": 16.9
+  },
+  {
+   "text": "July",
+   "start": 16.9,
+   "end": 17.38
+  },
+  {
+   "text": "than",
+   "start": 17.38,
+   "end": 17.52
+  },
+  {
+   "text": "in",
+   "start": 17.52,
+   "end": 17.68
+  },
+  {
+   "text": "January?",
+   "start": 17.68,
+   "end": 18.77
+  },
+  {
+   "text": "Earth",
+   "start": 19.78,
+   "end": 20.08
+  },
+  {
+   "text": "is",
+   "start": 20.08,
+   "end": 20.23
+  },
+  {
+   "text": "only",
+   "start": 20.23,
+   "end": 20.53
+  },
+  {
+   "text": "about",
+   "start": 20.53,
+   "end": 20.86
+  },
+  {
+   "text": "3",
+   "start": 20.86,
+   "end": 21.1
+  },
+  {
+   "text": "percent",
+   "start": 21.1,
+   "end": 21.5
+  },
+  {
+   "text": "farther",
+   "start": 21.5,
+   "end": 21.88
+  },
+  {
+   "text": "in",
+   "start": 21.88,
+   "end": 21.98
+  },
+  {
+   "text": "July",
+   "start": 21.98,
+   "end": 22.45
+  },
+  {
+   "text": "than",
+   "start": 22.45,
+   "end": 22.6
+  },
+  {
+   "text": "in",
+   "start": 22.6,
+   "end": 22.75
+  },
+  {
+   "text": "January.",
+   "start": 22.75,
+   "end": 23.93
+  },
+  {
+   "text": "If",
+   "start": 23.93,
+   "end": 24.14
+  },
+  {
+   "text": "January's",
+   "start": 24.14,
+   "end": 24.8
+  },
+  {
+   "text": "distance",
+   "start": 24.8,
+   "end": 25.3
+  },
+  {
+   "text": "were",
+   "start": 25.3,
+   "end": 25.45
+  },
+  {
+   "text": "100",
+   "start": 25.45,
+   "end": 26.03
+  },
+  {
+   "text": "steps,",
+   "start": 26.03,
+   "end": 26.74
+  },
+  {
+   "text": "July's",
+   "start": 26.74,
+   "end": 27.28
+  },
+  {
+   "text": "would",
+   "start": 27.28,
+   "end": 27.39
+  },
+  {
+   "text": "be",
+   "start": 27.39,
+   "end": 27.53
+  },
+  {
+   "text": "103.",
+   "start": 27.53,
+   "end": 28.93
+  },
+  {
+   "text": "And",
+   "start": 28.93,
+   "end": 29.09
+  },
+  {
+   "text": "when",
+   "start": 29.09,
+   "end": 29.24
+  },
+  {
+   "text": "Australia",
+   "start": 29.24,
+   "end": 29.8
+  },
+  {
+   "text": "has",
+   "start": 29.8,
+   "end": 29.99
+  },
+  {
+   "text": "summer,",
+   "start": 29.99,
+   "end": 30.64
+  },
+  {
+   "text": "Canada",
+   "start": 30.64,
+   "end": 31.05
+  },
+  {
+   "text": "has",
+   "start": 31.05,
+   "end": 31.26
+  },
+  {
+   "text": "winter,",
+   "start": 31.26,
+   "end": 31.9
+  },
+  {
+   "text": "at",
+   "start": 31.9,
+   "end": 31.99
+  },
+  {
+   "text": "the",
+   "start": 31.99,
+   "end": 32.12
+  },
+  {
+   "text": "same",
+   "start": 32.12,
+   "end": 32.48
+  },
+  {
+   "text": "distance",
+   "start": 32.48,
+   "end": 32.92
+  },
+  {
+   "text": "from",
+   "start": 32.92,
+   "end": 33.09
+  },
+  {
+   "text": "the",
+   "start": 33.09,
+   "end": 33.19
+  },
+  {
+   "text": "Sun.",
+   "start": 33.19,
+   "end": 34.09
+  },
+  {
+   "text": "Distance",
+   "start": 34.09,
+   "end": 34.64
+  },
+  {
+   "text": "can't",
+   "start": 34.64,
+   "end": 34.92
+  },
+  {
+   "text": "be",
+   "start": 34.92,
+   "end": 35.11
+  },
+  {
+   "text": "it.",
+   "start": 35.11,
+   "end": 35.69
+  },
+  {
+   "text": "So",
+   "start": 35.69,
+   "end": 35.88
+  },
+  {
+   "text": "if",
+   "start": 35.88,
+   "end": 35.99
+  },
+  {
+   "text": "it",
+   "start": 35.99,
+   "end": 36.06
+  },
+  {
+   "text": "isn't",
+   "start": 36.06,
+   "end": 36.33
+  },
+  {
+   "text": "distance,",
+   "start": 36.33,
+   "end": 36.95
+  },
+  {
+   "text": "what",
+   "start": 36.95,
+   "end": 37.12
+  },
+  {
+   "text": "is",
+   "start": 37.12,
+   "end": 37.26
+  },
+  {
+   "text": "it?",
+   "start": 37.26,
+   "end": 37.9
+  },
+  {
+   "text": "Each",
+   "start": 38.9,
+   "end": 39.12
+  },
+  {
+   "text": "half",
+   "start": 39.12,
+   "end": 39.34
+  },
+  {
+   "text": "of",
+   "start": 39.34,
+   "end": 39.41
+  },
+  {
+   "text": "Earth",
+   "start": 39.41,
+   "end": 39.7
+  },
+  {
+   "text": "takes",
+   "start": 39.7,
+   "end": 39.94
+  },
+  {
+   "text": "a",
+   "start": 39.94,
+   "end": 40.04
+  },
+  {
+   "text": "turn",
+   "start": 40.04,
+   "end": 40.43
+  },
+  {
+   "text": "leaning",
+   "start": 40.43,
+   "end": 40.75
+  },
+  {
+   "text": "toward",
+   "start": 40.75,
+   "end": 41.01
+  },
+  {
+   "text": "the",
+   "start": 41.01,
+   "end": 41.11
+  },
+  {
+   "text": "Sun.",
+   "start": 41.11,
+   "end": 42.06
+  },
+  {
+   "text": "Earth",
+   "start": 42.06,
+   "end": 42.38
+  },
+  {
+   "text": "leans",
+   "start": 42.38,
+   "end": 42.66
+  },
+  {
+   "text": "about",
+   "start": 42.66,
+   "end": 42.96
+  },
+  {
+   "text": "23",
+   "start": 42.96,
+   "end": 43.52
+  },
+  {
+   "text": "degrees",
+   "start": 43.52,
+   "end": 43.93
+  },
+  {
+   "text": "from",
+   "start": 43.93,
+   "end": 44.08
+  },
+  {
+   "text": "upright,",
+   "start": 44.08,
+   "end": 44.75
+  },
+  {
+   "text": "like",
+   "start": 44.75,
+   "end": 44.91
+  },
+  {
+   "text": "a",
+   "start": 44.91,
+   "end": 44.99
+  },
+  {
+   "text": "classroom",
+   "start": 44.99,
+   "end": 45.55
+  },
+  {
+   "text": "globe,",
+   "start": 45.55,
+   "end": 46.3
+  },
+  {
+   "text": "and",
+   "start": 46.3,
+   "end": 46.41
+  },
+  {
+   "text": "the",
+   "start": 46.41,
+   "end": 46.5
+  },
+  {
+   "text": "lean",
+   "start": 46.5,
+   "end": 46.79
+  },
+  {
+   "text": "always",
+   "start": 46.79,
+   "end": 47.17
+  },
+  {
+   "text": "points",
+   "start": 47.17,
+   "end": 47.53
+  },
+  {
+   "text": "toward",
+   "start": 47.53,
+   "end": 47.76
+  },
+  {
+   "text": "the",
+   "start": 47.76,
+   "end": 47.89
+  },
+  {
+   "text": "same",
+   "start": 47.89,
+   "end": 48.24
+  },
+  {
+   "text": "faraway",
+   "start": 48.24,
+   "end": 48.67
+  },
+  {
+   "text": "spot.",
+   "start": 48.67,
+   "end": 49.62
+  },
+  {
+   "text": "So",
+   "start": 49.62,
+   "end": 49.88
+  },
+  {
+   "text": "in",
+   "start": 49.88,
+   "end": 50.04
+  },
+  {
+   "text": "June",
+   "start": 50.04,
+   "end": 50.4
+  },
+  {
+   "text": "the",
+   "start": 50.4,
+   "end": 50.5
+  },
+  {
+   "text": "north",
+   "start": 50.5,
+   "end": 50.8
+  },
+  {
+   "text": "half",
+   "start": 50.8,
+   "end": 51.1
+  },
+  {
+   "text": "leans",
+   "start": 51.1,
+   "end": 51.45
+  },
+  {
+   "text": "toward",
+   "start": 51.45,
+   "end": 51.71
+  },
+  {
+   "text": "the",
+   "start": 51.71,
+   "end": 51.81
+  },
+  {
+   "text": "Sun,",
+   "start": 51.81,
+   "end": 52.49
+  },
+  {
+   "text": "and",
+   "start": 52.49,
+   "end": 52.61
+  },
+  {
+   "text": "in",
+   "start": 52.61,
+   "end": 52.69
+  },
+  {
+   "text": "December,",
+   "start": 52.69,
+   "end": 53.26
+  },
+  {
+   "text": "on",
+   "start": 53.26,
+   "end": 53.36
+  },
+  {
+   "text": "the",
+   "start": 53.36,
+   "end": 53.48
+  },
+  {
+   "text": "other",
+   "start": 53.48,
+   "end": 53.75
+  },
+  {
+   "text": "side",
+   "start": 53.75,
+   "end": 53.99
+  },
+  {
+   "text": "of",
+   "start": 53.99,
+   "end": 54.06
+  },
+  {
+   "text": "its",
+   "start": 54.06,
+   "end": 54.23
+  },
+  {
+   "text": "trip,",
+   "start": 54.23,
+   "end": 54.76
+  },
+  {
+   "text": "it",
+   "start": 54.76,
+   "end": 54.9
+  },
+  {
+   "text": "leans",
+   "start": 54.9,
+   "end": 55.23
+  },
+  {
+   "text": "away.",
+   "start": 55.23,
+   "end": 56.11
+  },
+  {
+   "text": "The",
+   "start": 56.11,
+   "end": 56.26
+  },
+  {
+   "text": "south",
+   "start": 56.26,
+   "end": 56.58
+  },
+  {
+   "text": "half",
+   "start": 56.58,
+   "end": 56.85
+  },
+  {
+   "text": "does",
+   "start": 56.85,
+   "end": 57.06
+  },
+  {
+   "text": "the",
+   "start": 57.06,
+   "end": 57.17
+  },
+  {
+   "text": "opposite.",
+   "start": 57.17,
+   "end": 58.1
+  },
+  {
+   "text": "But",
+   "start": 58.1,
+   "end": 58.25
+  },
+  {
+   "text": "why",
+   "start": 58.25,
+   "end": 58.45
+  },
+  {
+   "text": "would",
+   "start": 58.45,
+   "end": 58.62
+  },
+  {
+   "text": "leaning",
+   "start": 58.62,
+   "end": 58.95
+  },
+  {
+   "text": "toward",
+   "start": 58.95,
+   "end": 59.21
+  },
+  {
+   "text": "the",
+   "start": 59.21,
+   "end": 59.31
+  },
+  {
+   "text": "Sun",
+   "start": 59.31,
+   "end": 59.58
+  },
+  {
+   "text": "make",
+   "start": 59.58,
+   "end": 59.76
+  },
+  {
+   "text": "it",
+   "start": 59.76,
+   "end": 59.88
+  },
+  {
+   "text": "warmer?",
+   "start": 59.88,
+   "end": 60.73
+  },
+  {
+   "text": "Leaning",
+   "start": 61.75,
+   "end": 62.05
+  },
+  {
+   "text": "toward",
+   "start": 62.05,
+   "end": 62.31
+  },
+  {
+   "text": "the",
+   "start": 62.31,
+   "end": 62.44
+  },
+  {
+   "text": "Sun",
+   "start": 62.44,
+   "end": 62.76
+  },
+  {
+   "text": "packs",
+   "start": 62.76,
+   "end": 63.06
+  },
+  {
+   "text": "its",
+   "start": 63.06,
+   "end": 63.25
+  },
+  {
+   "text": "light",
+   "start": 63.25,
+   "end": 63.51
+  },
+  {
+   "text": "into",
+   "start": 63.51,
+   "end": 63.75
+  },
+  {
+   "text": "a",
+   "start": 63.75,
+   "end": 63.86
+  },
+  {
+   "text": "smaller",
+   "start": 63.86,
+   "end": 64.33
+  },
+  {
+   "text": "patch.",
+   "start": 64.33,
+   "end": 65.22
+  },
+  {
+   "text": "Shine",
+   "start": 65.22,
+   "end": 65.49
+  },
+  {
+   "text": "a",
+   "start": 65.49,
+   "end": 65.55
+  },
+  {
+   "text": "torch",
+   "start": 65.55,
+   "end": 65.9
+  },
+  {
+   "text": "straight",
+   "start": 65.9,
+   "end": 66.2
+  },
+  {
+   "text": "down",
+   "start": 66.2,
+   "end": 66.44
+  },
+  {
+   "text": "at",
+   "start": 66.44,
+   "end": 66.51
+  },
+  {
+   "text": "a",
+   "start": 66.51,
+   "end": 66.58
+  },
+  {
+   "text": "table",
+   "start": 66.58,
+   "end": 67.06
+  },
+  {
+   "text": "and",
+   "start": 67.06,
+   "end": 67.19
+  },
+  {
+   "text": "you",
+   "start": 67.19,
+   "end": 67.27
+  },
+  {
+   "text": "get",
+   "start": 67.27,
+   "end": 67.41
+  },
+  {
+   "text": "a",
+   "start": 67.41,
+   "end": 67.52
+  },
+  {
+   "text": "small,",
+   "start": 67.52,
+   "end": 68.05
+  },
+  {
+   "text": "bright",
+   "start": 68.05,
+   "end": 68.36
+  },
+  {
+   "text": "spot.",
+   "start": 68.36,
+   "end": 69.24
+  },
+  {
+   "text": "Tilt",
+   "start": 69.24,
+   "end": 69.58
+  },
+  {
+   "text": "it,",
+   "start": 69.58,
+   "end": 70.0
+  },
+  {
+   "text": "and",
+   "start": 70.0,
+   "end": 70.11
+  },
+  {
+   "text": "the",
+   "start": 70.11,
+   "end": 70.21
+  },
+  {
+   "text": "same",
+   "start": 70.21,
+   "end": 70.55
+  },
+  {
+   "text": "light",
+   "start": 70.55,
+   "end": 70.84
+  },
+  {
+   "text": "spreads",
+   "start": 70.84,
+   "end": 71.21
+  },
+  {
+   "text": "into",
+   "start": 71.21,
+   "end": 71.45
+  },
+  {
+   "text": "a",
+   "start": 71.45,
+   "end": 71.58
+  },
+  {
+   "text": "long,",
+   "start": 71.58,
+   "end": 72.15
+  },
+  {
+   "text": "dim",
+   "start": 72.15,
+   "end": 72.38
+  },
+  {
+   "text": "patch.",
+   "start": 72.38,
+   "end": 73.26
+  },
+  {
+   "text": "The",
+   "start": 73.26,
+   "end": 73.38
+  },
+  {
+   "text": "half",
+   "start": 73.38,
+   "end": 73.65
+  },
+  {
+   "text": "leaning",
+   "start": 73.65,
+   "end": 73.97
+  },
+  {
+   "text": "toward",
+   "start": 73.97,
+   "end": 74.24
+  },
+  {
+   "text": "the",
+   "start": 74.24,
+   "end": 74.34
+  },
+  {
+   "text": "Sun",
+   "start": 74.34,
+   "end": 74.65
+  },
+  {
+   "text": "gets",
+   "start": 74.65,
+   "end": 74.91
+  },
+  {
+   "text": "light",
+   "start": 74.91,
+   "end": 75.2
+  },
+  {
+   "text": "more",
+   "start": 75.2,
+   "end": 75.42
+  },
+  {
+   "text": "like",
+   "start": 75.42,
+   "end": 75.61
+  },
+  {
+   "text": "the",
+   "start": 75.61,
+   "end": 75.7
+  },
+  {
+   "text": "straight",
+   "start": 75.7,
+   "end": 76.02
+  },
+  {
+   "text": "beam,",
+   "start": 76.02,
+   "end": 76.69
+  },
+  {
+   "text": "so",
+   "start": 76.69,
+   "end": 76.91
+  },
+  {
+   "text": "each",
+   "start": 76.91,
+   "end": 77.2
+  },
+  {
+   "text": "bit",
+   "start": 77.2,
+   "end": 77.34
+  },
+  {
+   "text": "of",
+   "start": 77.34,
+   "end": 77.42
+  },
+  {
+   "text": "ground",
+   "start": 77.42,
+   "end": 77.88
+  },
+  {
+   "text": "warms",
+   "start": 77.88,
+   "end": 78.22
+  },
+  {
+   "text": "more.",
+   "start": 78.22,
+   "end": 79.01
+  },
+  {
+   "text": "Does",
+   "start": 79.01,
+   "end": 79.22
+  },
+  {
+   "text": "the",
+   "start": 79.22,
+   "end": 79.32
+  },
+  {
+   "text": "lean",
+   "start": 79.32,
+   "end": 79.61
+  },
+  {
+   "text": "change",
+   "start": 79.61,
+   "end": 80.0
+  },
+  {
+   "text": "anything",
+   "start": 80.0,
+   "end": 80.35
+  },
+  {
+   "text": "else?",
+   "start": 80.35,
+   "end": 81.12
+  },
+  {
+   "text": "The",
+   "start": 82.1,
+   "end": 82.2
+  },
+  {
+   "text": "lean",
+   "start": 82.2,
+   "end": 82.56
+  },
+  {
+   "text": "also",
+   "start": 82.56,
+   "end": 82.95
+  },
+  {
+   "text": "makes",
+   "start": 82.95,
+   "end": 83.24
+  },
+  {
+   "text": "summer",
+   "start": 83.24,
+   "end": 83.58
+  },
+  {
+   "text": "days",
+   "start": 83.58,
+   "end": 83.88
+  },
+  {
+   "text": "longer.",
+   "start": 83.88,
+   "end": 84.7
+  },
+  {
+   "text": "It",
+   "start": 84.7,
+   "end": 84.85
+  },
+  {
+   "text": "puts",
+   "start": 84.85,
+   "end": 85.1
+  },
+  {
+   "text": "more",
+   "start": 85.1,
+   "end": 85.29
+  },
+  {
+   "text": "of",
+   "start": 85.29,
+   "end": 85.38
+  },
+  {
+   "text": "that",
+   "start": 85.38,
+   "end": 85.6
+  },
+  {
+   "text": "half",
+   "start": 85.6,
+   "end": 85.89
+  },
+  {
+   "text": "on",
+   "start": 85.89,
+   "end": 85.99
+  },
+  {
+   "text": "the",
+   "start": 85.99,
+   "end": 86.09
+  },
+  {
+   "text": "sunny",
+   "start": 86.09,
+   "end": 86.46
+  },
+  {
+   "text": "side",
+   "start": 86.46,
+   "end": 86.86
+  },
+  {
+   "text": "as",
+   "start": 86.86,
+   "end": 87.04
+  },
+  {
+   "text": "Earth",
+   "start": 87.04,
+   "end": 87.33
+  },
+  {
+   "text": "spins.",
+   "start": 87.33,
+   "end": 88.4
+  },
+  {
+   "text": "In",
+   "start": 88.4,
+   "end": 88.58
+  },
+  {
+   "text": "London,",
+   "start": 88.58,
+   "end": 89.29
+  },
+  {
+   "text": "a",
+   "start": 89.29,
+   "end": 89.42
+  },
+  {
+   "text": "June",
+   "start": 89.42,
+   "end": 89.75
+  },
+  {
+   "text": "day",
+   "start": 89.75,
+   "end": 90.05
+  },
+  {
+   "text": "is",
+   "start": 90.05,
+   "end": 90.16
+  },
+  {
+   "text": "about",
+   "start": 90.16,
+   "end": 90.49
+  },
+  {
+   "text": "twice",
+   "start": 90.49,
+   "end": 90.99
+  },
+  {
+   "text": "as",
+   "start": 90.99,
+   "end": 91.16
+  },
+  {
+   "text": "long",
+   "start": 91.16,
+   "end": 91.5
+  },
+  {
+   "text": "as",
+   "start": 91.5,
+   "end": 91.61
+  },
+  {
+   "text": "a",
+   "start": 91.61,
+   "end": 91.67
+  },
+  {
+   "text": "December",
+   "start": 91.67,
+   "end": 92.2
+  },
+  {
+   "text": "one.",
+   "start": 92.2,
+   "end": 93.06
+  },
+  {
+   "text": "Summer",
+   "start": 93.06,
+   "end": 93.45
+  },
+  {
+   "text": "doesn't",
+   "start": 93.45,
+   "end": 93.75
+  },
+  {
+   "text": "come",
+   "start": 93.75,
+   "end": 94.05
+  },
+  {
+   "text": "when",
+   "start": 94.05,
+   "end": 94.24
+  },
+  {
+   "text": "Earth",
+   "start": 94.24,
+   "end": 94.53
+  },
+  {
+   "text": "is",
+   "start": 94.53,
+   "end": 94.67
+  },
+  {
+   "text": "closer",
+   "start": 94.67,
+   "end": 95.1
+  },
+  {
+   "text": "to",
+   "start": 95.1,
+   "end": 95.19
+  },
+  {
+   "text": "the",
+   "start": 95.19,
+   "end": 95.31
+  },
+  {
+   "text": "Sun.",
+   "start": 95.31,
+   "end": 96.05
+  },
+  {
+   "text": "It",
+   "start": 96.05,
+   "end": 96.23
+  },
+  {
+   "text": "comes",
+   "start": 96.23,
+   "end": 96.56
+  },
+  {
+   "text": "when",
+   "start": 96.56,
+   "end": 96.69
+  },
+  {
+   "text": "your",
+   "start": 96.69,
+   "end": 96.8
+  },
+  {
+   "text": "half",
+   "start": 96.8,
+   "end": 97.05
+  },
+  {
+   "text": "leans",
+   "start": 97.05,
+   "end": 97.4
+  },
+  {
+   "text": "toward",
+   "start": 97.4,
+   "end": 97.7
+  },
+  {
+   "text": "it.",
+   "start": 97.7,
+   "end": 98.28
+  }
+ ],
+ "keys": [
+  [
+   [
+    2.39,
+    0.9
+   ],
+   [
+    6.86,
+    1.0
+   ],
+   [
+    11.78,
+    1.5
+   ],
+   [
+    14.35,
+    3.0
+   ],
+   [
+    15.32,
+    3.5
+   ]
+  ],
+  [
+   [
+    3.27,
+    1.75
+   ],
+   [
+    8.05,
+    2.3
+   ],
+   [
+    14.61,
+    3.1
+   ]
+  ],
+  [
+   [
+    5.48,
+    1.3
+   ],
+   [
+    11.44,
+    1.3
+   ],
+   [
+    16.16,
+    3.5
+   ]
+  ],
+  [
+   [
+    7.81,
+    1.7
+   ],
+   [
+    8.58,
+    1.9
+   ],
+   [
+    11.84,
+    3.0
+   ]
+  ],
+  [
+   [
+    2.05,
+    1.0
+   ],
+   [
+    6.58,
+    2.0
+   ],
+   [
+    11.24,
+    3.2
+   ]
+  ]
+ ]
+}

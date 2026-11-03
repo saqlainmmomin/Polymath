@@ -371,22 +371,22 @@ struct GlueDRFilm: View {
         DR.draw(&c, circle, p: on, width: DR.line + 0.6)
 
         // the drop: falls into the lens, lands on the film, sets from the bottom up
-        let fall = BP.pr(t, 1.1, 1.6), land = pt(200, surface(200) - 4)
+        let fall = BP.pr(t, 1.5, 2.0), land = pt(200, surface(200) - 4)
         var dc = c; dc.clip(to: circle)
-        if t >= 1.1 && fall < 1 {
+        if t >= 1.5 && fall < 1 {
             let y = 60 + (land.y - 14 - 60) * fall * fall
             var tear = Path()
             tear.move(to: pt(land.x, y - 11))
             tear.addCurve(to: pt(land.x, y + 11), control1: pt(land.x + 11, y + 1), control2: pt(land.x + 9, y + 11))
             tear.addCurve(to: pt(land.x, y - 11), control1: pt(land.x - 9, y + 11), control2: pt(land.x - 11, y + 1))
             dc.fill(tear, with: .color(DR.accent)); dc.stroke(tear, with: .color(DR.ink), lineWidth: DR.line)
-        } else if t >= 1.6 {
-            let spread = BP.eout(BP.pr(t, 1.6, 1.85))
-            DR.bead(&dc, base: land, w: 14 + 12 * spread, h: 22 - 6 * spread, hard: BP.eio(BP.pr(t, 2.0, 3.0)), fromBottom: true)
+        } else if t >= 2.0 {
+            let spread = BP.eout(BP.pr(t, 2.0, 2.25))
+            DR.bead(&dc, base: land, w: 14 + 12 * spread, h: 22 - 6 * spread, hard: BP.eio(BP.pr(t, 2.4, 3.4)), fromBottom: true)
         }
 
         DR.label(&c, "WATER FILM", anchor: pt(128, surface(128) - 4), at: pt(66, 268), align: .center, p: BP.pr(t, 0.9, 1.4))
-        DR.label(&c, "GLUE", anchor: pt(200, land.y - 10), at: pt(184, 280), align: .center, p: BP.pr(t, 2.2, 2.7))
+        DR.label(&c, "GLUE", anchor: pt(200, land.y - 10), at: pt(184, 280), align: .center, p: BP.pr(t, 2.6, 3.1))
         DR.label(&c, "SKIN", anchor: pt(262, 222), at: pt(290, 268), align: .center, p: BP.pr(t, 1.0, 1.5))
     }
 }
