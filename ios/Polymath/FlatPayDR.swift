@@ -307,7 +307,7 @@ extension PayDR {
 struct PayDRTap: View {
     let active: Bool
     @Environment(\.pictureClock) private var narrated
-    private static let story = 3.8
+    private static let story = 4.6
 
     var body: some View {
         let isNarrated = narrated != nil
@@ -319,10 +319,10 @@ struct PayDRTap: View {
                        })
     }
 
-    private static let term = pt(150, 114)           // the terminal's top left
-    private static let tapAt = pt(180, 124)         // where the card lies on the contactless panel
-    private static let rest = pt(70, -58)
-    private static let m0 = pt(186, 106), m1 = pt(170, 40), m2 = pt(110, 30), m3 = pt(76, 62)
+    private static let term = pt(111, 114)           // the terminal's top left
+    private static let tapAt = pt(153, 124)         // where the card lies on the contactless panel
+    private static let rest = pt(-70, -58)
+    private static let m0 = pt(157, 106), m1 = pt(173, 40), m2 = pt(233, 30), m3 = pt(267, 62)
 
     private static func flight(_ e: Double) -> CGPoint {
         let m = 1 - e
@@ -355,7 +355,9 @@ struct PayDRTap: View {
         // the hand carries the card in to the panel, holds, and takes it back
         let k = BP.eio(BP.pr(u, 0.9, 1.5)) - BP.eio(BP.pr(u, 2.0, 2.7))
         let cardAt = pt(tapAt.x + rest.x * (1 - k), tapAt.y + rest.y * (1 - k))
-        PayDR.heldCard(&c, at: cardAt, on: on, fill: fill)
+        var hc = c                                                     // the hand comes in from the left, so the whole hand is mirrored
+        hc.translateBy(x: cardAt.x, y: 0); hc.scaleBy(x: -1, y: 1); hc.translateBy(x: -cardAt.x, y: 0)
+        PayDR.heldCard(&hc, at: cardAt, on: on, fill: fill)
 
         // the message: leaves the top of the terminal and floats off, then bobs a little where it rests
         let e = BP.eio(BP.pr(u, 2.2, 3.5))
@@ -366,9 +368,9 @@ struct PayDRTap: View {
             PayDR.envelope(&c, at: pt(pos.x, pos.y + sin(max(0, clock - 3.5) * 2.4) * 1.5 * BP.pr(u, 3.4, 3.8)), alpha: BP.pr(u, 2.2, 2.45))
         }
 
-        DR.label(&c, "CARD READER", anchor: pt(term.x + 1, 176), at: pt(100, 202), align: .center, p: BP.pr(u, 0.5, 1.0))
-        DR.label(&c, "MESSAGE", anchor: pt(m3.x - 10, m3.y - 11), at: pt(26, 20), align: .leading, p: BP.pr(u, 2.9, 3.3))
-        DR.label(&c, "CAN THIS CARD PAY?", anchor: pt(m3.x, m3.y + 13), at: pt(24, 96), align: .leading, p: BP.pr(u, 3.2, 3.6))
+        DR.label(&c, "CARD READER", anchor: pt(term.x + 71, 176), at: pt(250, 204), align: .center, p: BP.pr(u, 0.5, 1.0))
+        DR.label(&c, "MESSAGE", anchor: pt(m3.x, m3.y - 13), at: pt(262, 22), align: .leading, p: BP.pr(u, 2.9, 3.3))
+        DR.label(&c, "CAN THIS CARD PAY?", anchor: pt(m3.x, m3.y + 13), at: pt(224, 98), align: .leading, p: BP.pr(u, 3.8, 4.3))
     }
 }
 
@@ -433,11 +435,11 @@ struct PayDRHops: View {
 struct PayDRPromise: View {
     let active: Bool
     @Environment(\.pictureClock) private var narrated
-    private static let story = 4.4
+    private static let story = 5.6
 
     var body: some View {
         let isNarrated = narrated != nil
-        return BlueprintStage(active: active, length: Self.story, tick: 2.0,
+        return BlueprintStage(active: active, length: Self.story, tick: 3.0,
                        label: "A line drawing on white: your bank on the left with a bar for what you can spend, full. A yes, shown in gold, arrives at the bank and the bar drops. On the right the shop's till stays empty, with a gap between the bank and the shop. Labels say: your bank, what you can spend, your bank's yes, the shop.",
                        draw: { c, t, _, clock in
                            let (u, held) = AB.time(t, clock, story: Self.story, narrated: isNarrated)
@@ -445,8 +447,8 @@ struct PayDRPromise: View {
                        })
     }
 
-    private static let bankX = 79.0, shopX = 270.0, base = 150.0
-    private static let track = CGRect(x: 24, y: 166, width: 110, height: 16)
+    private static let bankX = 270.0, shopX = 79.0, base = 150.0
+    private static let track = CGRect(x: 215, y: 166, width: 110, height: 16)
 
     private static func draw(_ c: inout GraphicsContext, _ u: Double) {
         let on = BP.pr(u, 0, 0.8), fill = BP.pr(u, 0.2, 0.7)
@@ -459,10 +461,10 @@ struct PayDRPromise: View {
         var gap = Path()
         gap.move(to: pt(120, 126)); gap.addLine(to: pt(228, 126))
         for x in [120.0, 228.0] { gap.move(to: pt(x, 120)); gap.addLine(to: pt(x, 132)) }
-        DR.draw(&c, gap, p: BP.pr(u, 0.5, 1.1), width: DR.hair, color: DR.ink.opacity(0.6), dash: [4, 3.5])
+        DR.draw(&c, gap, p: BP.pr(u, 3.8, 4.1), width: DR.hair, color: DR.ink.opacity(0.6), dash: [4, 3.5])
 
         // what you can spend: a full bar that drops when the yes arrives
-        let drop = BP.eio(BP.pr(u, 2.0, 2.7)), level = 1 - 0.4 * drop
+        let drop = BP.eio(BP.pr(u, 2.7, 3.3)), level = 1 - 0.4 * drop
         let tr = Path(roundedRect: track, cornerRadius: 3)
         var tg = c; tg.opacity = fill
         tg.fill(tr, with: .color(DR.face))
@@ -476,16 +478,16 @@ struct PayDRPromise: View {
         DR.draw(&c, tr, p: on)
 
         // the yes arrives from the right and rests beside the bank
-        let move = BP.eio(BP.pr(u, 0.6, 1.8)), pulse = 1 + 0.06 * sin(Double.pi * BP.pr(u, 1.8, 2.2))
+        let move = BP.eio(BP.pr(u, 1.2, 1.9)), pulse = 1 + 0.06 * sin(Double.pi * BP.pr(u, 1.9, 2.3))
         var s = c
-        let at = pt(BP.mix(222, 140, move), base - 38)
+        let at = pt(BP.mix(130, 204, move), base - 38)
         s.translateBy(x: at.x, y: at.y); s.scaleBy(x: pulse, y: pulse)
-        PayDR.yes(&s, at: .zero, alpha: BP.pr(u, 0.5, 0.9), word: false)
+        PayDR.yes(&s, at: .zero, alpha: BP.pr(u, 1.2, 1.4), word: false)
 
-        DR.label(&c, "YOUR BANK", anchor: pt(bankX - 14, base - 54), at: pt(34, 76), align: .leading, p: BP.pr(u, 0.4, 1.0))
-        DR.label(&c, "WHAT YOU CAN SPEND", anchor: pt(60, 184), at: pt(74, 214), align: .center, p: BP.pr(u, 0.9, 1.7))
-        DR.label(&c, "YOUR BANK'S YES", anchor: pt(at.x, base - 48), at: pt(150, 76), align: .leading, p: BP.pr(u, 1.5, 2.3))
-        DR.label(&c, "THE SHOP", anchor: pt(shopX, base + 3), at: pt(shopX, 190), align: .center, p: BP.pr(u, 2.0, 2.8))
+        DR.label(&c, "YOUR BANK", anchor: pt(bankX - 14, base - 54), at: pt(258, 56), align: .leading, p: BP.pr(u, 0.4, 1.0))
+        DR.label(&c, "WHAT YOU CAN SPEND", anchor: pt(250, 184), at: pt(268, 214), align: .center, p: BP.pr(u, 2.2, 2.8))
+        DR.label(&c, "YOUR BANK'S YES", anchor: pt(at.x, base - 48), at: pt(142, 80), align: .leading, p: BP.pr(u, 4.6, 5.2))
+        DR.label(&c, "THE SHOP", anchor: pt(shopX, base + 3), at: pt(shopX, 190), align: .center, p: BP.pr(u, 3.8, 4.4))
     }
 }
 
@@ -494,11 +496,11 @@ struct PayDRPromise: View {
 struct PayDRTotals: View {
     let active: Bool
     @Environment(\.pictureClock) private var narrated
-    private static let story = 9.0
+    private static let story = 10.4
 
     var body: some View {
         let isNarrated = narrated != nil
-        return BlueprintStage(active: active, length: Self.story, tick: 8.2,
+        return BlueprintStage(active: active, length: Self.story, tick: 9.6,
                        label: "A line drawing on white: many small payment slips drop onto two banks and add up into totals. Three days tick off on a calendar. Only then do the totals, shown in gold, slide from the banks to the shop. Labels say: many payments, totals, a few working days, the shop.",
                        draw: { c, t, _, clock in
                            let (u, held) = AB.time(t, clock, story: Self.story, narrated: isNarrated)
@@ -506,8 +508,8 @@ struct PayDRTotals: View {
                        })
     }
 
-    private static let banks: [Double] = [44, 106]
-    private static let shopX = 270.0, base = 150.0, pileY = 70.0
+    private static let banks: [Double] = [237, 299]
+    private static let shopX = 73.0, base = 150.0, pileY = 70.0
     private static let slots: [(Double, Double)] = [(-11, 0), (0, 0), (11, 0), (-5.5, -7), (5.5, -7), (0, -14)]
     private static let cal = CGRect(x: 148, y: 176, width: 92, height: 40)
 
@@ -519,7 +521,7 @@ struct PayDRTotals: View {
         PayDR.shop(&c, cx: shopX, base: base - 1, on: BP.pr(u, 0.3, 1.0), fill: BP.pr(u, 0.5, 1.0), tray: false)
 
         // the calendar: three ticks pass
-        let fade = 1 - BP.pr(u, 9.6, 10.2)
+        let fade = 1.0
         let page = Path(roundedRect: cal, cornerRadius: 3)
         var cg = c; cg.opacity = BP.pr(u, 0.4, 1.0)
         cg.fill(page, with: .color(DR.face)); DR.draw(&c, page, p: BP.pr(u, 0.4, 1.0))
@@ -530,7 +532,7 @@ struct PayDRTotals: View {
         }
         for j in 0..<3 {
             let cell = CGRect(x: cal.minX + 3 + 29.5 * Double(j), y: cal.minY + 13, width: 27, height: 24)
-            let p = BP.pr(u, 3.9 + 0.9 * Double(j), 4.3 + 0.9 * Double(j))
+            let p = BP.pr(u, 5.0 + 0.8 * Double(j), 5.4 + 0.8 * Double(j))
             var cc = c; cc.opacity = BP.pr(u, 0.6, 1.2)
             let cp = Path(roundedRect: cell, cornerRadius: 2)
             cc.stroke(cp, with: .color(DR.ink.opacity(0.7)), lineWidth: DR.hair)
@@ -542,21 +544,21 @@ struct PayDRTotals: View {
 
         // many payments rain onto the banks and add up into totals; the totals turn gold as they set off for the shop
         for i in 0..<12 {
-            let s = 0.3 + 0.2 * Double(i)
+            let s = 0.3 + 0.15 * Double(i)
             let f = BP.pr(u, s, s + 0.45)
             let slot = slots[i / 2], bx = banks[i % 2]
             let at = pt(bx + slot.0, 46 + (pileY + slot.1 - 46) * f * f)
-            PayDR.slip(&c, at: at, big: false, alpha: BP.pr(u, s, s + 0.08) * (1 - BP.pr(u, 2.9, 3.3)))
+            PayDR.slip(&c, at: at, big: false, alpha: BP.pr(u, s, s + 0.08) * (1 - BP.pr(u, 2.6, 3.0)))
         }
-        let ta = BP.pr(u, 2.9, 3.5) * fade, m = BP.pr(u, 6.2, 6.6), e = BP.eio(BP.pr(u, 6.6, 8.2))
-        let targets: [Double] = [254, 286]
+        let ta = BP.pr(u, 2.6, 3.2) * fade, m = BP.pr(u, 7.6, 8.0), e = BP.eio(BP.pr(u, 8.0, 9.6))
+        let targets: [Double] = [96, 66]
         for (i, bx) in banks.enumerated() {
-            PayDR.slip(&c, at: pt(BP.mix(bx, targets[i], e), pileY - 6 + 36 * BP.eio(BP.pr(u, 8.2, 8.8))), big: true, set: m, alpha: ta)
+            PayDR.slip(&c, at: pt(BP.mix(bx, targets[i], e), pileY - 6 + 36 * BP.eio(BP.pr(u, 9.6, 10.2))), big: true, set: m, alpha: ta)
         }
 
-        DR.label(&c, "MANY PAYMENTS", anchor: pt(banks[0], pileY - 10), at: pt(14, 36), align: .leading, p: BP.pr(u, 0.3, 1.0))
-        DR.label(&c, "TOTALS", anchor: pt(banks[1] + 8, pileY - 14), at: pt(122, 40), align: .leading, p: BP.pr(u, 0.8, 1.5))
-        DR.label(&c, "A FEW WORKING DAYS", anchor: pt(194, cal.maxY + 2), at: pt(190, 246), align: .center, p: BP.pr(u, 1.3, 2.1))
-        DR.label(&c, "THE SHOP", anchor: pt(shopX, base + 3), at: pt(shopX + 6, 188), align: .center, p: BP.pr(u, 1.8, 2.6))
+        DR.label(&c, "MANY PAYMENTS", anchor: pt(banks[1], pileY - 10), at: pt(228, 36), align: .leading, p: BP.pr(u, 0.3, 1.0))
+        DR.label(&c, "TOTALS", anchor: pt(banks[0] - 8, pileY - 14), at: pt(150, 40), align: .leading, p: BP.pr(u, 2.6, 3.2))
+        DR.label(&c, "A FEW WORKING DAYS", anchor: pt(194, cal.maxY + 2), at: pt(190, 246), align: .center, p: BP.pr(u, 4.2, 4.9))
+        DR.label(&c, "THE SHOP", anchor: pt(shopX, base + 3), at: pt(shopX + 6, 188), align: .center, p: BP.pr(u, 3.4, 4.0))
     }
 }
