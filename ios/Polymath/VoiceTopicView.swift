@@ -168,7 +168,10 @@ struct VoiceTopicView: View {
         .task(id: isCurrent) {
             if player == nil { player = NarrationPlayer(url: audio) }
             guard let player else { return }
-            if isCurrent {
+            if isCurrent, let s = Launch.seek {
+                withAnimation(nil) { beat = narration.beat(at: s) }
+                player.seek(s); chrome = false
+            } else if isCurrent {
                 try? await Task.sleep(for: .milliseconds(500))   // let the feed's spring finish before the voice starts
                 if !Task.isCancelled { player.play() }
             } else {

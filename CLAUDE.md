@@ -9,7 +9,7 @@ A phone-first shorts feed of tiny animated "how things work" topics whose one jo
 | `PRODUCT.md` | Product goal: curiosity, effortless, broad appeal |
 | `RECIPE.md` | How to write a topic (one big question, 1–6 cards) and its file format |
 | `ios/Polymath/Topics/<id>.json` | One topic's words; a topic shows in the feed only once it is Narrated (has `voice-<id>.*`), the rest stay hidden |
-| `ios/Polymath/Pictures.swift` | Which picture each topic's card shows; pictures live in `Flat*.swift` |
+| `ios/Polymath/Pictures.swift` | Which picture each topic's card shows; pictures live in `Flat*.swift`, or as data in `Scenes/<id>.json` (`tasks/scene-format.md`, `tools/scene/scene.py`) |
 | `ios/Polymath/VoiceTopicView.swift`, `tools/voice/` | Narrated topics: the player, and the offline voice renderer |
 | `ios/README.md` | Run on the simulator or a phone |
 | `tasks/todo.md`, `tasks/fix-log.md` | Plan, decisions, lessons |

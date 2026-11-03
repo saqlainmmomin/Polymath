@@ -13,6 +13,8 @@ enum Launch {
     static var showIndex: Bool { ProcessInfo.processInfo.arguments.contains("--index") }
     /// `--preview` shows a topic without a narration as its picture alone, laid out like the Narrated screen (see PicturePreview).
     static var preview: Bool { ProcessInfo.processInfo.arguments.contains("--preview") }
+    /// `--seek 12.5` opens the first topic paused at that second of its narration (for frame grabs: tools/scene/scene.py sheet).
+    static var seek: Double? { value("--seek").flatMap(Double.init) }
 }
 
 /// Per-launch state shared by all pictures: once the reader has touched any picture, the cue pill stays away.
