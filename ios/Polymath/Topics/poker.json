@@ -1,0 +1,104 @@
+{
+  "id": "poker",
+  "title": "How do you play poker?",
+  "kind": "full",
+  "theme": "games",
+  "style": "drafting",
+  "cards": [
+    {
+      "type": "card",
+      "title": "Poker looks like a game of who gets the best cards.",
+      "text": "But you can win a round of poker holding the worst cards at the table. To see how, take the most common kind, called Texas Hold'em.",
+      "hook": "What do you start with?",
+      "visual": {
+        "type": "diagram",
+        "notes": [
+          "The chips slide to one player",
+          "Their cards: a 2 and a 7"
+        ],
+        "labels": [
+          "The worst cards"
+        ]
+      }
+    },
+    {
+      "type": "card",
+      "title": "You start with two cards only you can see",
+      "text": "Then five more cards are turned face up in the middle, and they belong to everyone: first three, then one, then the last one. Your hand is the best five cards you can make from your two and those five.",
+      "hook": "So how does the betting work?",
+      "visual": {
+        "type": "diagram",
+        "notes": [
+          "Peek at your two",
+          "Five face up: three, one, one",
+          "Best five of seven light up"
+        ],
+        "labels": [
+          "Your two",
+          "Everyone's",
+          "Your hand"
+        ]
+      }
+    },
+    {
+      "type": "card",
+      "title": "Every bet goes into one pile in the middle, the pot",
+      "text": "Players bet before the shared cards come out, and after each step. On your turn you can put in the same as the last bet, put in more, or fold, which means throwing your cards away and giving up the pot.",
+      "hook": "So who takes the pot?",
+      "visual": {
+        "type": "diagram",
+        "notes": [
+          "Chips slide into one pile",
+          "The same, more, or fold"
+        ],
+        "labels": [
+          "The pot",
+          "The same",
+          "More",
+          "Fold"
+        ]
+      }
+    },
+    {
+      "type": "card",
+      "title": "If everyone else folds, the last player left takes the pot",
+      "text": "They never have to show their cards. They might have had the worst cards at the table.",
+      "hook": "But what if two or more players are still in?",
+      "visual": {
+        "type": "diagram",
+        "notes": [
+          "Two players fold",
+          "The pot slides to the last player",
+          "Their cards were a 2 and a 7"
+        ],
+        "labels": [
+          "Folds",
+          "Never shown"
+        ]
+      }
+    },
+    {
+      "type": "card",
+      "title": "If two or more players are still in, the best hand wins",
+      "text": "After the last bet, they show their cards. A pair beats no pair, two pairs beat one, and so on up. The best of all is the royal flush: ten, jack, queen, king and ace in one suit, like all hearts. In Texas Hold'em, playing a round a day, you'd wait about 85 years for one.",
+      "takeaway": "The best cards only win if they're still in the game.",
+      "visual": {
+        "type": "diagram",
+        "notes": [
+          "A pair against two pairs",
+          "Up to the royal flush"
+        ],
+        "labels": [
+          "A pair",
+          "Two pairs",
+          "Royal flush"
+        ]
+      }
+    },
+    {
+      "type": "more",
+      "links": [],
+      "note": "Betting as if you have great cards when you don't is called bluffing, and it's a normal, allowed part of the game, not cheating."
+    }
+  ]
+}

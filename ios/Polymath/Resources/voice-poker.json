@@ -1,0 +1,1400 @@
+{
+ "voice": "af_heart",
+ "duration": 84.25,
+ "beats": [
+  0.0,
+  14.5,
+  31.7,
+  49.05,
+  60.6
+ ],
+ "words": [
+  {
+   "text": "How",
+   "start": 0.28,
+   "end": 0.39
+  },
+  {
+   "text": "do",
+   "start": 0.39,
+   "end": 0.49
+  },
+  {
+   "text": "you",
+   "start": 0.49,
+   "end": 0.57
+  },
+  {
+   "text": "play",
+   "start": 0.57,
+   "end": 0.8
+  },
+  {
+   "text": "poker?",
+   "start": 0.8,
+   "end": 1.69
+  },
+  {
+   "text": "Poker",
+   "start": 1.69,
+   "end": 2.1
+  },
+  {
+   "text": "looks",
+   "start": 2.1,
+   "end": 2.35
+  },
+  {
+   "text": "like",
+   "start": 2.35,
+   "end": 2.54
+  },
+  {
+   "text": "a",
+   "start": 2.54,
+   "end": 2.6
+  },
+  {
+   "text": "game",
+   "start": 2.6,
+   "end": 2.92
+  },
+  {
+   "text": "of",
+   "start": 2.92,
+   "end": 3.02
+  },
+  {
+   "text": "who",
+   "start": 3.02,
+   "end": 3.17
+  },
+  {
+   "text": "gets",
+   "start": 3.17,
+   "end": 3.42
+  },
+  {
+   "text": "the",
+   "start": 3.42,
+   "end": 3.52
+  },
+  {
+   "text": "best",
+   "start": 3.52,
+   "end": 3.83
+  },
+  {
+   "text": "cards.",
+   "start": 3.83,
+   "end": 4.67
+  },
+  {
+   "text": "But",
+   "start": 4.67,
+   "end": 4.83
+  },
+  {
+   "text": "you",
+   "start": 4.83,
+   "end": 4.92
+  },
+  {
+   "text": "can",
+   "start": 4.92,
+   "end": 5.08
+  },
+  {
+   "text": "win",
+   "start": 5.08,
+   "end": 5.25
+  },
+  {
+   "text": "a",
+   "start": 5.25,
+   "end": 5.36
+  },
+  {
+   "text": "round",
+   "start": 5.36,
+   "end": 5.69
+  },
+  {
+   "text": "of",
+   "start": 5.69,
+   "end": 5.78
+  },
+  {
+   "text": "poker",
+   "start": 5.78,
+   "end": 6.21
+  },
+  {
+   "text": "holding",
+   "start": 6.21,
+   "end": 6.56
+  },
+  {
+   "text": "the",
+   "start": 6.56,
+   "end": 6.65
+  },
+  {
+   "text": "worst",
+   "start": 6.65,
+   "end": 7.0
+  },
+  {
+   "text": "cards",
+   "start": 7.0,
+   "end": 7.31
+  },
+  {
+   "text": "at",
+   "start": 7.31,
+   "end": 7.39
+  },
+  {
+   "text": "the",
+   "start": 7.39,
+   "end": 7.47
+  },
+  {
+   "text": "table.",
+   "start": 7.47,
+   "end": 8.39
+  },
+  {
+   "text": "To",
+   "start": 8.39,
+   "end": 8.53
+  },
+  {
+   "text": "see",
+   "start": 8.53,
+   "end": 8.72
+  },
+  {
+   "text": "how,",
+   "start": 8.72,
+   "end": 9.28
+  },
+  {
+   "text": "take",
+   "start": 9.28,
+   "end": 9.49
+  },
+  {
+   "text": "the",
+   "start": 9.49,
+   "end": 9.57
+  },
+  {
+   "text": "most",
+   "start": 9.57,
+   "end": 9.86
+  },
+  {
+   "text": "common",
+   "start": 9.86,
+   "end": 10.26
+  },
+  {
+   "text": "kind,",
+   "start": 10.26,
+   "end": 10.93
+  },
+  {
+   "text": "called",
+   "start": 10.93,
+   "end": 11.24
+  },
+  {
+   "text": "Texas",
+   "start": 11.24,
+   "end": 11.68
+  },
+  {
+   "text": "Hold'em.",
+   "start": 11.68,
+   "end": 12.53
+  },
+  {
+   "text": "What",
+   "start": 12.53,
+   "end": 12.66
+  },
+  {
+   "text": "do",
+   "start": 12.66,
+   "end": 12.76
+  },
+  {
+   "text": "you",
+   "start": 12.76,
+   "end": 12.85
+  },
+  {
+   "text": "start",
+   "start": 12.85,
+   "end": 13.14
+  },
+  {
+   "text": "with?",
+   "start": 13.14,
+   "end": 13.8
+  },
+  {
+   "text": "You",
+   "start": 14.78,
+   "end": 14.9
+  },
+  {
+   "text": "start",
+   "start": 14.9,
+   "end": 15.19
+  },
+  {
+   "text": "with",
+   "start": 15.19,
+   "end": 15.36
+  },
+  {
+   "text": "two",
+   "start": 15.36,
+   "end": 15.57
+  },
+  {
+   "text": "cards",
+   "start": 15.57,
+   "end": 16.0
+  },
+  {
+   "text": "only",
+   "start": 16.0,
+   "end": 16.3
+  },
+  {
+   "text": "you",
+   "start": 16.3,
+   "end": 16.43
+  },
+  {
+   "text": "can",
+   "start": 16.43,
+   "end": 16.64
+  },
+  {
+   "text": "see.",
+   "start": 16.64,
+   "end": 17.44
+  },
+  {
+   "text": "Then",
+   "start": 17.44,
+   "end": 17.74
+  },
+  {
+   "text": "five",
+   "start": 17.74,
+   "end": 18.18
+  },
+  {
+   "text": "more",
+   "start": 18.18,
+   "end": 18.4
+  },
+  {
+   "text": "cards",
+   "start": 18.4,
+   "end": 18.74
+  },
+  {
+   "text": "are",
+   "start": 18.74,
+   "end": 18.82
+  },
+  {
+   "text": "turned",
+   "start": 18.82,
+   "end": 19.19
+  },
+  {
+   "text": "face",
+   "start": 19.19,
+   "end": 19.49
+  },
+  {
+   "text": "up",
+   "start": 19.49,
+   "end": 19.64
+  },
+  {
+   "text": "in",
+   "start": 19.64,
+   "end": 19.71
+  },
+  {
+   "text": "the",
+   "start": 19.71,
+   "end": 19.8
+  },
+  {
+   "text": "middle,",
+   "start": 19.8,
+   "end": 20.45
+  },
+  {
+   "text": "and",
+   "start": 20.45,
+   "end": 20.56
+  },
+  {
+   "text": "they",
+   "start": 20.56,
+   "end": 20.7
+  },
+  {
+   "text": "belong",
+   "start": 20.7,
+   "end": 21.15
+  },
+  {
+   "text": "to",
+   "start": 21.15,
+   "end": 21.29
+  },
+  {
+   "text": "everyone:",
+   "start": 21.29,
+   "end": 22.11
+  },
+  {
+   "text": "first",
+   "start": 22.11,
+   "end": 22.46
+  },
+  {
+   "text": "three,",
+   "start": 22.46,
+   "end": 23.02
+  },
+  {
+   "text": "then",
+   "start": 23.02,
+   "end": 23.25
+  },
+  {
+   "text": "one,",
+   "start": 23.25,
+   "end": 23.75
+  },
+  {
+   "text": "then",
+   "start": 23.75,
+   "end": 23.91
+  },
+  {
+   "text": "the",
+   "start": 23.91,
+   "end": 24.0
+  },
+  {
+   "text": "last",
+   "start": 24.0,
+   "end": 24.36
+  },
+  {
+   "text": "one.",
+   "start": 24.36,
+   "end": 25.16
+  },
+  {
+   "text": "Your",
+   "start": 25.16,
+   "end": 25.38
+  },
+  {
+   "text": "hand",
+   "start": 25.38,
+   "end": 25.75
+  },
+  {
+   "text": "is",
+   "start": 25.75,
+   "end": 25.89
+  },
+  {
+   "text": "the",
+   "start": 25.89,
+   "end": 25.98
+  },
+  {
+   "text": "best",
+   "start": 25.98,
+   "end": 26.3
+  },
+  {
+   "text": "five",
+   "start": 26.3,
+   "end": 26.62
+  },
+  {
+   "text": "cards",
+   "start": 26.62,
+   "end": 26.98
+  },
+  {
+   "text": "you",
+   "start": 26.98,
+   "end": 27.07
+  },
+  {
+   "text": "can",
+   "start": 27.07,
+   "end": 27.2
+  },
+  {
+   "text": "make",
+   "start": 27.2,
+   "end": 27.4
+  },
+  {
+   "text": "from",
+   "start": 27.4,
+   "end": 27.54
+  },
+  {
+   "text": "your",
+   "start": 27.54,
+   "end": 27.69
+  },
+  {
+   "text": "two",
+   "start": 27.69,
+   "end": 28.09
+  },
+  {
+   "text": "and",
+   "start": 28.09,
+   "end": 28.21
+  },
+  {
+   "text": "those",
+   "start": 28.21,
+   "end": 28.45
+  },
+  {
+   "text": "five.",
+   "start": 28.45,
+   "end": 29.3
+  },
+  {
+   "text": "So",
+   "start": 29.3,
+   "end": 29.5
+  },
+  {
+   "text": "how",
+   "start": 29.5,
+   "end": 29.7
+  },
+  {
+   "text": "does",
+   "start": 29.7,
+   "end": 29.89
+  },
+  {
+   "text": "the",
+   "start": 29.89,
+   "end": 29.98
+  },
+  {
+   "text": "betting",
+   "start": 29.98,
+   "end": 30.27
+  },
+  {
+   "text": "work?",
+   "start": 30.27,
+   "end": 31.0
+  },
+  {
+   "text": "Every",
+   "start": 31.97,
+   "end": 32.25
+  },
+  {
+   "text": "bet",
+   "start": 32.25,
+   "end": 32.52
+  },
+  {
+   "text": "goes",
+   "start": 32.52,
+   "end": 32.74
+  },
+  {
+   "text": "into",
+   "start": 32.74,
+   "end": 32.99
+  },
+  {
+   "text": "one",
+   "start": 32.99,
+   "end": 33.24
+  },
+  {
+   "text": "pile",
+   "start": 33.24,
+   "end": 33.56
+  },
+  {
+   "text": "in",
+   "start": 33.56,
+   "end": 33.64
+  },
+  {
+   "text": "the",
+   "start": 33.64,
+   "end": 33.73
+  },
+  {
+   "text": "middle,",
+   "start": 33.73,
+   "end": 34.17
+  },
+  {
+   "text": "the",
+   "start": 34.17,
+   "end": 34.27
+  },
+  {
+   "text": "pot.",
+   "start": 34.27,
+   "end": 35.11
+  },
+  {
+   "text": "Players",
+   "start": 35.11,
+   "end": 35.59
+  },
+  {
+   "text": "bet",
+   "start": 35.59,
+   "end": 35.88
+  },
+  {
+   "text": "before",
+   "start": 35.88,
+   "end": 36.14
+  },
+  {
+   "text": "the",
+   "start": 36.14,
+   "end": 36.26
+  },
+  {
+   "text": "shared",
+   "start": 36.26,
+   "end": 36.58
+  },
+  {
+   "text": "cards",
+   "start": 36.58,
+   "end": 36.92
+  },
+  {
+   "text": "come",
+   "start": 36.92,
+   "end": 37.09
+  },
+  {
+   "text": "out,",
+   "start": 37.09,
+   "end": 37.48
+  },
+  {
+   "text": "and",
+   "start": 37.48,
+   "end": 37.6
+  },
+  {
+   "text": "after",
+   "start": 37.6,
+   "end": 37.9
+  },
+  {
+   "text": "each",
+   "start": 37.9,
+   "end": 38.12
+  },
+  {
+   "text": "step.",
+   "start": 38.12,
+   "end": 39.02
+  },
+  {
+   "text": "On",
+   "start": 39.02,
+   "end": 39.2
+  },
+  {
+   "text": "your",
+   "start": 39.2,
+   "end": 39.38
+  },
+  {
+   "text": "turn",
+   "start": 39.38,
+   "end": 39.73
+  },
+  {
+   "text": "you",
+   "start": 39.73,
+   "end": 39.83
+  },
+  {
+   "text": "can",
+   "start": 39.83,
+   "end": 39.95
+  },
+  {
+   "text": "put",
+   "start": 39.95,
+   "end": 40.14
+  },
+  {
+   "text": "in",
+   "start": 40.14,
+   "end": 40.21
+  },
+  {
+   "text": "the",
+   "start": 40.21,
+   "end": 40.31
+  },
+  {
+   "text": "same",
+   "start": 40.31,
+   "end": 40.67
+  },
+  {
+   "text": "as",
+   "start": 40.67,
+   "end": 40.83
+  },
+  {
+   "text": "the",
+   "start": 40.83,
+   "end": 40.95
+  },
+  {
+   "text": "last",
+   "start": 40.95,
+   "end": 41.35
+  },
+  {
+   "text": "bet,",
+   "start": 41.35,
+   "end": 41.9
+  },
+  {
+   "text": "put",
+   "start": 41.9,
+   "end": 42.11
+  },
+  {
+   "text": "in",
+   "start": 42.11,
+   "end": 42.29
+  },
+  {
+   "text": "more,",
+   "start": 42.29,
+   "end": 42.77
+  },
+  {
+   "text": "or",
+   "start": 42.77,
+   "end": 42.95
+  },
+  {
+   "text": "fold,",
+   "start": 42.95,
+   "end": 43.75
+  },
+  {
+   "text": "which",
+   "start": 43.75,
+   "end": 43.95
+  },
+  {
+   "text": "means",
+   "start": 43.95,
+   "end": 44.24
+  },
+  {
+   "text": "throwing",
+   "start": 44.24,
+   "end": 44.61
+  },
+  {
+   "text": "your",
+   "start": 44.61,
+   "end": 44.73
+  },
+  {
+   "text": "cards",
+   "start": 44.73,
+   "end": 45.05
+  },
+  {
+   "text": "away",
+   "start": 45.05,
+   "end": 45.45
+  },
+  {
+   "text": "and",
+   "start": 45.45,
+   "end": 45.58
+  },
+  {
+   "text": "giving",
+   "start": 45.58,
+   "end": 45.81
+  },
+  {
+   "text": "up",
+   "start": 45.81,
+   "end": 45.96
+  },
+  {
+   "text": "the",
+   "start": 45.96,
+   "end": 46.05
+  },
+  {
+   "text": "pot.",
+   "start": 46.05,
+   "end": 46.89
+  },
+  {
+   "text": "So",
+   "start": 46.89,
+   "end": 47.08
+  },
+  {
+   "text": "who",
+   "start": 47.08,
+   "end": 47.23
+  },
+  {
+   "text": "takes",
+   "start": 47.23,
+   "end": 47.51
+  },
+  {
+   "text": "the",
+   "start": 47.51,
+   "end": 47.6
+  },
+  {
+   "text": "pot?",
+   "start": 47.6,
+   "end": 48.35
+  },
+  {
+   "text": "If",
+   "start": 49.3,
+   "end": 49.47
+  },
+  {
+   "text": "everyone",
+   "start": 49.47,
+   "end": 49.92
+  },
+  {
+   "text": "else",
+   "start": 49.92,
+   "end": 50.24
+  },
+  {
+   "text": "folds,",
+   "start": 50.24,
+   "end": 50.85
+  },
+  {
+   "text": "the",
+   "start": 50.85,
+   "end": 50.97
+  },
+  {
+   "text": "last",
+   "start": 50.97,
+   "end": 51.32
+  },
+  {
+   "text": "player",
+   "start": 51.32,
+   "end": 51.67
+  },
+  {
+   "text": "left",
+   "start": 51.67,
+   "end": 51.95
+  },
+  {
+   "text": "takes",
+   "start": 51.95,
+   "end": 52.22
+  },
+  {
+   "text": "the",
+   "start": 52.22,
+   "end": 52.32
+  },
+  {
+   "text": "pot.",
+   "start": 52.32,
+   "end": 53.05
+  },
+  {
+   "text": "They",
+   "start": 53.05,
+   "end": 53.17
+  },
+  {
+   "text": "never",
+   "start": 53.17,
+   "end": 53.47
+  },
+  {
+   "text": "have",
+   "start": 53.47,
+   "end": 53.67
+  },
+  {
+   "text": "to",
+   "start": 53.67,
+   "end": 53.81
+  },
+  {
+   "text": "show",
+   "start": 53.81,
+   "end": 54.05
+  },
+  {
+   "text": "their",
+   "start": 54.05,
+   "end": 54.22
+  },
+  {
+   "text": "cards.",
+   "start": 54.22,
+   "end": 55.07
+  },
+  {
+   "text": "They",
+   "start": 55.07,
+   "end": 55.25
+  },
+  {
+   "text": "might",
+   "start": 55.25,
+   "end": 55.41
+  },
+  {
+   "text": "have",
+   "start": 55.41,
+   "end": 55.52
+  },
+  {
+   "text": "had",
+   "start": 55.52,
+   "end": 55.71
+  },
+  {
+   "text": "the",
+   "start": 55.71,
+   "end": 55.8
+  },
+  {
+   "text": "worst",
+   "start": 55.8,
+   "end": 56.15
+  },
+  {
+   "text": "cards",
+   "start": 56.15,
+   "end": 56.46
+  },
+  {
+   "text": "at",
+   "start": 56.46,
+   "end": 56.54
+  },
+  {
+   "text": "the",
+   "start": 56.54,
+   "end": 56.62
+  },
+  {
+   "text": "table.",
+   "start": 56.62,
+   "end": 57.47
+  },
+  {
+   "text": "But",
+   "start": 57.47,
+   "end": 57.62
+  },
+  {
+   "text": "what",
+   "start": 57.62,
+   "end": 57.8
+  },
+  {
+   "text": "if",
+   "start": 57.8,
+   "end": 57.96
+  },
+  {
+   "text": "two",
+   "start": 57.96,
+   "end": 58.22
+  },
+  {
+   "text": "or",
+   "start": 58.22,
+   "end": 58.32
+  },
+  {
+   "text": "more",
+   "start": 58.32,
+   "end": 58.55
+  },
+  {
+   "text": "players",
+   "start": 58.55,
+   "end": 58.91
+  },
+  {
+   "text": "are",
+   "start": 58.91,
+   "end": 59.0
+  },
+  {
+   "text": "still",
+   "start": 59.0,
+   "end": 59.24
+  },
+  {
+   "text": "in?",
+   "start": 59.24,
+   "end": 59.9
+  },
+  {
+   "text": "If",
+   "start": 60.85,
+   "end": 61.01
+  },
+  {
+   "text": "two",
+   "start": 61.01,
+   "end": 61.23
+  },
+  {
+   "text": "or",
+   "start": 61.23,
+   "end": 61.33
+  },
+  {
+   "text": "more",
+   "start": 61.33,
+   "end": 61.55
+  },
+  {
+   "text": "players",
+   "start": 61.55,
+   "end": 61.91
+  },
+  {
+   "text": "are",
+   "start": 61.91,
+   "end": 62.0
+  },
+  {
+   "text": "still",
+   "start": 62.0,
+   "end": 62.25
+  },
+  {
+   "text": "in,",
+   "start": 62.25,
+   "end": 62.52
+  },
+  {
+   "text": "the",
+   "start": 62.52,
+   "end": 62.62
+  },
+  {
+   "text": "best",
+   "start": 62.62,
+   "end": 62.93
+  },
+  {
+   "text": "hand",
+   "start": 62.93,
+   "end": 63.18
+  },
+  {
+   "text": "wins.",
+   "start": 63.18,
+   "end": 64.09
+  },
+  {
+   "text": "After",
+   "start": 64.09,
+   "end": 64.36
+  },
+  {
+   "text": "the",
+   "start": 64.36,
+   "end": 64.45
+  },
+  {
+   "text": "last",
+   "start": 64.45,
+   "end": 64.8
+  },
+  {
+   "text": "bet,",
+   "start": 64.8,
+   "end": 65.05
+  },
+  {
+   "text": "they",
+   "start": 65.05,
+   "end": 65.21
+  },
+  {
+   "text": "show",
+   "start": 65.21,
+   "end": 65.44
+  },
+  {
+   "text": "their",
+   "start": 65.44,
+   "end": 65.6
+  },
+  {
+   "text": "cards.",
+   "start": 65.6,
+   "end": 66.51
+  },
+  {
+   "text": "A",
+   "start": 66.51,
+   "end": 66.62
+  },
+  {
+   "text": "pair",
+   "start": 66.62,
+   "end": 66.88
+  },
+  {
+   "text": "beats",
+   "start": 66.88,
+   "end": 67.15
+  },
+  {
+   "text": "no",
+   "start": 67.15,
+   "end": 67.34
+  },
+  {
+   "text": "pair,",
+   "start": 67.34,
+   "end": 67.84
+  },
+  {
+   "text": "two",
+   "start": 67.84,
+   "end": 68.05
+  },
+  {
+   "text": "pairs",
+   "start": 68.05,
+   "end": 68.4
+  },
+  {
+   "text": "beat",
+   "start": 68.4,
+   "end": 68.6
+  },
+  {
+   "text": "one,",
+   "start": 68.6,
+   "end": 68.92
+  },
+  {
+   "text": "and",
+   "start": 68.92,
+   "end": 69.06
+  },
+  {
+   "text": "so",
+   "start": 69.06,
+   "end": 69.29
+  },
+  {
+   "text": "on",
+   "start": 69.29,
+   "end": 69.41
+  },
+  {
+   "text": "up.",
+   "start": 69.41,
+   "end": 70.16
+  },
+  {
+   "text": "The",
+   "start": 70.16,
+   "end": 70.28
+  },
+  {
+   "text": "best",
+   "start": 70.28,
+   "end": 70.54
+  },
+  {
+   "text": "of",
+   "start": 70.54,
+   "end": 70.62
+  },
+  {
+   "text": "all",
+   "start": 70.62,
+   "end": 70.88
+  },
+  {
+   "text": "is",
+   "start": 70.88,
+   "end": 71.01
+  },
+  {
+   "text": "the",
+   "start": 71.01,
+   "end": 71.1
+  },
+  {
+   "text": "royal",
+   "start": 71.1,
+   "end": 71.44
+  },
+  {
+   "text": "flush:",
+   "start": 71.44,
+   "end": 72.09
+  },
+  {
+   "text": "ten,",
+   "start": 72.09,
+   "end": 72.59
+  },
+  {
+   "text": "jack,",
+   "start": 72.59,
+   "end": 73.01
+  },
+  {
+   "text": "queen,",
+   "start": 73.01,
+   "end": 73.56
+  },
+  {
+   "text": "king",
+   "start": 73.56,
+   "end": 73.88
+  },
+  {
+   "text": "and",
+   "start": 73.88,
+   "end": 74.01
+  },
+  {
+   "text": "ace",
+   "start": 74.01,
+   "end": 74.35
+  },
+  {
+   "text": "in",
+   "start": 74.35,
+   "end": 74.47
+  },
+  {
+   "text": "one",
+   "start": 74.47,
+   "end": 74.72
+  },
+  {
+   "text": "suit,",
+   "start": 74.72,
+   "end": 75.2
+  },
+  {
+   "text": "like",
+   "start": 75.2,
+   "end": 75.38
+  },
+  {
+   "text": "all",
+   "start": 75.38,
+   "end": 75.6
+  },
+  {
+   "text": "hearts.",
+   "start": 75.6,
+   "end": 76.54
+  },
+  {
+   "text": "In",
+   "start": 76.54,
+   "end": 76.7
+  },
+  {
+   "text": "Texas",
+   "start": 76.7,
+   "end": 77.12
+  },
+  {
+   "text": "Hold'em,",
+   "start": 77.12,
+   "end": 77.67
+  },
+  {
+   "text": "playing",
+   "start": 77.67,
+   "end": 78.01
+  },
+  {
+   "text": "a",
+   "start": 78.01,
+   "end": 78.08
+  },
+  {
+   "text": "round",
+   "start": 78.08,
+   "end": 78.39
+  },
+  {
+   "text": "a",
+   "start": 78.39,
+   "end": 78.45
+  },
+  {
+   "text": "day,",
+   "start": 78.45,
+   "end": 78.9
+  },
+  {
+   "text": "you'd",
+   "start": 78.9,
+   "end": 79.05
+  },
+  {
+   "text": "wait",
+   "start": 79.05,
+   "end": 79.24
+  },
+  {
+   "text": "about",
+   "start": 79.24,
+   "end": 79.47
+  },
+  {
+   "text": "85",
+   "start": 79.47,
+   "end": 80.11
+  },
+  {
+   "text": "years",
+   "start": 80.11,
+   "end": 80.38
+  },
+  {
+   "text": "for",
+   "start": 80.38,
+   "end": 80.5
+  },
+  {
+   "text": "one.",
+   "start": 80.5,
+   "end": 81.22
+  },
+  {
+   "text": "The",
+   "start": 81.22,
+   "end": 81.33
+  },
+  {
+   "text": "best",
+   "start": 81.33,
+   "end": 81.6
+  },
+  {
+   "text": "cards",
+   "start": 81.6,
+   "end": 81.97
+  },
+  {
+   "text": "only",
+   "start": 81.97,
+   "end": 82.31
+  },
+  {
+   "text": "win",
+   "start": 82.31,
+   "end": 82.55
+  },
+  {
+   "text": "if",
+   "start": 82.55,
+   "end": 82.7
+  },
+  {
+   "text": "they're",
+   "start": 82.7,
+   "end": 82.89
+  },
+  {
+   "text": "still",
+   "start": 82.89,
+   "end": 83.16
+  },
+  {
+   "text": "in",
+   "start": 83.16,
+   "end": 83.24
+  },
+  {
+   "text": "the",
+   "start": 83.24,
+   "end": 83.33
+  },
+  {
+   "text": "game.",
+   "start": 83.33,
+   "end": 84.15
+  }
+ ],
+ "keys": [
+  [],
+  [],
+  [],
+  [],
+  []
+ ]
+}
