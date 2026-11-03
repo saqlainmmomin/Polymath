@@ -53,7 +53,6 @@ struct TopicView: View {
                 var next = card
                 if dx < -40 || fling < -w * 0.25 { next = min(card + 1, topic.cards.count - 1) }
                 else if dx > 40 || fling > w * 0.25 { next = max(card - 1, 0) }
-                if next != card { UISelectionFeedbackGenerator().selectionChanged() }
                 drag += CGFloat(next - card) * w   // keep the page where the finger left it, then spring to the new card
                 card = next
                 withAnimation(.spring(response: 0.34, dampingFraction: 0.9)) { drag = 0 }

@@ -78,7 +78,6 @@ struct FeedView: View {
                 var next = index
                 if dy < -40 || fling < -h * 0.25 { next = min(index + 1, store.topics.count - 1) }
                 else if dy > 40 || fling > h * 0.25 { next = max(index - 1, 0) }
-                if next != index { UIImpactFeedbackGenerator(style: .soft).impactOccurred() }
                 // Keep the page where the finger left it, then spring to the new slot.
                 drag += CGFloat(next - index) * h
                 index = next
