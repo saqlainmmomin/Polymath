@@ -20,9 +20,11 @@ enum Launch {
     let topics: [Topic]
 
     init() {
-        // Every Topics/<id>.json in the bundle is a topic in the feed: adding a topic is adding its file.
+        // Every Topics/<id>.json in the bundle that has a narration is a topic in the feed (owner, 2026-11-03: Narrated only).
+        // Topics without one stay in the bundle, hidden, until they are narrated.
         let urls = Bundle.main.urls(forResourcesWithExtension: "json", subdirectory: "Topics") ?? []
-        var all = urls.map { try! JSONDecoder().decode(Topic.self, from: Data(contentsOf: $0)) }.shuffled()
+        var all = urls.map { try! JSONDecoder().decode(Topic.self, from: Data(contentsOf: $0)) }
+            .filter { Narration.load($0.id) != nil }.shuffled()
         if let first = Launch.topic, let i = all.firstIndex(where: { $0.id == first }) { all.insert(all.remove(at: i), at: 0) }
         topics = all
     }
