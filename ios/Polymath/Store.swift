@@ -11,6 +11,8 @@ enum Launch {
     static var topic: String? { value("--topic") }
     static var card: Int? { value("--card").flatMap(Int.init).map { max(0, $0 - 1) } }
     static var showIndex: Bool { ProcessInfo.processInfo.arguments.contains("--index") }
+    /// `--preview` shows a topic without a narration as its picture alone, laid out like the Narrated screen (see PicturePreview).
+    static var preview: Bool { ProcessInfo.processInfo.arguments.contains("--preview") }
 }
 
 /// Per-launch state shared by all pictures: once the reader has touched any picture, the cue pill stays away.
@@ -24,7 +26,7 @@ enum Launch {
         // Topics without one stay in the bundle, hidden, until they are narrated.
         let urls = Bundle.main.urls(forResourcesWithExtension: "json", subdirectory: "Topics") ?? []
         var all = urls.map { try! JSONDecoder().decode(Topic.self, from: Data(contentsOf: $0)) }
-            .filter { Narration.load($0.id) != nil }.shuffled()
+            .filter { Narration.load($0.id) != nil || $0.id == Launch.topic }.shuffled()   // `--topic <id>` previews a topic that has no narration yet, as Cards
         if let first = Launch.topic, let i = all.firstIndex(where: { $0.id == first }) { all.insert(all.remove(at: i), at: 0) }
         topics = all
     }

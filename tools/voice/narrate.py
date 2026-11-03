@@ -16,7 +16,7 @@ VOICE = Path(__file__).resolve().parent
 ROOT = VOICE.parent.parent
 APP = ROOT / "ios" / "Polymath"
 VENV_PY = Path.home() / "kokoro-venv" / "bin" / "python"
-STYLE_PREFIX = {"blueprint": "BP", "drafting": "DR", "wireframe": "WF"}
+STYLE_PREFIX = {"blueprint": "BP", "drafting": "DR", "wireframe": "WF", "airbrush": "AB"}
 
 
 def topic(tid):

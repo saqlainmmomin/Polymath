@@ -94,3 +94,30 @@ Update (2026-10-24, later): blocker cleared. Mac is on macOS 27.0.1 with Xcode 2
 - **Narration:** Kokoro-82M (open source, Apache 2.0), voice `af_heart`, rendered offline by `tools/voice/render.py` from `tools/voice/<id>.txt` (one paragraph per beat). Shazam runs 67 s.
 - **Why Shazam, not sky-blue:** the sky pictures still say "particles", "bounced" and "40 times", which the approved spine replaced. A voice-over that contradicts the picture would wreck the test.
 - **Not built yet:** "Ask a question" (plan: on-device speech recognition, an answer grounded in the topic's `facts.md`, spoken back with Kokoro). Open question for the test: is 67 s too long for a short?
+
+## Phase 6: Chalk, the 4th topic style (2026-11-03, owner pick from mockups)
+**What:** a chalkboard look. Deep green board, wobbly white chalk lines drawn on stroke by stroke, hatching for shade, handwritten labels, yellow chalk for the one thing that matters, pale blue as the only second colour. Pitch: someone sketching the idea for you; suits topics where a person explains. Mockup: superglue card 3 in chat (2026-11-03). Paper-cut and two-ink print were shown and parked.
+
+**Reuse:** `Sketch.swift` already has the hand-drawn wobble (resample, sideways wave that "boils" 8x a second, faint second line). The chalk kit builds on it rather than starting over. `BlueprintStage` already follows the narration clock, so chalk pictures stay in step with the voice with no extra work. Handwriting font: iOS ships Chalkboard SE (check it renders on the phone before bundling anything).
+
+**Where a style plugs in (all of it):**
+- `ios/Polymath/Chalk.swift` (new): enum `CH` (board green, chalk white, yellow, blue; chalk line, hatch, label, arrow, a few shared shapes) in the 343 x 320 design space.
+- `TopicStyle.swift`: add `case chalk` (scheme dark, base, backdrop, stage palette).
+- `tools/voice/narrate.py`: `STYLE_PREFIX` gets `"chalk": "CH"`.
+- `Pictures.swift`: per card, `topic.look == .chalk ? AnyView(AfterCH...) : AnyView(AfterBP...)`, as superglue and seasons do. `TopicStyle.swift` and `Pictures.swift` are shared with Vishwajeet's sessions: pull first, keep each edit small.
+- `ios/Polymath/Topics/<id>.json`: `"style": "chalk"`. Then `xcodegen generate` for the new file.
+
+**Proving topic: afterimage** (assumption; own-voice is the alternative). Its blueprint pictures (AfterBP*) already exist and are owner-approved, so the story, labels and timings are known; it is hidden from the feed until narrated anyway, so one piece of work gives a new style and a new Narrated topic.
+
+Steps
+1. [ ] Kit `Chalk.swift` plus afterimage card 1 (the flash and the dark spot on wall and floor). Build, deploy, owner looks at the phone. This is the one design pass at build.
+2. [ ] Register the style (TopicStyle, narrate.py), set afterimage's `"style": "chalk"`.
+3. [ ] Cards 2 to 4 (eye cut-away, tired cells, drag to look around), one file, same kit. Reduce Motion shows the held end state with the wobble frozen.
+4. [ ] Voice: `narrate.py new afterimage`, rewrite as speech from `tasks/spine-afterimage/`, place `{t}` markers from `narrate.py moments`, owner approves the script, `narrate.py render afterimage`.
+5. [ ] Check: build is green; afterimage opens Narrated in chalk on the iPhone; pictures follow the voice; owner approves the look. No per-card screenshots (owner checks on the phone).
+6. [ ] Log what the owner changed in `tasks/fix-log.md`.
+
+Open decisions (settle on the phone, not before): handwriting font for the headline and caption as well as labels (mockup did; start with labels only); how much the wobble boils while a picture is held; board green exact shade.
+Risks: redrawing every stroke at 8 fps with hatching is heavier than blueprint, so keep point counts low and check smoothness on the phone; do not start a 5th style until chalk has shipped.
+Next after chalk: split the remaining topics across the 4 styles (blueprint 5, drafting 4, wireframe 4 were the first proposal; chalk takes afterimage and own-voice from those).
+Update (2026-11-03, later): the green-board chalk look was dropped after the first phone check. Owner sent references (a tree illustration with sprayed blue clouds and airbrushed foliage; loose line drawings with offset flat colour blocks) and picked the tree's look, so the 4th style is now **airbrush** (`Airbrush.swift`, kit `AB`; `PaperTexture` is its programmatic paper backdrop; pictures `FlatAfterimageAB.swift`). `Chalk.swift` and `FlatAfterimageCH.swift` were deleted. Owner also said only the animation style should change between topics (text, colours and the rest of the screen stay the same): not acted on yet, it conflicts with blueprint, drafting and wireframe each setting their own backdrop and text colour. Preview on the phone without a voice: `EXTRA="--preview" ios/run-device.sh afterimage 1` (PicturePreview.swift).

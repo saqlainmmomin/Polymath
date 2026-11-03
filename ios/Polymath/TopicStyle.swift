@@ -6,9 +6,10 @@ enum TopicStyle: String, Decodable {
     case blueprint      // navy paper with a grid, thin white isometric line art (Blueprint.swift)
     case drafting       // plain white, realistic line art in crisp black, hatching, one yellow accent (Drafting.swift)
     case wireframe      // black, fine white wireframe meshes in 3D, lowercase mono labels, one pastel pink accent (Wireframe.swift)
+    case airbrush       // paper texture, thin black line, sprayed colour clouds and soft airbrushed glows, green condensed labels (Airbrush.swift)
 
     /// Light or dark screen: decides text, buttons and the status bar.
-    var scheme: ColorScheme { self == .drafting ? .light : .dark }
+    var scheme: ColorScheme { self == .drafting || self == .airbrush ? .light : .dark }
 
     /// The flat colour under everything, also used where a whole backdrop is too much (profile thumbnails).
     var base: Color {
@@ -16,6 +17,7 @@ enum TopicStyle: String, Decodable {
         case .blueprint: BP.paper
         case .drafting: DR.paper
         case .wireframe: WF.paper
+        case .airbrush: AB.paper
         }
     }
 
@@ -25,6 +27,7 @@ enum TopicStyle: String, Decodable {
         case .blueprint: PaperGrid()
         case .drafting: DR.paper.ignoresSafeArea()
         case .wireframe: WF.paper.ignoresSafeArea()
+        case .airbrush: PaperTexture()
         }
     }
 
@@ -34,6 +37,7 @@ enum TopicStyle: String, Decodable {
         case .blueprint: S.stage(S.paper)
         case .drafting: StagePalette(ink: DR.ink, soft: DR.ink.opacity(0.45), accent: DR.accent)
         case .wireframe: StagePalette(ink: WF.ink, soft: WF.ink.opacity(0.4), accent: WF.accent)
+        case .airbrush: StagePalette(ink: AB.ink, soft: AB.ink.opacity(0.4), accent: AB.yellow)
         }
     }
 }

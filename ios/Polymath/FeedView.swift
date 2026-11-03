@@ -20,6 +20,7 @@ struct FeedView: View {
                 ForEach(window, id: \.offset) { i, t in
                     Group {
                         if let v = Narration.load(t.id) { VoiceTopicView(topic: t, narration: v.0, audio: v.1, isCurrent: i == index) }
+                        else if Launch.preview { PicturePreview(topic: t, isCurrent: i == index) }
                         else { TopicView(topic: t, isCurrent: i == index, jump: go(to:)) }
                     }
                         .environment(\.colorScheme, t.look.scheme)   // the topic's style decides light or dark, not the phone's setting

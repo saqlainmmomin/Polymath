@@ -101,10 +101,10 @@ enum Pictures {
         }
         if topic.id == "afterimage" {
             switch index {
-            case 0: return AnyView(AfterBPSpot(active: active))
-            case 1: return AnyView(AfterBPEye(active: active))
-            case 2: return AnyView(AfterBPCells(active: active))
-            case 3: return AnyView(AfterBPTurn(active: active))
+            case 0: return topic.look == .airbrush ? AnyView(AfterABSpot(active: active)) : AnyView(AfterBPSpot(active: active))
+            case 1: return topic.look == .airbrush ? AnyView(AfterABEye(active: active)) : AnyView(AfterBPEye(active: active))
+            case 2: return topic.look == .airbrush ? AnyView(AfterABCells(active: active)) : AnyView(AfterBPCells(active: active))
+            case 3: return topic.look == .airbrush ? AnyView(AfterABTurn(active: active)) : AnyView(AfterBPTurn(active: active))
             default: return nil
             }
         }

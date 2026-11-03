@@ -1,0 +1,1209 @@
+{
+ "voice": "af_heart",
+ "duration": 65.53,
+ "beats": [
+  0.0,
+  18.48,
+  36.98,
+  51.12
+ ],
+ "words": [
+  {
+   "text": "Why",
+   "start": 0.28,
+   "end": 0.41
+  },
+  {
+   "text": "do",
+   "start": 0.41,
+   "end": 0.51
+  },
+  {
+   "text": "you",
+   "start": 0.51,
+   "end": 0.6
+  },
+  {
+   "text": "see",
+   "start": 0.6,
+   "end": 0.79
+  },
+  {
+   "text": "spots",
+   "start": 0.79,
+   "end": 1.18
+  },
+  {
+   "text": "after",
+   "start": 1.18,
+   "end": 1.55
+  },
+  {
+   "text": "looking",
+   "start": 1.55,
+   "end": 1.81
+  },
+  {
+   "text": "at",
+   "start": 1.81,
+   "end": 1.89
+  },
+  {
+   "text": "a",
+   "start": 1.89,
+   "end": 1.95
+  },
+  {
+   "text": "bright",
+   "start": 1.95,
+   "end": 2.2
+  },
+  {
+   "text": "light?",
+   "start": 2.2,
+   "end": 2.98
+  },
+  {
+   "text": "Someone",
+   "start": 2.98,
+   "end": 3.33
+  },
+  {
+   "text": "takes",
+   "start": 3.33,
+   "end": 3.59
+  },
+  {
+   "text": "your",
+   "start": 3.59,
+   "end": 3.74
+  },
+  {
+   "text": "photo",
+   "start": 3.74,
+   "end": 4.16
+  },
+  {
+   "text": "with",
+   "start": 4.16,
+   "end": 4.29
+  },
+  {
+   "text": "a",
+   "start": 4.29,
+   "end": 4.36
+  },
+  {
+   "text": "flash,",
+   "start": 4.36,
+   "end": 5.08
+  },
+  {
+   "text": "and",
+   "start": 5.08,
+   "end": 5.2
+  },
+  {
+   "text": "for",
+   "start": 5.2,
+   "end": 5.31
+  },
+  {
+   "text": "the",
+   "start": 5.31,
+   "end": 5.4
+  },
+  {
+   "text": "next",
+   "start": 5.4,
+   "end": 5.67
+  },
+  {
+   "text": "few",
+   "start": 5.67,
+   "end": 5.89
+  },
+  {
+   "text": "seconds",
+   "start": 5.89,
+   "end": 6.35
+  },
+  {
+   "text": "a",
+   "start": 6.35,
+   "end": 6.46
+  },
+  {
+   "text": "dark",
+   "start": 6.46,
+   "end": 6.78
+  },
+  {
+   "text": "spot",
+   "start": 6.78,
+   "end": 7.16
+  },
+  {
+   "text": "floats",
+   "start": 7.16,
+   "end": 7.54
+  },
+  {
+   "text": "in",
+   "start": 7.54,
+   "end": 7.61
+  },
+  {
+   "text": "the",
+   "start": 7.61,
+   "end": 7.7
+  },
+  {
+   "text": "middle",
+   "start": 7.7,
+   "end": 7.94
+  },
+  {
+   "text": "of",
+   "start": 7.94,
+   "end": 8.06
+  },
+  {
+   "text": "everything",
+   "start": 8.06,
+   "end": 8.55
+  },
+  {
+   "text": "you",
+   "start": 8.55,
+   "end": 8.68
+  },
+  {
+   "text": "look",
+   "start": 8.68,
+   "end": 8.9
+  },
+  {
+   "text": "at.",
+   "start": 8.9,
+   "end": 9.68
+  },
+  {
+   "text": "Look",
+   "start": 9.68,
+   "end": 9.86
+  },
+  {
+   "text": "at",
+   "start": 9.86,
+   "end": 9.94
+  },
+  {
+   "text": "the",
+   "start": 9.94,
+   "end": 10.04
+  },
+  {
+   "text": "wall:",
+   "start": 10.04,
+   "end": 10.64
+  },
+  {
+   "text": "it's",
+   "start": 10.64,
+   "end": 10.85
+  },
+  {
+   "text": "there.",
+   "start": 10.85,
+   "end": 11.7
+  },
+  {
+   "text": "Look",
+   "start": 11.7,
+   "end": 11.89
+  },
+  {
+   "text": "at",
+   "start": 11.89,
+   "end": 11.96
+  },
+  {
+   "text": "the",
+   "start": 11.96,
+   "end": 12.07
+  },
+  {
+   "text": "floor:",
+   "start": 12.07,
+   "end": 12.68
+  },
+  {
+   "text": "it's",
+   "start": 12.68,
+   "end": 12.85
+  },
+  {
+   "text": "there",
+   "start": 12.85,
+   "end": 13.09
+  },
+  {
+   "text": "too.",
+   "start": 13.09,
+   "end": 13.8
+  },
+  {
+   "text": "But",
+   "start": 13.8,
+   "end": 13.94
+  },
+  {
+   "text": "there's",
+   "start": 13.94,
+   "end": 14.16
+  },
+  {
+   "text": "nothing",
+   "start": 14.16,
+   "end": 14.51
+  },
+  {
+   "text": "on",
+   "start": 14.51,
+   "end": 14.61
+  },
+  {
+   "text": "the",
+   "start": 14.61,
+   "end": 14.71
+  },
+  {
+   "text": "wall",
+   "start": 14.71,
+   "end": 15.16
+  },
+  {
+   "text": "or",
+   "start": 15.16,
+   "end": 15.29
+  },
+  {
+   "text": "the",
+   "start": 15.29,
+   "end": 15.39
+  },
+  {
+   "text": "floor.",
+   "start": 15.39,
+   "end": 16.2
+  },
+  {
+   "text": "So",
+   "start": 16.2,
+   "end": 16.41
+  },
+  {
+   "text": "where",
+   "start": 16.41,
+   "end": 16.65
+  },
+  {
+   "text": "is",
+   "start": 16.65,
+   "end": 16.8
+  },
+  {
+   "text": "the",
+   "start": 16.8,
+   "end": 16.91
+  },
+  {
+   "text": "spot?",
+   "start": 16.91,
+   "end": 17.77
+  },
+  {
+   "text": "It's",
+   "start": 18.73,
+   "end": 18.93
+  },
+  {
+   "text": "in",
+   "start": 18.93,
+   "end": 19.05
+  },
+  {
+   "text": "your",
+   "start": 19.05,
+   "end": 19.18
+  },
+  {
+   "text": "eye.",
+   "start": 19.18,
+   "end": 19.88
+  },
+  {
+   "text": "At",
+   "start": 19.88,
+   "end": 20.01
+  },
+  {
+   "text": "the",
+   "start": 20.01,
+   "end": 20.1
+  },
+  {
+   "text": "back",
+   "start": 20.1,
+   "end": 20.34
+  },
+  {
+   "text": "of",
+   "start": 20.34,
+   "end": 20.43
+  },
+  {
+   "text": "each",
+   "start": 20.43,
+   "end": 20.71
+  },
+  {
+   "text": "eye",
+   "start": 20.71,
+   "end": 21.06
+  },
+  {
+   "text": "is",
+   "start": 21.06,
+   "end": 21.2
+  },
+  {
+   "text": "a",
+   "start": 21.2,
+   "end": 21.31
+  },
+  {
+   "text": "layer",
+   "start": 21.31,
+   "end": 21.66
+  },
+  {
+   "text": "of",
+   "start": 21.66,
+   "end": 21.79
+  },
+  {
+   "text": "cells",
+   "start": 21.79,
+   "end": 22.23
+  },
+  {
+   "text": "that",
+   "start": 22.23,
+   "end": 22.41
+  },
+  {
+   "text": "turn",
+   "start": 22.41,
+   "end": 22.76
+  },
+  {
+   "text": "light",
+   "start": 22.76,
+   "end": 23.01
+  },
+  {
+   "text": "into",
+   "start": 23.01,
+   "end": 23.26
+  },
+  {
+   "text": "signals",
+   "start": 23.26,
+   "end": 23.7
+  },
+  {
+   "text": "for",
+   "start": 23.7,
+   "end": 23.81
+  },
+  {
+   "text": "your",
+   "start": 23.81,
+   "end": 23.93
+  },
+  {
+   "text": "brain.",
+   "start": 23.93,
+   "end": 24.85
+  },
+  {
+   "text": "The",
+   "start": 24.85,
+   "end": 24.99
+  },
+  {
+   "text": "flash",
+   "start": 24.99,
+   "end": 25.4
+  },
+  {
+   "text": "hits",
+   "start": 25.4,
+   "end": 25.61
+  },
+  {
+   "text": "a",
+   "start": 25.61,
+   "end": 25.69
+  },
+  {
+   "text": "patch",
+   "start": 25.69,
+   "end": 26.01
+  },
+  {
+   "text": "of",
+   "start": 26.01,
+   "end": 26.1
+  },
+  {
+   "text": "those",
+   "start": 26.1,
+   "end": 26.34
+  },
+  {
+   "text": "cells",
+   "start": 26.34,
+   "end": 26.79
+  },
+  {
+   "text": "so",
+   "start": 26.79,
+   "end": 27.09
+  },
+  {
+   "text": "hard",
+   "start": 27.09,
+   "end": 27.45
+  },
+  {
+   "text": "that",
+   "start": 27.45,
+   "end": 27.58
+  },
+  {
+   "text": "they",
+   "start": 27.58,
+   "end": 27.73
+  },
+  {
+   "text": "get",
+   "start": 27.73,
+   "end": 27.91
+  },
+  {
+   "text": "tired",
+   "start": 27.91,
+   "end": 28.31
+  },
+  {
+   "text": "out.",
+   "start": 28.31,
+   "end": 29.11
+  },
+  {
+   "text": "For",
+   "start": 29.11,
+   "end": 29.26
+  },
+  {
+   "text": "a",
+   "start": 29.26,
+   "end": 29.33
+  },
+  {
+   "text": "little",
+   "start": 29.33,
+   "end": 29.62
+  },
+  {
+   "text": "while,",
+   "start": 29.62,
+   "end": 30.18
+  },
+  {
+   "text": "they",
+   "start": 30.18,
+   "end": 30.33
+  },
+  {
+   "text": "respond",
+   "start": 30.33,
+   "end": 30.9
+  },
+  {
+   "text": "less",
+   "start": 30.9,
+   "end": 31.15
+  },
+  {
+   "text": "to",
+   "start": 31.15,
+   "end": 31.28
+  },
+  {
+   "text": "light",
+   "start": 31.28,
+   "end": 31.58
+  },
+  {
+   "text": "than",
+   "start": 31.58,
+   "end": 31.69
+  },
+  {
+   "text": "the",
+   "start": 31.69,
+   "end": 31.79
+  },
+  {
+   "text": "cells",
+   "start": 31.79,
+   "end": 32.15
+  },
+  {
+   "text": "around",
+   "start": 32.15,
+   "end": 32.46
+  },
+  {
+   "text": "them.",
+   "start": 32.46,
+   "end": 33.17
+  },
+  {
+   "text": "So",
+   "start": 33.17,
+   "end": 33.39
+  },
+  {
+   "text": "why",
+   "start": 33.39,
+   "end": 33.59
+  },
+  {
+   "text": "does",
+   "start": 33.59,
+   "end": 33.74
+  },
+  {
+   "text": "a",
+   "start": 33.74,
+   "end": 33.84
+  },
+  {
+   "text": "tired",
+   "start": 33.84,
+   "end": 34.3
+  },
+  {
+   "text": "patch",
+   "start": 34.3,
+   "end": 34.64
+  },
+  {
+   "text": "show",
+   "start": 34.64,
+   "end": 34.86
+  },
+  {
+   "text": "up",
+   "start": 34.86,
+   "end": 35.04
+  },
+  {
+   "text": "as",
+   "start": 35.04,
+   "end": 35.14
+  },
+  {
+   "text": "a",
+   "start": 35.14,
+   "end": 35.2
+  },
+  {
+   "text": "dark",
+   "start": 35.2,
+   "end": 35.48
+  },
+  {
+   "text": "spot?",
+   "start": 35.48,
+   "end": 36.28
+  },
+  {
+   "text": "Look",
+   "start": 37.27,
+   "end": 37.45
+  },
+  {
+   "text": "at",
+   "start": 37.45,
+   "end": 37.54
+  },
+  {
+   "text": "a",
+   "start": 37.54,
+   "end": 37.61
+  },
+  {
+   "text": "plain",
+   "start": 37.61,
+   "end": 38.0
+  },
+  {
+   "text": "wall.",
+   "start": 38.0,
+   "end": 38.77
+  },
+  {
+   "text": "The",
+   "start": 38.77,
+   "end": 38.91
+  },
+  {
+   "text": "cells",
+   "start": 38.91,
+   "end": 39.3
+  },
+  {
+   "text": "around",
+   "start": 39.3,
+   "end": 39.59
+  },
+  {
+   "text": "the",
+   "start": 39.59,
+   "end": 39.68
+  },
+  {
+   "text": "patch",
+   "start": 39.68,
+   "end": 40.11
+  },
+  {
+   "text": "send",
+   "start": 40.11,
+   "end": 40.45
+  },
+  {
+   "text": "signals",
+   "start": 40.45,
+   "end": 40.93
+  },
+  {
+   "text": "for",
+   "start": 40.93,
+   "end": 41.04
+  },
+  {
+   "text": "the",
+   "start": 41.04,
+   "end": 41.12
+  },
+  {
+   "text": "wall",
+   "start": 41.12,
+   "end": 41.43
+  },
+  {
+   "text": "as",
+   "start": 41.43,
+   "end": 41.55
+  },
+  {
+   "text": "usual,",
+   "start": 41.55,
+   "end": 42.27
+  },
+  {
+   "text": "but",
+   "start": 42.27,
+   "end": 42.41
+  },
+  {
+   "text": "the",
+   "start": 42.41,
+   "end": 42.51
+  },
+  {
+   "text": "tired",
+   "start": 42.51,
+   "end": 42.99
+  },
+  {
+   "text": "cells",
+   "start": 42.99,
+   "end": 43.41
+  },
+  {
+   "text": "send",
+   "start": 43.41,
+   "end": 43.71
+  },
+  {
+   "text": "weaker",
+   "start": 43.71,
+   "end": 44.08
+  },
+  {
+   "text": "ones.",
+   "start": 44.08,
+   "end": 45.01
+  },
+  {
+   "text": "Your",
+   "start": 45.01,
+   "end": 45.21
+  },
+  {
+   "text": "brain",
+   "start": 45.21,
+   "end": 45.62
+  },
+  {
+   "text": "gets",
+   "start": 45.62,
+   "end": 45.84
+  },
+  {
+   "text": "a",
+   "start": 45.84,
+   "end": 45.94
+  },
+  {
+   "text": "normal",
+   "start": 45.94,
+   "end": 46.33
+  },
+  {
+   "text": "picture",
+   "start": 46.33,
+   "end": 46.78
+  },
+  {
+   "text": "with",
+   "start": 46.78,
+   "end": 46.91
+  },
+  {
+   "text": "a",
+   "start": 46.91,
+   "end": 46.98
+  },
+  {
+   "text": "dark",
+   "start": 46.98,
+   "end": 47.25
+  },
+  {
+   "text": "spot",
+   "start": 47.25,
+   "end": 47.54
+  },
+  {
+   "text": "in",
+   "start": 47.54,
+   "end": 47.62
+  },
+  {
+   "text": "it.",
+   "start": 47.62,
+   "end": 48.14
+  },
+  {
+   "text": "So",
+   "start": 48.14,
+   "end": 48.36
+  },
+  {
+   "text": "why",
+   "start": 48.36,
+   "end": 48.56
+  },
+  {
+   "text": "does",
+   "start": 48.56,
+   "end": 48.74
+  },
+  {
+   "text": "the",
+   "start": 48.74,
+   "end": 48.83
+  },
+  {
+   "text": "spot",
+   "start": 48.83,
+   "end": 49.17
+  },
+  {
+   "text": "follow",
+   "start": 49.17,
+   "end": 49.48
+  },
+  {
+   "text": "your",
+   "start": 49.48,
+   "end": 49.62
+  },
+  {
+   "text": "eyes?",
+   "start": 49.62,
+   "end": 50.42
+  },
+  {
+   "text": "The",
+   "start": 51.38,
+   "end": 51.49
+  },
+  {
+   "text": "spot",
+   "start": 51.49,
+   "end": 51.89
+  },
+  {
+   "text": "follows",
+   "start": 51.89,
+   "end": 52.29
+  },
+  {
+   "text": "your",
+   "start": 52.29,
+   "end": 52.44
+  },
+  {
+   "text": "eyes",
+   "start": 52.44,
+   "end": 52.83
+  },
+  {
+   "text": "because",
+   "start": 52.83,
+   "end": 53.1
+  },
+  {
+   "text": "it's",
+   "start": 53.1,
+   "end": 53.31
+  },
+  {
+   "text": "tied",
+   "start": 53.31,
+   "end": 53.7
+  },
+  {
+   "text": "to",
+   "start": 53.7,
+   "end": 53.8
+  },
+  {
+   "text": "that",
+   "start": 53.8,
+   "end": 54.02
+  },
+  {
+   "text": "part",
+   "start": 54.02,
+   "end": 54.24
+  },
+  {
+   "text": "of",
+   "start": 54.24,
+   "end": 54.31
+  },
+  {
+   "text": "your",
+   "start": 54.31,
+   "end": 54.42
+  },
+  {
+   "text": "eye,",
+   "start": 54.42,
+   "end": 55.0
+  },
+  {
+   "text": "not",
+   "start": 55.0,
+   "end": 55.23
+  },
+  {
+   "text": "to",
+   "start": 55.23,
+   "end": 55.35
+  },
+  {
+   "text": "anything",
+   "start": 55.35,
+   "end": 55.7
+  },
+  {
+   "text": "out",
+   "start": 55.7,
+   "end": 55.9
+  },
+  {
+   "text": "there.",
+   "start": 55.9,
+   "end": 56.71
+  },
+  {
+   "text": "A",
+   "start": 56.71,
+   "end": 56.83
+  },
+  {
+   "text": "few",
+   "start": 56.83,
+   "end": 57.05
+  },
+  {
+   "text": "seconds",
+   "start": 57.05,
+   "end": 57.42
+  },
+  {
+   "text": "later,",
+   "start": 57.42,
+   "end": 57.88
+  },
+  {
+   "text": "when",
+   "start": 57.88,
+   "end": 58.01
+  },
+  {
+   "text": "the",
+   "start": 58.01,
+   "end": 58.11
+  },
+  {
+   "text": "cells",
+   "start": 58.11,
+   "end": 58.48
+  },
+  {
+   "text": "recover,",
+   "start": 58.48,
+   "end": 59.19
+  },
+  {
+   "text": "it",
+   "start": 59.19,
+   "end": 59.36
+  },
+  {
+   "text": "fades.",
+   "start": 59.36,
+   "end": 60.39
+  },
+  {
+   "text": "The",
+   "start": 60.39,
+   "end": 60.54
+  },
+  {
+   "text": "spot",
+   "start": 60.54,
+   "end": 60.99
+  },
+  {
+   "text": "isn't",
+   "start": 60.99,
+   "end": 61.3
+  },
+  {
+   "text": "in",
+   "start": 61.3,
+   "end": 61.41
+  },
+  {
+   "text": "the",
+   "start": 61.41,
+   "end": 61.5
+  },
+  {
+   "text": "room.",
+   "start": 61.5,
+   "end": 62.25
+  },
+  {
+   "text": "It's",
+   "start": 62.25,
+   "end": 62.39
+  },
+  {
+   "text": "a",
+   "start": 62.39,
+   "end": 62.46
+  },
+  {
+   "text": "patch",
+   "start": 62.46,
+   "end": 62.81
+  },
+  {
+   "text": "of",
+   "start": 62.81,
+   "end": 62.89
+  },
+  {
+   "text": "your",
+   "start": 62.89,
+   "end": 63.04
+  },
+  {
+   "text": "eye",
+   "start": 63.04,
+   "end": 63.33
+  },
+  {
+   "text": "that",
+   "start": 63.33,
+   "end": 63.45
+  },
+  {
+   "text": "got",
+   "start": 63.45,
+   "end": 63.69
+  },
+  {
+   "text": "tired",
+   "start": 63.69,
+   "end": 64.11
+  },
+  {
+   "text": "out",
+   "start": 64.11,
+   "end": 64.33
+  },
+  {
+   "text": "by",
+   "start": 64.33,
+   "end": 64.46
+  },
+  {
+   "text": "the",
+   "start": 64.46,
+   "end": 64.56
+  },
+  {
+   "text": "flash.",
+   "start": 64.56,
+   "end": 65.42
+  }
+ ],
+ "keys": [
+  [
+   [
+    4.36,
+    0.7
+   ],
+   [
+    6.46,
+    2.8
+   ],
+   [
+    10.04,
+    3.9
+   ],
+   [
+    12.07,
+    5.0
+   ],
+   [
+    14.16,
+    5.8
+   ]
+  ],
+  [
+   [
+    2.84,
+    1.0
+   ],
+   [
+    6.51,
+    2.0
+   ],
+   [
+    9.44,
+    3.5
+   ],
+   [
+    11.85,
+    4.7
+   ]
+  ],
+  [
+   [
+    2.33,
+    0.8
+   ],
+   [
+    5.54,
+    1.5
+   ],
+   [
+    6.74,
+    2.3
+   ],
+   [
+    8.24,
+    2.9
+   ],
+   [
+    10.0,
+    4.3
+   ],
+   [
+    12.2,
+    5.0
+   ]
+  ],
+  [
+   [
+    0.76,
+    1.0
+   ],
+   [
+    2.19,
+    2.2
+   ],
+   [
+    3.3,
+    3.8
+   ],
+   [
+    3.88,
+    4.0
+   ],
+   [
+    4.77,
+    5.0
+   ],
+   [
+    6.99,
+    5.3
+   ],
+   [
+    8.24,
+    6.1
+   ],
+   [
+    9.86,
+    6.5
+   ]
+  ]
+ ]
+}
