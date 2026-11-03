@@ -44,10 +44,10 @@ enum Pictures {
         }
         if topic.id == "card-payment" {
             switch index {
-            case 0: return AnyView(PayBPTap(active: active))
-            case 1: return AnyView(PayBPHops(active: active))
-            case 2: return AnyView(PayBPPromise(active: active))
-            case 3: return AnyView(PayBPTotals(active: active))
+            case 0: return topic.look == .drafting ? AnyView(PayDRTap(active: active)) : AnyView(PayBPTap(active: active))
+            case 1: return topic.look == .drafting ? AnyView(PayDRHops(active: active)) : AnyView(PayBPHops(active: active))
+            case 2: return topic.look == .drafting ? AnyView(PayDRPromise(active: active)) : AnyView(PayBPPromise(active: active))
+            case 3: return topic.look == .drafting ? AnyView(PayDRTotals(active: active)) : AnyView(PayBPTotals(active: active))
             default: return nil
             }
         }

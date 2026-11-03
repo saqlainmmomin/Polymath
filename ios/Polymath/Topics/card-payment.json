@@ -3,6 +3,7 @@
   "title": "Why isn't the shop paid the moment you tap your card?",
   "kind": "full",
   "theme": "money",
+  "style": "drafting",
   "cards": [
     {
       "type": "card",
