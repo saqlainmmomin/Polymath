@@ -3,6 +3,7 @@ import SwiftUI
 /// Real animated pictures, by topic and card index. Anything not listed here falls back to the wireframe VisualPanel.
 enum Pictures {
     static func view(topic: Topic, index: Int, active: Bool) -> AnyView? {
+        if let scene = PictureScene.find(topic.id, card: index) { return AnyView(SceneStage(topic: topic, scene: scene, active: active)) }   // Scenes/<id>.json wins
         if topic.id == "shazam" {
             switch index {
             case 0: return AnyView(ShazamListen(active: active))

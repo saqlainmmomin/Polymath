@@ -114,7 +114,8 @@ struct VoiceTopicView: View {
     let topic: Topic
     let narration: Narration
     let isCurrent: Bool
-    @State private var player: NarrationPlayer?
+    let audio: URL
+    @State private var player: NarrationPlayer?   // made once, on first appearance: building it in init redid it on every redraw of the feed
     @State private var beat = 0
     @State private var chrome = true   // the player bar and its buttons; tapping the picture hides and shows them, as on X
     private let lines: [Range<Int>]
@@ -123,7 +124,7 @@ struct VoiceTopicView: View {
         self.topic = topic
         self.narration = narration
         self.isCurrent = isCurrent
-        _player = State(initialValue: NarrationPlayer(url: audio))
+        self.audio = audio
         lines = narration.lines()
     }
 
@@ -165,8 +166,12 @@ struct VoiceTopicView: View {
         }
         .onDisappear { player?.rewind(); beat = 0 }   // switching to the text version must stop the voice
         .task(id: isCurrent) {
+            if player == nil { player = NarrationPlayer(url: audio) }
             guard let player else { return }
-            if isCurrent {
+            if isCurrent, let s = Launch.seek {
+                withAnimation(nil) { beat = narration.beat(at: s) }
+                player.seek(s); chrome = false
+            } else if isCurrent {
                 try? await Task.sleep(for: .milliseconds(500))   // let the feed's spring finish before the voice starts
                 if !Task.isCancelled { player.play() }
             } else {

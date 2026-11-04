@@ -17,9 +17,11 @@ targets:
     platform: iOS
     sources:
       - path: Polymath
-        excludes: [Topics]
+        excludes: [Topics, Scenes]
       - path: Polymath/Topics
         type: folder        # copied as a Topics folder, so the app can list every topic file in it
+      - path: Polymath/Scenes
+        type: folder        # pictures as data (tasks/scene-format.md), one file per topic
     info:
       path: Polymath/Info.plist
       properties:
