@@ -41,6 +41,65 @@ def part_names():
     return set(re.findall(r'"(\w+)"', re.search(r"static let names = \[(.*?)\]", src, re.S).group(1)))
 
 
+# Rough extents of each part, relative to its `at`, before scale: (x0, y0, x1, y1). Standing parts have their feet at the origin.
+PART_BOX = {"phone": (-46, -190, 55, 0), "battery": (-40, -166, 48, 0), "meter": (-20, -175, 27, 0), "snowflake": (-1, -1, 1, 1),
+            "ground": (0, 0, 0, 0), "tank": (-70, -143, 80, 0), "playingCard": (-15, -21, 15, 21), "chips": (-14, -30, 14, 0),
+            "terminal": (0, 0, 82, 118), "card": (-26, -17, 26, 17), "bank": (-45, -80, 45, 0), "shop": (-45, -80, 45, 0)}
+DECOR = {"ground", "snowflake"}      # context: not counted when judging the hero's size and centring
+
+
+def boxes(elements, ox=0.0, oy=0.0):
+    """[(x0, y0, x1, y1)] of the things drawn (not labels, not text, not decoration), in design-space coordinates."""
+    out = []
+    for e in elements:
+        if "label" in e or "text" in e or e.get("part") in DECOR:
+            continue
+        at = e.get("at") or [0, 0]
+        k = e.get("scale", 1)
+        if "group" in e:
+            if e.get("clip") and "at" not in e:
+                out += boxes(e["group"], ox, oy)
+            else:
+                out += boxes(e["group"], ox + at[0], oy + at[1])
+        elif "part" in e:
+            x0, y0, x1, y1 = PART_BOX.get(e["part"], (-30, -30, 30, 30))
+            h = e.get("params", {}).get("h")
+            if e["part"] == "tank" and h:
+                y0 = -(h + 7)
+            out.append((ox + at[0] + x0 * k, oy + at[1] + y0 * k, ox + at[0] + x1 * k, oy + at[1] + y1 * k))
+        elif "circle" in e:
+            cx, cy, r = e["circle"]
+            out.append((ox + cx - r, oy + cy - r, ox + cx + r, oy + cy + r))
+        elif "rect" in e:
+            x, y, w, h = e["rect"][:4]
+            out.append((ox + x, oy + y, ox + x + w, oy + y + h))
+        elif "path" in e and not any(c in e["path"] for c in "mlhvcsqtz"):
+            nums = [float(n) for n in re.findall(r"-?\d+\.?\d*", e["path"])]
+            xs, ys = nums[0::2], nums[1::2]
+            if xs and ys:
+                out.append((ox + min(xs), oy + min(ys), ox + max(xs), oy + max(ys)))
+    return out
+
+
+def composition(scene, tag, warns):
+    """Design checks on what the scene draws: centred, big enough, not in the player's corner."""
+    bs = boxes(scene["elements"])
+    if not bs:
+        return
+    x0, y0, x1, y1 = min(b[0] for b in bs), min(b[1] for b in bs), max(b[2] for b in bs), max(b[3] for b in bs)
+    cx, cy, w, h = (x0 + x1) / 2, (y0 + y1) / 2, x1 - x0, y1 - y0
+    if abs(cx - W / 2) > 24:
+        warns.append(f"{tag}: the picture is off-centre sideways (its middle is x {cx:.0f}, the stage's is {W / 2:.0f}); move things so it balances")
+    if cy < 105 or cy > 200:
+        warns.append(f"{tag}: the picture sits too {'high' if cy < 105 else 'low'} (its middle is y {cy:.0f}, aim for about 150)")
+    if h < 0.45 * H and w < 0.55 * W:
+        warns.append(f"{tag}: the picture is small ({w:.0f} x {h:.0f} of {W} x {H}); draw bigger or add the objects around it")
+    for b in bs:
+        if b[2] > CORNER[0] + 1 and b[3] > CORNER[1] + 1 and (b[2] - b[0]) < 0.6 * W:
+            warns.append(f"{tag}: something reaches into the player's corner (x to {b[2]:.0f}, y to {b[3]:.0f}); keep it left of x {CORNER[0]} or above y {CORNER[1]}")
+            break
+
+
 def walk(elements):
     for e in elements:
         yield e
@@ -109,6 +168,7 @@ def check(tid):
                 times.append(t + m.get("delay", 0) + m.get("dur", 0.5))
         if said and said[0][1] is not None and times and max(times) > said[-1][1] + 1.5:
             warns.append(f"{tag}: a move ends {max(times) - said[-1][1]:.1f} s after the last word starts")
+        composition(s, tag, warns)
         print(f"{tag}: {len(els)} elements, {len(s.get('moves', []))} moves")
     for w in warns:
         print("  warn: " + w)

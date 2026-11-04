@@ -16,7 +16,8 @@ enum SceneParts {
     /// Every part's name, for the checker (`tools/scene/scene.py`), which reads this list from the source.
     static let names = ["glueTube", "bead", "waterDrop", "tear", "skin", "waterFilm", "calendar", "stopwatch", "plank",
                         "playingCard", "chips",
-                        "terminal", "card", "heldCard", "envelope", "bank", "network", "shop", "yes", "slip"]
+                        "terminal", "card", "heldCard", "envelope", "bank", "network", "shop", "yes", "slip",
+                        "phone", "battery", "meter", "tank", "snowflake", "ground"]
 
     static func draw(_ name: String, _ c: inout GraphicsContext, _ q: ScenePart) {
         switch name {
@@ -58,6 +59,19 @@ enum SceneParts {
         case "shop": DR.shop(&c, cx: 0, base: 0, on: q.on, fill: q.fill, tray: q["tray", default: 1] > 0.5)
         case "yes": DR.yes(&c, at: .zero, alpha: q.fill, word: q["word", default: 1] > 0.5)
         case "slip": DR.slip(&c, at: .zero, big: q["big", default: 0] > 0.5, set: q["set", default: 0], alpha: q.fill)
+        // standing parts: bottom centre at the origin (DraftingParts.swift)
+        case "phone":          // 92 x 184; dark 0...1 screen off; icon 0...1 shows a battery icon with `level` 0...1 of yellow
+            DR.phone(&c, on: q.on, fill: q.fill, dark: q["dark", default: 0], icon: q["icon", default: 0], level: q["level", default: 1])
+        case "battery":       // 80 x 150 cell; level 0...1 yellow charge; stuck 0...1 hatches the empty part above it
+            DR.battery(&c, on: q.on, fill: q.fill, level: q["level", default: 1], stuck: q["stuck", default: 0])
+        case "meter":         // 40 x 170 glass tube with ticks; level 0...1; grey 1 for a grey level instead of yellow
+            DR.meter(&c, on: q.on, fill: q.fill, level: q["level", default: 1], grey: q["grey", default: 0] > 0.5)
+        case "tank":          // 140 wide, h tall (136) glass tank of liquid; thick 0...1 thickens the liquid
+            DR.tank(&c, on: q.on, fill: q.fill, thick: q["thick", default: 0], h: q["h", default: 136])
+        case "snowflake":     // centred at the origin; size is the arm length
+            DR.snowflake(&c, on: q.on, size: q["size", default: 10])
+        case "ground":        // centred at the origin; w wide
+            DR.ground(&c, w: q["w", default: 280], on: q.on)
         default: break
         }
     }

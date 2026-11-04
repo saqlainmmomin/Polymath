@@ -1,0 +1,85 @@
+{
+  "id": "cold-phone",
+  "title": "Why can your phone switch off in the cold with battery left?",
+  "kind": "full",
+  "theme": "machines",
+  "style": "drafting",
+  "cards": [
+    {
+      "type": "card",
+      "title": "Your phone says 30%, then switches off.",
+      "text": "It's freezing, and the screen goes black anyway. But the battery isn't empty. The power is still inside it, just hard to get out.",
+      "hook": "So what slows it down inside?",
+      "visual": {
+        "type": "diagram",
+        "notes": [
+          "A phone shows 30%",
+          "The screen goes black",
+          "The charge is still inside"
+        ],
+        "labels": [
+          "Charge still inside"
+        ]
+      }
+    },
+    {
+      "type": "card",
+      "title": "Cold makes the battery's insides move slowly",
+      "text": "A battery carries power as tiny charged particles, called ions, swimming through a liquid. Cold thickens the liquid, like honey. The ions crawl, so the battery can't push power out quickly.",
+      "hook": "So how does your phone tell what's left?",
+      "visual": {
+        "type": "diagram",
+        "notes": [
+          "Warm: ions swim fast",
+          "Cold: the liquid thickens and they crawl"
+        ],
+        "labels": [
+          "Warm",
+          "Cold",
+          "Ions"
+        ]
+      }
+    },
+    {
+      "type": "card",
+      "title": "A weak push makes your phone think it's empty",
+      "text": "Your phone can't see the charge left. It works it out partly from how hard the battery pushes. A cold battery pushes weakly, so the phone thinks it's nearly empty. When the push gets too weak to run on, it switches off.",
+      "hook": "So is the charge gone?",
+      "visual": {
+        "type": "diagram",
+        "notes": [
+          "The push drops",
+          "The phone's reading falls fast",
+          "Below the line the phone cannot run"
+        ],
+        "labels": [
+          "The push",
+          "What the phone thinks",
+          "Too weak to run"
+        ]
+      }
+    },
+    {
+      "type": "card",
+      "title": "Warm it up and the charge is back",
+      "text": "Nothing drained away. As the battery warms, the ions speed up again. A typical battery gives only about half its charge at freezer cold, and gives it all back at room temperature.",
+      "takeaway": "The battery wasn't empty. It was just too cold to hand over the power.",
+      "visual": {
+        "type": "diagram",
+        "notes": [
+          "A battery at freezer cold gives half",
+          "Warm again, it gives all"
+        ],
+        "labels": [
+          "Freezer cold",
+          "Warm again"
+        ]
+      }
+    },
+    {
+      "type": "more",
+      "links": [],
+      "note": "Charging a phone while it is below freezing can damage the battery for good, so let a cold phone warm up before you plug it in."
+    }
+  ]
+}

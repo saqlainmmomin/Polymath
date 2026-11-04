@@ -1,0 +1,7 @@
+Why can your phone switch off in the cold with battery left? Your phone says 30%, then switches off. It's freezing, and the screen goes black anyway. But the battery isn't empty. The power is still inside it, just hard to get out. So what slows it down inside?
+
+Cold makes the battery's insides move slowly. A battery carries power as tiny charged particles, called ions, swimming through a liquid. Cold thickens the liquid, like honey. The ions crawl, so the battery can't push power out quickly. So how does your phone tell what's left?
+
+A weak push makes your phone think it's empty. Your phone can't see the charge left. It works it out partly from how hard the battery pushes. A cold battery pushes weakly, so the phone thinks it's nearly empty. When the push gets too weak to run on, it switches off. So is the charge gone?
+
+Warm it up and the charge is back. Nothing drained away. As the battery warms, the ions speed up again. A typical battery gives only about half its charge at freezer cold, and gives it all back at room temperature. The battery wasn't empty. It was just too cold to hand over the power.

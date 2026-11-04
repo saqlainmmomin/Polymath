@@ -1,0 +1,847 @@
+{
+ "scenes": [
+  {
+   "card": 0,
+   "label": "A phone standing on a surface in falling snow, showing 30%. The screen goes black. A yellow battery icon appears on the dark screen, still full. Label: charge still inside.",
+   "elements": [
+    {
+     "part": "ground",
+     "at": [
+      171,
+      240
+     ],
+     "params": {
+      "w": 250
+     }
+    },
+    {
+     "id": "phone",
+     "part": "phone",
+     "at": [
+      171,
+      240
+     ],
+     "params": {
+      "dark": 0,
+      "icon": 0,
+      "level": 1
+     }
+    },
+    {
+     "id": "pct",
+     "text": "30%",
+     "at": [
+      171,
+      150
+     ],
+     "size": 34,
+     "weight": "bold",
+     "word": "says"
+    },
+    {
+     "part": "snowflake",
+     "at": [
+      70,
+      84
+     ],
+     "params": {
+      "size": 14
+     },
+     "word": "freezing",
+     "draw": 0.6,
+     "wobble": [
+      {
+       "prop": "y",
+       "amp": 5,
+       "speed": 1.5,
+       "phase": 0
+      }
+     ]
+    },
+    {
+     "part": "snowflake",
+     "at": [
+      264,
+      92
+     ],
+     "params": {
+      "size": 11
+     },
+     "word": "freezing",
+     "draw": 0.6,
+     "wobble": [
+      {
+       "prop": "y",
+       "amp": 5,
+       "speed": 1.5,
+       "phase": 1.5
+      }
+     ]
+    },
+    {
+     "part": "snowflake",
+     "at": [
+      112,
+      36
+     ],
+     "params": {
+      "size": 8
+     },
+     "word": "freezing",
+     "draw": 0.6,
+     "wobble": [
+      {
+       "prop": "y",
+       "amp": 5,
+       "speed": 1.5,
+       "phase": 3
+      }
+     ]
+    },
+    {
+     "part": "snowflake",
+     "at": [
+      44,
+      200
+     ],
+     "params": {
+      "size": 9
+     },
+     "word": "freezing",
+     "draw": 0.6,
+     "wobble": [
+      {
+       "prop": "y",
+       "amp": 5,
+       "speed": 1.5,
+       "phase": 4.5
+      }
+     ]
+    },
+    {
+     "part": "snowflake",
+     "at": [
+      280,
+      196
+     ],
+     "params": {
+      "size": 10
+     },
+     "word": "freezing",
+     "draw": 0.6,
+     "wobble": [
+      {
+       "prop": "y",
+       "amp": 5,
+       "speed": 1.5,
+       "phase": 2.2
+      }
+     ]
+    },
+    {
+     "part": "snowflake",
+     "at": [
+      252,
+      40
+     ],
+     "params": {
+      "size": 8
+     },
+     "word": "freezing",
+     "draw": 0.6,
+     "wobble": [
+      {
+       "prop": "y",
+       "amp": 5,
+       "speed": 1.5,
+       "phase": 5.2
+      }
+     ]
+    },
+    {
+     "label": "CHARGE\nSTILL INSIDE",
+     "anchor": [
+      150,
+      150
+     ],
+     "at": [
+      110,
+      132
+     ],
+     "align": "trailing",
+     "word": "still"
+    }
+   ],
+   "moves": [
+    {
+     "move": "pct",
+     "prop": "opacity",
+     "to": 0,
+     "word": "black",
+     "dur": 0.4
+    },
+    {
+     "move": "phone",
+     "prop": "dark",
+     "to": 1,
+     "word": "black",
+     "dur": 0.5
+    },
+    {
+     "move": "phone",
+     "prop": "icon",
+     "to": 1,
+     "word": "still",
+     "dur": 0.5
+    }
+   ]
+  },
+  {
+   "card": 1,
+   "label": "Two glass tanks of liquid side by side, with yellow dots, the ions. In the warm tank the dots dart around. In the cold tank, under a snowflake, the liquid thickens with dense shading and the dots barely move. Labels: ions, warm, cold.",
+   "elements": [
+    {
+     "part": "ground",
+     "at": [
+      171,
+      232
+     ],
+     "params": {
+      "w": 330
+     }
+    },
+    {
+     "part": "tank",
+     "at": [
+      86,
+      232
+     ],
+     "params": {
+      "thick": 0,
+      "h": 170
+     }
+    },
+    {
+     "id": "coldtank",
+     "part": "tank",
+     "at": [
+      256,
+      232
+     ],
+     "params": {
+      "thick": 0,
+      "h": 170
+     }
+    },
+    {
+     "circle": [
+      52,
+      150,
+      6
+     ],
+     "fill": "accent",
+     "word": "tiny",
+     "wobble": [
+      {
+       "prop": "x",
+       "amp": 14,
+       "speed": 4.6,
+       "phase": 0.0
+      },
+      {
+       "prop": "y",
+       "amp": 7,
+       "speed": 4.002,
+       "phase": 1.0
+      }
+     ]
+    },
+    {
+     "circle": [
+      98,
+      142,
+      6
+     ],
+     "fill": "accent",
+     "word": "tiny",
+     "wobble": [
+      {
+       "prop": "x",
+       "amp": 14,
+       "speed": 4.75,
+       "phase": 1.3
+      },
+      {
+       "prop": "y",
+       "amp": 7,
+       "speed": 4.1325,
+       "phase": 2.3
+      }
+     ]
+    },
+    {
+     "circle": [
+      70,
+      182,
+      6
+     ],
+     "fill": "accent",
+     "word": "tiny",
+     "wobble": [
+      {
+       "prop": "x",
+       "amp": 14,
+       "speed": 4.8999999999999995,
+       "phase": 2.6
+      },
+      {
+       "prop": "y",
+       "amp": 7,
+       "speed": 4.263,
+       "phase": 3.6
+      }
+     ]
+    },
+    {
+     "circle": [
+      122,
+      174,
+      6
+     ],
+     "fill": "accent",
+     "word": "tiny",
+     "wobble": [
+      {
+       "prop": "x",
+       "amp": 14,
+       "speed": 5.05,
+       "phase": 3.9000000000000004
+      },
+      {
+       "prop": "y",
+       "amp": 7,
+       "speed": 4.3934999999999995,
+       "phase": 4.9
+      }
+     ]
+    },
+    {
+     "circle": [
+      90,
+      206,
+      6
+     ],
+     "fill": "accent",
+     "word": "tiny",
+     "wobble": [
+      {
+       "prop": "x",
+       "amp": 14,
+       "speed": 5.199999999999999,
+       "phase": 5.2
+      },
+      {
+       "prop": "y",
+       "amp": 7,
+       "speed": 4.523999999999999,
+       "phase": 6.2
+      }
+     ]
+    },
+    {
+     "circle": [
+      222,
+      150,
+      6
+     ],
+     "fill": "accent",
+     "word": "tiny",
+     "wobble": [
+      {
+       "prop": "x",
+       "amp": 3,
+       "speed": 1.1,
+       "phase": 0.0
+      },
+      {
+       "prop": "y",
+       "amp": 2,
+       "speed": 0.9570000000000001,
+       "phase": 1.0
+      }
+     ]
+    },
+    {
+     "circle": [
+      268,
+      142,
+      6
+     ],
+     "fill": "accent",
+     "word": "tiny",
+     "wobble": [
+      {
+       "prop": "x",
+       "amp": 3,
+       "speed": 1.1500000000000001,
+       "phase": 1.3
+      },
+      {
+       "prop": "y",
+       "amp": 2,
+       "speed": 1.0005000000000002,
+       "phase": 2.3
+      }
+     ]
+    },
+    {
+     "circle": [
+      240,
+      182,
+      6
+     ],
+     "fill": "accent",
+     "word": "tiny",
+     "wobble": [
+      {
+       "prop": "x",
+       "amp": 3,
+       "speed": 1.2000000000000002,
+       "phase": 2.6
+      },
+      {
+       "prop": "y",
+       "amp": 2,
+       "speed": 1.044,
+       "phase": 3.6
+      }
+     ]
+    },
+    {
+     "circle": [
+      292,
+      174,
+      6
+     ],
+     "fill": "accent",
+     "word": "tiny",
+     "wobble": [
+      {
+       "prop": "x",
+       "amp": 3,
+       "speed": 1.25,
+       "phase": 3.9000000000000004
+      },
+      {
+       "prop": "y",
+       "amp": 2,
+       "speed": 1.0875,
+       "phase": 4.9
+      }
+     ]
+    },
+    {
+     "circle": [
+      260,
+      206,
+      6
+     ],
+     "fill": "accent",
+     "word": "tiny",
+     "wobble": [
+      {
+       "prop": "x",
+       "amp": 3,
+       "speed": 1.3,
+       "phase": 5.2
+      },
+      {
+       "prop": "y",
+       "amp": 2,
+       "speed": 1.131,
+       "phase": 6.2
+      }
+     ]
+    },
+    {
+     "part": "snowflake",
+     "at": [
+      216,
+      32
+     ],
+     "params": {
+      "size": 16
+     },
+     "word": "cold",
+     "draw": 0.6,
+     "wobble": [
+      {
+       "prop": "y",
+       "amp": 4,
+       "speed": 1.4,
+       "phase": 0
+      }
+     ]
+    },
+    {
+     "label": "IONS",
+     "anchor": [
+      268,
+      150
+     ],
+     "at": [
+      282,
+      40
+     ],
+     "align": "center",
+     "word": "ions"
+    },
+    {
+     "label": "WARM",
+     "anchor": [
+      86,
+      232
+     ],
+     "at": [
+      86,
+      266
+     ],
+     "align": "center",
+     "word": "swimming"
+    },
+    {
+     "label": "COLD",
+     "anchor": [
+      256,
+      232
+     ],
+     "at": [
+      256,
+      266
+     ],
+     "align": "center",
+     "word": "cold"
+    }
+   ],
+   "moves": [
+    {
+     "move": "coldtank",
+     "prop": "thick",
+     "to": 1,
+     "word": "thickens",
+     "dur": 0.8
+    }
+   ]
+  },
+  {
+   "card": 2,
+   "label": "A phone and a tall glass meter standing on a line. An arrow runs from the meter, the push, to the phone, whose screen shows a battery icon. As the push drops, the phone's battery icon falls. When the push drops below a dashed line, too weak to run, the phone's screen goes black.",
+   "elements": [
+    {
+     "part": "ground",
+     "at": [
+      171,
+      240
+     ],
+     "params": {
+      "w": 290
+     }
+    },
+    {
+     "id": "phone",
+     "part": "phone",
+     "at": [
+      96,
+      240
+     ],
+     "scale": 0.85,
+     "params": {
+      "dark": 0,
+      "icon": 1,
+      "level": 0.8
+     }
+    },
+    {
+     "id": "meter",
+     "part": "meter",
+     "at": [
+      258,
+      240
+     ],
+     "params": {
+      "level": 0.85,
+      "grey": 0
+     },
+     "word": "push"
+    },
+    {
+     "path": "M236 160 L152 160 M160 154 L152 160 L160 166",
+     "stroke": "ink@0.75",
+     "width": 0.9,
+     "word": "works",
+     "draw": 0.6
+    },
+    {
+     "path": "M240 206.5 L300 206.5",
+     "stroke": "ink@0.75",
+     "width": 0.9,
+     "dash": [
+      4,
+      3
+     ],
+     "word": "run"
+    },
+    {
+     "label": "THE PUSH",
+     "anchor": [
+      258,
+      240
+     ],
+     "at": [
+      258,
+      274
+     ],
+     "align": "center",
+     "word": "push"
+    },
+    {
+     "label": "WHAT THE PHONE THINKS",
+     "anchor": [
+      96,
+      240
+     ],
+     "at": [
+      96,
+      274
+     ],
+     "align": "center",
+     "word": "thinks"
+    },
+    {
+     "label": "TOO WEAK\nTO RUN",
+     "anchor": [
+      240,
+      206.5
+     ],
+     "at": [
+      224,
+      188
+     ],
+     "align": "trailing",
+     "word": "run"
+    }
+   ],
+   "moves": [
+    {
+     "move": "meter",
+     "prop": "level",
+     "to": 0.55,
+     "word": "weakly",
+     "dur": 0.8
+    },
+    {
+     "move": "phone",
+     "prop": "level",
+     "to": 0.12,
+     "word": "nearly",
+     "dur": 0.7
+    },
+    {
+     "move": "meter",
+     "prop": "level",
+     "to": 0.15,
+     "word": "run",
+     "dur": 0.7
+    },
+    {
+     "move": "phone",
+     "prop": "dark",
+     "to": 1,
+     "word": "switches",
+     "dur": 0.6
+    }
+   ]
+  },
+  {
+   "card": 3,
+   "label": "Two battery cells standing on a line. The right one, warm again, fills completely with yellow charge. The left one, at freezer cold under snowflakes, gives only half, and its empty top half is hatched: not empty. Labels: warm again, freezer cold, not empty.",
+   "elements": [
+    {
+     "part": "ground",
+     "at": [
+      171,
+      240
+     ],
+     "params": {
+      "w": 290
+     }
+    },
+    {
+     "id": "cold",
+     "part": "battery",
+     "at": [
+      84,
+      240
+     ],
+     "params": {
+      "level": 0,
+      "stuck": 0
+     }
+    },
+    {
+     "id": "warm",
+     "part": "battery",
+     "at": [
+      240,
+      240
+     ],
+     "params": {
+      "level": 0,
+      "stuck": 0
+     }
+    },
+    {
+     "part": "snowflake",
+     "at": [
+      46,
+      74
+     ],
+     "params": {
+      "size": 13
+     },
+     "word": "freezer",
+     "draw": 0.6,
+     "wobble": [
+      {
+       "prop": "y",
+       "amp": 5,
+       "speed": 1.5,
+       "phase": 0
+      }
+     ]
+    },
+    {
+     "part": "snowflake",
+     "at": [
+      120,
+      62
+     ],
+     "params": {
+      "size": 10
+     },
+     "word": "freezer",
+     "draw": 0.6,
+     "wobble": [
+      {
+       "prop": "y",
+       "amp": 5,
+       "speed": 1.5,
+       "phase": 2
+      }
+     ]
+    },
+    {
+     "part": "snowflake",
+     "at": [
+      26,
+      150
+     ],
+     "params": {
+      "size": 8
+     },
+     "word": "freezer",
+     "draw": 0.6,
+     "wobble": [
+      {
+       "prop": "y",
+       "amp": 5,
+       "speed": 1.5,
+       "phase": 4
+      }
+     ]
+    },
+    {
+     "part": "snowflake",
+     "at": [
+      158,
+      64
+     ],
+     "params": {
+      "size": 8
+     },
+     "word": "freezer",
+     "draw": 0.6,
+     "wobble": [
+      {
+       "prop": "y",
+       "amp": 5,
+       "speed": 1.5,
+       "phase": 1
+      }
+     ]
+    },
+    {
+     "label": "WARM AGAIN",
+     "anchor": [
+      240,
+      240
+     ],
+     "at": [
+      240,
+      274
+     ],
+     "align": "center",
+     "word": "warm"
+    },
+    {
+     "label": "FREEZER COLD",
+     "anchor": [
+      84,
+      240
+     ],
+     "at": [
+      84,
+      274
+     ],
+     "align": "center",
+     "word": "freezer"
+    },
+    {
+     "label": "NOT\nEMPTY",
+     "anchor": [
+      90,
+      128
+     ],
+     "at": [
+      138,
+      110
+     ],
+     "word": "empty"
+    }
+   ],
+   "moves": [
+    {
+     "move": "warm",
+     "prop": "level",
+     "to": 1,
+     "word": "back",
+     "dur": 0.9
+    },
+    {
+     "move": "cold",
+     "prop": "level",
+     "to": 0.5,
+     "word": "half",
+     "dur": 0.8
+    },
+    {
+     "move": "cold",
+     "prop": "stuck",
+     "to": 1,
+     "word": "empty",
+     "dur": 0.5
+    }
+   ]
+  }
+ ]
+}
