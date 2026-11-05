@@ -36,6 +36,29 @@ Standing parts (bottom centre at the origin, so `at` is the feet): `phone` (dark
 7. Do the frames read left to right / top to bottom in the order the words say them?
 8. Design: is the hero centred and big? Does every object look like a real thing (thickness, hatching, a detail) and not a box? Is there a ground and a context cue? Would you put it next to the card-payment pictures?
 
+## Added with bike-gears (2026-11-04)
+- Parts for bikes and walkers: `bike` (wheels, frame, chain, back ring, rider, lever), `gearPair` (two big gears and a chain), `walker`. Generic parts every style has: `arrow`, `dim`, `wave`, `arc`, `rings`.
+- **Visible stage: stay above y 275.** The sheets and the phone cut the picture below that; labels at y 282 are lost.
+- A centred label hangs its words *below* the leader; put words beside the dot (`leading`/`trailing`) when they would sit above it.
+- A part's animated number must be in its own `params`, even when 0, or the checker rejects the move.
+
+## Parts with a side built in (unmirrored; what the flow check uses, from the Swift drawing code)
+| Part | On its right when drawn unmirrored | Same side as |
+|---|---|---|
+| `bike` | rider and front wheel face and travel right; the back rings (x -50) are LEFT of the pedal ring (x -2) | `walker` facing; `gearPair` back rings |
+| `gearPair` | back ring on the right (x +62), pedal ring on the left (x -58): the opposite of the bike, so `"mirror": true` | `bike` back rings |
+| `walker` | faces and walks right | `bike` facing |
+| `magnet`, `heldCard` | poles point right; the forearm runs off to the right | |
+| `phone`, `terminal` | the slab's thickness shows on the right (a mirrored one is a mistake unless the whole scene is) | |
+A `mirror` on a group swaps the sides of everything inside it, not just their faces.
+
 ## Rules the owner has added (append here)
 - 2026-11-04 (cold-phone, owner): the first pictures were flat boxes, empty and off-centre. Rule: ground + centred hero + context cue, parts with thickness (Composition above).
 - 2026-11-04 (cold-phone, owner): copy had too many ideas on one card (voltage, sags, a wrong guess). One new word per card, say "push" not "voltage", no "guess" jargon.
+- 2026-11-05 (owner; extended after bike-gears card 2 and a card-payment topic, where a close-up put things on the other side): **flow: the same thing stays on the same side in every card.**
+  - In card 1, choose the side of each thing and keep it in every later card. Cause, sender or before on the LEFT; effect, receiver or after on the RIGHT (a satellite left, the phone right; the Moon left, the sea right; shop left, bank right, the message going left to right).
+  - Before drawing a card, list the parts it shares with earlier cards and put each one where it was. Never swap two of them, and a card that is "another look" at the story is still the same left and right.
+  - A close-up of a part keeps that part's orientation: mirror the diagram, not the story. `bike` and `walker` face and move RIGHT and are never mirrored (a left-facing rider "doesn't look right"). `gearPair` draws its pedal ring on the LEFT, so it always takes `"mirror": true` next to a bike, putting the back rings left and the pedal ring right (bike-gears card 2). The table below says which side each part has built in.
+  - `scene.py check` runs `tools/scene/flow.py` and says which cards flip: an error for a side-bound part (`bike`, `gearPair`, `walker`) that turns round or two parts that swap by 40 or more units, a warning for smaller swaps, a lone part that changes halves of the screen, or a part mirrored in one card only. Fix it, or tell the owner why it must flip.
+- 2026-11-05 (owner): **no text on the picture.** A label or caption may not sit on a part, a ray, a ring, a wave or a grid line, nor on another label or leader. Keep words in a clear band (above, below or in a column beside the picture), a label shows only after the thing it points at has started, and a claim sentence is a `text` placed in a band, not a `label` with a leader into the picture. Two headlines never fade over each other: the second waits for the first.
+- 2026-11-05 (lint): `python3 tools/scene/scene.py lint <id>` finds words printed on the picture and blank cards; fix what it reports, or put `"onpicture": true` on words that belong there (see `tasks/scene-format.md`).

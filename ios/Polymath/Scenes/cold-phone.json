@@ -486,11 +486,11 @@
     {
      "label": "IONS",
      "anchor": [
-      268,
-      150
+      98,
+      142
      ],
      "at": [
-      282,
+      98,
       40
      ],
      "align": "center",
@@ -551,7 +551,7 @@
      "id": "phone",
      "part": "phone",
      "at": [
-      96,
+      228,
       240
      ],
      "scale": 0.85,
@@ -565,7 +565,7 @@
      "id": "meter",
      "part": "meter",
      "at": [
-      258,
+      90,
       240
      ],
      "params": {
@@ -575,14 +575,14 @@
      "word": "push"
     },
     {
-     "path": "M236 160 L152 160 M160 154 L152 160 L160 166",
+     "path": "M132 160 L184 160 M176 154 L184 160 L176 166",
      "stroke": "ink@0.75",
      "width": 0.9,
      "word": "works",
      "draw": 0.6
     },
     {
-     "path": "M240 206.5 L300 206.5",
+     "path": "M68 206.5 L128 206.5",
      "stroke": "ink@0.75",
      "width": 0.9,
      "dash": [
@@ -594,11 +594,11 @@
     {
      "label": "THE PUSH",
      "anchor": [
-      258,
+      90,
       240
      ],
      "at": [
-      258,
+      90,
       274
      ],
      "align": "center",
@@ -607,11 +607,11 @@
     {
      "label": "WHAT THE PHONE THINKS",
      "anchor": [
-      96,
+      228,
       240
      ],
      "at": [
-      96,
+      228,
       274
      ],
      "align": "center",
@@ -620,12 +620,12 @@
     {
      "label": "TOO WEAK\nTO RUN",
      "anchor": [
-      240,
+      68,
       206.5
      ],
      "at": [
-      224,
-      188
+      60,
+      186
      ],
      "align": "trailing",
      "word": "run"
@@ -791,7 +791,7 @@
       274
      ],
      "align": "center",
-     "word": "warm"
+     "word": "warms"
     },
     {
      "label": "FREEZER COLD",

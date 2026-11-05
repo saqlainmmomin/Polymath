@@ -1,11 +1,11 @@
 {
  "voice": "af_heart",
- "duration": 72.28,
+ "duration": 61.4,
  "beats": [
   0.0,
-  17.27,
-  35.7,
-  54.27
+  15.3,
+  30.55,
+  46.67
  ],
  "words": [
   {
@@ -66,972 +66,812 @@
   {
    "text": "left?",
    "start": 2.7,
-   "end": 3.45
+   "end": 3.52
   },
   {
    "text": "Your",
-   "start": 3.45,
-   "end": 3.64
+   "start": 3.52,
+   "end": 3.71
   },
   {
    "text": "phone",
-   "start": 3.64,
-   "end": 3.98
+   "start": 3.71,
+   "end": 4.05
   },
   {
    "text": "says",
-   "start": 3.98,
-   "end": 4.3
+   "start": 4.05,
+   "end": 4.39
   },
   {
    "text": "30%,",
-   "start": 4.3,
-   "end": 5.12
-  },
-  {
-   "text": "then",
-   "start": 5.12,
-   "end": 5.36
-  },
-  {
-   "text": "switches",
-   "start": 5.36,
-   "end": 5.78
-  },
-  {
-   "text": "off.",
-   "start": 5.78,
-   "end": 6.58
-  },
-  {
-   "text": "It's",
-   "start": 6.58,
-   "end": 6.83
-  },
-  {
-   "text": "freezing,",
-   "start": 6.83,
-   "end": 7.47
+   "start": 4.39,
+   "end": 5.5
   },
   {
    "text": "and",
-   "start": 7.47,
-   "end": 7.59
+   "start": 5.5,
+   "end": 5.61
+  },
+  {
+   "text": "then,",
+   "start": 5.61,
+   "end": 6.0
+  },
+  {
+   "text": "in",
+   "start": 6.0,
+   "end": 6.09
   },
   {
    "text": "the",
-   "start": 7.59,
-   "end": 7.69
+   "start": 6.09,
+   "end": 6.19
+  },
+  {
+   "text": "freezing",
+   "start": 6.19,
+   "end": 6.62
+  },
+  {
+   "text": "cold,",
+   "start": 6.62,
+   "end": 7.12
+  },
+  {
+   "text": "the",
+   "start": 7.12,
+   "end": 7.24
   },
   {
    "text": "screen",
-   "start": 7.69,
-   "end": 8.1
+   "start": 7.24,
+   "end": 7.65
   },
   {
    "text": "goes",
-   "start": 8.1,
-   "end": 8.38
+   "start": 7.65,
+   "end": 7.94
   },
   {
    "text": "black",
-   "start": 8.38,
-   "end": 8.66
+   "start": 7.94,
+   "end": 8.28
   },
   {
    "text": "anyway.",
-   "start": 8.66,
-   "end": 9.53
-  },
-  {
-   "text": "But",
-   "start": 9.53,
-   "end": 9.66
-  },
-  {
-   "text": "the",
-   "start": 9.66,
-   "end": 9.75
-  },
-  {
-   "text": "battery",
-   "start": 9.75,
-   "end": 10.22
-  },
-  {
-   "text": "isn't",
-   "start": 10.22,
-   "end": 10.5
-  },
-  {
-   "text": "empty.",
-   "start": 10.5,
-   "end": 11.45
+   "start": 8.28,
+   "end": 9.28
   },
   {
    "text": "The",
-   "start": 11.45,
-   "end": 11.56
+   "start": 9.28,
+   "end": 9.39
   },
   {
    "text": "power",
-   "start": 11.56,
-   "end": 12.0
+   "start": 9.39,
+   "end": 9.8
   },
   {
    "text": "is",
-   "start": 12.0,
-   "end": 12.12
+   "start": 9.8,
+   "end": 9.93
   },
   {
    "text": "still",
-   "start": 12.12,
-   "end": 12.4
+   "start": 9.93,
+   "end": 10.2
   },
   {
-   "text": "inside",
-   "start": 12.4,
-   "end": 12.85
-  },
-  {
-   "text": "it,",
-   "start": 12.85,
-   "end": 13.12
+   "text": "inside,",
+   "start": 10.2,
+   "end": 11.05
   },
   {
    "text": "just",
-   "start": 13.12,
-   "end": 13.38
+   "start": 11.05,
+   "end": 11.28
   },
   {
    "text": "hard",
+   "start": 11.28,
+   "end": 11.53
+  },
+  {
+   "text": "to",
+   "start": 11.53,
+   "end": 11.61
+  },
+  {
+   "text": "get",
+   "start": 11.61,
+   "end": 11.78
+  },
+  {
+   "text": "out.",
+   "start": 11.78,
+   "end": 12.53
+  },
+  {
+   "text": "So",
+   "start": 12.53,
+   "end": 12.72
+  },
+  {
+   "text": "what",
+   "start": 12.72,
+   "end": 12.95
+  },
+  {
+   "text": "slows",
+   "start": 12.95,
+   "end": 13.26
+  },
+  {
+   "text": "it",
+   "start": 13.26,
+   "end": 13.38
+  },
+  {
+   "text": "down",
    "start": 13.38,
    "end": 13.62
   },
   {
-   "text": "to",
-   "start": 13.62,
-   "end": 13.71
-  },
-  {
-   "text": "get",
-   "start": 13.71,
-   "end": 13.88
-  },
-  {
-   "text": "out.",
-   "start": 13.88,
-   "end": 14.57
-  },
-  {
-   "text": "So",
-   "start": 14.57,
-   "end": 14.78
-  },
-  {
-   "text": "what",
-   "start": 14.78,
-   "end": 14.95
-  },
-  {
-   "text": "slows",
-   "start": 14.95,
-   "end": 15.26
-  },
-  {
-   "text": "it",
-   "start": 15.26,
-   "end": 15.35
-  },
-  {
-   "text": "down",
-   "start": 15.35,
-   "end": 15.62
-  },
-  {
    "text": "inside?",
-   "start": 15.62,
-   "end": 16.57
-  },
-  {
-   "text": "Cold",
-   "start": 17.55,
-   "end": 17.9
-  },
-  {
-   "text": "makes",
-   "start": 17.9,
-   "end": 18.17
-  },
-  {
-   "text": "the",
-   "start": 18.17,
-   "end": 18.27
-  },
-  {
-   "text": "battery's",
-   "start": 18.27,
-   "end": 18.8
-  },
-  {
-   "text": "insides",
-   "start": 18.8,
-   "end": 19.38
-  },
-  {
-   "text": "move",
-   "start": 19.38,
-   "end": 19.65
-  },
-  {
-   "text": "slowly.",
-   "start": 19.65,
-   "end": 20.64
+   "start": 13.62,
+   "end": 14.6
   },
   {
    "text": "A",
-   "start": 20.64,
-   "end": 20.75
+   "start": 15.58,
+   "end": 15.65
   },
   {
    "text": "battery",
-   "start": 20.75,
-   "end": 21.17
+   "start": 15.65,
+   "end": 16.07
   },
   {
    "text": "carries",
-   "start": 21.17,
-   "end": 21.59
+   "start": 16.07,
+   "end": 16.49
   },
   {
    "text": "power",
-   "start": 21.59,
-   "end": 22.0
+   "start": 16.49,
+   "end": 16.91
   },
   {
    "text": "as",
-   "start": 22.0,
-   "end": 22.16
+   "start": 16.91,
+   "end": 17.09
   },
   {
    "text": "tiny",
-   "start": 22.16,
-   "end": 22.61
+   "start": 17.09,
+   "end": 17.51
   },
   {
    "text": "charged",
-   "start": 22.61,
-   "end": 23.02
+   "start": 17.51,
+   "end": 17.93
   },
   {
    "text": "particles,",
-   "start": 23.02,
-   "end": 23.85
+   "start": 17.93,
+   "end": 18.78
   },
   {
    "text": "called",
-   "start": 23.85,
-   "end": 24.14
+   "start": 18.78,
+   "end": 19.06
   },
   {
    "text": "ions,",
-   "start": 24.14,
-   "end": 24.88
+   "start": 19.06,
+   "end": 19.77
   },
   {
    "text": "swimming",
-   "start": 24.88,
-   "end": 25.34
+   "start": 19.77,
+   "end": 20.24
   },
   {
    "text": "through",
-   "start": 25.34,
-   "end": 25.55
+   "start": 20.24,
+   "end": 20.45
   },
   {
    "text": "a",
-   "start": 25.55,
-   "end": 25.65
+   "start": 20.45,
+   "end": 20.55
   },
   {
    "text": "liquid.",
-   "start": 25.65,
-   "end": 26.67
+   "start": 20.55,
+   "end": 21.6
   },
   {
    "text": "Cold",
-   "start": 26.67,
-   "end": 27.06
+   "start": 21.6,
+   "end": 21.98
   },
   {
    "text": "thickens",
-   "start": 27.06,
-   "end": 27.5
+   "start": 21.98,
+   "end": 22.4
   },
   {
    "text": "the",
-   "start": 27.5,
-   "end": 27.62
+   "start": 22.4,
+   "end": 22.52
   },
   {
    "text": "liquid,",
-   "start": 27.62,
-   "end": 28.04
+   "start": 22.52,
+   "end": 22.94
   },
   {
    "text": "like",
-   "start": 28.04,
-   "end": 28.22
+   "start": 22.94,
+   "end": 23.12
   },
   {
    "text": "honey.",
-   "start": 28.22,
-   "end": 28.97
+   "start": 23.12,
+   "end": 23.88
   },
   {
    "text": "The",
-   "start": 28.97,
-   "end": 29.14
+   "start": 23.88,
+   "end": 24.04
   },
   {
    "text": "ions",
-   "start": 29.14,
-   "end": 29.56
+   "start": 24.04,
+   "end": 24.49
   },
   {
    "text": "crawl,",
-   "start": 29.56,
-   "end": 30.15
+   "start": 24.49,
+   "end": 25.05
   },
   {
    "text": "so",
-   "start": 30.15,
-   "end": 30.26
+   "start": 25.05,
+   "end": 25.16
   },
   {
    "text": "the",
-   "start": 30.26,
-   "end": 30.35
+   "start": 25.16,
+   "end": 25.25
   },
   {
    "text": "battery",
-   "start": 30.35,
-   "end": 30.84
+   "start": 25.25,
+   "end": 25.74
   },
   {
    "text": "can't",
-   "start": 30.84,
-   "end": 31.12
+   "start": 25.74,
+   "end": 26.02
   },
   {
    "text": "push",
-   "start": 31.12,
-   "end": 31.41
+   "start": 26.02,
+   "end": 26.29
   },
   {
    "text": "power",
-   "start": 31.41,
-   "end": 31.74
+   "start": 26.29,
+   "end": 26.61
   },
   {
    "text": "out",
-   "start": 31.74,
-   "end": 31.9
+   "start": 26.61,
+   "end": 26.77
   },
   {
    "text": "quickly.",
-   "start": 31.9,
-   "end": 32.79
+   "start": 26.77,
+   "end": 27.66
   },
   {
    "text": "So",
-   "start": 32.79,
-   "end": 32.97
+   "start": 27.66,
+   "end": 27.85
   },
   {
    "text": "how",
-   "start": 32.97,
-   "end": 33.16
+   "start": 27.85,
+   "end": 27.99
   },
   {
    "text": "does",
-   "start": 33.16,
-   "end": 33.29
+   "start": 27.99,
+   "end": 28.11
   },
   {
    "text": "your",
-   "start": 33.29,
-   "end": 33.44
+   "start": 28.11,
+   "end": 28.24
   },
   {
    "text": "phone",
-   "start": 33.44,
-   "end": 33.75
+   "start": 28.24,
+   "end": 28.58
   },
   {
    "text": "tell",
-   "start": 33.75,
-   "end": 33.99
+   "start": 28.58,
+   "end": 28.83
   },
   {
    "text": "what's",
-   "start": 33.99,
-   "end": 34.22
+   "start": 28.83,
+   "end": 29.08
   },
   {
    "text": "left?",
-   "start": 34.22,
-   "end": 35.0
-  },
-  {
-   "text": "A",
-   "start": 35.98,
-   "end": 36.06
-  },
-  {
-   "text": "weak",
-   "start": 36.06,
-   "end": 36.34
-  },
-  {
-   "text": "push",
-   "start": 36.34,
-   "end": 36.7
-  },
-  {
-   "text": "makes",
-   "start": 36.7,
-   "end": 36.94
-  },
-  {
-   "text": "your",
-   "start": 36.94,
-   "end": 37.09
-  },
-  {
-   "text": "phone",
-   "start": 37.09,
-   "end": 37.43
-  },
-  {
-   "text": "think",
-   "start": 37.43,
-   "end": 37.61
-  },
-  {
-   "text": "it's",
-   "start": 37.61,
-   "end": 37.75
-  },
-  {
-   "text": "empty.",
-   "start": 37.75,
-   "end": 38.56
+   "start": 29.08,
+   "end": 29.85
   },
   {
    "text": "Your",
-   "start": 38.56,
-   "end": 38.79
+   "start": 30.82,
+   "end": 31.01
   },
   {
    "text": "phone",
-   "start": 38.79,
-   "end": 39.19
+   "start": 31.01,
+   "end": 31.39
   },
   {
    "text": "can't",
-   "start": 39.19,
-   "end": 39.5
+   "start": 31.39,
+   "end": 31.7
   },
   {
    "text": "see",
-   "start": 39.5,
-   "end": 39.7
+   "start": 31.7,
+   "end": 31.9
   },
   {
    "text": "the",
-   "start": 39.7,
-   "end": 39.81
+   "start": 31.9,
+   "end": 32.01
   },
   {
    "text": "charge",
-   "start": 39.81,
-   "end": 40.18
+   "start": 32.01,
+   "end": 32.38
   },
   {
    "text": "left.",
-   "start": 40.18,
-   "end": 40.85
+   "start": 32.38,
+   "end": 33.08
   },
   {
    "text": "It",
-   "start": 40.85,
-   "end": 40.99
+   "start": 33.08,
+   "end": 33.23
   },
   {
    "text": "works",
-   "start": 40.99,
-   "end": 41.21
+   "start": 33.23,
+   "end": 33.46
   },
   {
    "text": "it",
-   "start": 41.21,
-   "end": 41.29
+   "start": 33.46,
+   "end": 33.54
   },
   {
    "text": "out",
-   "start": 41.29,
-   "end": 41.51
+   "start": 33.54,
+   "end": 33.76
   },
   {
    "text": "partly",
-   "start": 41.51,
-   "end": 41.98
+   "start": 33.76,
+   "end": 34.23
   },
   {
    "text": "from",
-   "start": 41.98,
-   "end": 42.18
+   "start": 34.23,
+   "end": 34.4
   },
   {
    "text": "how",
-   "start": 42.18,
-   "end": 42.38
+   "start": 34.4,
+   "end": 34.6
   },
   {
    "text": "hard",
-   "start": 42.38,
-   "end": 42.61
+   "start": 34.6,
+   "end": 34.84
   },
   {
    "text": "the",
-   "start": 42.61,
-   "end": 42.7
+   "start": 34.84,
+   "end": 34.92
   },
   {
    "text": "battery",
-   "start": 42.7,
-   "end": 43.12
+   "start": 34.92,
+   "end": 35.35
   },
   {
    "text": "pushes.",
-   "start": 43.12,
-   "end": 44.21
+   "start": 35.35,
+   "end": 36.41
   },
   {
    "text": "A",
-   "start": 44.21,
-   "end": 44.34
+   "start": 36.41,
+   "end": 36.54
   },
   {
    "text": "cold",
-   "start": 44.34,
-   "end": 44.7
+   "start": 36.54,
+   "end": 36.9
   },
   {
    "text": "battery",
-   "start": 44.7,
-   "end": 45.15
+   "start": 36.9,
+   "end": 37.35
   },
   {
    "text": "pushes",
-   "start": 45.15,
-   "end": 45.55
+   "start": 37.35,
+   "end": 37.75
   },
   {
    "text": "weakly,",
-   "start": 45.55,
-   "end": 46.18
+   "start": 37.75,
+   "end": 38.4
   },
   {
    "text": "so",
-   "start": 46.18,
-   "end": 46.31
+   "start": 38.4,
+   "end": 38.54
   },
   {
    "text": "the",
-   "start": 46.31,
-   "end": 46.44
+   "start": 38.54,
+   "end": 38.66
   },
   {
    "text": "phone",
-   "start": 46.44,
-   "end": 46.78
+   "start": 38.66,
+   "end": 39.01
   },
   {
    "text": "thinks",
-   "start": 46.78,
-   "end": 47.03
+   "start": 39.01,
+   "end": 39.35
   },
   {
    "text": "it's",
-   "start": 47.03,
-   "end": 47.23
+   "start": 39.35,
+   "end": 39.55
   },
   {
    "text": "nearly",
-   "start": 47.23,
-   "end": 47.59
+   "start": 39.55,
+   "end": 39.91
   },
   {
    "text": "empty.",
-   "start": 47.59,
-   "end": 48.55
+   "start": 39.91,
+   "end": 40.88
   },
   {
    "text": "When",
-   "start": 48.55,
-   "end": 48.69
+   "start": 40.88,
+   "end": 41.01
   },
   {
    "text": "the",
-   "start": 48.69,
-   "end": 48.78
+   "start": 41.01,
+   "end": 41.1
   },
   {
    "text": "push",
-   "start": 48.78,
-   "end": 49.1
+   "start": 41.1,
+   "end": 41.42
   },
   {
    "text": "gets",
-   "start": 49.1,
-   "end": 49.36
+   "start": 41.42,
+   "end": 41.69
   },
   {
    "text": "too",
-   "start": 49.36,
-   "end": 49.58
+   "start": 41.69,
+   "end": 41.9
   },
   {
    "text": "weak",
-   "start": 49.58,
-   "end": 49.8
+   "start": 41.9,
+   "end": 42.12
   },
   {
    "text": "to",
-   "start": 49.8,
-   "end": 49.93
+   "start": 42.12,
+   "end": 42.23
   },
   {
    "text": "run",
-   "start": 49.93,
-   "end": 50.15
+   "start": 42.23,
+   "end": 42.45
   },
   {
    "text": "on,",
-   "start": 50.15,
-   "end": 50.65
+   "start": 42.45,
+   "end": 42.99
   },
   {
    "text": "it",
-   "start": 50.65,
-   "end": 50.78
+   "start": 42.99,
+   "end": 43.15
   },
   {
    "text": "switches",
-   "start": 50.78,
-   "end": 51.15
+   "start": 43.15,
+   "end": 43.52
   },
   {
    "text": "off.",
-   "start": 51.15,
-   "end": 51.88
+   "start": 43.52,
+   "end": 44.27
   },
   {
    "text": "So",
-   "start": 51.88,
-   "end": 52.15
+   "start": 44.27,
+   "end": 44.55
   },
   {
    "text": "is",
-   "start": 52.15,
-   "end": 52.3
+   "start": 44.55,
+   "end": 44.7
   },
   {
    "text": "the",
-   "start": 52.3,
-   "end": 52.41
+   "start": 44.7,
+   "end": 44.81
   },
   {
    "text": "charge",
-   "start": 52.41,
-   "end": 52.78
+   "start": 44.81,
+   "end": 45.17
   },
   {
    "text": "gone?",
-   "start": 52.78,
-   "end": 53.58
+   "start": 45.17,
+   "end": 45.98
   },
   {
-   "text": "Warm",
-   "start": 54.6,
-   "end": 54.84
-  },
-  {
-   "text": "it",
-   "start": 54.84,
-   "end": 54.92
-  },
-  {
-   "text": "up",
-   "start": 54.92,
-   "end": 55.2
-  },
-  {
-   "text": "and",
-   "start": 55.2,
-   "end": 55.31
-  },
-  {
-   "text": "the",
-   "start": 55.31,
-   "end": 55.41
-  },
-  {
-   "text": "charge",
-   "start": 55.41,
-   "end": 55.79
-  },
-  {
-   "text": "is",
-   "start": 55.79,
-   "end": 55.92
-  },
-  {
-   "text": "back.",
-   "start": 55.92,
-   "end": 56.62
-  },
-  {
-   "text": "Nothing",
-   "start": 56.62,
-   "end": 57.05
-  },
-  {
-   "text": "drained",
-   "start": 57.05,
-   "end": 57.38
-  },
-  {
-   "text": "away.",
-   "start": 57.38,
-   "end": 58.21
-  },
-  {
-   "text": "As",
-   "start": 58.21,
-   "end": 58.44
-  },
-  {
-   "text": "the",
-   "start": 58.44,
-   "end": 58.52
-  },
-  {
-   "text": "battery",
-   "start": 58.52,
-   "end": 59.01
-  },
-  {
-   "text": "warms,",
-   "start": 59.01,
-   "end": 59.62
-  },
-  {
-   "text": "the",
-   "start": 59.62,
-   "end": 59.79
-  },
-  {
-   "text": "ions",
-   "start": 59.79,
-   "end": 60.24
-  },
-  {
-   "text": "speed",
-   "start": 60.24,
-   "end": 60.54
-  },
-  {
-   "text": "up",
-   "start": 60.54,
-   "end": 60.69
-  },
-  {
-   "text": "again.",
-   "start": 60.69,
-   "end": 61.51
-  },
-  {
-   "text": "A",
-   "start": 61.51,
-   "end": 61.64
-  },
-  {
-   "text": "typical",
-   "start": 61.64,
-   "end": 62.05
-  },
-  {
-   "text": "battery",
-   "start": 62.05,
-   "end": 62.52
-  },
-  {
-   "text": "gives",
-   "start": 62.52,
-   "end": 62.79
-  },
-  {
-   "text": "only",
-   "start": 62.79,
-   "end": 63.1
-  },
-  {
-   "text": "about",
-   "start": 63.1,
-   "end": 63.44
-  },
-  {
-   "text": "half",
-   "start": 63.44,
-   "end": 63.69
-  },
-  {
-   "text": "its",
-   "start": 63.69,
-   "end": 63.89
-  },
-  {
-   "text": "charge",
-   "start": 63.89,
-   "end": 64.25
-  },
-  {
-   "text": "at",
-   "start": 64.25,
-   "end": 64.39
-  },
-  {
-   "text": "freezer",
-   "start": 64.39,
-   "end": 64.79
-  },
-  {
-   "text": "cold,",
-   "start": 64.79,
-   "end": 65.47
-  },
-  {
-   "text": "and",
-   "start": 65.47,
-   "end": 65.6
-  },
-  {
-   "text": "gives",
-   "start": 65.6,
-   "end": 65.81
+   "text": "No,",
+   "start": 47.0,
+   "end": 47.4
   },
   {
    "text": "it",
-   "start": 65.81,
-   "end": 65.89
-  },
-  {
-   "text": "all",
-   "start": 65.89,
-   "end": 66.08
-  },
-  {
-   "text": "back",
-   "start": 66.08,
-   "end": 66.4
-  },
-  {
-   "text": "at",
-   "start": 66.4,
-   "end": 66.56
-  },
-  {
-   "text": "room",
-   "start": 66.56,
-   "end": 66.85
-  },
-  {
-   "text": "temperature.",
-   "start": 66.85,
-   "end": 67.96
-  },
-  {
-   "text": "The",
-   "start": 67.96,
-   "end": 68.08
-  },
-  {
-   "text": "battery",
-   "start": 68.08,
-   "end": 68.5
-  },
-  {
-   "text": "wasn't",
-   "start": 68.5,
-   "end": 68.8
-  },
-  {
-   "text": "empty.",
-   "start": 68.8,
-   "end": 69.65
-  },
-  {
-   "text": "It",
-   "start": 69.65,
-   "end": 69.76
+   "start": 47.4,
+   "end": 47.49
   },
   {
    "text": "was",
-   "start": 69.76,
-   "end": 69.88
+   "start": 47.49,
+   "end": 47.66
   },
   {
-   "text": "just",
-   "start": 69.88,
-   "end": 70.11
+   "text": "never",
+   "start": 47.66,
+   "end": 48.0
   },
   {
-   "text": "too",
-   "start": 70.11,
-   "end": 70.36
+   "text": "empty.",
+   "start": 48.0,
+   "end": 48.92
   },
   {
-   "text": "cold",
-   "start": 70.36,
-   "end": 70.7
-  },
-  {
-   "text": "to",
-   "start": 70.7,
-   "end": 70.83
-  },
-  {
-   "text": "hand",
-   "start": 70.83,
-   "end": 71.06
-  },
-  {
-   "text": "over",
-   "start": 71.06,
-   "end": 71.24
+   "text": "As",
+   "start": 48.92,
+   "end": 49.11
   },
   {
    "text": "the",
-   "start": 71.24,
-   "end": 71.33
+   "start": 49.11,
+   "end": 49.2
+  },
+  {
+   "text": "battery",
+   "start": 49.2,
+   "end": 49.69
+  },
+  {
+   "text": "warms,",
+   "start": 49.69,
+   "end": 50.38
+  },
+  {
+   "text": "the",
+   "start": 50.38,
+   "end": 50.54
+  },
+  {
+   "text": "ions",
+   "start": 50.54,
+   "end": 51.02
+  },
+  {
+   "text": "speed",
+   "start": 51.02,
+   "end": 51.36
+  },
+  {
+   "text": "up",
+   "start": 51.36,
+   "end": 51.51
+  },
+  {
+   "text": "again.",
+   "start": 51.51,
+   "end": 52.36
+  },
+  {
+   "text": "A",
+   "start": 52.36,
+   "end": 52.47
+  },
+  {
+   "text": "typical",
+   "start": 52.47,
+   "end": 52.88
+  },
+  {
+   "text": "battery",
+   "start": 52.88,
+   "end": 53.38
+  },
+  {
+   "text": "gives",
+   "start": 53.38,
+   "end": 53.66
+  },
+  {
+   "text": "only",
+   "start": 53.66,
+   "end": 53.97
+  },
+  {
+   "text": "about",
+   "start": 53.97,
+   "end": 54.29
+  },
+  {
+   "text": "half",
+   "start": 54.29,
+   "end": 54.51
+  },
+  {
+   "text": "its",
+   "start": 54.51,
+   "end": 54.71
+  },
+  {
+   "text": "charge",
+   "start": 54.71,
+   "end": 55.1
+  },
+  {
+   "text": "at",
+   "start": 55.1,
+   "end": 55.24
+  },
+  {
+   "text": "freezer",
+   "start": 55.24,
+   "end": 55.64
+  },
+  {
+   "text": "cold,",
+   "start": 55.64,
+   "end": 56.4
+  },
+  {
+   "text": "and",
+   "start": 56.4,
+   "end": 56.56
+  },
+  {
+   "text": "all",
+   "start": 56.56,
+   "end": 56.76
+  },
+  {
+   "text": "of",
+   "start": 56.76,
+   "end": 56.85
+  },
+  {
+   "text": "it",
+   "start": 56.85,
+   "end": 56.97
+  },
+  {
+   "text": "back",
+   "start": 56.97,
+   "end": 57.3
+  },
+  {
+   "text": "at",
+   "start": 57.3,
+   "end": 57.46
+  },
+  {
+   "text": "room",
+   "start": 57.46,
+   "end": 57.77
+  },
+  {
+   "text": "temperature.",
+   "start": 57.77,
+   "end": 58.85
+  },
+  {
+   "text": "It",
+   "start": 58.85,
+   "end": 58.96
+  },
+  {
+   "text": "was",
+   "start": 58.96,
+   "end": 59.07
+  },
+  {
+   "text": "just",
+   "start": 59.07,
+   "end": 59.31
+  },
+  {
+   "text": "too",
+   "start": 59.31,
+   "end": 59.54
+  },
+  {
+   "text": "cold",
+   "start": 59.54,
+   "end": 59.85
+  },
+  {
+   "text": "to",
+   "start": 59.85,
+   "end": 59.97
+  },
+  {
+   "text": "hand",
+   "start": 59.97,
+   "end": 60.21
+  },
+  {
+   "text": "over",
+   "start": 60.21,
+   "end": 60.39
+  },
+  {
+   "text": "the",
+   "start": 60.39,
+   "end": 60.47
   },
   {
    "text": "power.",
-   "start": 71.33,
-   "end": 72.17
+   "start": 60.47,
+   "end": 61.3
   }
  ],
  "keys": [

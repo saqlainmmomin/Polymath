@@ -1,0 +1,1425 @@
+{
+ "scenes": [
+  {
+   "card": 0,
+   "label": "A cut through skin with a drop of water on it. Three nerve endings sit in the skin, a blue cold one, an orange warm one and a green touch one, each labelled. A fourth, dashed empty slot with a question mark is labelled no sensor just for wet.",
+   "elements": [
+    {
+     "id": "skin",
+     "part": "skinCut",
+     "at": [
+      171,
+      140
+     ],
+     "params": {
+      "w": 290,
+      "d": 110,
+      "hair": 0
+     },
+     "word": "skin"
+    },
+    {
+     "id": "drop",
+     "part": "drop",
+     "at": [
+      171,
+      52
+     ],
+     "params": {
+      "s": 10
+     },
+     "word": "wet"
+    },
+    {
+     "id": "puddle",
+     "part": "spray",
+     "at": [
+      171,
+      137
+     ],
+     "params": {
+      "rx": 28,
+      "ry": 5,
+      "col": 2,
+      "grow": 1
+     },
+     "word": "just",
+     "hidden": true
+    },
+    {
+     "id": "cold",
+     "part": "nerve",
+     "at": [
+      84,
+      172
+     ],
+     "params": {
+      "kind": 0,
+      "len": 42,
+      "lit": 0
+     },
+     "word": "cold"
+    },
+    {
+     "id": "warm",
+     "part": "nerve",
+     "at": [
+      150,
+      184
+     ],
+     "params": {
+      "kind": 1,
+      "len": 42,
+      "lit": 0
+     },
+     "word": "warmth"
+    },
+    {
+     "id": "touch",
+     "part": "nerve",
+     "at": [
+      216,
+      170
+     ],
+     "params": {
+      "kind": 2,
+      "len": 42,
+      "lit": 0
+     },
+     "word": "touch"
+    },
+    {
+     "id": "slot",
+     "circle": [
+      282,
+      178,
+      12
+     ],
+     "stroke": "ink@0.55",
+     "dash": [
+      3,
+      3
+     ],
+     "width": 1.4,
+     "word": "scientists"
+    },
+    {
+     "id": "q",
+     "text": "?",
+     "at": [
+      282,
+      180
+     ],
+     "size": 38,
+     "word": "none",
+     "onpicture": true
+    },
+    {
+     "label": "SKIN",
+     "anchor": [
+      40,
+      141
+     ],
+     "at": [
+      40,
+      84
+     ],
+     "align": "center",
+     "word": "skin"
+    },
+    {
+     "label": "COLD\nSENSOR",
+     "anchor": [
+      84,
+      166
+     ],
+     "at": [
+      84,
+      128
+     ],
+     "align": "center",
+     "word": "cold",
+     "delay": 0.2
+    },
+    {
+     "label": "WARM\nSENSOR",
+     "anchor": [
+      150,
+      178
+     ],
+     "at": [
+      122,
+      72
+     ],
+     "align": "center",
+     "word": "warmth",
+     "delay": 0.2
+    },
+    {
+     "label": "TOUCH\nSENSOR",
+     "anchor": [
+      216,
+      164
+     ],
+     "at": [
+      216,
+      128
+     ],
+     "align": "center",
+     "word": "touch",
+     "delay": 0.2
+    },
+    {
+     "label": "NO SENSOR\nJUST FOR WET",
+     "anchor": [
+      282,
+      168
+     ],
+     "at": [
+      282,
+      70
+     ],
+     "align": "center",
+     "word": "none",
+     "delay": 0.3
+    }
+   ],
+   "moves": [
+    {
+     "move": "drop",
+     "prop": "y",
+     "to": 126,
+     "word": "water",
+     "dur": 0.6,
+     "ease": "fall"
+    },
+    {
+     "move": "drop",
+     "prop": "opacity",
+     "to": 0,
+     "word": "water",
+     "dur": 0.2,
+     "delay": 0.55
+    },
+    {
+     "move": "puddle",
+     "prop": "opacity",
+     "to": 1,
+     "word": "water",
+     "dur": 0.3,
+     "delay": 0.5
+    },
+    {
+     "move": "cold",
+     "prop": "lit",
+     "to": 1,
+     "word": "cold",
+     "dur": 0.4,
+     "delay": 0.3
+    },
+    {
+     "move": "cold",
+     "prop": "lit",
+     "to": 0,
+     "word": "warmth",
+     "dur": 0.4
+    },
+    {
+     "move": "warm",
+     "prop": "lit",
+     "to": 1,
+     "word": "warmth",
+     "dur": 0.4,
+     "delay": 0.3
+    },
+    {
+     "move": "warm",
+     "prop": "lit",
+     "to": 0,
+     "word": "touch",
+     "dur": 0.4
+    },
+    {
+     "move": "touch",
+     "prop": "lit",
+     "to": 1,
+     "word": "touch",
+     "dur": 0.4,
+     "delay": 0.3
+    },
+    {
+     "move": "touch",
+     "prop": "lit",
+     "to": 0,
+     "word": "scientists",
+     "dur": 0.4
+    }
+   ]
+  },
+  {
+   "card": 1,
+   "label": "A drop of water on skin. Orange heat arrows leave the skin into the water, the blue cold sensor lights up, and a yellow signal runs along a nerve to a brain that glows.",
+   "elements": [
+    {
+     "id": "skin",
+     "part": "skinCut",
+     "at": [
+      170,
+      150
+     ],
+     "params": {
+      "w": 180,
+      "d": 80,
+      "hair": 0
+     },
+     "word": "Water"
+    },
+    {
+     "id": "drop",
+     "part": "drop",
+     "at": [
+      170,
+      40
+     ],
+     "params": {
+      "s": 11
+     },
+     "word": "Water"
+    },
+    {
+     "id": "puddle",
+     "part": "spray",
+     "at": [
+      170,
+      144
+     ],
+     "params": {
+      "rx": 52,
+      "ry": 9,
+      "col": 2,
+      "grow": 1
+     },
+     "word": "cooler",
+     "hidden": true
+    },
+    {
+     "label": "WATER",
+     "anchor": [
+      136,
+      142
+     ],
+     "at": [
+      100,
+      96
+     ],
+     "align": "center",
+     "word": "cooler"
+    },
+    {
+     "id": "h0",
+     "part": "arrow",
+     "at": [
+      140,
+      148
+     ],
+     "rotate": -90,
+     "params": {
+      "len": 32,
+      "col": 3,
+      "w": 2.8,
+      "head": 9
+     },
+     "word": "heat",
+     "delay": 0.0
+    },
+    {
+     "id": "h1",
+     "part": "arrow",
+     "at": [
+      170,
+      148
+     ],
+     "rotate": -90,
+     "params": {
+      "len": 32,
+      "col": 3,
+      "w": 2.8,
+      "head": 9
+     },
+     "word": "heat",
+     "delay": 0.15
+    },
+    {
+     "id": "h2",
+     "part": "arrow",
+     "at": [
+      200,
+      148
+     ],
+     "rotate": -90,
+     "params": {
+      "len": 32,
+      "col": 3,
+      "w": 2.8,
+      "head": 9
+     },
+     "word": "heat",
+     "delay": 0.3
+    },
+    {
+     "label": "HEAT OUT",
+     "anchor": [
+      138,
+      120
+     ],
+     "at": [
+      96,
+      116
+     ],
+     "align": "trailing",
+     "word": "heat",
+     "delay": 0.2
+    },
+    {
+     "id": "nerve",
+     "part": "nerve",
+     "at": [
+      170,
+      172
+     ],
+     "params": {
+      "kind": 0,
+      "len": 44,
+      "lit": 0,
+      "sig": 0
+     },
+     "word": "cold"
+    },
+    {
+     "label": "COLD\nSENSOR",
+     "anchor": [
+      162,
+      172
+     ],
+     "at": [
+      66,
+      172
+     ],
+     "align": "trailing",
+     "word": "cold",
+     "delay": 0.2
+    },
+    {
+     "id": "tr",
+     "path": "M170 216 L170 236 L284 236 L284 134",
+     "stroke": "ink@0.6",
+     "width": 1.3,
+     "word": "send"
+    },
+    {
+     "id": "brain",
+     "part": "brain",
+     "at": [
+      284,
+      98
+     ],
+     "scale": 0.85,
+     "params": {
+      "lit": 0
+     },
+     "word": "send"
+    },
+    {
+     "label": "YOUR BRAIN",
+     "anchor": [
+      246,
+      90
+     ],
+     "at": [
+      208,
+      64
+     ],
+     "align": "trailing",
+     "word": "brain"
+    },
+    {
+     "id": "b",
+     "group": [
+      {
+       "circle": [
+        0,
+        0,
+        4
+       ],
+       "fill": "yellow"
+      }
+     ],
+     "at": [
+      170,
+      216
+     ],
+     "hidden": true
+    },
+    {
+     "label": "COLD SIGNAL",
+     "anchor": [
+      228,
+      236
+     ],
+     "at": [
+      228,
+      252
+     ],
+     "align": "center",
+     "word": "signal"
+    }
+   ],
+   "moves": [
+    {
+     "move": "drop",
+     "prop": "y",
+     "to": 128,
+     "word": "Water",
+     "dur": 0.7,
+     "ease": "fall"
+    },
+    {
+     "move": "drop",
+     "prop": "opacity",
+     "to": 0,
+     "word": "Water",
+     "dur": 0.2,
+     "delay": 0.65
+    },
+    {
+     "move": "puddle",
+     "prop": "opacity",
+     "to": 1,
+     "word": "Water",
+     "dur": 0.3,
+     "delay": 0.6
+    },
+    {
+     "move": "nerve",
+     "prop": "lit",
+     "to": 1,
+     "word": "sensors",
+     "dur": 0.5
+    },
+    {
+     "move": "h0",
+     "prop": "w",
+     "to": 4.2,
+     "word": "fast",
+     "dur": 0.4
+    },
+    {
+     "move": "h1",
+     "prop": "w",
+     "to": 4.2,
+     "word": "fast",
+     "dur": 0.4
+    },
+    {
+     "move": "h2",
+     "prop": "w",
+     "to": 4.2,
+     "word": "fast",
+     "dur": 0.4
+    },
+    {
+     "move": "nerve",
+     "prop": "sig",
+     "to": 1,
+     "word": "send",
+     "dur": 0.7,
+     "ease": "linear"
+    },
+    {
+     "move": "b",
+     "prop": "opacity",
+     "to": 1,
+     "word": "send",
+     "dur": 0.1,
+     "delay": 0.7
+    },
+    {
+     "move": "b",
+     "prop": "x",
+     "to": 284,
+     "word": "send",
+     "dur": 1.0,
+     "delay": 0.7,
+     "ease": "linear"
+    },
+    {
+     "move": "b",
+     "prop": "y",
+     "to": 134,
+     "word": "send",
+     "dur": 0.8,
+     "delay": 1.7,
+     "ease": "linear"
+    },
+    {
+     "move": "brain",
+     "prop": "lit",
+     "to": 1,
+     "word": "brain",
+     "dur": 0.5
+    },
+    {
+     "move": "b",
+     "prop": "opacity",
+     "to": 0,
+     "word": "brain",
+     "dur": 0.2,
+     "delay": 0.4
+    }
+   ]
+  },
+  {
+   "card": 2,
+   "label": "Water spreads over the whole skin at once: a row of soft arrows presses down evenly, and touch sensors all along the skin light up. The cold signal and the touch signal run to the brain, which lights up and joins them into one big green word, wet.",
+   "elements": [
+    {
+     "id": "skin",
+     "part": "skinCut",
+     "at": [
+      170,
+      150
+     ],
+     "params": {
+      "w": 180,
+      "d": 80,
+      "hair": 0
+     },
+     "word": "Water"
+    },
+    {
+     "id": "puddle",
+     "part": "spray",
+     "at": [
+      170,
+      144
+     ],
+     "params": {
+      "rx": 70,
+      "ry": 9,
+      "col": 2,
+      "grow": 1
+     },
+     "word": "hugs"
+    },
+    {
+     "id": "cn",
+     "part": "nerve",
+     "at": [
+      140,
+      172
+     ],
+     "params": {
+      "kind": 0,
+      "len": 44,
+      "lit": 1,
+      "sig": 0
+     },
+     "word": "Water"
+    },
+    {
+     "id": "tn",
+     "part": "nerve",
+     "at": [
+      202,
+      168
+     ],
+     "params": {
+      "kind": 2,
+      "len": 44,
+      "lit": 0,
+      "sig": 0
+     },
+     "word": "Water"
+    },
+    {
+     "id": "trC",
+     "path": "M140 216 L140 238 L246 238 L246 134",
+     "stroke": "ink@0.6",
+     "width": 1.3,
+     "word": "Water"
+    },
+    {
+     "id": "trT",
+     "path": "M202 212 L202 252 L270 252 L270 134",
+     "stroke": "ink@0.6",
+     "width": 1.3,
+     "word": "Water"
+    },
+    {
+     "id": "brain",
+     "part": "brain",
+     "at": [
+      262,
+      98
+     ],
+     "scale": 0.85,
+     "params": {
+      "lit": 0
+     },
+     "word": "Water"
+    },
+    {
+     "label": "YOUR BRAIN",
+     "anchor": [
+      224,
+      90
+     ],
+     "at": [
+      188,
+      62
+     ],
+     "align": "trailing",
+     "word": "brain"
+    },
+    {
+     "label": "COLD SIGNAL",
+     "anchor": [
+      190,
+      238
+     ],
+     "at": [
+      176,
+      256
+     ],
+     "align": "center",
+     "word": "cold"
+    },
+    {
+     "id": "bc",
+     "group": [
+      {
+       "circle": [
+        0,
+        0,
+        4
+       ],
+       "fill": "yellow"
+      }
+     ],
+     "at": [
+      140,
+      216
+     ],
+     "hidden": true
+    },
+    {
+     "id": "bt",
+     "group": [
+      {
+       "circle": [
+        0,
+        0,
+        4
+       ],
+       "fill": "yellow"
+      }
+     ],
+     "at": [
+      202,
+      212
+     ],
+     "hidden": true
+    },
+    {
+     "label": "TOUCH\nSENSORS",
+     "anchor": [
+      210,
+      168
+     ],
+     "at": [
+      274,
+      196
+     ],
+     "align": "leading",
+     "word": "touch"
+    },
+    {
+     "id": "wet",
+     "text": "WET",
+     "at": [
+      262,
+      34
+     ],
+     "size": 44,
+     "word": "wet",
+     "hidden": true,
+     "scale": 0.3,
+     "onpicture": true
+    },
+    {
+     "id": "p0",
+     "part": "arrow",
+     "at": [
+      100,
+      116
+     ],
+     "rotate": 90,
+     "params": {
+      "len": 20,
+      "col": 0,
+      "w": 1.8,
+      "head": 6
+     },
+     "word": "touching"
+    },
+    {
+     "id": "p1",
+     "part": "arrow",
+     "at": [
+      124,
+      116
+     ],
+     "rotate": 90,
+     "params": {
+      "len": 20,
+      "col": 0,
+      "w": 1.8,
+      "head": 6
+     },
+     "word": "touching"
+    },
+    {
+     "id": "p2",
+     "part": "arrow",
+     "at": [
+      148,
+      116
+     ],
+     "rotate": 90,
+     "params": {
+      "len": 20,
+      "col": 0,
+      "w": 1.8,
+      "head": 6
+     },
+     "word": "touching"
+    },
+    {
+     "id": "p3",
+     "part": "arrow",
+     "at": [
+      172,
+      116
+     ],
+     "rotate": 90,
+     "params": {
+      "len": 20,
+      "col": 0,
+      "w": 1.8,
+      "head": 6
+     },
+     "word": "touching"
+    },
+    {
+     "id": "p4",
+     "part": "arrow",
+     "at": [
+      196,
+      116
+     ],
+     "rotate": 90,
+     "params": {
+      "len": 20,
+      "col": 0,
+      "w": 1.8,
+      "head": 6
+     },
+     "word": "touching"
+    },
+    {
+     "id": "p5",
+     "part": "arrow",
+     "at": [
+      220,
+      116
+     ],
+     "rotate": 90,
+     "params": {
+      "len": 20,
+      "col": 0,
+      "w": 1.8,
+      "head": 6
+     },
+     "word": "touching"
+    },
+    {
+     "label": "SOFT,\nALL OVER",
+     "anchor": [
+      100,
+      128
+     ],
+     "at": [
+      86,
+      88
+     ],
+     "align": "trailing",
+     "word": "touching",
+     "delay": 0.2
+    },
+    {
+     "id": "tn2",
+     "part": "nerve",
+     "at": [
+      110,
+      168
+     ],
+     "params": {
+      "kind": 2,
+      "len": 44,
+      "lit": 0,
+      "sig": 0
+     },
+     "word": "Water"
+    },
+    {
+     "id": "tn3",
+     "part": "nerve",
+     "at": [
+      172,
+      168
+     ],
+     "params": {
+      "kind": 2,
+      "len": 44,
+      "lit": 0,
+      "sig": 0
+     },
+     "word": "Water"
+    },
+    {
+     "id": "tn4",
+     "part": "nerve",
+     "at": [
+      232,
+      168
+     ],
+     "params": {
+      "kind": 2,
+      "len": 44,
+      "lit": 0,
+      "sig": 0
+     },
+     "word": "Water"
+    }
+   ],
+   "moves": [
+    {
+     "move": "cn",
+     "prop": "sig",
+     "to": 1,
+     "word": "cold",
+     "dur": 0.6,
+     "ease": "linear"
+    },
+    {
+     "move": "bc",
+     "prop": "opacity",
+     "to": 1,
+     "word": "cold",
+     "dur": 0.1,
+     "delay": 0.1
+    },
+    {
+     "move": "bc",
+     "prop": "x",
+     "to": 246,
+     "word": "cold",
+     "dur": 1.2,
+     "delay": 0.1,
+     "ease": "linear"
+    },
+    {
+     "move": "bc",
+     "prop": "y",
+     "to": 134,
+     "word": "cold",
+     "dur": 0.7,
+     "delay": 1.3,
+     "ease": "linear"
+    },
+    {
+     "move": "bc",
+     "prop": "opacity",
+     "to": 0,
+     "word": "together",
+     "dur": 0.2,
+     "delay": 0.1
+    },
+    {
+     "move": "brain",
+     "prop": "lit",
+     "to": 0.45,
+     "word": "puts",
+     "dur": 0.6
+    },
+    {
+     "move": "tn",
+     "prop": "lit",
+     "to": 1,
+     "word": "sensors",
+     "dur": 0.5
+    },
+    {
+     "move": "tn",
+     "prop": "sig",
+     "to": 1,
+     "word": "feel",
+     "dur": 0.6,
+     "ease": "linear"
+    },
+    {
+     "move": "tn2",
+     "prop": "lit",
+     "to": 1,
+     "word": "sensors",
+     "dur": 0.5
+    },
+    {
+     "move": "tn2",
+     "prop": "sig",
+     "to": 1,
+     "word": "feel",
+     "dur": 0.6,
+     "ease": "linear"
+    },
+    {
+     "move": "tn3",
+     "prop": "lit",
+     "to": 1,
+     "word": "sensors",
+     "dur": 0.5
+    },
+    {
+     "move": "tn3",
+     "prop": "sig",
+     "to": 1,
+     "word": "feel",
+     "dur": 0.6,
+     "ease": "linear"
+    },
+    {
+     "move": "tn4",
+     "prop": "lit",
+     "to": 1,
+     "word": "sensors",
+     "dur": 0.5
+    },
+    {
+     "move": "tn4",
+     "prop": "sig",
+     "to": 1,
+     "word": "feel",
+     "dur": 0.6,
+     "ease": "linear"
+    },
+    {
+     "move": "bt",
+     "prop": "opacity",
+     "to": 1,
+     "word": "feel",
+     "dur": 0.1,
+     "delay": 0.6
+    },
+    {
+     "move": "bt",
+     "prop": "x",
+     "to": 270,
+     "word": "feel",
+     "dur": 0.9,
+     "delay": 0.6,
+     "ease": "linear"
+    },
+    {
+     "move": "bt",
+     "prop": "y",
+     "to": 134,
+     "word": "feel",
+     "dur": 0.8,
+     "delay": 1.5,
+     "ease": "linear"
+    },
+    {
+     "move": "bt",
+     "prop": "opacity",
+     "to": 0,
+     "word": "feel",
+     "dur": 0.2,
+     "delay": 2.3
+    },
+    {
+     "move": "brain",
+     "prop": "lit",
+     "to": 1,
+     "word": "together",
+     "dur": 0.6
+    },
+    {
+     "move": "wet",
+     "prop": "opacity",
+     "to": 1,
+     "word": "wet",
+     "dur": 0.3
+    },
+    {
+     "move": "wet",
+     "prop": "scale",
+     "to": 1.0,
+     "word": "wet",
+     "dur": 0.6,
+     "ease": "snap"
+    }
+   ]
+  },
+  {
+   "card": 3,
+   "label": "A finger in a thin rubber glove goes into a tub of cool water. Heat arrows leave it, the finger stays dry, and the big green word wet appears. In lukewarm water the arrows shrink and the word shrinks almost to nothing. At the end a glowing brain builds the feeling from cold and touch.",
+   "elements": [
+    {
+     "id": "tub",
+     "part": "tub",
+     "at": [
+      191,
+      262
+     ],
+     "params": {
+      "w": 130,
+      "h": 96,
+      "level": 0.78
+     },
+     "word": "It"
+    },
+    {
+     "id": "f",
+     "part": "finger",
+     "at": [
+      191,
+      36
+     ],
+     "params": {
+      "len": 96,
+      "wd": 26,
+      "sheath": 0
+     },
+     "word": "Pull"
+    },
+    {
+     "id": "under",
+     "group": [
+      {
+       "rect": [
+        132,
+        187,
+        118,
+        75
+       ],
+       "fill": "blue@0.28",
+       "stroke": "none"
+      }
+     ],
+     "clip": {
+      "rect": [
+       132,
+       187,
+       118,
+       75
+      ]
+     },
+     "word": "It"
+    },
+    {
+     "label": "WATER",
+     "anchor": [
+      250,
+      215
+     ],
+     "at": [
+      268,
+      215
+     ],
+     "align": "leading",
+     "word": "water#2"
+    },
+    {
+     "id": "sheathL",
+     "label": "THIN RUBBER\nGLOVE",
+     "anchor": [
+      207,
+      66
+     ],
+     "at": [
+      256,
+      40
+     ],
+     "align": "leading",
+     "word": "glove",
+     "hidden": true
+    },
+    {
+     "id": "dryL",
+     "label": "DRY FINGER",
+     "anchor": [
+      205,
+      152
+     ],
+     "at": [
+      262,
+      112
+     ],
+     "align": "leading",
+     "word": "dry",
+     "hidden": true
+    },
+    {
+     "id": "wet",
+     "text": "WET",
+     "at": [
+      298,
+      170
+     ],
+     "size": 42,
+     "word": "wet",
+     "hidden": true
+    },
+    {
+     "id": "lukeL",
+     "label": "LUKEWARM:\nBARELY",
+     "anchor": [
+      136,
+      202
+     ],
+     "at": [
+      78,
+      176
+     ],
+     "align": "center",
+     "word": "lukewarm",
+     "hidden": true
+    },
+    {
+     "id": "st0",
+     "part": "arrow",
+     "at": [
+      150,
+      198
+     ],
+     "rotate": -90,
+     "params": {
+      "len": 24,
+      "col": 3,
+      "w": 2.4,
+      "head": 7
+     },
+     "word": "cool",
+     "hidden": true
+    },
+    {
+     "id": "st2",
+     "part": "arrow",
+     "at": [
+      232,
+      198
+     ],
+     "rotate": -90,
+     "params": {
+      "len": 24,
+      "col": 3,
+      "w": 2.4,
+      "head": 7
+     },
+     "word": "cool",
+     "hidden": true
+    },
+    {
+     "id": "brain",
+     "part": "brain",
+     "at": [
+      284,
+      58
+     ],
+     "scale": 0.62,
+     "params": {
+      "lit": 0
+     },
+     "word": "brain",
+     "hidden": true
+    },
+    {
+     "text": "COLD + TOUCH",
+     "at": [
+      284,
+      108
+     ],
+     "size": 17,
+     "word": "cold#2"
+    },
+    {
+     "id": "heatL",
+     "label": "HEAT OUT",
+     "anchor": [
+      136,
+      202
+     ],
+     "at": [
+      78,
+      176
+     ],
+     "align": "center",
+     "word": "cool",
+     "hidden": true
+    }
+   ],
+   "moves": [
+    {
+     "move": "f",
+     "prop": "sheath",
+     "to": 1,
+     "word": "glove",
+     "dur": 0.6
+    },
+    {
+     "move": "sheathL",
+     "prop": "opacity",
+     "to": 1,
+     "word": "glove",
+     "dur": 0.3,
+     "delay": 0.3
+    },
+    {
+     "move": "sheathL",
+     "prop": "opacity",
+     "to": 0,
+     "word": "lower",
+     "dur": 0.3
+    },
+    {
+     "move": "f",
+     "prop": "y",
+     "to": 112,
+     "word": "lower",
+     "dur": 1.5,
+     "delay": 0.2
+    },
+    {
+     "move": "st0",
+     "prop": "opacity",
+     "to": 1,
+     "word": "cool",
+     "dur": 0.4,
+     "delay": 0.3
+    },
+    {
+     "move": "st2",
+     "prop": "opacity",
+     "to": 1,
+     "word": "cool",
+     "dur": 0.4,
+     "delay": 0.3
+    },
+    {
+     "move": "heatL",
+     "prop": "opacity",
+     "to": 1,
+     "word": "cool",
+     "dur": 0.3,
+     "delay": 0.5
+    },
+    {
+     "move": "dryL",
+     "prop": "opacity",
+     "to": 1,
+     "word": "dry",
+     "dur": 0.3
+    },
+    {
+     "move": "wet",
+     "prop": "opacity",
+     "to": 1,
+     "word": "wet",
+     "dur": 0.4,
+     "delay": 0.2
+    },
+    {
+     "move": "heatL",
+     "prop": "opacity",
+     "to": 0,
+     "word": "lukewarm",
+     "dur": 0.2
+    },
+    {
+     "move": "dryL",
+     "prop": "opacity",
+     "to": 0,
+     "word": "lukewarm",
+     "dur": 0.3
+    },
+    {
+     "move": "st2",
+     "prop": "opacity",
+     "to": 0,
+     "word": "lukewarm",
+     "dur": 0.4
+    },
+    {
+     "move": "st0",
+     "prop": "len",
+     "to": 10,
+     "word": "lukewarm",
+     "dur": 0.5
+    },
+    {
+     "move": "lukeL",
+     "prop": "opacity",
+     "to": 1,
+     "word": "lukewarm",
+     "dur": 0.3,
+     "delay": 0.2
+    },
+    {
+     "move": "wet",
+     "prop": "scale",
+     "to": 0.3,
+     "word": "barely",
+     "dur": 0.5
+    },
+    {
+     "move": "st0",
+     "prop": "opacity",
+     "to": 0,
+     "word": "gone",
+     "dur": 0.4
+    },
+    {
+     "move": "wet",
+     "prop": "opacity",
+     "to": 0,
+     "word": "own",
+     "dur": 0.4
+    },
+    {
+     "move": "brain",
+     "prop": "opacity",
+     "to": 1,
+     "word": "brain",
+     "dur": 0.3
+    },
+    {
+     "move": "brain",
+     "prop": "lit",
+     "to": 1,
+     "word": "builds",
+     "dur": 0.6
+    }
+   ]
+  }
+ ]
+}

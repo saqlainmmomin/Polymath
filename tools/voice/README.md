@@ -6,6 +6,8 @@
     python3 narrate.py moments <id>   # timings again: picture length and when each label appears
     python3 narrate.py render <id>    # checks one paragraph per card, renders with Kokoro, regenerates the Xcode project
 
+**Each claim is spoken once.** The draft speaks the topic's question, then each card's *text* and hook, never the card's headline (the headline is on screen and the text already carries it; reading both said the claim twice). Add a headline back by hand only where the text never says it. `new` never overwrites an existing `<id>.txt`, and `render` prints `SAID TWICE?` for near-identical sentences in one paragraph.
+
 Rewrite the draft as speech, place `{t}` markers against the timings, get the owner's OK, then render. Once `voice-<id>.*` is bundled the topic opens Narrated.
 
 Markers are placed by hand (owner, 2026-11-03): an automatic cue tool was tried and removed, because it tied labels to the wrong word, missed every move with no label, and landed 1.7 to 3.7 s off the hand-placed cues on superglue and seasons. `moments` lists each label's timing and the moves with no label, so both can be marked.

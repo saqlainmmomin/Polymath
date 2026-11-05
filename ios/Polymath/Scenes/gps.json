@@ -1,0 +1,1533 @@
+{
+ "scenes": [
+  {
+   "card": 0,
+   "label": "A wireframe phone on a hillside showing zero bars, a faint mobile mast crossed out beside it. A pink pin lands on its screen. A satellite appears above and rings of signal travel down to the phone, labelled listening.",
+   "elements": [
+    {
+     "part": "ground",
+     "at": [
+      171,
+      262
+     ],
+     "params": {
+      "w": 310
+     }
+    },
+    {
+     "id": "hill",
+     "path": "M14 262 C70 236 130 252 200 244 S300 234 329 242",
+     "stroke": "ink@0.45",
+     "width": 0.8,
+     "word": "open"
+    },
+    {
+     "part": "tower",
+     "at": [
+      40,
+      262
+     ],
+     "params": {
+      "dim": 0.65
+     },
+     "word": "mobile"
+    },
+    {
+     "label": "NO MOBILE\nSIGNAL",
+     "anchor": [
+      40,
+      160
+     ],
+     "at": [
+      56,
+      192
+     ],
+     "align": "leading",
+     "word": "mobile",
+     "delay": 0.3
+    },
+    {
+     "id": "ph",
+     "part": "wfPhone",
+     "at": [
+      172,
+      262
+     ],
+     "scale": 1.2,
+     "params": {
+      "bars": 3,
+      "cross": 0,
+      "pin": 0,
+      "glow": 0
+     },
+     "word": "phone"
+    },
+    {
+     "label": "YOUR PHONE",
+     "anchor": [
+      216,
+      210
+     ],
+     "at": [
+      238,
+      210
+     ],
+     "align": "leading",
+     "word": "phone#2"
+    },
+    {
+     "id": "cut",
+     "path": "M62 130 L104 116",
+     "stroke": "ink@0.55",
+     "width": 0.7,
+     "dash": [
+      3,
+      3
+     ],
+     "word": "call",
+     "hidden": true
+    },
+    {
+     "id": "cutx",
+     "group": [
+      {
+       "path": "M-5 -5 L5 5"
+      },
+      {
+       "path": "M-5 5 L5 -5"
+      }
+     ],
+     "at": [
+      84,
+      123
+     ],
+     "word": "call",
+     "hidden": true
+    },
+    {
+     "id": "sat",
+     "part": "satellite",
+     "at": [
+      84,
+      62
+     ],
+     "scale": 0.95,
+     "params": {
+      "yaw": 28,
+      "lit": 0
+     },
+     "word": "listens",
+     "hidden": true
+    },
+    {
+     "id": "rg",
+     "part": "rings",
+     "at": [
+      98,
+      78
+     ],
+     "params": {
+      "n": 4,
+      "r0": 14,
+      "gap": 13,
+      "span": 46,
+      "rot": 26,
+      "speed": 0.8
+     },
+     "word": "listens",
+     "delay": 0.3,
+     "hidden": true
+    },
+    {
+     "label": "LISTENING",
+     "anchor": [
+      172,
+      102
+     ],
+     "at": [
+      214,
+      74
+     ],
+     "align": "leading",
+     "word": "listens",
+     "delay": 0.5
+    }
+   ],
+   "moves": [
+    {
+     "move": "ph",
+     "prop": "bars",
+     "to": 0,
+     "word": "no",
+     "dur": 0.5
+    },
+    {
+     "move": "ph",
+     "prop": "cross",
+     "to": 1,
+     "word": "mobile",
+     "dur": 0.4
+    },
+    {
+     "move": "ph",
+     "prop": "pin",
+     "to": 1,
+     "word": "only",
+     "dur": 0.7
+    },
+    {
+     "move": "cut",
+     "prop": "opacity",
+     "to": 1,
+     "word": "call",
+     "dur": 0.3
+    },
+    {
+     "move": "cutx",
+     "prop": "opacity",
+     "to": 1,
+     "word": "call",
+     "dur": 0.3,
+     "delay": 0.2
+    },
+    {
+     "move": "cut",
+     "prop": "opacity",
+     "to": 0,
+     "word": "listens",
+     "dur": 0.3
+    },
+    {
+     "move": "cutx",
+     "prop": "opacity",
+     "to": 0,
+     "word": "listens",
+     "dur": 0.3
+    },
+    {
+     "move": "sat",
+     "prop": "opacity",
+     "to": 1,
+     "word": "listens",
+     "dur": 0.4
+    },
+    {
+     "move": "rg",
+     "prop": "opacity",
+     "to": 1,
+     "word": "listens",
+     "dur": 0.4,
+     "delay": 0.3
+    },
+    {
+     "move": "sat",
+     "prop": "lit",
+     "to": 1,
+     "word": "radio",
+     "dur": 0.5
+    }
+   ]
+  },
+  {
+   "card": 1,
+   "label": "A wireframe satellite above a huge wire Earth sends rings of signal down to a tiny phone standing on it; two more satellites on a dashed orbit do the same. Tags say where it is and the time sent. A pink cross on a dashed line going back up says nothing goes back.",
+   "elements": [
+    {
+     "id": "earth",
+     "part": "globe",
+     "at": [
+      171,
+      345
+     ],
+     "params": {
+      "r": 160,
+      "lat": 8,
+      "lon": 16,
+      "pitch": 0.0,
+      "tilt": 0.2
+     },
+     "word": "Earth"
+    },
+    {
+     "id": "orbit",
+     "part": "arc",
+     "at": [
+      171,
+      160
+     ],
+     "params": {
+      "rx": 130,
+      "ry": 100,
+      "a0": 180,
+      "a1": 360,
+      "dash": 1,
+      "w": 0.55
+     },
+     "word": "circle"
+    },
+    {
+     "id": "ph",
+     "part": "wfPhone",
+     "at": [
+      171,
+      186
+     ],
+     "scale": 0.32,
+     "params": {
+      "bars": 0,
+      "pin": 0
+     },
+     "word": "you"
+    },
+    {
+     "id": "s2",
+     "part": "satellite",
+     "at": [
+      171,
+      70
+     ],
+     "scale": 0.95,
+     "params": {
+      "yaw": 28,
+      "lit": 0
+     },
+     "word": "Satellites"
+    },
+    {
+     "id": "r2",
+     "part": "rings",
+     "at": [
+      171,
+      92
+     ],
+     "params": {
+      "n": 4,
+      "r0": 14,
+      "gap": 13,
+      "span": 44,
+      "rot": 90,
+      "speed": 0.7
+     },
+     "word": "sending"
+    },
+    {
+     "id": "s1",
+     "part": "satellite",
+     "at": [
+      62,
+      100
+     ],
+     "scale": 0.78,
+     "params": {
+      "yaw": 28,
+      "lit": 0
+     },
+     "word": "each"
+    },
+    {
+     "id": "s3",
+     "part": "satellite",
+     "at": [
+      280,
+      96
+     ],
+     "scale": 0.78,
+     "params": {
+      "yaw": -28,
+      "lit": 0
+     },
+     "word": "each",
+     "delay": 0.2
+    },
+    {
+     "id": "r1",
+     "part": "rings",
+     "at": [
+      70,
+      108
+     ],
+     "params": {
+      "n": 4,
+      "r0": 12,
+      "gap": 11,
+      "span": 40,
+      "rot": 18.6,
+      "speed": 0.7
+     },
+     "word": "out"
+    },
+    {
+     "id": "r3",
+     "part": "rings",
+     "at": [
+      272,
+      104
+     ],
+     "params": {
+      "n": 4,
+      "r0": 12,
+      "gap": 11,
+      "span": 40,
+      "rot": 159.4,
+      "speed": 0.7
+     },
+     "word": "out"
+    },
+    {
+     "label": "SATELLITE",
+     "anchor": [
+      205,
+      70
+     ],
+     "at": [
+      228,
+      46
+     ],
+     "align": "leading",
+     "word": "Satellites"
+    },
+    {
+     "label": "RADIO SIGNAL",
+     "anchor": [
+      176,
+      112
+     ],
+     "at": [
+      216,
+      150
+     ],
+     "align": "leading",
+     "word": "radio"
+    },
+    {
+     "label": "WHERE IT IS",
+     "anchor": [
+      148,
+      66
+     ],
+     "at": [
+      116,
+      36
+     ],
+     "align": "trailing",
+     "word": "where"
+    },
+    {
+     "label": "TIME SENT",
+     "anchor": [
+      172,
+      100
+     ],
+     "at": [
+      128,
+      150
+     ],
+     "align": "trailing",
+     "word": "time"
+    },
+    {
+     "label": "YOUR PHONE",
+     "anchor": [
+      160,
+      176
+     ],
+     "at": [
+      130,
+      178
+     ],
+     "align": "trailing",
+     "word": "phone#2"
+    },
+    {
+     "id": "back",
+     "path": "M171 138 L171 112",
+     "stroke": "ink@0.6",
+     "width": 0.7,
+     "dash": [
+      2.5,
+      3
+     ],
+     "word": "sends"
+    },
+    {
+     "id": "backx",
+     "group": [
+      {
+       "path": "M-6 -6 L6 6",
+       "stroke": "accent",
+       "width": 1.8
+      },
+      {
+       "path": "M-6 6 L6 -6",
+       "stroke": "accent",
+       "width": 1.8
+      }
+     ],
+     "at": [
+      171,
+      126
+     ],
+     "word": "nothing"
+    },
+    {
+     "label": "NOTHING\nGOES BACK",
+     "anchor": [
+      177,
+      126
+     ],
+     "at": [
+      228,
+      174
+     ],
+     "align": "leading",
+     "word": "nothing"
+    }
+   ],
+   "moves": [
+    {
+     "move": "s2",
+     "prop": "lit",
+     "to": 1,
+     "word": "sending",
+     "dur": 0.5
+    },
+    {
+     "move": "ph",
+     "prop": "pin",
+     "to": 1,
+     "word": "catches",
+     "dur": 0.7
+    }
+   ]
+  },
+  {
+   "card": 2,
+   "label": "Lightning and thunder with the wait marked on a timeline in pink; then a satellite sends a signal to the phone and the short gap between sent and arrived, about 0.07 seconds, is marked the same way. Gap times the speed of light is the distance.",
+   "elements": [
+    {
+     "id": "satg",
+     "group": [
+      {
+       "part": "satellite",
+       "at": [
+        66,
+        70
+       ],
+       "scale": 0.85,
+       "params": {
+        "yaw": 28,
+        "lit": 0
+       },
+       "word": "radio"
+      },
+      {
+       "label": "SATELLITE",
+       "anchor": [
+        56,
+        86
+       ],
+       "at": [
+        28,
+        108
+       ],
+       "align": "leading",
+       "word": "satellite's"
+      },
+      {
+       "path": "M94 84 L282 160",
+       "stroke": "ink@0.5",
+       "width": 0.7,
+       "dash": [
+        3,
+        3
+       ],
+       "word": "gap"
+      },
+      {
+       "id": "dist",
+       "path": "M94 84 L282 160",
+       "stroke": "accent",
+       "width": 2,
+       "word": "distance",
+       "draw": 1.0
+      },
+      {
+       "label": "DISTANCE",
+       "anchor": [
+        166,
+        122
+       ],
+       "at": [
+        190,
+        96
+       ],
+       "align": "leading",
+       "word": "distance",
+       "delay": 0.3
+      },
+      {
+       "path": "M40 246 L250 246",
+       "stroke": "ink@0.4",
+       "width": 0.8,
+       "word": "0.07"
+      },
+      {
+       "group": [
+        {
+         "path": "M0 -8 L0 8"
+        },
+        {
+         "text": "SENT",
+         "at": [
+          -4,
+          22
+         ],
+         "size": 9,
+         "align": "trailing"
+        }
+       ],
+       "at": [
+        60,
+        246
+       ],
+       "word": "sent"
+      },
+      {
+       "group": [
+        {
+         "path": "M0 -8 L0 8"
+        },
+        {
+         "text": "ARRIVED",
+         "at": [
+          4,
+          22
+         ],
+         "size": 9,
+         "align": "leading"
+        }
+       ],
+       "at": [
+        96,
+        246
+       ],
+       "word": "arrived"
+      },
+      {
+       "rect": [
+        60,
+        242,
+        36,
+        8
+       ],
+       "fill": "accent",
+       "word": "0.07",
+       "delay": 0.0
+      },
+      {
+       "label": "ABOUT 0.07\nSECONDS",
+       "anchor": [
+        78,
+        242
+       ],
+       "at": [
+        128,
+        216
+       ],
+       "align": "leading",
+       "word": "0.07",
+       "delay": 0.4
+      }
+     ]
+    },
+    {
+     "id": "storm",
+     "group": [
+      {
+       "path": "M30 84 C20 84 14 72 24 64 C22 50 40 42 52 50 C58 36 82 36 88 50 C102 46 112 58 104 70 C112 76 108 88 96 86 Z",
+       "fill": "face",
+       "word": "lightning"
+      },
+      {
+       "path": "M74 88 L60 114 L72 114 L64 140 L88 106 L76 106 L84 88 Z",
+       "fill": "accent",
+       "word": "lightning",
+       "delay": 0.3
+      },
+      {
+       "path": "M94 96 L282 164",
+       "stroke": "ink@0.5",
+       "width": 0.7,
+       "dash": [
+        3,
+        3
+       ],
+       "word": "lightning"
+      },
+      {
+       "path": "M40 246 L250 246",
+       "stroke": "ink@0.4",
+       "width": 0.8,
+       "word": "lightning"
+      },
+      {
+       "group": [
+        {
+         "path": "M0 -8 L0 8"
+        },
+        {
+         "text": "FLASH",
+         "at": [
+          -4,
+          22
+         ],
+         "size": 9,
+         "align": "trailing"
+        }
+       ],
+       "at": [
+        60,
+        246
+       ],
+       "word": "lightning"
+      },
+      {
+       "group": [
+        {
+         "path": "M0 -8 L0 8"
+        },
+        {
+         "text": "THUNDER",
+         "at": [
+          0,
+          22
+         ],
+         "size": 9
+        }
+       ],
+       "at": [
+        210,
+        246
+       ],
+       "word": "thunder",
+       "delay": 1.2
+      },
+      {
+       "rect": [
+        60,
+        242,
+        150,
+        8
+       ],
+       "fill": "accent",
+       "word": "wait",
+       "draw": 2.0
+      },
+      {
+       "label": "THE WAIT",
+       "anchor": [
+        135,
+        242
+       ],
+       "at": [
+        150,
+        216
+       ],
+       "align": "leading",
+       "word": "wait",
+       "delay": 0.4
+      }
+     ],
+     "hidden": true
+    },
+    {
+     "id": "ph",
+     "part": "wfPhone",
+     "at": [
+      296,
+      214
+     ],
+     "scale": 0.4,
+     "params": {
+      "bars": 0,
+      "pin": 0
+     },
+     "word": "overhead"
+    },
+    {
+     "label": "YOUR PHONE",
+     "anchor": [
+      283,
+      196
+     ],
+     "at": [
+      258,
+      190
+     ],
+     "align": "trailing",
+     "word": "phone"
+    },
+    {
+     "id": "eq",
+     "text": "GAP × SPEED OF LIGHT = DISTANCE",
+     "at": [
+      171,
+      18
+     ],
+     "size": 9.5,
+     "stroke": "accent",
+     "word": "gap",
+     "hidden": true
+    }
+   ],
+   "moves": [
+    {
+     "move": "satg",
+     "prop": "opacity",
+     "to": 0,
+     "word": "Count",
+     "dur": 0.4
+    },
+    {
+     "move": "storm",
+     "prop": "opacity",
+     "to": 1,
+     "word": "lightning",
+     "dur": 0.3
+    },
+    {
+     "move": "storm",
+     "prop": "opacity",
+     "to": 0,
+     "word": "satellite's",
+     "dur": 0.4
+    },
+    {
+     "move": "satg",
+     "prop": "opacity",
+     "to": 1,
+     "word": "satellite's",
+     "dur": 0.5,
+     "delay": 0.2
+    },
+    {
+     "move": "ph",
+     "prop": "pin",
+     "to": 1,
+     "word": "arrived",
+     "dur": 0.6,
+     "delay": 0.3
+    },
+    {
+     "move": "eq",
+     "prop": "opacity",
+     "to": 1,
+     "word": "gap",
+     "dur": 0.5
+    }
+   ]
+  },
+  {
+   "card": 3,
+   "label": "Three satellites in a row above a huge wire Earth, each with a dashed circle through the same two spots: one pink spot on Earth, one hollow spot far out in space with an arrow carrying it off the top.",
+   "elements": [
+    {
+     "id": "earth",
+     "part": "globe",
+     "at": [
+      171,
+      425
+     ],
+     "params": {
+      "r": 210,
+      "lat": 9,
+      "lon": 18,
+      "pitch": 0.0,
+      "tilt": 0.0
+     },
+     "word": "One"
+    },
+    {
+     "id": "line",
+     "path": "M14 112 L329 112",
+     "stroke": "ink@0.25",
+     "width": 0.6,
+     "dash": [
+      2,
+      4
+     ],
+     "word": "With"
+    },
+    {
+     "id": "c0",
+     "part": "arc",
+     "at": [
+      80,
+      112
+     ],
+     "params": {
+      "rx": 137.4,
+      "ry": 137.4,
+      "a0": 0,
+      "a1": 360,
+      "dash": 1,
+      "w": 0.7
+     },
+     "word": "ring",
+     "delay": 0.0,
+     "draw": 1.4
+    },
+    {
+     "id": "s0",
+     "part": "satellite",
+     "at": [
+      80,
+      112
+     ],
+     "scale": 0.55,
+     "params": {
+      "yaw": 28,
+      "lit": 0
+     },
+     "word": "distance",
+     "delay": 0.1
+    },
+    {
+     "id": "c1",
+     "part": "arc",
+     "at": [
+      171,
+      112
+     ],
+     "params": {
+      "rx": 103.0,
+      "ry": 103.0,
+      "a0": 0,
+      "a1": 360,
+      "dash": 1,
+      "w": 0.7
+     },
+     "word": "three#2",
+     "delay": 0,
+     "draw": 1.4
+    },
+    {
+     "id": "s1",
+     "part": "satellite",
+     "at": [
+      171,
+      112
+     ],
+     "scale": 0.55,
+     "params": {
+      "yaw": 28,
+      "lit": 0
+     },
+     "word": "satellites,",
+     "delay": 0.15
+    },
+    {
+     "id": "c2",
+     "part": "arc",
+     "at": [
+      262,
+      112
+     ],
+     "params": {
+      "rx": 137.4,
+      "ry": 137.4,
+      "a0": 0,
+      "a1": 360,
+      "dash": 1,
+      "w": 0.7
+     },
+     "word": "three#2",
+     "delay": 0.4,
+     "draw": 1.4
+    },
+    {
+     "id": "s2",
+     "part": "satellite",
+     "at": [
+      262,
+      112
+     ],
+     "scale": 0.55,
+     "params": {
+      "yaw": 28,
+      "lit": 0
+     },
+     "word": "satellites,",
+     "delay": 0.3
+    },
+    {
+     "id": "spotE",
+     "group": [
+      {
+       "circle": [
+        0,
+        0,
+        5.5
+       ],
+       "fill": "accent"
+      },
+      {
+       "circle": [
+        0,
+        0,
+        10
+       ],
+       "stroke": "ink@0.6",
+       "width": 0.6
+      }
+     ],
+     "at": [
+      171,
+      215
+     ],
+     "word": "fit"
+    },
+    {
+     "id": "spotS",
+     "group": [
+      {
+       "circle": [
+        0,
+        0,
+        5.5
+       ],
+       "fill": "face"
+      },
+      {
+       "circle": [
+        0,
+        0,
+        10
+       ],
+       "stroke": "ink@0.6",
+       "width": 0.6,
+       "dash": [
+        2,
+        2
+       ]
+      }
+     ],
+     "at": [
+      171,
+      9
+     ],
+     "word": "fit",
+     "delay": 0.2
+    },
+    {
+     "id": "away",
+     "path": "M171 -3 L171 -8",
+     "stroke": "ink@0.7",
+     "width": 0.8,
+     "dash": [
+      3,
+      3
+     ],
+     "word": "space"
+    },
+    {
+     "label": "SATELLITE",
+     "anchor": [
+      84,
+      120
+     ],
+     "at": [
+      14,
+      182
+     ],
+     "align": "leading",
+     "word": "distance",
+     "delay": 0.3
+    },
+    {
+     "label": "ONE RING\nOF PLACES",
+     "anchor": [
+      199,
+      43
+     ],
+     "at": [
+      272,
+      66
+     ],
+     "align": "leading",
+     "word": "ring"
+    },
+    {
+     "label": "ON EARTH",
+     "anchor": [
+      179,
+      219
+     ],
+     "at": [
+      95,
+      200
+     ],
+     "align": "trailing",
+     "word": "Earth"
+    },
+    {
+     "label": "FAR OUT\nIN SPACE",
+     "anchor": [
+      177,
+      13
+     ],
+     "at": [
+      246,
+      30
+     ],
+     "align": "leading",
+     "word": "space"
+    }
+   ],
+   "moves": []
+  },
+  {
+   "card": 4,
+   "label": "Three satellites' dashed rings miss each other by a little because the phone's own clock is wrong, leaving a spot about 300 metres off. A fourth satellite joins, the rings close up and meet exactly on the pink pin where you are.",
+   "elements": [
+    {
+     "id": "earth",
+     "part": "globe",
+     "at": [
+      171,
+      425
+     ],
+     "params": {
+      "r": 210,
+      "lat": 9,
+      "lon": 18,
+      "pitch": 0.0
+     },
+     "word": "One"
+    },
+    {
+     "id": "s0",
+     "part": "satellite",
+     "at": [
+      60,
+      96
+     ],
+     "scale": 0.5,
+     "params": {
+      "yaw": 28
+     },
+     "word": "times",
+     "delay": 0.0
+    },
+    {
+     "id": "c0",
+     "part": "arc",
+     "at": [
+      60,
+      96
+     ],
+     "params": {
+      "rx": 175.7,
+      "ry": 175.7,
+      "a0": 21.0,
+      "a1": 73.0,
+      "dash": 1,
+      "w": 0.8
+     },
+     "word": "arrival",
+     "delay": 0.0,
+     "draw": 1.0
+    },
+    {
+     "id": "s1",
+     "part": "satellite",
+     "at": [
+      128,
+      62
+     ],
+     "scale": 0.5,
+     "params": {
+      "yaw": 28
+     },
+     "word": "times",
+     "delay": 0.1
+    },
+    {
+     "id": "c1",
+     "part": "arc",
+     "at": [
+      128,
+      62
+     ],
+     "params": {
+      "rx": 171.9,
+      "ry": 171.9,
+      "a0": 48.3,
+      "a1": 100.3,
+      "dash": 1,
+      "w": 0.8
+     },
+     "word": "arrival",
+     "delay": 0.25,
+     "draw": 1.0
+    },
+    {
+     "id": "s2",
+     "part": "satellite",
+     "at": [
+      214,
+      62
+     ],
+     "scale": 0.5,
+     "params": {
+      "yaw": -28
+     },
+     "word": "times",
+     "delay": 0.2
+    },
+    {
+     "id": "c2",
+     "part": "arc",
+     "at": [
+      214,
+      62
+     ],
+     "params": {
+      "rx": 171.9,
+      "ry": 171.9,
+      "a0": 79.7,
+      "a1": 131.7,
+      "dash": 1,
+      "w": 0.8
+     },
+     "word": "arrival",
+     "delay": 0.5,
+     "draw": 1.0
+    },
+    {
+     "id": "s3",
+     "part": "satellite",
+     "at": [
+      284,
+      96
+     ],
+     "scale": 0.5,
+     "params": {
+      "yaw": -28
+     },
+     "word": "fourth",
+     "delay": 0.30000000000000004
+    },
+    {
+     "id": "c3",
+     "part": "arc",
+     "at": [
+      284,
+      96
+     ],
+     "params": {
+      "rx": 177.1,
+      "ry": 177.1,
+      "a0": 107.5,
+      "a1": 159.5,
+      "dash": 1,
+      "w": 0.8
+     },
+     "word": "fourth",
+     "delay": 0.75,
+     "draw": 1.0
+    },
+    {
+     "id": "clockP",
+     "part": "clock",
+     "at": [
+      298,
+      140
+     ],
+     "params": {
+      "r": 18,
+      "turn": 0.12
+     },
+     "word": "clock"
+    },
+    {
+     "id": "clockS",
+     "part": "clock",
+     "at": [
+      44,
+      140
+     ],
+     "params": {
+      "r": 18,
+      "turn": 0.0,
+      "pink": 1
+     },
+     "word": "satellite's"
+    },
+    {
+     "label": "YOUR PHONE'S\nCLOCK",
+     "anchor": [
+      298,
+      158
+     ],
+     "at": [
+      298,
+      170
+     ],
+     "align": "center",
+     "word": "clock",
+     "delay": 0.3
+    },
+    {
+     "label": "SATELLITE'S\nCLOCK",
+     "anchor": [
+      44,
+      158
+     ],
+     "at": [
+      44,
+      170
+     ],
+     "align": "center",
+     "word": "satellite's"
+    },
+    {
+     "id": "trueP",
+     "group": [
+      {
+       "circle": [
+        0,
+        0,
+        4
+       ],
+       "fill": "face"
+      },
+      {
+       "circle": [
+        0,
+        0,
+        9
+       ],
+       "stroke": "ink@0.5",
+       "width": 0.6,
+       "dash": [
+        2,
+        2
+       ]
+      }
+     ],
+     "at": [
+      171,
+      215
+     ],
+     "word": "Your"
+    },
+    {
+     "id": "wrong",
+     "group": [
+      {
+       "circle": [
+        0,
+        0,
+        4.5
+       ],
+       "fill": "face"
+      },
+      {
+       "circle": [
+        0,
+        0,
+        9
+       ],
+       "stroke": "accent",
+       "width": 1
+      }
+     ],
+     "at": [
+      174.3,
+      228.1
+     ],
+     "word": "wrong"
+    },
+    {
+     "id": "off",
+     "path": "M174.3 228.1 L171 215",
+     "stroke": "accent",
+     "width": 1,
+     "dash": [
+      2,
+      2
+     ],
+     "word": "300"
+    },
+    {
+     "id": "offL",
+     "label": "ABOUT 300\nMETRES OFF",
+     "anchor": [
+      172.7,
+      221.6
+     ],
+     "at": [
+      166,
+      176
+     ],
+     "align": "trailing",
+     "word": "300"
+    },
+    {
+     "label": "FOURTH\nSATELLITE",
+     "anchor": [
+      282,
+      112
+     ],
+     "at": [
+      262,
+      140
+     ],
+     "align": "trailing",
+     "word": "fourth"
+    },
+    {
+     "id": "fixed",
+     "part": "pin",
+     "at": [
+      171,
+      215
+     ],
+     "params": {
+      "s": 8
+     },
+     "word": "fix",
+     "hidden": true
+    }
+   ],
+   "moves": [
+    {
+     "move": "clockP",
+     "prop": "turn",
+     "to": 0.22,
+     "word": "clock",
+     "dur": 6.0,
+     "ease": "linear"
+    },
+    {
+     "move": "c0",
+     "prop": "rx",
+     "to": 162.7,
+     "word": "work",
+     "dur": 2.4,
+     "delay": 0.2
+    },
+    {
+     "move": "c0",
+     "prop": "ry",
+     "to": 162.7,
+     "word": "work",
+     "dur": 2.4,
+     "delay": 0.2
+    },
+    {
+     "move": "c1",
+     "prop": "rx",
+     "to": 158.9,
+     "word": "work",
+     "dur": 2.4,
+     "delay": 0.2
+    },
+    {
+     "move": "c1",
+     "prop": "ry",
+     "to": 158.9,
+     "word": "work",
+     "dur": 2.4,
+     "delay": 0.2
+    },
+    {
+     "move": "c2",
+     "prop": "rx",
+     "to": 158.9,
+     "word": "work",
+     "dur": 2.4,
+     "delay": 0.2
+    },
+    {
+     "move": "c2",
+     "prop": "ry",
+     "to": 158.9,
+     "word": "work",
+     "dur": 2.4,
+     "delay": 0.2
+    },
+    {
+     "move": "c3",
+     "prop": "rx",
+     "to": 164.1,
+     "word": "work",
+     "dur": 2.4,
+     "delay": 0.2
+    },
+    {
+     "move": "c3",
+     "prop": "ry",
+     "to": 164.1,
+     "word": "work",
+     "dur": 2.4,
+     "delay": 0.2
+    },
+    {
+     "move": "wrong",
+     "prop": "x",
+     "to": 171,
+     "word": "work",
+     "dur": 2.4,
+     "delay": 0.2
+    },
+    {
+     "move": "wrong",
+     "prop": "y",
+     "to": 215,
+     "word": "work",
+     "dur": 2.4,
+     "delay": 0.2
+    },
+    {
+     "move": "off",
+     "prop": "opacity",
+     "to": 0,
+     "word": "work",
+     "dur": 0.5
+    },
+    {
+     "move": "offL",
+     "prop": "opacity",
+     "to": 0,
+     "word": "work",
+     "dur": 0.5
+    },
+    {
+     "move": "fixed",
+     "prop": "opacity",
+     "to": 1,
+     "word": "fix",
+     "dur": 0.5
+    },
+    {
+     "move": "wrong",
+     "prop": "opacity",
+     "to": 0,
+     "word": "fix",
+     "dur": 0.4,
+     "delay": 0.6
+    },
+    {
+     "move": "trueP",
+     "prop": "opacity",
+     "to": 0,
+     "word": "fix",
+     "dur": 0.4,
+     "delay": 0.6
+    }
+   ]
+  }
+ ]
+}

@@ -3,6 +3,7 @@
   "title": "How does your phone find you with no mobile signal?",
   "kind": "full",
   "theme": "internet",
+  "style": "wireframe",
   "cards": [
     {
       "type": "card",

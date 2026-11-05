@@ -1,0 +1,1088 @@
+{
+ "scenes": [
+  {
+   "card": 0,
+   "label": "A rider on a steep hill pushing hard and barely moving. A click of the gear lever lights it yellow, and the same rider rolls up the same hill.",
+   "elements": [
+    {
+     "id": "hill",
+     "path": "M14 258 L329 100 L329 262 L14 262 Z",
+     "fill": "side",
+     "hatch": {
+      "spacing": 5,
+      "alpha": 0.25
+     }
+    },
+    {
+     "id": "rig",
+     "group": [
+      {
+       "id": "bike",
+       "part": "bike",
+       "params": {
+        "rider": 1,
+        "lean": 52,
+        "rear": 10,
+        "crank": 0,
+        "wheel": 0,
+        "lever": 0
+       }
+      }
+     ],
+     "at": [
+      112,
+      209.0
+     ],
+     "scale": 1.0,
+     "rotate": -26.6
+    },
+    {
+     "label": "SAME HILL",
+     "anchor": [
+      262,
+      134
+     ],
+     "at": [
+      270,
+      88
+     ],
+     "align": "leading",
+     "word": "hill#2"
+    },
+    {
+     "id": "lbl",
+     "label": "GEAR LEVER",
+     "anchor": [
+      96.8,
+      118.2
+     ],
+     "at": [
+      150,
+      72
+     ],
+     "align": "leading",
+     "word": "lever"
+    }
+   ],
+   "moves": [
+    {
+     "move": "rig",
+     "prop": "x",
+     "to": 122,
+     "word": "push",
+     "dur": 2.6,
+     "ease": "linear"
+    },
+    {
+     "move": "rig",
+     "prop": "y",
+     "to": 204.0,
+     "word": "push",
+     "dur": 2.6,
+     "ease": "linear"
+    },
+    {
+     "move": "bike",
+     "prop": "crank",
+     "to": 0.8,
+     "word": "push",
+     "dur": 2.6,
+     "ease": "linear"
+    },
+    {
+     "move": "bike",
+     "prop": "wheel",
+     "to": 0.1,
+     "word": "push",
+     "dur": 2.6,
+     "ease": "linear"
+    },
+    {
+     "move": "bike",
+     "prop": "lever",
+     "to": 1,
+     "word": "click#2",
+     "dur": 0.25
+    },
+    {
+     "move": "bike",
+     "prop": "lever",
+     "to": 0,
+     "word": "lever",
+     "dur": 0.6,
+     "delay": 1.0
+    },
+    {
+     "move": "lbl",
+     "prop": "opacity",
+     "to": 0,
+     "word": "easier#2",
+     "dur": 0.4
+    },
+    {
+     "move": "rig",
+     "prop": "x",
+     "to": 194,
+     "word": "easier#2",
+     "dur": 5.2,
+     "ease": "eio"
+    },
+    {
+     "move": "rig",
+     "prop": "y",
+     "to": 168.0,
+     "word": "easier#2",
+     "dur": 5.2,
+     "ease": "eio"
+    },
+    {
+     "move": "bike",
+     "prop": "crank",
+     "to": 5.0,
+     "word": "easier#2",
+     "dur": 5.2,
+     "ease": "eio"
+    },
+    {
+     "move": "bike",
+     "prop": "wheel",
+     "to": 2.6,
+     "word": "easier#2",
+     "dur": 5.2,
+     "ease": "eio"
+    }
+   ]
+  },
+  {
+   "card": 1,
+   "label": "The pedal ring, the chain and a stack of back rings. The chain slides to a smaller back ring, and a yellow mark shows the back ring turning almost three times for one pedal turn.",
+   "elements": [
+    {
+     "id": "gears",
+     "part": "gearPair",
+     "at": [
+      166,
+      132
+     ],
+     "scale": 1.25,
+     "params": {
+      "turn": 0,
+      "rear": 28,
+      "marker": 1
+     },
+     "word": "chain",
+     "mirror": true
+    },
+    {
+     "label": "PEDAL RING",
+     "anchor": [
+      274,
+      97
+     ],
+     "at": [
+      298,
+      62
+     ],
+     "align": "trailing",
+     "word": "pedal",
+     "delay": 0.5
+    },
+    {
+     "label": "CHAIN",
+     "anchor": [
+      159,
+      93
+     ],
+     "at": [
+      150,
+      58
+     ],
+     "align": "trailing",
+     "word": "chain",
+     "delay": 0.6
+    },
+    {
+     "label": "BACK RINGS",
+     "anchor": [
+      66,
+      160
+     ],
+     "at": [
+      70,
+      196
+     ],
+     "align": "leading",
+     "word": "stack",
+     "delay": 0.5
+    },
+    {
+     "id": "t1",
+     "text": "PEDAL RING: 1 TURN",
+     "at": [
+      171,
+      232
+     ],
+     "size": 9.5,
+     "word": "pedal#2"
+    },
+    {
+     "id": "t2",
+     "text": "BACK RING: 2.9 TURNS",
+     "at": [
+      171,
+      250
+     ],
+     "size": 9.5,
+     "word": "turn"
+    }
+   ],
+   "moves": [
+    {
+     "move": "gears",
+     "prop": "turn",
+     "to": 0.3,
+     "word": "link",
+     "dur": 3.4,
+     "ease": "linear"
+    },
+    {
+     "move": "gears",
+     "prop": "rear",
+     "to": 14,
+     "word": "slides",
+     "dur": 1.2
+    },
+    {
+     "move": "gears",
+     "prop": "turn",
+     "to": 1,
+     "word": "spins",
+     "dur": 3.0,
+     "ease": "linear"
+    },
+    {
+     "move": "gears",
+     "prop": "turn",
+     "to": 2.2,
+     "word": "how",
+     "dur": 3.0,
+     "ease": "linear"
+    }
+   ]
+  },
+  {
+   "card": 2,
+   "label": "Two bikes on two roads. For one pedal turn the bike with the smaller back ring rolls twice as far, marked by a yellow bar, as the bike with the bigger back ring.",
+   "elements": [
+    {
+     "path": "M14 96 L329 96",
+     "width": 1.6
+    },
+    {
+     "path": "M14 101 L329 101",
+     "stroke": "ink@0.4",
+     "width": 0.7
+    },
+    {
+     "path": "M14 208 L329 208",
+     "width": 1.6
+    },
+    {
+     "path": "M14 213 L329 213",
+     "stroke": "ink@0.4",
+     "width": 0.7
+    },
+    {
+     "id": "a",
+     "group": [
+      {
+       "id": "abike",
+       "part": "bike",
+       "params": {
+        "rider": 0,
+        "rear": 5,
+        "crank": 0,
+        "wheel": 0
+       }
+      }
+     ],
+     "at": [
+      100,
+      96
+     ],
+     "scale": 0.52,
+     "word": "smaller"
+    },
+    {
+     "id": "b",
+     "group": [
+      {
+       "id": "bbike",
+       "part": "bike",
+       "params": {
+        "rider": 0,
+        "rear": 10,
+        "crank": 0,
+        "wheel": 0
+       }
+      }
+     ],
+     "at": [
+      100,
+      208
+     ],
+     "scale": 0.52,
+     "word": "smaller"
+    },
+    {
+     "text": "SMALLER BACK RING",
+     "at": [
+      14,
+      136
+     ],
+     "size": 9,
+     "align": "leading",
+     "word": "smaller"
+    },
+    {
+     "text": "BIGGER BACK RING",
+     "at": [
+      14,
+      248
+     ],
+     "size": 9,
+     "align": "leading",
+     "word": "bigger"
+    },
+    {
+     "id": "barA",
+     "rect": [
+      100,
+      107,
+      117.6,
+      7
+     ],
+     "fill": "accent",
+     "word": "turn",
+     "delay": 0.2
+    },
+    {
+     "id": "barB",
+     "rect": [
+      100,
+      219,
+      58.8,
+      7
+     ],
+     "fill": "accent",
+     "word": "way"
+    },
+    {
+     "label": "FARTHER",
+     "anchor": [
+      217.6,
+      110.5
+     ],
+     "at": [
+      233.6,
+      110.5
+     ],
+     "align": "leading",
+     "word": "turn",
+     "delay": 0.4
+    },
+    {
+     "label": "A SHORTER WAY",
+     "anchor": [
+      158.8,
+      222.5
+     ],
+     "at": [
+      174.8,
+      222.5
+     ],
+     "align": "leading",
+     "word": "shorter"
+    },
+    {
+     "text": "ONE PEDAL TURN EACH",
+     "at": [
+      329,
+      26
+     ],
+     "size": 9,
+     "align": "trailing",
+     "word": "pedal"
+    }
+   ],
+   "moves": [
+    {
+     "move": "a",
+     "prop": "x",
+     "to": 217.6,
+     "word": "carries",
+     "dur": 2.6,
+     "ease": "eio"
+    },
+    {
+     "move": "abike",
+     "prop": "wheel",
+     "to": 1.0,
+     "word": "carries",
+     "dur": 2.6,
+     "ease": "eio"
+    },
+    {
+     "move": "abike",
+     "prop": "crank",
+     "to": 1.0,
+     "word": "carries",
+     "dur": 2.6,
+     "ease": "eio"
+    },
+    {
+     "move": "b",
+     "prop": "x",
+     "to": 158.8,
+     "word": "takes",
+     "dur": 1.6,
+     "ease": "eio"
+    },
+    {
+     "move": "bbike",
+     "prop": "wheel",
+     "to": 0.5,
+     "word": "takes",
+     "dur": 1.6,
+     "ease": "eio"
+    },
+    {
+     "move": "bbike",
+     "prop": "crank",
+     "to": 1.0,
+     "word": "takes",
+     "dur": 1.6,
+     "ease": "eio"
+    }
+   ]
+  },
+  {
+   "card": 3,
+   "label": "Two staircases to the same height. A walker takes three long, hard strides up one; another takes eight short quick steps up the other. Both reach the same yellow flag, and the first step of each lights up yellow.",
+   "elements": [
+    {
+     "path": "M48 232 L48 194.7 L88 194.7 L88 157.3 L128 157.3 L128 120.0 L168 120.0 L168 232 Z",
+     "fill": "side",
+     "hatch": {
+      "spacing": 5,
+      "alpha": 0.25
+     }
+    },
+    {
+     "path": "M190 232 L190 218.0 L206 218.0 L206 204.0 L222 204.0 L222 190.0 L238 190.0 L238 176.0 L254 176.0 L254 162.0 L270 162.0 L270 148.0 L286 148.0 L286 134.0 L302 134.0 L302 120.0 L318 120.0 L318 232 Z",
+     "fill": "side",
+     "hatch": {
+      "spacing": 5,
+      "alpha": 0.25
+     },
+     "delay": 0.2
+    },
+    {
+     "path": "M14 232 L329 232",
+     "width": 1.6
+    },
+    {
+     "id": "wl",
+     "part": "walker",
+     "at": [
+      30,
+      232
+     ],
+     "scale": 1.0,
+     "params": {
+      "stride": 0.9,
+      "lean": 14,
+      "pack": 1
+     },
+     "word": "walking",
+     "wobble": [
+      {
+       "prop": "stride",
+       "amp": 0.55,
+       "speed": 5,
+       "phase": 0
+      }
+     ]
+    },
+    {
+     "id": "wr",
+     "part": "walker",
+     "at": [
+      178,
+      232
+     ],
+     "scale": 1.0,
+     "params": {
+      "stride": 0.3,
+      "lean": 14,
+      "pack": 1
+     },
+     "word": "walking",
+     "delay": 0.2,
+     "wobble": [
+      {
+       "prop": "stride",
+       "amp": 0.28,
+       "speed": 13,
+       "phase": 0
+      }
+     ]
+    },
+    {
+     "id": "top",
+     "path": "M24 120 L329 120",
+     "stroke": "ink@0.7",
+     "width": 1,
+     "dash": [
+      4,
+      3
+     ],
+     "word": "top"
+    },
+    {
+     "label": "LONG\nSTRIDES",
+     "anchor": [
+      108,
+      232
+     ],
+     "at": [
+      108,
+      252
+     ],
+     "align": "center",
+     "word": "Long"
+    },
+    {
+     "label": "SHORT\nQUICK STEPS",
+     "anchor": [
+      254,
+      232
+     ],
+     "at": [
+      254,
+      252
+     ],
+     "align": "center",
+     "word": "short"
+    },
+    {
+     "label": "SAME TOP",
+     "anchor": [
+      196,
+      120
+     ],
+     "at": [
+      204,
+      86
+     ],
+     "align": "leading",
+     "word": "top"
+    },
+    {
+     "id": "t1",
+     "text": "A PEDAL TURN IS LIKE A STRIDE",
+     "at": [
+      171,
+      26
+     ],
+     "size": 9.5,
+     "weight": "bold",
+     "word": "pedal"
+    },
+    {
+     "id": "upL",
+     "rect": [
+      48,
+      194.7,
+      40,
+      37.3
+     ],
+     "fill": "accent",
+     "word": "lifts"
+    },
+    {
+     "id": "upR",
+     "rect": [
+      190,
+      218.0,
+      16,
+      14.0
+     ],
+     "fill": "accent",
+     "word": "lifts"
+    },
+    {
+     "id": "t2",
+     "text": "EACH TURN LIFTS YOU ONLY A LITTLE",
+     "at": [
+      171,
+      26
+     ],
+     "size": 9.5,
+     "weight": "bold",
+     "word": "lifts",
+     "delay": 0.4
+    }
+   ],
+   "moves": [
+    {
+     "move": "t1",
+     "prop": "opacity",
+     "to": 0,
+     "word": "lifts",
+     "dur": 0.3
+    },
+    {
+     "move": "wl",
+     "prop": "x",
+     "to": 68.0,
+     "word": "Long",
+     "dur": 0.5,
+     "delay": 0.0,
+     "ease": "eio"
+    },
+    {
+     "move": "wl",
+     "prop": "y",
+     "to": 194.7,
+     "word": "Long",
+     "dur": 0.5,
+     "delay": 0.0,
+     "ease": "eio"
+    },
+    {
+     "move": "wl",
+     "prop": "x",
+     "to": 108.0,
+     "word": "strides",
+     "dur": 0.5,
+     "delay": 0.3,
+     "ease": "eio"
+    },
+    {
+     "move": "wl",
+     "prop": "y",
+     "to": 157.3,
+     "word": "strides",
+     "dur": 0.5,
+     "delay": 0.3,
+     "ease": "eio"
+    },
+    {
+     "move": "wl",
+     "prop": "x",
+     "to": 139.2,
+     "word": "hard",
+     "dur": 0.5,
+     "delay": 0.2,
+     "ease": "eio"
+    },
+    {
+     "move": "wl",
+     "prop": "y",
+     "to": 120.0,
+     "word": "hard",
+     "dur": 0.5,
+     "delay": 0.2,
+     "ease": "eio"
+    },
+    {
+     "move": "wr",
+     "prop": "x",
+     "to": 198.0,
+     "word": "short",
+     "dur": 0.22,
+     "delay": 0.0,
+     "ease": "eio"
+    },
+    {
+     "move": "wr",
+     "prop": "y",
+     "to": 218.0,
+     "word": "short",
+     "dur": 0.22,
+     "delay": 0.0,
+     "ease": "eio"
+    },
+    {
+     "move": "wr",
+     "prop": "x",
+     "to": 214.0,
+     "word": "short",
+     "dur": 0.22,
+     "delay": 0.2,
+     "ease": "eio"
+    },
+    {
+     "move": "wr",
+     "prop": "y",
+     "to": 204.0,
+     "word": "short",
+     "dur": 0.22,
+     "delay": 0.2,
+     "ease": "eio"
+    },
+    {
+     "move": "wr",
+     "prop": "x",
+     "to": 230.0,
+     "word": "short",
+     "dur": 0.22,
+     "delay": 0.4,
+     "ease": "eio"
+    },
+    {
+     "move": "wr",
+     "prop": "y",
+     "to": 190.0,
+     "word": "short",
+     "dur": 0.22,
+     "delay": 0.4,
+     "ease": "eio"
+    },
+    {
+     "move": "wr",
+     "prop": "x",
+     "to": 246.0,
+     "word": "short",
+     "dur": 0.22,
+     "delay": 0.6000000000000001,
+     "ease": "eio"
+    },
+    {
+     "move": "wr",
+     "prop": "y",
+     "to": 176.0,
+     "word": "short",
+     "dur": 0.22,
+     "delay": 0.6000000000000001,
+     "ease": "eio"
+    },
+    {
+     "move": "wr",
+     "prop": "x",
+     "to": 262.0,
+     "word": "short",
+     "dur": 0.22,
+     "delay": 0.8,
+     "ease": "eio"
+    },
+    {
+     "move": "wr",
+     "prop": "y",
+     "to": 162.0,
+     "word": "short",
+     "dur": 0.22,
+     "delay": 0.8,
+     "ease": "eio"
+    },
+    {
+     "move": "wr",
+     "prop": "x",
+     "to": 278.0,
+     "word": "short",
+     "dur": 0.22,
+     "delay": 1.0,
+     "ease": "eio"
+    },
+    {
+     "move": "wr",
+     "prop": "y",
+     "to": 148.0,
+     "word": "short",
+     "dur": 0.22,
+     "delay": 1.0,
+     "ease": "eio"
+    },
+    {
+     "move": "wr",
+     "prop": "x",
+     "to": 294.0,
+     "word": "short",
+     "dur": 0.22,
+     "delay": 1.2000000000000002,
+     "ease": "eio"
+    },
+    {
+     "move": "wr",
+     "prop": "y",
+     "to": 134.0,
+     "word": "short",
+     "dur": 0.22,
+     "delay": 1.2000000000000002,
+     "ease": "eio"
+    },
+    {
+     "move": "wr",
+     "prop": "x",
+     "to": 306.5,
+     "word": "short",
+     "dur": 0.22,
+     "delay": 1.4000000000000001,
+     "ease": "eio"
+    },
+    {
+     "move": "wr",
+     "prop": "y",
+     "to": 120.0,
+     "word": "short",
+     "dur": 0.22,
+     "delay": 1.4000000000000001,
+     "ease": "eio"
+    }
+   ]
+  },
+  {
+   "card": 4,
+   "label": "A rider on a flat road at one steady speed. With the bigger back ring the legs spin fast. The lever clicks to the smaller back ring and the legs slow down while the bike keeps going at the same speed, with a harder push. Then the road tilts up into a hill that is just as steep as before.",
+   "elements": [
+    {
+     "id": "road",
+     "group": [
+      {
+       "path": "M-190 0 L190 0",
+       "width": 1.6
+      },
+      {
+       "path": "M-190 5 L190 5",
+       "stroke": "ink@0.4",
+       "width": 0.7
+      },
+      {
+       "id": "bk",
+       "part": "bike",
+       "params": {
+        "rider": 1,
+        "lean": 46,
+        "rear": 10,
+        "crank": 0,
+        "wheel": 0,
+        "lever": 0,
+        "hot": 1
+       },
+       "at": [
+        0,
+        0
+       ]
+      }
+     ],
+     "at": [
+      180,
+      232
+     ],
+     "scale": 1.15
+    },
+    {
+     "id": "fr",
+     "label": "FLAT ROAD",
+     "anchor": [
+      235,
+      232
+     ],
+     "at": [
+      235,
+      258
+     ],
+     "align": "center",
+     "word": "flat"
+    },
+    {
+     "id": "big",
+     "label": "BIGGER\nBACK RING",
+     "anchor": [
+      110.5,
+      190.6
+     ],
+     "at": [
+      70.5,
+      190.6
+     ],
+     "align": "trailing",
+     "word": "go"
+    },
+    {
+     "id": "small",
+     "label": "SMALLER\nBACK RING",
+     "anchor": [
+      117.5,
+      190.6
+     ],
+     "at": [
+      70.5,
+      190.6
+     ],
+     "align": "trailing",
+     "hidden": true
+    },
+    {
+     "id": "arr",
+     "part": "arrow",
+     "at": [
+      154,
+      92
+     ],
+     "rotate": 90,
+     "params": {
+      "len": 1,
+      "col": 1,
+      "w": 2.4,
+      "head": 8
+     },
+     "hidden": true
+    },
+    {
+     "id": "harder",
+     "label": "HARDER\nPUSH",
+     "anchor": [
+      154,
+      106
+     ],
+     "at": [
+      130,
+      92
+     ],
+     "align": "trailing",
+     "hidden": true
+    }
+   ],
+   "moves": [
+    {
+     "move": "bk",
+     "prop": "wheel",
+     "to": 12.9,
+     "word": "go",
+     "dur": 17,
+     "ease": "linear"
+    },
+    {
+     "move": "bk",
+     "prop": "crank",
+     "to": 5,
+     "word": "go",
+     "dur": 2.2,
+     "ease": "linear"
+    },
+    {
+     "move": "big",
+     "prop": "opacity",
+     "to": 0,
+     "word": "smaller",
+     "dur": 0.3
+    },
+    {
+     "move": "small",
+     "prop": "opacity",
+     "to": 1,
+     "word": "smaller",
+     "dur": 0.4,
+     "delay": 0.2
+    },
+    {
+     "move": "bk",
+     "prop": "rear",
+     "to": 5,
+     "word": "smaller",
+     "dur": 0.9,
+     "delay": 0.1
+    },
+    {
+     "move": "bk",
+     "prop": "lever",
+     "to": 1,
+     "word": "smaller",
+     "dur": 0.3
+    },
+    {
+     "move": "bk",
+     "prop": "lever",
+     "to": 0,
+     "word": "slower",
+     "dur": 0.5
+    },
+    {
+     "move": "bk",
+     "prop": "crank",
+     "to": 13,
+     "word": "smaller",
+     "dur": 14.5,
+     "delay": 0.1,
+     "ease": "linear"
+    },
+    {
+     "move": "arr",
+     "prop": "opacity",
+     "to": 1,
+     "word": "harder",
+     "dur": 0.3
+    },
+    {
+     "move": "arr",
+     "prop": "len",
+     "to": 30,
+     "word": "harder",
+     "dur": 0.5
+    },
+    {
+     "move": "harder",
+     "prop": "opacity",
+     "to": 1,
+     "word": "harder",
+     "dur": 0.4,
+     "delay": 0.1
+    },
+    {
+     "move": "arr",
+     "prop": "opacity",
+     "to": 0,
+     "word": "hill",
+     "dur": 0.3
+    },
+    {
+     "move": "harder",
+     "prop": "opacity",
+     "to": 0,
+     "word": "hill",
+     "dur": 0.3
+    },
+    {
+     "move": "fr",
+     "prop": "opacity",
+     "to": 0,
+     "word": "hill",
+     "dur": 0.3
+    },
+    {
+     "move": "small",
+     "prop": "opacity",
+     "to": 0,
+     "word": "hill",
+     "dur": 0.3
+    },
+    {
+     "move": "road",
+     "prop": "rotate",
+     "to": -14,
+     "word": "hill",
+     "dur": 1.4
+    },
+    {
+     "move": "road",
+     "prop": "y",
+     "to": 240,
+     "word": "hill",
+     "dur": 1.4
+    }
+   ]
+  }
+ ]
+}

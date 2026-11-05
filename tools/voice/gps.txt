@@ -1,0 +1,9 @@
+How does your phone find you with no mobile signal? Out in the open, your phone doesn't call anyone. It only listens. So what radio signal is it listening to?
+
+Satellites circle Earth far above you, and each one keeps sending out a radio signal that says where it is and what time it was sent. Your phone catches it and sends nothing back. So how does the time a radio signal was sent tell your phone a distance?
+
+Count the seconds from lightning to thunder, and the wait tells you how far away the storm is. A satellite's radio signal works the same way, only far faster than sound: from straight overhead it arrives in about 0.07 seconds, shorter than a blink. Your phone compares when it was sent with when it arrived, and that gap, times the speed of light, is the distance. So how many satellites does it take to pin down your spot?
+
+One distance leaves a whole ring of places you could be, all the same distance from that satellite. With three satellites, only two spots fit all three distances, and only one of them is on Earth. The other is far out in space. But how exact is your phone's own clock?
+
+One problem is left. Your phone times the arrival with its own clock, and that clock is nowhere near as exact as a satellite's. A clock a millionth of a second wrong puts you about 300 metres off. So the phone listens to a fourth satellite, which lets it work out how wrong its own clock is, and fix it. It listens to the satellites and turns the delay into where you are.

@@ -1,6 +1,6 @@
 """Make a topic Narrated: draft its script, show its pictures' timings, render the voice, bundle it.
 
-    python3 narrate.py new <id>       # writes <id>.txt from the topic's cards (one paragraph per card) and prints picture timings
+    python3 narrate.py new <id>       # writes <id>.txt from the topic's cards (one paragraph per card, each claim once) and prints picture timings
     python3 narrate.py moments <id>   # prints each card's picture: length, when each label appears, and the moves with no label
     python3 narrate.py render <id> [--voice af_heart] [--speed 1.0] [--out DIR]
                                       # checks the script, renders voice-<id>.m4a/.json with Kokoro into ios/Polymath/Resources and
@@ -41,14 +41,39 @@ def beats_of(t):
     return [c for c in t["cards"] if c["type"] == "card"]
 
 
+STOP = set("the a an and or but so to of in on at for is are was were it its that this with as be by from your you they their then than".split())
+
+
+def _content(sentence):
+    return {w for w in re.findall(r"[a-z0-9']+", sentence.lower()) if w not in STOP and len(w) > 2}
+
+
+def _sentences(text):
+    return [s for s in re.split(r"(?<=[.?!])\s+", re.sub(r"\{[\d.]+\}", "", text).strip()) if s]
+
+
 def draft(t):
-    """One paragraph per card: the topic's question opens, then each card's title, text and hook (takeaway on the last)."""
+    """One paragraph per card, every claim once. The headline is on screen, so it is NOT spoken (a card's text already carries it;
+    reading both says the claim twice): the first card opens with the topic's question, then each card's text, then its hook
+    (takeaway on the last). A card with no text speaks its headline. Add the headline back by hand only where the text never says it."""
     paras = []
     for i, c in enumerate(beats_of(t)):
-        parts = ([t["title"]] if i == 0 else []) + [c.get("title", ""), c.get("text", ""), c.get("hook") or c.get("takeaway") or ""]
+        parts = ([t["title"]] if i == 0 else []) + [c.get("text") or c.get("title", ""), c.get("hook") or c.get("takeaway") or ""]
         parts = [p.strip() for p in parts if p.strip()]
         paras.append(" ".join(p if p[-1] in ".?!" else p + "." for p in parts))
     return "\n\n".join(paras) + "\n"
+
+
+def repeats(paragraph):
+    """Pairs of sentences in one paragraph that say nearly the same thing (70% of the shorter one's content words shared, 4+ words)."""
+    ss = _sentences(paragraph)
+    out = []
+    for i, a in enumerate(ss):
+        for b in ss[i + 1:]:
+            wa, wb = _content(a), _content(b)
+            if min(len(wa), len(wb)) >= 4 and len(wa & wb) / min(len(wa), len(wb)) >= 0.7:
+                out.append((a, b))
+    return out
 
 
 def pictures(t):
@@ -142,6 +167,8 @@ def check(t, script):
         words = len(re.sub(r"\{[\d.]+\}", "", p).split())
         marks = len(re.findall(r"\{[\d.]+\}", p))
         print(f"  beat {i + 1}: {words} words, {marks} markers")
+        for a, b in repeats(p):
+            print(f"    SAID TWICE? \"{a}\"  ~  \"{b}\"")
 
 
 def main():

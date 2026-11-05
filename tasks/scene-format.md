@@ -16,6 +16,15 @@ at where a card used to be, the pot landing on a player's cards). Its script has
 spoken word. An agent can write one in minutes, a tool can check it, and the owner reviews the result on the phone. Start with
 Drafting only; prove it by rebuilding superglue; then make one new topic from scratch.
 
+## Styles (2026-11-04)
+
+One scene format, three looks. The topic's `"style"` (`drafting`, `wireframe`, `airbrush`) picks a `SceneLook` (`ios/Polymath/SceneLook.swift`):
+how a `path`/`circle`/`rect` is stroked and filled (Drafting crisp line, Wireframe fine white line, Airbrush a wobbling hand line a few points
+off its colour), hatching, labels (`DR.label`, lowercase mono on a leader, green condensed capitals) and plain text, plus the colour names.
+`part` names resolve in the style's kit: `SceneParts.swift` + `DraftingParts.swift` + `DraftingBike.swift`, `WireframeParts.swift`,
+`AirbrushParts.swift`; `SceneGeneric.swift` has the parts all three share (`arrow`, `dim`, `wave`, `arc`, `rings`). Blueprint draws as Drafting.
+Each style has its own rules file for the agent: `.claude/skills/topic/{drafting,wireframe,airbrush}.md`.
+
 ## What a scene file is
 
 `ios/Polymath/Scenes/<id>.json`: one scene per narrated card, beside the topic's words (`Topics/<id>.json` stays words only).
@@ -65,6 +74,18 @@ still be said (the checker below catches it).
     {"move": "drop", "prop": "hard", "to": 1, "word": "hard", "dur": 1.0, "ease": "eio"}
   ] }
 ```
+
+## Lint: words on the picture, blank cards (2026-11-05)
+`python3 tools/scene/scene.py lint <id>` (run by `topic.py make` after the frames; `--skip-lint` turns it off) re-shoots every frame the frames step took, once with the app's `--hide labels` (no labels or text) and once with `--hide all`, and diffs them: letter pixels that land on the picture are reported with a red overlay in `ios/build/frames/<id>/lint/`, and a card with nothing drawn after 3 s is reported as BLANK. A second shot of the same moment masks parts of the picture that move. Leaders are ignored (a leader may end on its part). Words that must sit on the picture, like the "?" inside a box, take `"onpicture": true` on their element. It does not see words on words, and it needs the frames to be newer than the scene file and the app rebuilt (the scene JSON is bundled).
+
+## Timeline checks in `scene.py check` (2026-11-05, need the rendered voice)
+`check` now simulates the scene each 0.1 s the way the renderer draws it (hidden, a `word` start, opacity moves, parent groups): ERROR when nothing is drawn in the last 3 s of a card, when an element without `hidden` or `word` has an opacity move to 1 (it is on screen from the start, the moon-tides card 3 bug), or when a label shows more than 2 s before the part its dot sits on (the bike-gears card 2 bug); warnings for a label 0.4 s or more ahead of its part, a card that ends with under 40% of its peak, and 5 s or more in which nothing starts or moves.
+
+## Flow: the same sides in every card (2026-11-05, `tools/scene/flow.py`, run once per topic by `check`)
+The owner's rule: a thing keeps its side of the screen from card to card, and a flow keeps its direction (shop left, bank right, the message going right in every card; the back gears left and the pedal ring right in the bike and in its close-up). It reads all cards of a topic and uses each part's place with its `at`, its final `x` move and the offsets of its groups; a `mirror` on a group swaps its children's sides, a `mirror` on a part only turns the part round. It reports, naming cards and parts and what to flip: (a) two kinds of part that swap left/right order between cards (ignored when under 25 units apart, or when a card has some of one kind on each side; an error when the swap is 40+ units in both cards, else a warning); (b) parts with a built-in side (`bike`, `gearPair`, `walker`, `magnet`, `heldCard`, `phone`, `terminal`, `tideEarth` `dir`) whose effective side differs between cards (an error for `bike`, `gearPair` and `walker`: which way they face, and which side of the pedal ring the back gears are on); a facing part whose moves carry it backwards; (c) the same part mirrored in one card and not another; (d) a lone part that sits on the right half of the screen in one card and the left in another. The table of built-in sides is `SIDES` in `flow.py` and in `.claude/skills/topic/drafting.md`. It cannot see arrows or paths (a message arrow that points left in one card), or two cards that use different parts for the same thing.
+
+## Text boxes in `scene.py check` (B, 2026-11-05)
+`tools/scene/textfit.py` gives every label and text a real box (per-style font widths, one box per line, plus the leader), follows its moves, and counts it only while it is on screen (needs the rendered voice). ERROR: words past the edges or below y 275, into the player's corner, or on top of other words while both show. WARN: words over a part's box (not decor, not its own part, not `"onpicture": true`), a leader through its own words, a line wider than 150 units. Width factors: Drafting SF Rounded semibold 8.5 pt, Wireframe 0.6 em monospaced, Airbrush DIN Condensed Bold 19 pt (text 22).
 
 ## What stays Swift
 

@@ -3,6 +3,7 @@
   "title": "Can your skin feel wet when it is dry?",
   "kind": "full",
   "theme": "nature",
+  "style": "airbrush",
   "cards": [
     {
       "type": "card",
@@ -47,20 +48,21 @@
     },
     {
       "type": "card",
-      "title": "Your brain puts a cold signal and a close, even touch together into wet",
-      "text": "A wet thing also gives your skin a close, even touch, and your touch sensors feel it. Your brain puts the cold signal and the touch together into wet.",
+      "title": "Your brain adds cold and a soft touch all over, and calls it wet",
+      "text": "Water also hugs your skin, touching every spot at once and just as softly, and your touch sensors feel that. Your brain puts the cold signal and the soft touch together into wet.",
       "hook": "So could a dry finger feel wet?",
       "visual": {
         "type": "diagram",
         "notes": [
+          "Water touches every spot at once, just as softly",
+          "Your touch sensors feel it",
           "The cold signal",
-          "A wet thing also gives your skin a close, even touch",
-          "Your brain puts the cold signal and the touch together into wet"
+          "Your brain puts the cold signal and the soft touch together into wet"
         ],
         "labels": [
-          "CLOSE, EVEN TOUCH",
+          "SOFT, ALL OVER",
+          "TOUCH SENSORS",
           "COLD SIGNAL",
-          "TOUCH SENSOR",
           "YOUR BRAIN",
           "WET"
         ]
@@ -68,23 +70,22 @@
     },
     {
       "type": "card",
-      "title": "In 1900, a dry finger in a thin rubber sheath felt wet in water",
-      "text": "So you can feel wet when you are dry. In 1900, a psychologist covered a finger with a thin rubber sheath, like a glove for one finger. The finger was then lowered into water, and it stayed dry but felt wet. The people who tried it at first refused to believe the finger was dry. In the same test, warmer water felt less wet, and lukewarm water barely at all.",
+      "title": "A glove on a dry finger still feels wet in water",
+      "text": "So you can feel wet when you are dry, and you can try it. Pull a thin rubber glove onto one finger, check no water can get in, and lower it into cool water. The finger stays dry but feels wet. In lukewarm water it barely does, because the cold signal is almost gone.",
       "takeaway": "Wet is not a sense of its own. Your brain builds it from cold and touch.",
       "visual": {
         "type": "diagram",
         "notes": [
-          "A finger in a thin rubber sheath",
-          "The finger stays dry, but it feels wet",
-          "Warmer water felt less wet",
-          "Lukewarm water barely at all"
+          "A finger in a thin rubber glove",
+          "The finger stays dry, but it feels wet in cool water",
+          "In lukewarm water it barely does"
         ],
         "labels": [
+          "THIN RUBBER GLOVE",
+          "HEAT OUT",
           "DRY FINGER",
-          "THIN RUBBER SHEATH",
-          "FEELS WET",
-          "WARMER: LESS WET",
-          "LUKEWARM: BARELY"
+          "LUKEWARM: BARELY",
+          "COLD + TOUCH"
         ]
       }
     },

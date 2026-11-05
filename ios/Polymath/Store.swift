@@ -14,6 +14,8 @@ enum Launch {
     /// `--preview` shows a topic without a narration as its picture alone, laid out like the Narrated screen (see PicturePreview).
     static var preview: Bool { ProcessInfo.processInfo.arguments.contains("--preview") }
     /// `--seek 12.5` opens the first topic paused at that second of its narration (for frame grabs: tools/scene/scene.py sheet).
+    /// `--hide labels` / `--hide all`: draw a scene without its words (labels and text) or without anything, so `scene.py lint` can diff the frames.
+    static var hide: String? { value("--hide") }
     static var seek: Double? { value("--seek").flatMap(Double.init) }
 }
 

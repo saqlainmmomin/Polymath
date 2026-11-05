@@ -1,0 +1,988 @@
+{
+ "voice": "af_heart",
+ "duration": 64.45,
+ "beats": [
+  0.0,
+  16.82,
+  29.9,
+  44.17
+ ],
+ "words": [
+  {
+   "text": "Can",
+   "start": 0.28,
+   "end": 0.39
+  },
+  {
+   "text": "your",
+   "start": 0.39,
+   "end": 0.54
+  },
+  {
+   "text": "skin",
+   "start": 0.54,
+   "end": 0.94
+  },
+  {
+   "text": "feel",
+   "start": 0.94,
+   "end": 1.2
+  },
+  {
+   "text": "wet",
+   "start": 1.2,
+   "end": 1.36
+  },
+  {
+   "text": "when",
+   "start": 1.36,
+   "end": 1.49
+  },
+  {
+   "text": "it",
+   "start": 1.49,
+   "end": 1.56
+  },
+  {
+   "text": "is",
+   "start": 1.56,
+   "end": 1.7
+  },
+  {
+   "text": "dry?",
+   "start": 1.7,
+   "end": 2.52
+  },
+  {
+   "text": "Your",
+   "start": 2.52,
+   "end": 2.74
+  },
+  {
+   "text": "skin",
+   "start": 2.74,
+   "end": 3.12
+  },
+  {
+   "text": "has",
+   "start": 3.12,
+   "end": 3.34
+  },
+  {
+   "text": "tiny",
+   "start": 3.34,
+   "end": 3.75
+  },
+  {
+   "text": "nerve",
+   "start": 3.75,
+   "end": 4.03
+  },
+  {
+   "text": "endings,",
+   "start": 4.03,
+   "end": 4.75
+  },
+  {
+   "text": "called",
+   "start": 4.75,
+   "end": 5.03
+  },
+  {
+   "text": "sensors,",
+   "start": 5.03,
+   "end": 5.9
+  },
+  {
+   "text": "that",
+   "start": 5.9,
+   "end": 6.1
+  },
+  {
+   "text": "react",
+   "start": 6.1,
+   "end": 6.5
+  },
+  {
+   "text": "to",
+   "start": 6.5,
+   "end": 6.62
+  },
+  {
+   "text": "things",
+   "start": 6.62,
+   "end": 6.95
+  },
+  {
+   "text": "such",
+   "start": 6.95,
+   "end": 7.17
+  },
+  {
+   "text": "as",
+   "start": 7.17,
+   "end": 7.35
+  },
+  {
+   "text": "cold,",
+   "start": 7.35,
+   "end": 8.01
+  },
+  {
+   "text": "warmth",
+   "start": 8.01,
+   "end": 8.4
+  },
+  {
+   "text": "and",
+   "start": 8.4,
+   "end": 8.54
+  },
+  {
+   "text": "touch.",
+   "start": 8.54,
+   "end": 9.49
+  },
+  {
+   "text": "But",
+   "start": 9.49,
+   "end": 9.69
+  },
+  {
+   "text": "scientists",
+   "start": 9.69,
+   "end": 10.26
+  },
+  {
+   "text": "have",
+   "start": 10.26,
+   "end": 10.43
+  },
+  {
+   "text": "looked",
+   "start": 10.43,
+   "end": 10.65
+  },
+  {
+   "text": "for",
+   "start": 10.65,
+   "end": 10.8
+  },
+  {
+   "text": "one",
+   "start": 10.8,
+   "end": 11.0
+  },
+  {
+   "text": "made",
+   "start": 11.0,
+   "end": 11.26
+  },
+  {
+   "text": "just",
+   "start": 11.26,
+   "end": 11.47
+  },
+  {
+   "text": "for",
+   "start": 11.47,
+   "end": 11.64
+  },
+  {
+   "text": "wet,",
+   "start": 11.64,
+   "end": 12.15
+  },
+  {
+   "text": "and",
+   "start": 12.15,
+   "end": 12.29
+  },
+  {
+   "text": "found",
+   "start": 12.29,
+   "end": 12.57
+  },
+  {
+   "text": "none.",
+   "start": 12.57,
+   "end": 13.38
+  },
+  {
+   "text": "So",
+   "start": 13.38,
+   "end": 13.57
+  },
+  {
+   "text": "what",
+   "start": 13.57,
+   "end": 13.71
+  },
+  {
+   "text": "do",
+   "start": 13.71,
+   "end": 13.81
+  },
+  {
+   "text": "your",
+   "start": 13.81,
+   "end": 13.93
+  },
+  {
+   "text": "sensors",
+   "start": 13.93,
+   "end": 14.38
+  },
+  {
+   "text": "feel",
+   "start": 14.38,
+   "end": 14.61
+  },
+  {
+   "text": "when",
+   "start": 14.61,
+   "end": 14.78
+  },
+  {
+   "text": "water",
+   "start": 14.78,
+   "end": 15.1
+  },
+  {
+   "text": "touches",
+   "start": 15.1,
+   "end": 15.53
+  },
+  {
+   "text": "you?",
+   "start": 15.53,
+   "end": 16.12
+  },
+  {
+   "text": "When",
+   "start": 17.07,
+   "end": 17.22
+  },
+  {
+   "text": "something",
+   "start": 17.22,
+   "end": 17.6
+  },
+  {
+   "text": "wet",
+   "start": 17.6,
+   "end": 17.82
+  },
+  {
+   "text": "touches",
+   "start": 17.82,
+   "end": 18.25
+  },
+  {
+   "text": "you,",
+   "start": 18.25,
+   "end": 18.79
+  },
+  {
+   "text": "water",
+   "start": 18.79,
+   "end": 19.19
+  },
+  {
+   "text": "cooler",
+   "start": 19.19,
+   "end": 19.57
+  },
+  {
+   "text": "than",
+   "start": 19.57,
+   "end": 19.69
+  },
+  {
+   "text": "your",
+   "start": 19.69,
+   "end": 19.84
+  },
+  {
+   "text": "skin",
+   "start": 19.84,
+   "end": 20.25
+  },
+  {
+   "text": "takes",
+   "start": 20.25,
+   "end": 20.54
+  },
+  {
+   "text": "heat",
+   "start": 20.54,
+   "end": 20.77
+  },
+  {
+   "text": "out",
+   "start": 20.77,
+   "end": 20.91
+  },
+  {
+   "text": "of",
+   "start": 20.91,
+   "end": 20.99
+  },
+  {
+   "text": "it",
+   "start": 20.99,
+   "end": 21.1
+  },
+  {
+   "text": "fast.",
+   "start": 21.1,
+   "end": 22.11
+  },
+  {
+   "text": "Your",
+   "start": 22.11,
+   "end": 22.3
+  },
+  {
+   "text": "cold",
+   "start": 22.3,
+   "end": 22.65
+  },
+  {
+   "text": "sensors",
+   "start": 22.65,
+   "end": 23.11
+  },
+  {
+   "text": "notice",
+   "start": 23.11,
+   "end": 23.45
+  },
+  {
+   "text": "the",
+   "start": 23.45,
+   "end": 23.55
+  },
+  {
+   "text": "drop",
+   "start": 23.55,
+   "end": 24.01
+  },
+  {
+   "text": "and",
+   "start": 24.01,
+   "end": 24.19
+  },
+  {
+   "text": "send",
+   "start": 24.19,
+   "end": 24.41
+  },
+  {
+   "text": "a",
+   "start": 24.41,
+   "end": 24.51
+  },
+  {
+   "text": "cold",
+   "start": 24.51,
+   "end": 24.94
+  },
+  {
+   "text": "signal",
+   "start": 24.94,
+   "end": 25.32
+  },
+  {
+   "text": "to",
+   "start": 25.32,
+   "end": 25.41
+  },
+  {
+   "text": "your",
+   "start": 25.41,
+   "end": 25.52
+  },
+  {
+   "text": "brain.",
+   "start": 25.52,
+   "end": 26.4
+  },
+  {
+   "text": "But",
+   "start": 26.4,
+   "end": 26.54
+  },
+  {
+   "text": "is",
+   "start": 26.54,
+   "end": 26.64
+  },
+  {
+   "text": "a",
+   "start": 26.64,
+   "end": 26.74
+  },
+  {
+   "text": "cold",
+   "start": 26.74,
+   "end": 27.14
+  },
+  {
+   "text": "signal",
+   "start": 27.14,
+   "end": 27.62
+  },
+  {
+   "text": "all",
+   "start": 27.62,
+   "end": 27.84
+  },
+  {
+   "text": "it",
+   "start": 27.84,
+   "end": 27.92
+  },
+  {
+   "text": "takes",
+   "start": 27.92,
+   "end": 28.2
+  },
+  {
+   "text": "to",
+   "start": 28.2,
+   "end": 28.3
+  },
+  {
+   "text": "feel",
+   "start": 28.3,
+   "end": 28.52
+  },
+  {
+   "text": "wet?",
+   "start": 28.52,
+   "end": 29.2
+  },
+  {
+   "text": "Water",
+   "start": 30.2,
+   "end": 30.55
+  },
+  {
+   "text": "also",
+   "start": 30.55,
+   "end": 30.96
+  },
+  {
+   "text": "hugs",
+   "start": 30.96,
+   "end": 31.21
+  },
+  {
+   "text": "your",
+   "start": 31.21,
+   "end": 31.36
+  },
+  {
+   "text": "skin,",
+   "start": 31.36,
+   "end": 32.05
+  },
+  {
+   "text": "touching",
+   "start": 32.05,
+   "end": 32.46
+  },
+  {
+   "text": "every",
+   "start": 32.46,
+   "end": 32.79
+  },
+  {
+   "text": "spot",
+   "start": 32.79,
+   "end": 33.11
+  },
+  {
+   "text": "at",
+   "start": 33.11,
+   "end": 33.2
+  },
+  {
+   "text": "once",
+   "start": 33.2,
+   "end": 33.55
+  },
+  {
+   "text": "and",
+   "start": 33.55,
+   "end": 33.67
+  },
+  {
+   "text": "just",
+   "start": 33.67,
+   "end": 33.92
+  },
+  {
+   "text": "as",
+   "start": 33.92,
+   "end": 34.06
+  },
+  {
+   "text": "softly,",
+   "start": 34.06,
+   "end": 34.92
+  },
+  {
+   "text": "and",
+   "start": 34.92,
+   "end": 35.04
+  },
+  {
+   "text": "your",
+   "start": 35.04,
+   "end": 35.19
+  },
+  {
+   "text": "touch",
+   "start": 35.19,
+   "end": 35.48
+  },
+  {
+   "text": "sensors",
+   "start": 35.48,
+   "end": 35.92
+  },
+  {
+   "text": "feel",
+   "start": 35.92,
+   "end": 36.17
+  },
+  {
+   "text": "that.",
+   "start": 36.17,
+   "end": 36.99
+  },
+  {
+   "text": "Your",
+   "start": 36.99,
+   "end": 37.19
+  },
+  {
+   "text": "brain",
+   "start": 37.19,
+   "end": 37.62
+  },
+  {
+   "text": "puts",
+   "start": 37.62,
+   "end": 37.88
+  },
+  {
+   "text": "the",
+   "start": 37.88,
+   "end": 37.99
+  },
+  {
+   "text": "cold",
+   "start": 37.99,
+   "end": 38.36
+  },
+  {
+   "text": "signal",
+   "start": 38.36,
+   "end": 38.94
+  },
+  {
+   "text": "and",
+   "start": 38.94,
+   "end": 39.06
+  },
+  {
+   "text": "the",
+   "start": 39.06,
+   "end": 39.16
+  },
+  {
+   "text": "soft",
+   "start": 39.16,
+   "end": 39.56
+  },
+  {
+   "text": "touch",
+   "start": 39.56,
+   "end": 39.85
+  },
+  {
+   "text": "together",
+   "start": 39.85,
+   "end": 40.27
+  },
+  {
+   "text": "into",
+   "start": 40.27,
+   "end": 40.56
+  },
+  {
+   "text": "wet.",
+   "start": 40.56,
+   "end": 41.42
+  },
+  {
+   "text": "So",
+   "start": 41.42,
+   "end": 41.62
+  },
+  {
+   "text": "could",
+   "start": 41.62,
+   "end": 41.74
+  },
+  {
+   "text": "a",
+   "start": 41.74,
+   "end": 41.81
+  },
+  {
+   "text": "dry",
+   "start": 41.81,
+   "end": 42.16
+  },
+  {
+   "text": "finger",
+   "start": 42.16,
+   "end": 42.54
+  },
+  {
+   "text": "feel",
+   "start": 42.54,
+   "end": 42.8
+  },
+  {
+   "text": "wet?",
+   "start": 42.8,
+   "end": 43.47
+  },
+  {
+   "text": "It",
+   "start": 44.4,
+   "end": 44.52
+  },
+  {
+   "text": "can,",
+   "start": 44.52,
+   "end": 44.97
+  },
+  {
+   "text": "and",
+   "start": 44.97,
+   "end": 45.1
+  },
+  {
+   "text": "you",
+   "start": 45.1,
+   "end": 45.2
+  },
+  {
+   "text": "can",
+   "start": 45.2,
+   "end": 45.38
+  },
+  {
+   "text": "try",
+   "start": 45.38,
+   "end": 45.64
+  },
+  {
+   "text": "it.",
+   "start": 45.64,
+   "end": 46.21
+  },
+  {
+   "text": "Pull",
+   "start": 46.21,
+   "end": 46.47
+  },
+  {
+   "text": "a",
+   "start": 46.47,
+   "end": 46.61
+  },
+  {
+   "text": "thin",
+   "start": 46.61,
+   "end": 46.94
+  },
+  {
+   "text": "rubber",
+   "start": 46.94,
+   "end": 47.29
+  },
+  {
+   "text": "glove",
+   "start": 47.29,
+   "end": 47.7
+  },
+  {
+   "text": "onto",
+   "start": 47.7,
+   "end": 47.97
+  },
+  {
+   "text": "one",
+   "start": 47.97,
+   "end": 48.21
+  },
+  {
+   "text": "finger,",
+   "start": 48.21,
+   "end": 48.89
+  },
+  {
+   "text": "check",
+   "start": 48.89,
+   "end": 49.14
+  },
+  {
+   "text": "no",
+   "start": 49.14,
+   "end": 49.41
+  },
+  {
+   "text": "water",
+   "start": 49.41,
+   "end": 49.72
+  },
+  {
+   "text": "can",
+   "start": 49.72,
+   "end": 49.85
+  },
+  {
+   "text": "get",
+   "start": 49.85,
+   "end": 50.02
+  },
+  {
+   "text": "in,",
+   "start": 50.02,
+   "end": 50.38
+  },
+  {
+   "text": "and",
+   "start": 50.38,
+   "end": 50.51
+  },
+  {
+   "text": "lower",
+   "start": 50.51,
+   "end": 50.9
+  },
+  {
+   "text": "it",
+   "start": 50.9,
+   "end": 51.01
+  },
+  {
+   "text": "into",
+   "start": 51.01,
+   "end": 51.26
+  },
+  {
+   "text": "cool",
+   "start": 51.26,
+   "end": 51.55
+  },
+  {
+   "text": "water.",
+   "start": 51.55,
+   "end": 52.49
+  },
+  {
+   "text": "The",
+   "start": 52.49,
+   "end": 52.61
+  },
+  {
+   "text": "finger",
+   "start": 52.61,
+   "end": 52.95
+  },
+  {
+   "text": "stays",
+   "start": 52.95,
+   "end": 53.36
+  },
+  {
+   "text": "dry",
+   "start": 53.36,
+   "end": 53.77
+  },
+  {
+   "text": "but",
+   "start": 53.77,
+   "end": 53.96
+  },
+  {
+   "text": "feels",
+   "start": 53.96,
+   "end": 54.31
+  },
+  {
+   "text": "wet.",
+   "start": 54.31,
+   "end": 55.11
+  },
+  {
+   "text": "In",
+   "start": 55.11,
+   "end": 55.27
+  },
+  {
+   "text": "lukewarm",
+   "start": 55.27,
+   "end": 55.75
+  },
+  {
+   "text": "water",
+   "start": 55.75,
+   "end": 56.1
+  },
+  {
+   "text": "it",
+   "start": 56.1,
+   "end": 56.22
+  },
+  {
+   "text": "barely",
+   "start": 56.22,
+   "end": 56.57
+  },
+  {
+   "text": "does,",
+   "start": 56.57,
+   "end": 57.1
+  },
+  {
+   "text": "because",
+   "start": 57.1,
+   "end": 57.4
+  },
+  {
+   "text": "the",
+   "start": 57.4,
+   "end": 57.54
+  },
+  {
+   "text": "cold",
+   "start": 57.54,
+   "end": 57.89
+  },
+  {
+   "text": "signal",
+   "start": 57.89,
+   "end": 58.3
+  },
+  {
+   "text": "is",
+   "start": 58.3,
+   "end": 58.45
+  },
+  {
+   "text": "almost",
+   "start": 58.45,
+   "end": 58.9
+  },
+  {
+   "text": "gone.",
+   "start": 58.9,
+   "end": 59.82
+  },
+  {
+   "text": "Wet",
+   "start": 59.82,
+   "end": 60.1
+  },
+  {
+   "text": "is",
+   "start": 60.1,
+   "end": 60.25
+  },
+  {
+   "text": "not",
+   "start": 60.25,
+   "end": 60.44
+  },
+  {
+   "text": "a",
+   "start": 60.44,
+   "end": 60.51
+  },
+  {
+   "text": "sense",
+   "start": 60.51,
+   "end": 60.84
+  },
+  {
+   "text": "of",
+   "start": 60.84,
+   "end": 60.91
+  },
+  {
+   "text": "its",
+   "start": 60.91,
+   "end": 61.07
+  },
+  {
+   "text": "own.",
+   "start": 61.07,
+   "end": 61.75
+  },
+  {
+   "text": "Your",
+   "start": 61.75,
+   "end": 61.94
+  },
+  {
+   "text": "brain",
+   "start": 61.94,
+   "end": 62.3
+  },
+  {
+   "text": "builds",
+   "start": 62.3,
+   "end": 62.6
+  },
+  {
+   "text": "it",
+   "start": 62.6,
+   "end": 62.72
+  },
+  {
+   "text": "from",
+   "start": 62.72,
+   "end": 62.94
+  },
+  {
+   "text": "cold",
+   "start": 62.94,
+   "end": 63.45
+  },
+  {
+   "text": "and",
+   "start": 63.45,
+   "end": 63.57
+  },
+  {
+   "text": "touch.",
+   "start": 63.57,
+   "end": 64.35
+  }
+ ],
+ "keys": [
+  [],
+  [],
+  [],
+  []
+ ]
+}

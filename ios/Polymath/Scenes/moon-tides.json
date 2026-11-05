@@ -1,0 +1,1188 @@
+{
+ "scenes": [
+  {
+   "card": 0,
+   "label": "A wire Moon in the sky and a beach: the sea creeps up the sand to a high-water line, falls back to a low-water line and creeps up again, and a pink curve at the top shows two highs in one day.",
+   "elements": [
+    {
+     "id": "moon",
+     "part": "moon",
+     "at": [
+      61,
+      60
+     ],
+     "params": {
+      "r": 21,
+      "spin": 0.4
+     },
+     "word": "Moon"
+    },
+    {
+     "label": "ONE MOON",
+     "anchor": [
+      77,
+      58
+     ],
+     "at": [
+      105,
+      34
+     ],
+     "align": "leading",
+     "word": "Moon"
+    },
+    {
+     "id": "seaGroup",
+     "group": [
+      {
+       "id": "water",
+       "rect": [
+        14,
+        0,
+        315,
+        300
+       ],
+       "fill": "side",
+       "hatch": {
+        "spacing": 3.6,
+        "alpha": 0.4
+       },
+       "stroke": "none",
+       "at": [
+        0,
+        226
+       ]
+      },
+      {
+       "id": "surf",
+       "path": "M14 0 L329 0",
+       "stroke": "accent",
+       "width": 1.8,
+       "at": [
+        0,
+        226
+       ]
+      }
+     ],
+     "clip": {
+      "path": "M329 262 L14 150 L14 0 L329 0 Z"
+     }
+    },
+    {
+     "path": "M329 262 L14 150 L14 270 L329 270 Z",
+     "fill": "face"
+    },
+    {
+     "path": "M329 262 L14 150",
+     "width": 1.4
+    },
+    {
+     "id": "hi",
+     "path": "M14 176 L329 176",
+     "stroke": "ink@0.35",
+     "width": 0.6,
+     "dash": [
+      3,
+      3
+     ],
+     "word": "time"
+    },
+    {
+     "id": "lo",
+     "path": "M14 226 L329 226",
+     "stroke": "ink@0.35",
+     "width": 0.6,
+     "dash": [
+      3,
+      3
+     ],
+     "word": "time"
+    },
+    {
+     "label": "HIGH TIDE",
+     "anchor": [
+      303,
+      176
+     ],
+     "at": [
+      313,
+      150
+     ],
+     "align": "trailing",
+     "word": "high#2"
+    },
+    {
+     "label": "LOW TIDE",
+     "anchor": [
+      120,
+      226
+     ],
+     "at": [
+      112,
+      208
+     ],
+     "align": "trailing",
+     "word": "time"
+    },
+    {
+     "id": "pull",
+     "part": "arrow",
+     "at": [
+      81,
+      80
+     ],
+     "rotate": 34,
+     "params": {
+      "len": 96,
+      "col": 1,
+      "w": 1.8,
+      "head": 8
+     },
+     "word": "pulls"
+    },
+    {
+     "id": "curve",
+     "part": "wave",
+     "at": [
+      193,
+      52
+     ],
+     "params": {
+      "len": 126,
+      "amp": -12,
+      "wl": 63,
+      "upto": 0,
+      "col": 1,
+      "w": 1.8
+     },
+     "word": "So#2"
+    },
+    {
+     "label": "TWO HIGHS\nA DAY",
+     "anchor": [
+      256,
+      40
+     ],
+     "at": [
+      262,
+      30
+     ],
+     "align": "trailing",
+     "word": "So#2",
+     "delay": 0.8
+    }
+   ],
+   "moves": [
+    {
+     "move": "water",
+     "prop": "y",
+     "to": 176,
+     "word": "So#2",
+     "dur": 2.6
+    },
+    {
+     "move": "surf",
+     "prop": "y",
+     "to": 176,
+     "word": "So#2",
+     "dur": 2.6
+    },
+    {
+     "move": "water",
+     "prop": "y",
+     "to": 226,
+     "word": "So#2",
+     "dur": 2.6,
+     "delay": 0.2
+    },
+    {
+     "move": "surf",
+     "prop": "y",
+     "to": 226,
+     "word": "So#2",
+     "dur": 2.6,
+     "delay": 0.2
+    },
+    {
+     "move": "water",
+     "prop": "y",
+     "to": 176,
+     "word": "So#2",
+     "dur": 2.6,
+     "delay": 0.8
+    },
+    {
+     "move": "surf",
+     "prop": "y",
+     "to": 176,
+     "word": "So#2",
+     "dur": 2.6,
+     "delay": 0.8
+    },
+    {
+     "move": "curve",
+     "prop": "upto",
+     "to": 1,
+     "word": "So#2",
+     "dur": 3.0,
+     "delay": 0.3,
+     "ease": "linear"
+    }
+   ]
+  },
+  {
+   "card": 1,
+   "label": "Earth seen from above with a wire Moon on the left. Three pink arrows pointing at the Moon, at the near sea, the ground and the far sea, get shorter from near to far: the near sea is pulled most, the far sea least.",
+   "elements": [
+    {
+     "id": "earth",
+     "part": "tideEarth",
+     "at": [
+      206,
+      165
+     ],
+     "params": {
+      "r": 60,
+      "shell": 7,
+      "bulge": 0,
+      "sea": 0,
+      "dir": 180
+     },
+     "word": "Moon"
+    },
+    {
+     "id": "moon",
+     "part": "moon",
+     "at": [
+      46,
+      165
+     ],
+     "params": {
+      "r": 22,
+      "spin": 0.4
+     },
+     "word": "Moon"
+    },
+    {
+     "label": "MOON",
+     "anchor": [
+      46,
+      191
+     ],
+     "at": [
+      46,
+      214
+     ],
+     "align": "center",
+     "word": "Moon"
+    },
+    {
+     "id": "dn",
+     "group": [
+      {
+       "circle": [
+        0,
+        0,
+        3.5
+       ],
+       "fill": "face"
+      }
+     ],
+     "at": [
+      139,
+      165
+     ],
+     "word": "near"
+    },
+    {
+     "id": "dg",
+     "group": [
+      {
+       "circle": [
+        0,
+        0,
+        3.5
+       ],
+       "fill": "face"
+      }
+     ],
+     "at": [
+      206,
+      165
+     ],
+     "word": "ground"
+    },
+    {
+     "id": "df",
+     "group": [
+      {
+       "circle": [
+        0,
+        0,
+        3.5
+       ],
+       "fill": "face"
+      }
+     ],
+     "at": [
+      273,
+      165
+     ],
+     "word": "far"
+    },
+    {
+     "label": "NEAR SEA",
+     "anchor": [
+      139,
+      160
+     ],
+     "at": [
+      124,
+      118
+     ],
+     "align": "trailing",
+     "word": "near"
+    },
+    {
+     "label": "GROUND",
+     "anchor": [
+      206,
+      229
+     ],
+     "at": [
+      206,
+      246
+     ],
+     "align": "center",
+     "word": "ground"
+    },
+    {
+     "label": "FAR SEA",
+     "anchor": [
+      273,
+      160
+     ],
+     "at": [
+      280,
+      118
+     ],
+     "align": "leading",
+     "word": "far"
+    },
+    {
+     "id": "an",
+     "part": "arrow",
+     "at": [
+      134,
+      165
+     ],
+     "rotate": 180,
+     "params": {
+      "len": 64,
+      "col": 1,
+      "w": 1.8,
+      "head": 8
+     },
+     "word": "pulls"
+    },
+    {
+     "id": "ag",
+     "part": "arrow",
+     "at": [
+      203,
+      165
+     ],
+     "rotate": 180,
+     "params": {
+      "len": 42,
+      "col": 1,
+      "w": 1.8,
+      "head": 7
+     },
+     "word": "pulls",
+     "delay": 0.25
+    },
+    {
+     "id": "af",
+     "part": "arrow",
+     "at": [
+      269,
+      165
+     ],
+     "rotate": 180,
+     "params": {
+      "len": 24,
+      "col": 1,
+      "w": 1.8,
+      "head": 6
+     },
+     "word": "pulls",
+     "delay": 0.5
+    }
+   ],
+   "moves": [
+    {
+     "move": "an",
+     "prop": "w",
+     "to": 3.4,
+     "word": "harder#2",
+     "dur": 0.4
+    },
+    {
+     "move": "an",
+     "prop": "w",
+     "to": 1.8,
+     "word": "far",
+     "dur": 0.4,
+     "delay": 0.0
+    },
+    {
+     "move": "af",
+     "prop": "w",
+     "to": 3.4,
+     "word": "less",
+     "dur": 0.4
+    }
+   ]
+  },
+  {
+   "card": 2,
+   "label": "Three wire runners in a line pulled toward a magnet: the front one is pulled hardest and the gaps open up. Then the runners become the near sea, the ground and the far sea round Earth, and the pink sea rises into a bulge at both ends.",
+   "elements": [
+    {
+     "id": "runG",
+     "group": [
+      {
+       "id": "magnet",
+       "part": "magnet",
+       "at": [
+        36,
+        150
+       ],
+       "word": "magnet"
+      },
+      {
+       "label": "MOON",
+       "anchor": [
+        36,
+        172
+       ],
+       "at": [
+        36,
+        202
+       ],
+       "align": "center",
+       "word": "magnet"
+      },
+      {
+       "id": "r_far",
+       "part": "globe",
+       "at": [
+        250,
+        150
+       ],
+       "params": {
+        "r": 13,
+        "lat": 2,
+        "lon": 4,
+        "spin": 0
+       },
+       "word": "runners"
+      },
+      {
+       "id": "r_mid",
+       "part": "globe",
+       "at": [
+        190,
+        150
+       ],
+       "params": {
+        "r": 13,
+        "lat": 2,
+        "lon": 4,
+        "spin": 0
+       },
+       "word": "runners"
+      },
+      {
+       "id": "r_near",
+       "part": "globe",
+       "at": [
+        150,
+        150
+       ],
+       "params": {
+        "r": 13,
+        "lat": 2,
+        "lon": 4,
+        "spin": 0
+       },
+       "word": "runners"
+      },
+      {
+       "id": "a_far",
+       "part": "arrow",
+       "at": [
+        238,
+        126
+       ],
+       "rotate": 180,
+       "params": {
+        "len": 14,
+        "col": 1,
+        "w": 1.6,
+        "head": 6
+       },
+       "word": "least",
+       "hidden": false
+      },
+      {
+       "id": "a_mid",
+       "part": "arrow",
+       "at": [
+        178,
+        126
+       ],
+       "rotate": 180,
+       "params": {
+        "len": 30,
+        "col": 1,
+        "w": 1.6,
+        "head": 6
+       },
+       "word": "front",
+       "hidden": false
+      },
+      {
+       "id": "a_near",
+       "part": "arrow",
+       "at": [
+        138,
+        126
+       ],
+       "rotate": 180,
+       "params": {
+        "len": 48,
+        "col": 1,
+        "w": 1.6,
+        "head": 6
+       },
+       "word": "hardest",
+       "hidden": false
+      },
+      {
+       "label": "FAR SEA",
+       "anchor": [
+        250,
+        162
+       ],
+       "at": [
+        250,
+        202
+       ],
+       "align": "center",
+       "word": "both"
+      },
+      {
+       "label": "GROUND",
+       "anchor": [
+        182,
+        162
+       ],
+       "at": [
+        182,
+        202
+       ],
+       "align": "center",
+       "word": "middle"
+      },
+      {
+       "label": "NEAR SEA",
+       "anchor": [
+        112,
+        162
+       ],
+       "at": [
+        112,
+        202
+       ],
+       "align": "center",
+       "word": "both"
+      },
+      {
+       "id": "gap1",
+       "part": "dim",
+       "at": [
+        123,
+        234
+       ],
+       "params": {
+        "len": 48,
+        "col": 1
+       },
+       "word": "ahead#2"
+      },
+      {
+       "id": "gap2",
+       "part": "dim",
+       "at": [
+        193,
+        234
+       ],
+       "params": {
+        "len": 46,
+        "col": 1
+       },
+       "word": "ahead#3"
+      }
+     ]
+    },
+    {
+     "id": "earthG",
+     "group": [
+      {
+       "id": "e",
+       "part": "tideEarth",
+       "at": [
+        206,
+        160
+       ],
+       "params": {
+        "r": 58,
+        "shell": 7,
+        "bulge": 1,
+        "dir": 180,
+        "sea": 1
+       },
+       "word": "sea"
+      },
+      {
+       "id": "m2",
+       "part": "moon",
+       "at": [
+        48,
+        160
+       ],
+       "params": {
+        "r": 22,
+        "spin": 0.4
+       }
+      },
+      {
+       "label": "MOON",
+       "anchor": [
+        48,
+        186
+       ],
+       "at": [
+        48,
+        210
+       ],
+       "align": "center"
+      },
+      {
+       "label": "TWO BULGES",
+       "anchor": [
+        284,
+        166
+       ],
+       "at": [
+        254,
+        226
+       ],
+       "align": "center",
+       "word": "both"
+      },
+      {
+       "label": "NEAR SEA",
+       "anchor": [
+        138,
+        150
+       ],
+       "at": [
+        124,
+        100
+       ],
+       "align": "trailing",
+       "word": "both"
+      },
+      {
+       "label": "FAR SEA",
+       "anchor": [
+        274,
+        150
+       ],
+       "at": [
+        288,
+        100
+       ],
+       "align": "leading",
+       "word": "both"
+      }
+     ],
+     "hidden": true
+    }
+   ],
+   "moves": [
+    {
+     "move": "r_near",
+     "prop": "x",
+     "to": 112,
+     "word": "ahead",
+     "dur": 2.6
+    },
+    {
+     "move": "r_mid",
+     "prop": "x",
+     "to": 182,
+     "word": "ahead",
+     "dur": 2.6
+    },
+    {
+     "move": "r_far",
+     "prop": "x",
+     "to": 250,
+     "word": "ahead",
+     "dur": 2.6
+    },
+    {
+     "move": "e",
+     "prop": "bulge",
+     "to": 0,
+     "word": "piles",
+     "dur": 0.5
+    },
+    {
+     "move": "runG",
+     "prop": "opacity",
+     "to": 0,
+     "word": "piles",
+     "dur": 0.5,
+     "delay": -0.3
+    },
+    {
+     "move": "earthG",
+     "prop": "opacity",
+     "to": 1,
+     "word": "piles",
+     "dur": 0.6,
+     "delay": -0.3
+    },
+    {
+     "move": "e",
+     "prop": "bulge",
+     "to": 1,
+     "word": "piles",
+     "dur": 2.0
+    }
+   ]
+  },
+  {
+   "card": 3,
+   "label": "Earth seen from above with the Moon on the left and two pink sea bulges fixed toward and away from it. A dot for your beach rides round as Earth turns: high tide when it is under a bulge, low tide between.",
+   "elements": [
+    {
+     "id": "earth",
+     "part": "tideEarth",
+     "at": [
+      196,
+      150
+     ],
+     "params": {
+      "r": 62,
+      "shell": 7,
+      "bulge": 1,
+      "dir": 180,
+      "beach": 1,
+      "beachAt": 90,
+      "spin": 0
+     },
+     "word": "Earth"
+    },
+    {
+     "id": "moon",
+     "part": "moon",
+     "at": [
+      46,
+      150
+     ],
+     "params": {
+      "r": 22,
+      "spin": 0.4
+     },
+     "word": "Earth"
+    },
+    {
+     "label": "MOON",
+     "anchor": [
+      46,
+      176
+     ],
+     "at": [
+      46,
+      200
+     ],
+     "align": "center",
+     "word": "Moon"
+    },
+    {
+     "label": "BULGE",
+     "anchor": [
+      112,
+      150
+     ],
+     "at": [
+      100,
+      100
+     ],
+     "align": "trailing",
+     "word": "Earth",
+     "delay": 0.7
+    },
+    {
+     "label": "BULGE",
+     "anchor": [
+      280,
+      150
+     ],
+     "at": [
+      292,
+      96
+     ],
+     "align": "leading",
+     "word": "Earth",
+     "delay": 0.7
+    },
+    {
+     "group": [
+      {
+       "circle": [
+        0,
+        0,
+        3.5
+       ],
+       "fill": "ink"
+      },
+      {
+       "circle": [
+        0,
+        0,
+        7
+       ],
+       "stroke": "ink@0.6",
+       "width": 0.6
+      }
+     ],
+     "at": [
+      26,
+      268
+     ],
+     "word": "beach"
+    },
+    {
+     "text": "YOUR BEACH",
+     "at": [
+      40,
+      268
+     ],
+     "align": "leading",
+     "size": 9.5,
+     "word": "beach"
+    },
+    {
+     "id": "hi1",
+     "text": "HIGH TIDE",
+     "at": [
+      196,
+      248
+     ],
+     "size": 11,
+     "stroke": "accent",
+     "word": "passes",
+     "hidden": true
+    },
+    {
+     "id": "lo1",
+     "text": "LOW TIDE",
+     "at": [
+      196,
+      248
+     ],
+     "size": 11,
+     "word": "then",
+     "hidden": true
+    },
+    {
+     "id": "hi2",
+     "text": "HIGH TIDE",
+     "at": [
+      196,
+      248
+     ],
+     "size": 11,
+     "stroke": "accent",
+     "word": "other",
+     "hidden": true
+    },
+    {
+     "id": "lo0",
+     "text": "LOW TIDE",
+     "at": [
+      196,
+      248
+     ],
+     "size": 11,
+     "word": "turns"
+    }
+   ],
+   "moves": [
+    {
+     "move": "lo0",
+     "prop": "opacity",
+     "to": 0,
+     "word": "passes",
+     "dur": 0.2
+    },
+    {
+     "move": "hi1",
+     "prop": "opacity",
+     "to": 1,
+     "word": "passes",
+     "dur": 0.3,
+     "delay": 0.5
+    },
+    {
+     "move": "hi1",
+     "prop": "opacity",
+     "to": 0,
+     "word": "then",
+     "dur": 0.2
+    },
+    {
+     "move": "lo1",
+     "prop": "opacity",
+     "to": 1,
+     "word": "then",
+     "dur": 0.3
+    },
+    {
+     "move": "lo1",
+     "prop": "opacity",
+     "to": 0,
+     "word": "other",
+     "dur": 0.2
+    },
+    {
+     "move": "hi2",
+     "prop": "opacity",
+     "to": 1,
+     "word": "other",
+     "dur": 0.3,
+     "delay": 0.4
+    },
+    {
+     "move": "earth",
+     "prop": "spin",
+     "to": 1.5707963267948966,
+     "word": "passes",
+     "dur": 1.0,
+     "ease": "eio"
+    },
+    {
+     "move": "earth",
+     "prop": "spin",
+     "to": 4.71238898038469,
+     "word": "then",
+     "delay": 0.35,
+     "dur": 1.2,
+     "ease": "eio"
+    }
+   ]
+  },
+  {
+   "card": 4,
+   "label": "Earth from above with the Moon on the left and your beach under a pink bulge. A day later the Moon has moved a little on, so the bulge has moved and the beach must turn a bit further, marked by a pink arc, about 50 extra minutes.",
+   "elements": [
+    {
+     "id": "earth",
+     "part": "tideEarth",
+     "at": [
+      220,
+      160
+     ],
+     "params": {
+      "r": 58,
+      "shell": 7,
+      "bulge": 1,
+      "dir": 180,
+      "beach": 1,
+      "beachAt": 180,
+      "spin": 0
+     },
+     "word": "Moon"
+    },
+    {
+     "id": "ghost",
+     "circle": [
+      70.0,
+      160.00000000000003,
+      22
+     ],
+     "stroke": "ink@0.5",
+     "width": 0.7,
+     "dash": [
+      3,
+      3
+     ],
+     "word": "moves"
+    },
+    {
+     "id": "orbit",
+     "part": "arc",
+     "at": [
+      220,
+      160
+     ],
+     "params": {
+      "rx": 150,
+      "ry": 150,
+      "a0": 178,
+      "a1": 212,
+      "dash": 1,
+      "w": 0.7
+     },
+     "word": "also"
+    },
+    {
+     "id": "moon",
+     "part": "moon",
+     "at": [
+      70.0,
+      160.00000000000003
+     ],
+     "params": {
+      "r": 22,
+      "spin": 0.4
+     },
+     "word": "Moon"
+    },
+    {
+     "label": "MOON",
+     "anchor": [
+      84.05383194450249,
+      70.6072607388951
+     ],
+     "at": [
+      96.05383194450249,
+      38.60726073889511
+     ],
+     "align": "leading",
+     "word": "also"
+    },
+    {
+     "id": "extra",
+     "part": "arc",
+     "at": [
+      220,
+      160
+     ],
+     "params": {
+      "rx": 100,
+      "ry": 100,
+      "a0": 180,
+      "a1": 205,
+      "col": 1,
+      "w": 2.4
+     },
+     "word": "extra"
+    },
+    {
+     "label": "ABOUT 50\nEXTRA MINUTES",
+     "anchor": [
+      122.18523992661945,
+      139.20883091822404
+     ],
+     "at": [
+      110,
+      240
+     ],
+     "align": "leading",
+     "word": "extra"
+    },
+    {
+     "group": [
+      {
+       "circle": [
+        0,
+        0,
+        3.5
+       ],
+       "fill": "ink"
+      },
+      {
+       "circle": [
+        0,
+        0,
+        7
+       ],
+       "stroke": "ink@0.6",
+       "width": 0.6
+      }
+     ],
+     "at": [
+      26,
+      268
+     ],
+     "word": "beach"
+    },
+    {
+     "text": "YOUR BEACH",
+     "at": [
+      40,
+      268
+     ],
+     "align": "leading",
+     "size": 9.5,
+     "word": "beach"
+    }
+   ],
+   "moves": [
+    {
+     "move": "earth",
+     "prop": "dir",
+     "to": 205,
+     "word": "moves",
+     "dur": 2.0
+    },
+    {
+     "move": "moon",
+     "prop": "x",
+     "to": 84.1,
+     "word": "moves",
+     "dur": 2.0
+    },
+    {
+     "move": "moon",
+     "prop": "y",
+     "to": 96.6,
+     "word": "moves",
+     "dur": 2.0
+    },
+    {
+     "move": "earth",
+     "prop": "spin",
+     "to": 0.4363323129985824,
+     "word": "needs",
+     "dur": 1.6
+    },
+    {
+     "move": "earth",
+     "prop": "spin",
+     "to": 6.719517620178169,
+     "word": "stretches",
+     "dur": 4.2,
+     "ease": "linear"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,7 @@
+Why is the sky blue at noon and red at sunset? It's the same sky and the same Sun. The Sun looks yellow, but its light is really all colours mixed together, and air looks clear, but it isn't quite. So how does clear air turn sunlight into blue, and later red and orange?
+
+Light travels in waves, and each colour has its own length. Blue waves are short and red waves are long. Air is made of molecules, tiny bits of gas far too small to see. They scatter light, which means they send it off in all directions. So does air scatter blue light the same as red light?
+
+Air scatters blue about four times as strongly as red, so far more blue than red is sent off, and it reaches your eyes from all over the sky. The sky has no blue of its own: the blue was in the sunlight all along. So why is a sunset red and orange?
+
+At sunset the Sun is low, so its light slants through far more air. Right at the horizon, that is about 38 times as much air as when the Sun is straight overhead. On the way, much of the blue is scattered off in other directions and never reaches you, and red and orange are what is left. The Sun looks yellow at noon for the same reason: the air has already scattered some blue out of its light. So the scattering that turns the sky blue is what turns the sunset red.

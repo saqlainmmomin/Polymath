@@ -9,7 +9,18 @@ struct ScenePart {
     let on: Double
     let fill: Double
     let clock: Double
+    var look = SceneLook(.drafting)     // the topic's style: how this part's lines, fills and colours are drawn
+    var seed = 0                        // this element's own number, for Airbrush's hand wobble
     subscript(_ key: String, default d: Double) -> Double { p[key] ?? d }
+
+    /// Outlines `path` in the part's style (drawn on by `on` unless `p` says otherwise). `k` tells apart several strokes in one part.
+    func line(_ g: inout GraphicsContext, _ path: Path, width: Double? = nil, color: Color? = nil, dash: [CGFloat] = [], p: Double? = nil, k: Int = 0, offset: CGSize = .zero) {
+        look.stroke(&g, path, p: p ?? on, width: width, color: color, dash: dash, seed: seed &+ k &* 13, clock: clock, offset: offset)
+    }
+    /// Fills `path` in the part's style, faded in by `fill` (or `k`).
+    func paint(_ g: inout GraphicsContext, _ path: Path, _ shading: GraphicsContext.Shading, k: Double? = nil, n: Int = 0) {
+        look.fill(&g, path, shading, k: k ?? fill, seed: seed &+ n &* 13, clock: clock)
+    }
 }
 
 enum SceneParts {
@@ -17,9 +28,20 @@ enum SceneParts {
     static let names = ["glueTube", "bead", "waterDrop", "tear", "skin", "waterFilm", "calendar", "stopwatch", "plank",
                         "playingCard", "chips",
                         "terminal", "card", "heldCard", "envelope", "bank", "network", "shop", "yes", "slip",
-                        "phone", "battery", "meter", "tank", "snowflake", "ground"]
+                        "phone", "battery", "meter", "tank", "snowflake", "ground",
+                        "bike", "gearPair", "walker"]
 
+    /// Drafting's own parts, then (SceneParts+Wireframe, +Airbrush) the other styles'. Generic parts draw in whatever style the topic has.
     static func draw(_ name: String, _ c: inout GraphicsContext, _ q: ScenePart) {
+        if SceneGeneric.draw(name, &c, q) { return }
+        switch q.look.style {
+        case .wireframe: WFParts.draw(name, &c, q)
+        case .airbrush: ABParts.draw(name, &c, q)
+        default: drafting(name, &c, q)
+        }
+    }
+
+    private static func drafting(_ name: String, _ c: inout GraphicsContext, _ q: ScenePart) {
         switch name {
         case "glueTube":       // in its own frame, about x 22...187, y 89...151
             DR.glueTube(&c, on: q.on, fill: q.fill, clock: q.clock,
@@ -72,6 +94,14 @@ enum SceneParts {
             DR.snowflake(&c, on: q.on, size: q["size", default: 10])
         case "ground":        // centred at the origin; w wide
             DR.ground(&c, w: q["w", default: 280], on: q.on)
+        // made for bike-gears (DraftingBike.swift)
+        case "bike":          // 210 x 118, on the origin; wheel and crank = turns made; rear = back ring radius (10 big, 5 small); hot 1 = yellow back ring; rider 0 or 1; lever 0...1 yellow; lean = back angle
+            DR.bike(&c, on: q.on, fill: q.fill, wheel: q["wheel", default: 0], crank: q["crank", default: 0], rear: q["rear", default: 10],
+                    rider: q["rider", default: 0], lever: q["lever", default: 0], lean: q["lean", default: 45], hot: q["hot", default: 0] > 0.5)
+        case "gearPair":      // pedal ring (left, radius 40) and a back ring (right) with the chain, centred; turn = pedal turns, rear = back ring radius 28...14, marker 0 or 1
+            DR.gearPair(&c, on: q.on, fill: q.fill, turn: q["turn", default: 0], rear: q["rear", default: 28], marker: q["marker", default: 0])
+        case "walker":        // feet at the origin, 66 tall, facing right; stride -1...1, lean degrees, pack 0 or 1 (yellow)
+            DR.walker(&c, on: q.on, fill: q.fill, stride: q["stride", default: 0], lean: q["lean", default: 8], pack: q["pack", default: 0] > 0.5)
         default: break
         }
     }

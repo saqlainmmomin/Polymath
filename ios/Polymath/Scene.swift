@@ -104,7 +104,7 @@ struct SceneStage: View {
             var c = ctx
             c.translateBy(x: (size.width - self.size.width * u) / 2, y: (size.height - self.size.height * u) / 2)
             c.scaleBy(x: u, y: u)
-            SceneRenderer(scene: scene, words: words, t: t, clock: reduce ? 2.2 : t).draw(&c)
+            SceneRenderer(scene: scene, words: words, t: t, clock: reduce ? 2.2 : t, look: SceneLook(topic.look)).draw(&c)
         }
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(scene.label)
@@ -123,6 +123,7 @@ struct SceneRenderer {
     let words: [(String, Double)]
     let t: Double          // seconds into the beat
     let clock: Double
+    var look = SceneLook(.drafting)    // the topic's style: colours, line widths, label look, how a shape is stroked and filled
 
     static func norm(_ s: String) -> String { String(s.lowercased().unicodeScalars.filter { CharacterSet.alphanumerics.contains($0) }) }
 
@@ -146,7 +147,7 @@ struct SceneRenderer {
     }
 
     func draw(_ c: inout GraphicsContext) {
-        for e in scene.elements { draw(e, &c) }
+        for (i, e) in scene.elements.enumerated() { draw(e, &c, key: i + 1) }
     }
 
     /// The value of `prop` on `e` now: its base, then every move on it in start order.
@@ -165,7 +166,9 @@ struct SceneRenderer {
         return v
     }
 
-    private func draw(_ e: SceneElement, _ c: inout GraphicsContext) {
+    /// `key` is the element's place in the scene (children: parent's key times 31 plus their index), so each one's hand wobble is stable.
+    private func draw(_ e: SceneElement, _ c: inout GraphicsContext, key: Int) {
+        if let h = Launch.hide, h == "all" || (e.label != nil || e.text != nil) { return }
         let opacity = value(e, "opacity", base: e.hidden == true ? 0 : 1)
         guard opacity > 0.005 else { return }
         let start = time(of: e.word) + (e.delay ?? 0)
@@ -186,38 +189,20 @@ struct SceneRenderer {
 
         if let kids = e.group {
             if let clip = e.clip, let shape = Self.shape(clip.circle, clip.rect, clip.path) { g.clip(to: shape) }
-            for k in kids { draw(k, &g) }
+            for (i, k) in kids.enumerated() { draw(k, &g, key: key &* 31 &+ i &+ 1) }
         } else if let name = e.part {
             var p = e.params ?? [:]
-            for key in p.keys { p[key] = value(e, key, base: p[key]!) }
-            SceneParts.draw(name, &g, ScenePart(p: p, on: on, fill: fillIn, clock: clock))
+            for pk in p.keys { p[pk] = value(e, pk, base: p[pk]!) }
+            SceneParts.draw(name, &g, ScenePart(p: p, on: on, fill: fillIn, clock: clock, look: look, seed: key &* 101))
         } else if let text = e.label {
             let a = e.anchor ?? [0, 0], to = e.at ?? a
-            DR.label(&g, text, anchor: CGPoint(x: a[0], y: a[1]), at: CGPoint(x: to[0], y: to[1]),
-                     align: e.align == "center" ? .center : e.align == "trailing" ? .trailing : .leading, p: on)
+            look.label(&g, text, anchor: CGPoint(x: a[0], y: a[1]), at: CGPoint(x: to[0], y: to[1]),
+                       align: e.align == "center" ? .center : e.align == "trailing" ? .trailing : .leading, p: on, size: e.size, seed: key &* 101, clock: clock)
         } else if let text = e.text {
-            let w: Font.Weight = e.weight == "bold" ? .bold : e.weight == "regular" ? .regular : .semibold
-            let col = Self.color(e.stroke == nil || e.stroke == "none" ? "ink" : e.stroke!) ?? DR.ink
-            let r = g.resolve(Text(text).font(.system(size: e.size ?? 8.5, weight: w, design: .rounded)).tracking(0.6).foregroundColor(col))
-            var tg = g; tg.opacity *= on
-            tg.draw(r, at: .zero, anchor: e.align == "leading" ? .leading : e.align == "trailing" ? .trailing : .center)
+            look.text(&g, text, size: e.size, weight: e.weight, align: e.align, color: e.stroke.flatMap { $0 == "none" ? nil : look.color($0) }, p: on, seed: key &* 101, clock: clock)
         } else if let shape = Self.shape(e.circle, e.rect, e.path) {
-            if let f = e.fill.flatMap(Self.color) {
-                var fg = g; fg.opacity *= fillIn
-                fg.fill(shape, with: .color(f))
-                if let h = e.hatch { Self.hatch(&fg, shape, h) }
-            } else if let h = e.hatch {
-                var fg = g; fg.opacity *= fillIn; Self.hatch(&fg, shape, h)
-            }
-            if e.stroke != "none" {
-                DR.draw(&g, shape, p: on, width: e.width ?? DR.line, color: Self.color(e.stroke ?? "ink") ?? DR.ink, dash: (e.dash ?? []).map { CGFloat($0) })
-            }
+            look.shape(&g, shape, e, on: on, fillIn: fillIn, seed: key &* 101, clock: clock)
         }
-    }
-
-    private static func hatch(_ g: inout GraphicsContext, _ shape: Path, _ h: SceneHatch) {
-        let r = h.band.map { CGRect(x: $0[0], y: $0[1], width: $0[2], height: $0[3]) } ?? shape.boundingRect
-        DR.hatch(&g, shape, in: r, spacing: h.spacing ?? 4, alpha: h.alpha ?? 0.35)
     }
 
     static func shape(_ circle: [Double]?, _ rect: [Double]?, _ path: String?) -> Path? {
@@ -225,23 +210,6 @@ struct SceneRenderer {
         if let r = rect, r.count >= 4 { return Path(roundedRect: CGRect(x: r[0], y: r[1], width: r[2], height: r[3]), cornerRadius: r.count > 4 ? r[4] : 0) }
         if let p = path { return SVGPath.parse(p) }
         return nil
-    }
-
-    /// Kit colours by name, with an optional alpha: "ink", "ink@0.4", "accent", "accentSide", "face", "side", "paper", "white".
-    static func color(_ name: String) -> Color? {
-        let bits = name.split(separator: "@"), a = bits.count > 1 ? Double(bits[1]) ?? 1 : 1
-        let base: Color
-        switch bits.first ?? "" {
-        case "ink": base = DR.ink
-        case "accent": base = DR.accent
-        case "accentSide": base = DR.accentSide
-        case "face": base = DR.face
-        case "side": base = DR.side
-        case "paper": base = DR.paper
-        case "white": base = .white
-        default: return nil
-        }
-        return a == 1 ? base : base.opacity(a)
     }
 }
 

@@ -1,0 +1,1119 @@
+{
+ "scenes": [
+  {
+   "card": 0,
+   "label": "A glowing yellow Sun above a band of coloured rays, red to blue, passing into a dashed patch of clear air with a few tiny air molecules. Below, a blue sky patch labelled noon and an orange sunset patch labelled sunset, each with a question mark.",
+   "elements": [
+    {
+     "id": "sun",
+     "part": "sun",
+     "at": [
+      171,
+      40
+     ],
+     "params": {
+      "r": 26,
+      "rays": 1
+     },
+     "wobble": [
+      {
+       "prop": "r",
+       "amp": 1.2,
+       "speed": 2.4
+      }
+     ]
+    },
+    {
+     "label": "THE SUN",
+     "anchor": [
+      200,
+      42
+     ],
+     "at": [
+      236,
+      30
+     ],
+     "align": "leading",
+     "word": "Sun"
+    },
+    {
+     "rect": [
+      146,
+      88,
+      9,
+      32,
+      3
+     ],
+     "fill": "salmon",
+     "word": "light",
+     "delay": 0.0
+    },
+    {
+     "rect": [
+      156,
+      88,
+      9,
+      32,
+      3
+     ],
+     "fill": "orange",
+     "word": "light",
+     "delay": 0.12
+    },
+    {
+     "rect": [
+      166,
+      88,
+      9,
+      32,
+      3
+     ],
+     "fill": "yellow",
+     "word": "light",
+     "delay": 0.24
+    },
+    {
+     "rect": [
+      176,
+      88,
+      9,
+      32,
+      3
+     ],
+     "fill": "lime",
+     "word": "light",
+     "delay": 0.36
+    },
+    {
+     "rect": [
+      186,
+      88,
+      9,
+      32,
+      3
+     ],
+     "fill": "blue",
+     "word": "light",
+     "delay": 0.48
+    },
+    {
+     "label": "ALL COLOURS\nMIXED",
+     "anchor": [
+      203,
+      104
+     ],
+     "at": [
+      222,
+      104
+     ],
+     "align": "leading",
+     "word": "colours"
+    },
+    {
+     "id": "airbox",
+     "rect": [
+      76,
+      126,
+      190,
+      40,
+      14
+     ],
+     "stroke": "ink@0.55",
+     "dash": [
+      4,
+      4
+     ],
+     "width": 1.4,
+     "word": "clear"
+    },
+    {
+     "id": "airsp",
+     "part": "spray",
+     "at": [
+      171,
+      146
+     ],
+     "params": {
+      "rx": 86,
+      "ry": 15,
+      "col": 2,
+      "alpha": 0.2,
+      "grow": 1
+     },
+     "word": "clear"
+    },
+    {
+     "label": "CLEAR AIR",
+     "anchor": [
+      266,
+      146
+     ],
+     "at": [
+      276,
+      146
+     ],
+     "align": "leading",
+     "word": "clear",
+     "delay": 0.2
+    },
+    {
+     "part": "molecule",
+     "at": [
+      104,
+      136
+     ],
+     "params": {
+      "r": 3.2
+     },
+     "word": "isn't",
+     "delay": 0.0
+    },
+    {
+     "part": "molecule",
+     "at": [
+      130,
+      152
+     ],
+     "params": {
+      "r": 3.2
+     },
+     "word": "isn't",
+     "delay": 0.12
+    },
+    {
+     "part": "molecule",
+     "at": [
+      160,
+      134
+     ],
+     "params": {
+      "r": 3.2
+     },
+     "word": "isn't",
+     "delay": 0.24
+    },
+    {
+     "part": "molecule",
+     "at": [
+      190,
+      154
+     ],
+     "params": {
+      "r": 3.2
+     },
+     "word": "isn't",
+     "delay": 0.36
+    },
+    {
+     "part": "molecule",
+     "at": [
+      220,
+      136
+     ],
+     "params": {
+      "r": 3.2
+     },
+     "word": "isn't",
+     "delay": 0.48
+    },
+    {
+     "part": "molecule",
+     "at": [
+      246,
+      152
+     ],
+     "params": {
+      "r": 3.2
+     },
+     "word": "isn't",
+     "delay": 0.6
+    },
+    {
+     "part": "molecule",
+     "at": [
+      120,
+      124
+     ],
+     "params": {
+      "r": 3.2
+     },
+     "word": "isn't",
+     "delay": 0.72
+    },
+    {
+     "id": "skyB",
+     "rect": [
+      30,
+      190,
+      124,
+      44,
+      14
+     ],
+     "fill": "blue",
+     "word": "blue"
+    },
+    {
+     "id": "skyR",
+     "rect": [
+      189,
+      190,
+      124,
+      44,
+      14
+     ],
+     "fill": "vg:orange:salmon",
+     "word": "red"
+    },
+    {
+     "id": "q1",
+     "text": "?",
+     "at": [
+      92,
+      224
+     ],
+     "size": 34,
+     "stroke": "white",
+     "word": "noon",
+     "onpicture": true
+    },
+    {
+     "id": "q2",
+     "text": "?",
+     "at": [
+      251,
+      224
+     ],
+     "size": 34,
+     "stroke": "white",
+     "word": "sunset",
+     "onpicture": true
+    },
+    {
+     "label": "NOON",
+     "anchor": [
+      92,
+      236
+     ],
+     "at": [
+      92,
+      250
+     ],
+     "align": "center",
+     "word": "noon"
+    },
+    {
+     "label": "SUNSET",
+     "anchor": [
+      251,
+      236
+     ],
+     "at": [
+      251,
+      250
+     ],
+     "align": "center",
+     "word": "sunset"
+    },
+    {
+     "part": "arrow",
+     "at": [
+      120,
+      170
+     ],
+     "rotate": 112,
+     "params": {
+      "len": 14,
+      "col": 0,
+      "w": 1.8,
+      "head": 7
+     },
+     "word": "turn"
+    },
+    {
+     "part": "arrow",
+     "at": [
+      222,
+      170
+     ],
+     "rotate": 68,
+     "params": {
+      "len": 14,
+      "col": 0,
+      "w": 1.8,
+      "head": 7
+     },
+     "word": "turn",
+     "delay": 0.3
+    }
+   ],
+   "moves": []
+  },
+  {
+   "card": 1,
+   "label": "A short blue wave and a long red wave run toward one molecule of air, two round atoms. The molecule sends light off in every direction, drawn as many short blue strokes and a few red ones fanning out of it.",
+   "elements": [
+    {
+     "id": "airbox",
+     "rect": [
+      76,
+      84,
+      190,
+      150
+     ],
+     "stroke": "ink@0.35",
+     "width": 0.8,
+     "dash": [
+      4,
+      4
+     ],
+     "fill": "none",
+     "word": "Air"
+    },
+    {
+     "id": "mol",
+     "part": "molecule",
+     "at": [
+      171,
+      150
+     ],
+     "params": {
+      "r": 30,
+      "glow": 0
+     },
+     "word": "molecules"
+    },
+    {
+     "id": "bw",
+     "part": "wave",
+     "at": [
+      12,
+      96
+     ],
+     "rotate": 17,
+     "params": {
+      "len": 104,
+      "amp": 8,
+      "wl": 24,
+      "speed": 5,
+      "col": 2,
+      "w": 2.6
+     },
+     "word": "Light"
+    },
+    {
+     "id": "rw",
+     "part": "wave",
+     "at": [
+      12,
+      208
+     ],
+     "rotate": -19,
+     "params": {
+      "len": 104,
+      "amp": 14,
+      "wl": 72,
+      "speed": 2,
+      "col": 9,
+      "w": 2.6
+     },
+     "word": "Light",
+     "delay": 0.3
+    },
+    {
+     "label": "BLUE WAVE:\nSHORT",
+     "anchor": [
+      64,
+      111
+     ],
+     "at": [
+      64,
+      70
+     ],
+     "align": "center",
+     "word": "short"
+    },
+    {
+     "label": "RED WAVE:\nLONG",
+     "anchor": [
+      64,
+      190
+     ],
+     "at": [
+      64,
+      236
+     ],
+     "align": "center",
+     "word": "long"
+    },
+    {
+     "label": "MOLECULE\nOF AIR",
+     "anchor": [
+      171,
+      122
+     ],
+     "at": [
+      171,
+      54
+     ],
+     "align": "center",
+     "word": "gas"
+    },
+    {
+     "id": "sc",
+     "part": "scatter",
+     "at": [
+      171,
+      150
+     ],
+     "params": {
+      "n": 10,
+      "len": 0,
+      "r0": 40,
+      "col": 2,
+      "rot": 10
+     },
+     "word": "scatter"
+    },
+    {
+     "id": "sr",
+     "part": "scatter",
+     "at": [
+      171,
+      150
+     ],
+     "params": {
+      "n": 3,
+      "len": 0,
+      "r0": 40,
+      "col": 9,
+      "rot": 40
+     },
+     "word": "scatter#2"
+    },
+    {
+     "label": "ALL DIRECTIONS",
+     "anchor": [
+      216,
+      190
+     ],
+     "at": [
+      216,
+      258
+     ],
+     "align": "center",
+     "word": "directions"
+    }
+   ],
+   "moves": [
+    {
+     "move": "sc",
+     "prop": "len",
+     "to": 30,
+     "word": "scatter",
+     "dur": 0.8
+    },
+    {
+     "move": "sc",
+     "prop": "len",
+     "to": 38,
+     "word": "scatter#2",
+     "dur": 0.8
+    },
+    {
+     "move": "sr",
+     "prop": "len",
+     "to": 22,
+     "word": "scatter#2",
+     "dur": 0.8
+    },
+    {
+     "move": "mol",
+     "prop": "glow",
+     "to": 1,
+     "word": "scatter#2",
+     "dur": 0.4
+    },
+    {
+     "move": "mol",
+     "prop": "glow",
+     "to": 0,
+     "word": "send",
+     "dur": 0.6
+    }
+   ]
+  },
+  {
+   "card": 2,
+   "label": "Sunlight crosses a band of air from a small Sun on the left. Many blue strokes fan out in every direction from three points in the air, a few red ones too, and dashed blue lines run from those points down to an eye on the ground.",
+   "elements": [
+    {
+     "id": "air",
+     "part": "spray",
+     "at": [
+      171,
+      110
+     ],
+     "params": {
+      "rx": 150,
+      "ry": 36,
+      "col": 2,
+      "alpha": 0.28,
+      "grow": 1
+     },
+     "word": "Air"
+    },
+    {
+     "id": "sun",
+     "part": "sun",
+     "at": [
+      26,
+      106
+     ],
+     "params": {
+      "r": 16,
+      "rays": 1
+     }
+    },
+    {
+     "id": "beam",
+     "path": "M44 106 L333 106",
+     "stroke": "yellow",
+     "width": 4,
+     "word": "Air"
+    },
+    {
+     "label": "SUNLIGHT",
+     "anchor": [
+      50,
+      106
+     ],
+     "at": [
+      36,
+      72
+     ],
+     "align": "center",
+     "word": "Air",
+     "delay": 0.2
+    },
+    {
+     "label": "AIR",
+     "anchor": [
+      292,
+      128
+     ],
+     "at": [
+      306,
+      158
+     ],
+     "align": "leading",
+     "word": "Air",
+     "delay": 0.3
+    },
+    {
+     "part": "scatter",
+     "at": [
+      90,
+      106
+     ],
+     "params": {
+      "n": 10,
+      "len": 28,
+      "r0": 8,
+      "col": 2,
+      "rot": 0
+     },
+     "word": "blue",
+     "delay": 0.0
+    },
+    {
+     "part": "scatter",
+     "at": [
+      90,
+      106
+     ],
+     "params": {
+      "n": 3,
+      "len": 14,
+      "r0": 8,
+      "col": 9,
+      "rot": 40
+     },
+     "word": "red",
+     "delay": 0.0
+    },
+    {
+     "part": "scatter",
+     "at": [
+      171,
+      106
+     ],
+     "params": {
+      "n": 10,
+      "len": 28,
+      "r0": 8,
+      "col": 2,
+      "rot": 9
+     },
+     "word": "blue",
+     "delay": 0.3
+    },
+    {
+     "part": "scatter",
+     "at": [
+      171,
+      106
+     ],
+     "params": {
+      "n": 3,
+      "len": 14,
+      "r0": 8,
+      "col": 9,
+      "rot": 60
+     },
+     "word": "red",
+     "delay": 0.3
+    },
+    {
+     "part": "scatter",
+     "at": [
+      252,
+      106
+     ],
+     "params": {
+      "n": 10,
+      "len": 28,
+      "r0": 8,
+      "col": 2,
+      "rot": 18
+     },
+     "word": "blue",
+     "delay": 0.6
+    },
+    {
+     "part": "scatter",
+     "at": [
+      252,
+      106
+     ],
+     "params": {
+      "n": 3,
+      "len": 14,
+      "r0": 8,
+      "col": 9,
+      "rot": 80
+     },
+     "word": "red",
+     "delay": 0.6
+    },
+    {
+     "id": "ray0",
+     "path": "M90 116 L161.28 204",
+     "stroke": "blue",
+     "width": 1.8,
+     "dash": [
+      5,
+      4
+     ],
+     "word": "reaches",
+     "delay": 0.0,
+     "draw": 1.0
+    },
+    {
+     "id": "ray1",
+     "path": "M171 116 L171.0 204",
+     "stroke": "blue",
+     "width": 1.8,
+     "dash": [
+      5,
+      4
+     ],
+     "word": "reaches",
+     "delay": 0.3,
+     "draw": 1.0
+    },
+    {
+     "id": "ray2",
+     "path": "M252 116 L180.72 204",
+     "stroke": "blue",
+     "width": 1.8,
+     "dash": [
+      5,
+      4
+     ],
+     "word": "reaches",
+     "delay": 0.6,
+     "draw": 1.0
+    },
+    {
+     "part": "ground",
+     "at": [
+      171,
+      254
+     ],
+     "params": {
+      "w": 150
+     }
+    },
+    {
+     "id": "eye",
+     "part": "eye",
+     "at": [
+      171,
+      226
+     ],
+     "scale": 1.2,
+     "params": {
+      "look": 0
+     },
+     "word": "eyes"
+    },
+    {
+     "text": "BLUE: ABOUT FOUR TIMES",
+     "at": [
+      171,
+      18
+     ],
+     "size": 20,
+     "word": "strongly"
+    },
+    {
+     "text": "AS STRONGLY AS RED",
+     "at": [
+      171,
+      42
+     ],
+     "size": 20,
+     "word": "strongly",
+     "delay": 0.15
+    },
+    {
+     "label": "RED",
+     "anchor": [
+      270,
+      90
+     ],
+     "at": [
+      298,
+      56
+     ],
+     "align": "leading",
+     "word": "red"
+    },
+    {
+     "label": "ALL OVER\nTHE SKY",
+     "anchor": [
+      128,
+      164
+     ],
+     "at": [
+      106,
+      202
+     ],
+     "align": "trailing",
+     "word": "all"
+    },
+    {
+     "label": "YOUR EYES",
+     "anchor": [
+      196,
+      228
+     ],
+     "at": [
+      226,
+      222
+     ],
+     "align": "leading",
+     "word": "eyes"
+    }
+   ],
+   "moves": [
+    {
+     "move": "eye",
+     "prop": "look",
+     "to": 0.0,
+     "word": "reaches",
+     "dur": 0.3
+    }
+   ]
+  },
+  {
+   "card": 3,
+   "label": "The top of the Earth with a band of blue air round it. A low orange Sun at the left sends a long ray skimming through the air to an eye; the ray turns from yellow to orange to red and blue strokes peel off it. A small Sun straight overhead sends a short ray straight down.",
+   "elements": [
+    {
+     "id": "limb",
+     "part": "earthLimb",
+     "at": [
+      171,
+      520
+     ],
+     "params": {
+      "R": 330,
+      "th": 36,
+      "a0": 232,
+      "a1": 308
+     },
+     "word": "sunset"
+    },
+    {
+     "part": "glow",
+     "at": [
+      24,
+      182
+     ],
+     "params": {
+      "r": 52,
+      "col": 3,
+      "col2": 3,
+      "alpha": 0.85
+     },
+     "word": "sunset"
+    },
+    {
+     "id": "low",
+     "part": "sun",
+     "at": [
+      24,
+      182
+     ],
+     "params": {
+      "r": 18,
+      "rays": 0
+     },
+     "word": "sunset"
+    },
+    {
+     "label": "LOW SUN",
+     "anchor": [
+      24,
+      160
+     ],
+     "at": [
+      14,
+      128
+     ],
+     "align": "leading",
+     "word": "low"
+    },
+    {
+     "id": "s1",
+     "path": "M46 182 L84 182",
+     "stroke": "yellow",
+     "width": 4,
+     "word": "slants"
+    },
+    {
+     "id": "s2",
+     "path": "M84 182 L120 182",
+     "stroke": "orange",
+     "width": 4,
+     "word": "far"
+    },
+    {
+     "id": "s3",
+     "path": "M120 182 L158 182",
+     "stroke": "salmon",
+     "width": 4.4,
+     "word": "orange"
+    },
+    {
+     "id": "air1",
+     "label": "FAR MORE AIR",
+     "anchor": [
+      84,
+      172
+     ],
+     "at": [
+      96,
+      80
+     ],
+     "align": "center",
+     "word": "air"
+    },
+    {
+     "id": "air2",
+     "label": "ABOUT 38 TIMES\nAS MUCH AIR",
+     "anchor": [
+      84,
+      172
+     ],
+     "at": [
+      96,
+      80
+     ],
+     "align": "center",
+     "word": "38",
+     "hidden": true
+    },
+    {
+     "id": "eye",
+     "part": "eye",
+     "at": [
+      171,
+      166
+     ],
+     "scale": 0.9,
+     "params": {
+      "look": -0.6
+     },
+     "word": "sunset"
+    },
+    {
+     "label": "YOUR EYES",
+     "anchor": [
+      196,
+      166
+     ],
+     "at": [
+      222,
+      138
+     ],
+     "align": "leading",
+     "word": "you"
+    },
+    {
+     "id": "top",
+     "part": "sun",
+     "at": [
+      171,
+      34
+     ],
+     "params": {
+      "r": 13,
+      "rays": 1
+     },
+     "word": "overhead"
+    },
+    {
+     "id": "vray",
+     "path": "M171 52 L171 146",
+     "stroke": "yellow",
+     "width": 3,
+     "word": "overhead",
+     "draw": 1.2
+    },
+    {
+     "label": "SUN OVERHEAD",
+     "anchor": [
+      186,
+      32
+     ],
+     "at": [
+      210,
+      22
+     ],
+     "align": "leading",
+     "word": "overhead"
+    },
+    {
+     "part": "scatter",
+     "at": [
+      70,
+      178
+     ],
+     "params": {
+      "n": 7,
+      "len": 20,
+      "r0": 6,
+      "col": 2,
+      "rot": 0
+     },
+     "word": "blue",
+     "delay": 0.0
+    },
+    {
+     "part": "scatter",
+     "at": [
+      100,
+      178
+     ],
+     "params": {
+      "n": 7,
+      "len": 20,
+      "r0": 6,
+      "col": 2,
+      "rot": 13
+     },
+     "word": "blue",
+     "delay": 0.4
+    },
+    {
+     "part": "scatter",
+     "at": [
+      130,
+      178
+     ],
+     "params": {
+      "n": 7,
+      "len": 20,
+      "r0": 6,
+      "col": 2,
+      "rot": 26
+     },
+     "word": "blue",
+     "delay": 0.8
+    },
+    {
+     "label": "BLUE SCATTERED\nOFF",
+     "anchor": [
+      100,
+      178
+     ],
+     "at": [
+      60,
+      238
+     ],
+     "align": "center",
+     "word": "scattered",
+     "onpicture": true
+    },
+    {
+     "label": "RED AND\nORANGE",
+     "anchor": [
+      150,
+      182
+     ],
+     "at": [
+      172,
+      232
+     ],
+     "align": "center",
+     "word": "Red",
+     "onpicture": true
+    },
+    {
+     "part": "scatter",
+     "at": [
+      171,
+      100
+     ],
+     "params": {
+      "n": 6,
+      "len": 12,
+      "r0": 5,
+      "col": 2,
+      "rot": 10
+     },
+     "word": "already"
+    }
+   ],
+   "moves": [
+    {
+     "move": "air1",
+     "prop": "opacity",
+     "to": 0,
+     "word": "38",
+     "dur": 0.3
+    },
+    {
+     "move": "air2",
+     "prop": "opacity",
+     "to": 1,
+     "word": "38",
+     "dur": 0.4,
+     "delay": 0.2
+    }
+   ]
+  }
+ ]
+}

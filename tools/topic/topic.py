@@ -10,6 +10,7 @@ tools/voice/<id>.txt is drafted from the cards if it is missing. Steps, each tim
     build   ios/run.sh                      builds the simulator app and installs it
     frames  scene.py frames <id>            one screenshot per moment of each card
     sheets  one contact sheet per card      ios/build/frames/<id>/card<N>.png, frames in time order with their second on top
+    lint    scene.py lint <id>              words printed on the picture and blank cards, found by diffing frames shot with and without the words
     phone   ios/run-device.sh <id>          only with --phone
 
 The agent looks at the sheets (what to look for: .claude/skills/topic/drafting.md), fixes the scene file and runs this again.
@@ -95,6 +96,8 @@ def make(a):
             old.unlink()
         step("frames", lambda: run([sys.executable, str(ROOT / "tools" / "scene" / "scene.py"), "frames", tid, "--out", str(out)]))
         step("sheets", lambda: sheets(tid, out))
+        if not a.skip_lint:      # words printed on the picture, blank cards: reported, never stops the make
+            step("lint", lambda: run([sys.executable, str(ROOT / "tools" / "scene" / "scene.py"), "lint", tid, "--out", str(out)]) or True)
     if a.phone:
         step("phone", lambda: run(["./run-device.sh", tid], cwd=IOS))
     summary()
@@ -104,7 +107,7 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("cmd", choices=["make"]); ap.add_argument("id")
     ap.add_argument("--phone", action="store_true", help="also build and launch on the iPhone")
-    ap.add_argument("--skip-voice", action="store_true"); ap.add_argument("--skip-frames", action="store_true")
+    ap.add_argument("--skip-voice", action="store_true"); ap.add_argument("--skip-frames", action="store_true"); ap.add_argument("--skip-lint", action="store_true")
     make(ap.parse_args())
 
 
