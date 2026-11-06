@@ -1,0 +1,1148 @@
+{
+ "scenes": [
+  {
+   "card": 0,
+   "label": "A chili drops capsaicin onto skin; an orange heat sensor lights up and sends a yellow signal to a brain that glows under the words burning hot; below, the words nothing is hot.",
+   "elements": [
+    {
+     "id": "skin",
+     "part": "skinCut",
+     "at": [
+      170,
+      158
+     ],
+     "params": {
+      "w": 200,
+      "d": 76,
+      "hair": 0
+     },
+     "word": "spicy"
+    },
+    {
+     "id": "pod",
+     "path": "M40 84 C66 72 100 90 112 128 C96 114 72 104 44 108 C32 100 32 90 40 84 Z",
+     "fill": "salmon",
+     "word": "chili"
+    },
+    {
+     "id": "stem",
+     "path": "M40 84 C34 78 30 72 34 66 L44 70 C44 76 44 80 46 84 Z",
+     "fill": "lime",
+     "word": "chili"
+    },
+    {
+     "id": "d0",
+     "circle": [
+      118,
+      130,
+      5
+     ],
+     "fill": "orange",
+     "hidden": true
+    },
+    {
+     "id": "d1",
+     "circle": [
+      124,
+      134,
+      4.5
+     ],
+     "fill": "orange",
+     "hidden": true
+    },
+    {
+     "id": "d2",
+     "circle": [
+      130,
+      130,
+      5
+     ],
+     "fill": "orange",
+     "hidden": true
+    },
+    {
+     "label": "CAPSAICIN",
+     "anchor": [
+      96,
+      96
+     ],
+     "at": [
+      80,
+      54
+     ],
+     "align": "center",
+     "word": "capsaicin"
+    },
+    {
+     "id": "nerve",
+     "part": "nerve",
+     "at": [
+      170,
+      176
+     ],
+     "params": {
+      "kind": 1,
+      "len": 40,
+      "lit": 0,
+      "sig": 0
+     },
+     "word": "sensor"
+    },
+    {
+     "label": "HEAT\nSENSOR",
+     "anchor": [
+      162,
+      176
+     ],
+     "at": [
+      60,
+      176
+     ],
+     "align": "trailing",
+     "word": "sensor",
+     "delay": 0.2
+    },
+    {
+     "id": "tr",
+     "path": "M170 216 L170 236 L284 236 L284 134",
+     "stroke": "ink@0.6",
+     "width": 1.3,
+     "word": "brain"
+    },
+    {
+     "id": "brain",
+     "part": "brain",
+     "at": [
+      284,
+      98
+     ],
+     "scale": 0.85,
+     "params": {
+      "lit": 0
+     },
+     "word": "brain"
+    },
+    {
+     "label": "YOUR BRAIN",
+     "anchor": [
+      246,
+      98
+     ],
+     "at": [
+      208,
+      70
+     ],
+     "align": "trailing",
+     "word": "brain",
+     "delay": 0.1
+    },
+    {
+     "id": "b",
+     "group": [
+      {
+       "circle": [
+        0,
+        0,
+        4
+       ],
+       "fill": "yellow"
+      }
+     ],
+     "at": [
+      170,
+      216
+     ],
+     "hidden": true
+    },
+    {
+     "id": "hot",
+     "text": "BURNING\nHOT",
+     "at": [
+      262,
+      34
+     ],
+     "size": 28,
+     "word": "burning",
+     "hidden": true,
+     "scale": 0.4,
+     "onpicture": true
+    },
+    {
+     "id": "no",
+     "text": "NOTHING IS HOT",
+     "at": [
+      150,
+      262
+     ],
+     "size": 22,
+     "word": "nothing",
+     "hidden": true,
+     "scale": 0.4,
+     "onpicture": true
+    },
+    {
+     "id": "real",
+     "text": "REAL HEAT: OVER 43\u00b0C",
+     "at": [
+      150,
+      262
+     ],
+     "size": 22,
+     "word": "normally",
+     "hidden": true,
+     "scale": 0.4,
+     "onpicture": true
+    }
+   ],
+   "moves": [
+    {
+     "move": "d0",
+     "prop": "opacity",
+     "to": 1,
+     "word": "capsaicin",
+     "dur": 0.1
+    },
+    {
+     "move": "d1",
+     "prop": "opacity",
+     "to": 1,
+     "word": "capsaicin",
+     "dur": 0.1,
+     "delay": 0.1
+    },
+    {
+     "move": "d2",
+     "prop": "opacity",
+     "to": 1,
+     "word": "capsaicin",
+     "dur": 0.1,
+     "delay": 0.2
+    },
+    {
+     "move": "d0",
+     "prop": "y",
+     "to": 160,
+     "word": "capsaicin",
+     "dur": 0.6,
+     "ease": "fall"
+    },
+    {
+     "move": "d1",
+     "prop": "y",
+     "to": 162,
+     "word": "capsaicin",
+     "dur": 0.6,
+     "delay": 0.1,
+     "ease": "fall"
+    },
+    {
+     "move": "d2",
+     "prop": "y",
+     "to": 160,
+     "word": "capsaicin",
+     "dur": 0.6,
+     "delay": 0.2,
+     "ease": "fall"
+    },
+    {
+     "move": "d0",
+     "prop": "opacity",
+     "to": 0,
+     "word": "switches",
+     "dur": 0.2
+    },
+    {
+     "move": "d1",
+     "prop": "opacity",
+     "to": 0,
+     "word": "switches",
+     "dur": 0.2
+    },
+    {
+     "move": "d2",
+     "prop": "opacity",
+     "to": 0,
+     "word": "switches",
+     "dur": 0.2
+    },
+    {
+     "move": "nerve",
+     "prop": "lit",
+     "to": 1,
+     "word": "switches",
+     "dur": 0.4,
+     "delay": 0.2
+    },
+    {
+     "move": "nerve",
+     "prop": "sig",
+     "to": 1,
+     "word": "brain",
+     "dur": 0.6,
+     "ease": "linear"
+    },
+    {
+     "move": "b",
+     "prop": "opacity",
+     "to": 1,
+     "word": "brain",
+     "dur": 0.1,
+     "delay": 0.6
+    },
+    {
+     "move": "b",
+     "prop": "x",
+     "to": 284,
+     "word": "brain",
+     "dur": 0.8,
+     "delay": 0.6,
+     "ease": "linear"
+    },
+    {
+     "move": "b",
+     "prop": "y",
+     "to": 134,
+     "word": "brain",
+     "dur": 0.5,
+     "delay": 1.4,
+     "ease": "linear"
+    },
+    {
+     "move": "b",
+     "prop": "opacity",
+     "to": 0,
+     "word": "burning",
+     "dur": 0.2,
+     "delay": 0.7
+    },
+    {
+     "move": "brain",
+     "prop": "lit",
+     "to": 1,
+     "word": "burning",
+     "dur": 0.5,
+     "delay": 0.3
+    },
+    {
+     "move": "hot",
+     "prop": "opacity",
+     "to": 1,
+     "word": "burning",
+     "dur": 0.3,
+     "delay": 0.3
+    },
+    {
+     "move": "hot",
+     "prop": "scale",
+     "to": 1.0,
+     "word": "burning",
+     "dur": 0.5,
+     "delay": 0.3,
+     "ease": "snap"
+    },
+    {
+     "move": "no",
+     "prop": "opacity",
+     "to": 1,
+     "word": "nothing",
+     "dur": 0.3
+    },
+    {
+     "move": "no",
+     "prop": "scale",
+     "to": 1.0,
+     "word": "nothing",
+     "dur": 0.5,
+     "ease": "snap"
+    },
+    {
+     "move": "real",
+     "prop": "opacity",
+     "to": 1,
+     "word": "normally",
+     "dur": 0.3
+    },
+    {
+     "move": "real",
+     "prop": "scale",
+     "to": 1.0,
+     "word": "normally",
+     "dur": 0.5,
+     "ease": "snap"
+    },
+    {
+     "move": "real",
+     "prop": "opacity",
+     "to": 0,
+     "word": "brain",
+     "dur": 0.3
+    },
+    {
+     "move": "hot",
+     "prop": "scale",
+     "to": 1.15,
+     "word": "burn",
+     "dur": 0.3
+    },
+    {
+     "move": "hot",
+     "prop": "scale",
+     "to": 1.0,
+     "word": "burn",
+     "dur": 0.4,
+     "delay": 0.4
+    }
+   ]
+  },
+  {
+   "card": 1,
+   "label": "The burning hot message goes from the sensor on the left to a person who glows with heat; sweat drops show on scalp, forehead, nose and upper lip.",
+   "elements": [
+    {
+     "id": "spray",
+     "part": "spray",
+     "at": [
+      215,
+      170
+     ],
+     "params": {
+      "rx": 80,
+      "ry": 95,
+      "col": 3,
+      "alpha": 0.35,
+      "grow": 1
+     },
+     "word": "body",
+     "hidden": true
+    },
+    {
+     "id": "who",
+     "part": "person",
+     "at": [
+      215,
+      262
+     ],
+     "scale": 1.25,
+     "params": {},
+     "word": "body"
+    },
+    {
+     "id": "nerve",
+     "part": "nerve",
+     "at": [
+      48,
+      150
+     ],
+     "params": {
+      "kind": 1,
+      "len": 36,
+      "lit": 1,
+      "sig": 0
+     },
+     "word": "body"
+    },
+    {
+     "id": "hot",
+     "text": "BURNING\nHOT",
+     "at": [
+      50,
+      96
+     ],
+     "size": 24,
+     "word": "body",
+     "hidden": true,
+     "scale": 0.4,
+     "onpicture": true
+    },
+    {
+     "id": "arr",
+     "part": "arrow",
+     "at": [
+      66,
+      196
+     ],
+     "params": {
+      "len": 70,
+      "col": 0,
+      "w": 2.6,
+      "head": 9
+     },
+     "word": "answers"
+    },
+    {
+     "id": "s0",
+     "part": "drop",
+     "at": [
+      205,
+      76
+     ],
+     "params": {
+      "s": 8
+     },
+     "word": "scalp",
+     "hidden": true
+    },
+    {
+     "id": "s1",
+     "part": "drop",
+     "at": [
+      228,
+      86
+     ],
+     "params": {
+      "s": 8
+     },
+     "word": "forehead",
+     "hidden": true
+    },
+    {
+     "id": "s2",
+     "part": "drop",
+     "at": [
+      243,
+      108
+     ],
+     "params": {
+      "s": 8
+     },
+     "word": "nose",
+     "hidden": true
+    },
+    {
+     "id": "s3",
+     "part": "drop",
+     "at": [
+      239,
+      118
+     ],
+     "params": {
+      "s": 8
+     },
+     "word": "lip",
+     "hidden": true
+    },
+    {
+     "label": "SCALP",
+     "anchor": [
+      205,
+      74
+     ],
+     "at": [
+      160,
+      44
+     ],
+     "align": "center",
+     "word": "scalp"
+    },
+    {
+     "label": "FOREHEAD",
+     "anchor": [
+      231,
+      84
+     ],
+     "at": [
+      272,
+      56
+     ],
+     "align": "leading",
+     "word": "forehead"
+    },
+    {
+     "label": "NOSE AND\nUPPER LIP",
+     "anchor": [
+      244,
+      112
+     ],
+     "at": [
+      272,
+      136
+     ],
+     "align": "leading",
+     "word": "nose",
+     "delay": 0.3
+    },
+    {
+     "id": "sw",
+     "text": "SWEAT\nGLANDS ON",
+     "at": [
+      100,
+      236
+     ],
+     "size": 24,
+     "word": "sweat",
+     "hidden": true,
+     "scale": 0.4,
+     "onpicture": true
+    }
+   ],
+   "moves": [
+    {
+     "move": "hot",
+     "prop": "opacity",
+     "to": 1,
+     "word": "answers",
+     "dur": 0.3
+    },
+    {
+     "move": "hot",
+     "prop": "scale",
+     "to": 1.0,
+     "word": "answers",
+     "dur": 0.5,
+     "ease": "snap"
+    },
+    {
+     "move": "spray",
+     "prop": "opacity",
+     "to": 1,
+     "word": "overheating",
+     "dur": 0.5
+    },
+    {
+     "move": "arr",
+     "prop": "len",
+     "to": 70,
+     "word": "answers",
+     "dur": 0.1
+    },
+    {
+     "move": "s0",
+     "prop": "opacity",
+     "to": 1,
+     "word": "scalp",
+     "dur": 0.2
+    },
+    {
+     "move": "s1",
+     "prop": "opacity",
+     "to": 1,
+     "word": "forehead",
+     "dur": 0.2
+    },
+    {
+     "move": "s2",
+     "prop": "opacity",
+     "to": 1,
+     "word": "nose",
+     "dur": 0.2
+    },
+    {
+     "move": "s3",
+     "prop": "opacity",
+     "to": 1,
+     "word": "lip",
+     "dur": 0.2
+    },
+    {
+     "move": "sw",
+     "prop": "opacity",
+     "to": 1,
+     "word": "sweat",
+     "dur": 0.3
+    },
+    {
+     "move": "sw",
+     "prop": "scale",
+     "to": 1.0,
+     "word": "sweat",
+     "dur": 0.5,
+     "ease": "snap"
+    }
+   ]
+  },
+  {
+   "card": 2,
+   "label": "The same message reaches the same person: a drip falls from the nose and tears from the eyes.",
+   "elements": [
+    {
+     "id": "spray",
+     "part": "spray",
+     "at": [
+      215,
+      170
+     ],
+     "params": {
+      "rx": 80,
+      "ry": 95,
+      "col": 3,
+      "alpha": 0,
+      "grow": 1
+     },
+     "word": "nose",
+     "hidden": true
+    },
+    {
+     "id": "who",
+     "part": "person",
+     "at": [
+      215,
+      262
+     ],
+     "scale": 1.25,
+     "params": {},
+     "word": "spicy"
+    },
+    {
+     "id": "nerve",
+     "part": "nerve",
+     "at": [
+      48,
+      150
+     ],
+     "params": {
+      "kind": 1,
+      "len": 36,
+      "lit": 1,
+      "sig": 0
+     },
+     "word": "spicy"
+    },
+    {
+     "id": "hot",
+     "text": "BURNING\nHOT",
+     "at": [
+      50,
+      96
+     ],
+     "size": 24,
+     "word": "spicy",
+     "hidden": true,
+     "scale": 0.4,
+     "onpicture": true
+    },
+    {
+     "id": "arr",
+     "part": "arrow",
+     "at": [
+      66,
+      196
+     ],
+     "params": {
+      "len": 70,
+      "col": 0,
+      "w": 2.6,
+      "head": 9
+     },
+     "word": "food"
+    },
+    {
+     "id": "n",
+     "part": "drop",
+     "at": [
+      247,
+      114
+     ],
+     "params": {
+      "s": 8
+     },
+     "word": "run",
+     "hidden": true
+    },
+    {
+     "id": "t0",
+     "part": "drop",
+     "at": [
+      225,
+      100
+     ],
+     "params": {
+      "s": 6
+     },
+     "word": "water",
+     "hidden": true
+    },
+    {
+     "id": "t1",
+     "part": "drop",
+     "at": [
+      237,
+      100
+     ],
+     "params": {
+      "s": 6
+     },
+     "word": "water",
+     "hidden": true
+    },
+    {
+     "label": "RUNNY\nNOSE",
+     "anchor": [
+      246,
+      112
+     ],
+     "at": [
+      266,
+      150
+     ],
+     "align": "leading",
+     "word": "run",
+     "delay": 0.3
+    },
+    {
+     "label": "WATERY\nEYES",
+     "anchor": [
+      237,
+      96
+     ],
+     "at": [
+      272,
+      56
+     ],
+     "align": "leading",
+     "word": "water",
+     "delay": 0.3
+    }
+   ],
+   "moves": [
+    {
+     "move": "hot",
+     "prop": "opacity",
+     "to": 1,
+     "word": "spicy",
+     "dur": 0.3
+    },
+    {
+     "move": "hot",
+     "prop": "scale",
+     "to": 1.0,
+     "word": "spicy",
+     "dur": 0.5,
+     "ease": "snap"
+    },
+    {
+     "move": "n",
+     "prop": "opacity",
+     "to": 1,
+     "word": "run",
+     "dur": 0.2
+    },
+    {
+     "move": "n",
+     "prop": "y",
+     "to": 140,
+     "word": "run",
+     "dur": 0.9,
+     "delay": 0.2,
+     "ease": "fall"
+    },
+    {
+     "move": "n",
+     "prop": "opacity",
+     "to": 0,
+     "word": "run",
+     "dur": 0.2,
+     "delay": 1.0
+    },
+    {
+     "move": "t0",
+     "prop": "opacity",
+     "to": 1,
+     "word": "water",
+     "dur": 0.2
+    },
+    {
+     "move": "t1",
+     "prop": "opacity",
+     "to": 1,
+     "word": "water",
+     "dur": 0.2,
+     "delay": 0.1
+    },
+    {
+     "move": "t0",
+     "prop": "y",
+     "to": 118,
+     "word": "water",
+     "dur": 0.8,
+     "delay": 0.2,
+     "ease": "fall"
+    },
+    {
+     "move": "t1",
+     "prop": "y",
+     "to": 120,
+     "word": "water",
+     "dur": 0.8,
+     "delay": 0.3,
+     "ease": "fall"
+    },
+    {
+     "move": "t0",
+     "prop": "opacity",
+     "to": 0,
+     "word": "water",
+     "dur": 0.2,
+     "delay": 1.0
+    },
+    {
+     "move": "t1",
+     "prop": "opacity",
+     "to": 0,
+     "word": "water",
+     "dur": 0.2,
+     "delay": 1.1
+    },
+    {
+     "move": "nerve",
+     "prop": "sig",
+     "to": 1,
+     "word": "message",
+     "dur": 0.6,
+     "ease": "linear"
+    },
+    {
+     "move": "hot",
+     "prop": "scale",
+     "to": 1.15,
+     "word": "other",
+     "dur": 0.3
+    },
+    {
+     "move": "hot",
+     "prop": "scale",
+     "to": 1.0,
+     "word": "other",
+     "dur": 0.4,
+     "delay": 0.4
+    }
+   ]
+  },
+  {
+   "card": 3,
+   "label": "The same chili on the same skin: the heat sensor's glow fades to dim under the words less reactive, then the chili tricks it again and the brain glows under burning hot.",
+   "elements": [
+    {
+     "id": "skin",
+     "part": "skinCut",
+     "at": [
+      170,
+      158
+     ],
+     "params": {
+      "w": 200,
+      "d": 76,
+      "hair": 0
+     },
+     "word": "spicy"
+    },
+    {
+     "id": "pod",
+     "path": "M40 84 C66 72 100 90 112 128 C96 114 72 104 44 108 C32 100 32 90 40 84 Z",
+     "fill": "salmon",
+     "word": "spicy"
+    },
+    {
+     "id": "stem",
+     "path": "M40 84 C34 78 30 72 34 66 L44 70 C44 76 44 80 46 84 Z",
+     "fill": "lime",
+     "word": "spicy"
+    },
+    {
+     "id": "nerve",
+     "part": "nerve",
+     "at": [
+      170,
+      176
+     ],
+     "params": {
+      "kind": 1,
+      "len": 40,
+      "lit": 1,
+      "sig": 0
+     },
+     "word": "spicy"
+    },
+    {
+     "label": "HEAT\nSENSOR",
+     "anchor": [
+      162,
+      176
+     ],
+     "at": [
+      60,
+      176
+     ],
+     "align": "trailing",
+     "word": "sensors",
+     "delay": 0.1
+    },
+    {
+     "id": "tr",
+     "path": "M170 216 L170 236 L284 236 L284 134",
+     "stroke": "ink@0.6",
+     "width": 1.3,
+     "word": "tricks"
+    },
+    {
+     "id": "brain",
+     "part": "brain",
+     "at": [
+      284,
+      98
+     ],
+     "scale": 0.85,
+     "params": {
+      "lit": 0
+     },
+     "word": "tricks"
+    },
+    {
+     "label": "YOUR BRAIN",
+     "anchor": [
+      246,
+      98
+     ],
+     "at": [
+      208,
+      70
+     ],
+     "align": "trailing",
+     "word": "tricks",
+     "delay": 0.1
+    },
+    {
+     "id": "b",
+     "group": [
+      {
+       "circle": [
+        0,
+        0,
+        4
+       ],
+       "fill": "yellow"
+      }
+     ],
+     "at": [
+      170,
+      216
+     ],
+     "hidden": true
+    },
+    {
+     "id": "less",
+     "text": "LESS REACTIVE",
+     "at": [
+      150,
+      262
+     ],
+     "size": 22,
+     "word": "reactive",
+     "hidden": true,
+     "scale": 0.4,
+     "onpicture": true
+    },
+    {
+     "id": "hot",
+     "text": "BURNING\nHOT",
+     "at": [
+      262,
+      34
+     ],
+     "size": 28,
+     "word": "burning",
+     "hidden": true,
+     "scale": 0.4,
+     "onpicture": true
+    }
+   ],
+   "moves": [
+    {
+     "move": "nerve",
+     "prop": "lit",
+     "to": 0.2,
+     "word": "less",
+     "dur": 0.6
+    },
+    {
+     "move": "nerve",
+     "prop": "lit",
+     "to": 1,
+     "word": "tricks",
+     "dur": 0.4,
+     "delay": 0.3
+    },
+    {
+     "move": "nerve",
+     "prop": "sig",
+     "to": 1,
+     "word": "tricks",
+     "dur": 0.6,
+     "delay": 0.3,
+     "ease": "linear"
+    },
+    {
+     "move": "b",
+     "prop": "opacity",
+     "to": 1,
+     "word": "tricks",
+     "dur": 0.1,
+     "delay": 0.9
+    },
+    {
+     "move": "b",
+     "prop": "x",
+     "to": 284,
+     "word": "tricks",
+     "dur": 0.8,
+     "delay": 0.9,
+     "ease": "linear"
+    },
+    {
+     "move": "b",
+     "prop": "y",
+     "to": 134,
+     "word": "tricks",
+     "dur": 0.5,
+     "delay": 1.7,
+     "ease": "linear"
+    },
+    {
+     "move": "b",
+     "prop": "opacity",
+     "to": 0,
+     "word": "burning",
+     "dur": 0.2,
+     "delay": 0.5
+    },
+    {
+     "move": "brain",
+     "prop": "lit",
+     "to": 1,
+     "word": "burning",
+     "dur": 0.5,
+     "delay": 0.2
+    },
+    {
+     "move": "hot",
+     "prop": "opacity",
+     "to": 1,
+     "word": "burning",
+     "dur": 0.3
+    },
+    {
+     "move": "hot",
+     "prop": "scale",
+     "to": 1.0,
+     "word": "burning",
+     "dur": 0.5,
+     "ease": "snap"
+    },
+    {
+     "move": "less",
+     "prop": "opacity",
+     "to": 1,
+     "word": "reactive",
+     "dur": 0.3
+    },
+    {
+     "move": "less",
+     "prop": "scale",
+     "to": 1.0,
+     "word": "reactive",
+     "dur": 0.5,
+     "ease": "snap"
+    }
+   ]
+  }
+ ]
+}

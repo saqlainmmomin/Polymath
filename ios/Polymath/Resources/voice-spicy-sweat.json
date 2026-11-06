@@ -1,0 +1,1008 @@
+{
+ "voice": "af_heart",
+ "duration": 66.67,
+ "beats": [
+  0.0,
+  22.98,
+  39.2,
+  52.42
+ ],
+ "words": [
+  {
+   "text": "Why",
+   "start": 0.28,
+   "end": 0.41
+  },
+  {
+   "text": "do",
+   "start": 0.41,
+   "end": 0.51
+  },
+  {
+   "text": "I",
+   "start": 0.51,
+   "end": 0.62
+  },
+  {
+   "text": "start",
+   "start": 0.62,
+   "end": 0.95
+  },
+  {
+   "text": "sweating",
+   "start": 0.95,
+   "end": 1.31
+  },
+  {
+   "text": "when",
+   "start": 1.31,
+   "end": 1.44
+  },
+  {
+   "text": "I",
+   "start": 1.44,
+   "end": 1.59
+  },
+  {
+   "text": "eat",
+   "start": 1.59,
+   "end": 1.8
+  },
+  {
+   "text": "spicy",
+   "start": 1.8,
+   "end": 2.24
+  },
+  {
+   "text": "food?",
+   "start": 2.24,
+   "end": 3.08
+  },
+  {
+   "text": "The",
+   "start": 3.08,
+   "end": 3.21
+  },
+  {
+   "text": "spicy",
+   "start": 3.21,
+   "end": 3.67
+  },
+  {
+   "text": "part",
+   "start": 3.67,
+   "end": 3.89
+  },
+  {
+   "text": "of",
+   "start": 3.89,
+   "end": 3.96
+  },
+  {
+   "text": "a",
+   "start": 3.96,
+   "end": 4.06
+  },
+  {
+   "text": "chili",
+   "start": 4.06,
+   "end": 4.4
+  },
+  {
+   "text": "pepper",
+   "start": 4.4,
+   "end": 4.81
+  },
+  {
+   "text": "is",
+   "start": 4.81,
+   "end": 4.94
+  },
+  {
+   "text": "a",
+   "start": 4.94,
+   "end": 5.04
+  },
+  {
+   "text": "compound",
+   "start": 5.04,
+   "end": 5.7
+  },
+  {
+   "text": "called",
+   "start": 5.7,
+   "end": 6.0
+  },
+  {
+   "text": "capsaicin.",
+   "start": 6.0,
+   "end": 7.33
+  },
+  {
+   "text": "It",
+   "start": 7.33,
+   "end": 7.51
+  },
+  {
+   "text": "switches",
+   "start": 7.51,
+   "end": 7.91
+  },
+  {
+   "text": "on",
+   "start": 7.91,
+   "end": 8.01
+  },
+  {
+   "text": "a",
+   "start": 8.01,
+   "end": 8.07
+  },
+  {
+   "text": "heat",
+   "start": 8.07,
+   "end": 8.3
+  },
+  {
+   "text": "sensor",
+   "start": 8.3,
+   "end": 8.72
+  },
+  {
+   "text": "on",
+   "start": 8.72,
+   "end": 8.84
+  },
+  {
+   "text": "your",
+   "start": 8.84,
+   "end": 8.95
+  },
+  {
+   "text": "nerve",
+   "start": 8.95,
+   "end": 9.22
+  },
+  {
+   "text": "endings,",
+   "start": 9.22,
+   "end": 10.07
+  },
+  {
+   "text": "one",
+   "start": 10.07,
+   "end": 10.28
+  },
+  {
+   "text": "that",
+   "start": 10.28,
+   "end": 10.49
+  },
+  {
+   "text": "normally",
+   "start": 10.49,
+   "end": 10.94
+  },
+  {
+   "text": "fires",
+   "start": 10.94,
+   "end": 11.46
+  },
+  {
+   "text": "only",
+   "start": 11.46,
+   "end": 11.78
+  },
+  {
+   "text": "for",
+   "start": 11.78,
+   "end": 11.9
+  },
+  {
+   "text": "something",
+   "start": 11.9,
+   "end": 12.28
+  },
+  {
+   "text": "truly",
+   "start": 12.28,
+   "end": 12.72
+  },
+  {
+   "text": "hot,",
+   "start": 12.72,
+   "end": 13.3
+  },
+  {
+   "text": "above",
+   "start": 13.3,
+   "end": 13.56
+  },
+  {
+   "text": "about",
+   "start": 13.56,
+   "end": 13.89
+  },
+  {
+   "text": "43\u00b0C.",
+   "start": 13.89,
+   "end": 15.7
+  },
+  {
+   "text": "So",
+   "start": 15.7,
+   "end": 15.85
+  },
+  {
+   "text": "your",
+   "start": 15.85,
+   "end": 16.01
+  },
+  {
+   "text": "brain",
+   "start": 16.01,
+   "end": 16.44
+  },
+  {
+   "text": "hears",
+   "start": 16.44,
+   "end": 16.88
+  },
+  {
+   "text": "\"burning",
+   "start": 16.88,
+   "end": 17.27
+  },
+  {
+   "text": "hot\",",
+   "start": 17.27,
+   "end": 17.89
+  },
+  {
+   "text": "even",
+   "start": 17.89,
+   "end": 18.21
+  },
+  {
+   "text": "though",
+   "start": 18.21,
+   "end": 18.38
+  },
+  {
+   "text": "nothing",
+   "start": 18.38,
+   "end": 18.76
+  },
+  {
+   "text": "is.",
+   "start": 18.76,
+   "end": 19.51
+  },
+  {
+   "text": "So",
+   "start": 19.51,
+   "end": 19.7
+  },
+  {
+   "text": "what",
+   "start": 19.7,
+   "end": 19.84
+  },
+  {
+   "text": "does",
+   "start": 19.84,
+   "end": 19.96
+  },
+  {
+   "text": "your",
+   "start": 19.96,
+   "end": 20.07
+  },
+  {
+   "text": "body",
+   "start": 20.07,
+   "end": 20.4
+  },
+  {
+   "text": "do",
+   "start": 20.4,
+   "end": 20.57
+  },
+  {
+   "text": "about",
+   "start": 20.57,
+   "end": 20.81
+  },
+  {
+   "text": "a",
+   "start": 20.81,
+   "end": 20.89
+  },
+  {
+   "text": "burn",
+   "start": 20.89,
+   "end": 21.23
+  },
+  {
+   "text": "that",
+   "start": 21.23,
+   "end": 21.34
+  },
+  {
+   "text": "isn't",
+   "start": 21.34,
+   "end": 21.57
+  },
+  {
+   "text": "there?",
+   "start": 21.57,
+   "end": 22.27
+  },
+  {
+   "text": "Your",
+   "start": 23.25,
+   "end": 23.38
+  },
+  {
+   "text": "body",
+   "start": 23.38,
+   "end": 23.71
+  },
+  {
+   "text": "answers",
+   "start": 23.71,
+   "end": 24.23
+  },
+  {
+   "text": "as",
+   "start": 24.23,
+   "end": 24.35
+  },
+  {
+   "text": "if",
+   "start": 24.35,
+   "end": 24.46
+  },
+  {
+   "text": "it",
+   "start": 24.46,
+   "end": 24.54
+  },
+  {
+   "text": "were",
+   "start": 24.54,
+   "end": 24.65
+  },
+  {
+   "text": "overheating.",
+   "start": 24.65,
+   "end": 25.74
+  },
+  {
+   "text": "Blood",
+   "start": 25.74,
+   "end": 26.03
+  },
+  {
+   "text": "vessels",
+   "start": 26.03,
+   "end": 26.44
+  },
+  {
+   "text": "widen,",
+   "start": 26.44,
+   "end": 27.1
+  },
+  {
+   "text": "your",
+   "start": 27.1,
+   "end": 27.28
+  },
+  {
+   "text": "heart",
+   "start": 27.28,
+   "end": 27.54
+  },
+  {
+   "text": "may",
+   "start": 27.54,
+   "end": 27.7
+  },
+  {
+   "text": "beat",
+   "start": 27.7,
+   "end": 27.94
+  },
+  {
+   "text": "faster,",
+   "start": 27.94,
+   "end": 28.75
+  },
+  {
+   "text": "and",
+   "start": 28.75,
+   "end": 28.86
+  },
+  {
+   "text": "your",
+   "start": 28.86,
+   "end": 29.01
+  },
+  {
+   "text": "sweat",
+   "start": 29.01,
+   "end": 29.33
+  },
+  {
+   "text": "glands",
+   "start": 29.33,
+   "end": 29.78
+  },
+  {
+   "text": "start",
+   "start": 29.78,
+   "end": 30.01
+  },
+  {
+   "text": "up",
+   "start": 30.01,
+   "end": 30.2
+  },
+  {
+   "text": "to",
+   "start": 30.2,
+   "end": 30.33
+  },
+  {
+   "text": "cool",
+   "start": 30.33,
+   "end": 30.58
+  },
+  {
+   "text": "you",
+   "start": 30.58,
+   "end": 30.73
+  },
+  {
+   "text": "down.",
+   "start": 30.73,
+   "end": 31.6
+  },
+  {
+   "text": "You",
+   "start": 31.6,
+   "end": 31.76
+  },
+  {
+   "text": "sweat",
+   "start": 31.76,
+   "end": 32.05
+  },
+  {
+   "text": "most",
+   "start": 32.05,
+   "end": 32.34
+  },
+  {
+   "text": "on",
+   "start": 32.34,
+   "end": 32.44
+  },
+  {
+   "text": "your",
+   "start": 32.44,
+   "end": 32.56
+  },
+  {
+   "text": "forehead,",
+   "start": 32.56,
+   "end": 33.29
+  },
+  {
+   "text": "scalp,",
+   "start": 33.29,
+   "end": 33.94
+  },
+  {
+   "text": "nose",
+   "start": 33.94,
+   "end": 34.42
+  },
+  {
+   "text": "and",
+   "start": 34.42,
+   "end": 34.55
+  },
+  {
+   "text": "upper",
+   "start": 34.55,
+   "end": 34.85
+  },
+  {
+   "text": "lip.",
+   "start": 34.85,
+   "end": 35.58
+  },
+  {
+   "text": "So",
+   "start": 35.58,
+   "end": 35.78
+  },
+  {
+   "text": "is",
+   "start": 35.78,
+   "end": 35.91
+  },
+  {
+   "text": "sweat",
+   "start": 35.91,
+   "end": 36.16
+  },
+  {
+   "text": "the",
+   "start": 36.16,
+   "end": 36.29
+  },
+  {
+   "text": "only",
+   "start": 36.29,
+   "end": 36.61
+  },
+  {
+   "text": "thing",
+   "start": 36.61,
+   "end": 36.85
+  },
+  {
+   "text": "that",
+   "start": 36.85,
+   "end": 36.98
+  },
+  {
+   "text": "reaction",
+   "start": 36.98,
+   "end": 37.5
+  },
+  {
+   "text": "sets",
+   "start": 37.5,
+   "end": 37.78
+  },
+  {
+   "text": "off?",
+   "start": 37.78,
+   "end": 38.5
+  },
+  {
+   "text": "Spicy",
+   "start": 39.48,
+   "end": 39.91
+  },
+  {
+   "text": "food",
+   "start": 39.91,
+   "end": 40.23
+  },
+  {
+   "text": "can",
+   "start": 40.23,
+   "end": 40.35
+  },
+  {
+   "text": "make",
+   "start": 40.35,
+   "end": 40.54
+  },
+  {
+   "text": "your",
+   "start": 40.54,
+   "end": 40.68
+  },
+  {
+   "text": "nose",
+   "start": 40.68,
+   "end": 41.0
+  },
+  {
+   "text": "run",
+   "start": 41.0,
+   "end": 41.49
+  },
+  {
+   "text": "and",
+   "start": 41.49,
+   "end": 41.62
+  },
+  {
+   "text": "your",
+   "start": 41.62,
+   "end": 41.81
+  },
+  {
+   "text": "eyes",
+   "start": 41.81,
+   "end": 42.2
+  },
+  {
+   "text": "water",
+   "start": 42.2,
+   "end": 42.56
+  },
+  {
+   "text": "too.",
+   "start": 42.56,
+   "end": 43.43
+  },
+  {
+   "text": "It's",
+   "start": 43.43,
+   "end": 43.61
+  },
+  {
+   "text": "the",
+   "start": 43.61,
+   "end": 43.71
+  },
+  {
+   "text": "same",
+   "start": 43.71,
+   "end": 44.05
+  },
+  {
+   "text": "reaction",
+   "start": 44.05,
+   "end": 44.6
+  },
+  {
+   "text": "to",
+   "start": 44.6,
+   "end": 44.69
+  },
+  {
+   "text": "the",
+   "start": 44.69,
+   "end": 44.81
+  },
+  {
+   "text": "same",
+   "start": 44.81,
+   "end": 45.36
+  },
+  {
+   "text": "\"burning",
+   "start": 45.36,
+   "end": 45.8
+  },
+  {
+   "text": "hot\"",
+   "start": 45.8,
+   "end": 46.05
+  },
+  {
+   "text": "message,",
+   "start": 46.05,
+   "end": 46.89
+  },
+  {
+   "text": "just",
+   "start": 46.89,
+   "end": 47.14
+  },
+  {
+   "text": "in",
+   "start": 47.14,
+   "end": 47.21
+  },
+  {
+   "text": "other",
+   "start": 47.21,
+   "end": 47.4
+  },
+  {
+   "text": "parts",
+   "start": 47.4,
+   "end": 47.71
+  },
+  {
+   "text": "of",
+   "start": 47.71,
+   "end": 47.8
+  },
+  {
+   "text": "you.",
+   "start": 47.8,
+   "end": 48.55
+  },
+  {
+   "text": "So",
+   "start": 48.55,
+   "end": 48.76
+  },
+  {
+   "text": "do",
+   "start": 48.76,
+   "end": 48.95
+  },
+  {
+   "text": "people",
+   "start": 48.95,
+   "end": 49.33
+  },
+  {
+   "text": "who",
+   "start": 49.33,
+   "end": 49.51
+  },
+  {
+   "text": "love",
+   "start": 49.51,
+   "end": 49.8
+  },
+  {
+   "text": "spicy",
+   "start": 49.8,
+   "end": 50.24
+  },
+  {
+   "text": "food",
+   "start": 50.24,
+   "end": 50.53
+  },
+  {
+   "text": "just",
+   "start": 50.53,
+   "end": 50.7
+  },
+  {
+   "text": "put",
+   "start": 50.7,
+   "end": 50.84
+  },
+  {
+   "text": "up",
+   "start": 50.84,
+   "end": 50.96
+  },
+  {
+   "text": "with",
+   "start": 50.96,
+   "end": 51.14
+  },
+  {
+   "text": "it?",
+   "start": 51.14,
+   "end": 51.73
+  },
+  {
+   "text": "If",
+   "start": 52.67,
+   "end": 52.82
+  },
+  {
+   "text": "you",
+   "start": 52.82,
+   "end": 52.99
+  },
+  {
+   "text": "eat",
+   "start": 52.99,
+   "end": 53.25
+  },
+  {
+   "text": "spicy",
+   "start": 53.25,
+   "end": 53.74
+  },
+  {
+   "text": "food",
+   "start": 53.74,
+   "end": 53.94
+  },
+  {
+   "text": "a",
+   "start": 53.94,
+   "end": 54.0
+  },
+  {
+   "text": "lot,",
+   "start": 54.0,
+   "end": 54.45
+  },
+  {
+   "text": "you",
+   "start": 54.45,
+   "end": 54.55
+  },
+  {
+   "text": "get",
+   "start": 54.55,
+   "end": 54.72
+  },
+  {
+   "text": "used",
+   "start": 54.72,
+   "end": 54.97
+  },
+  {
+   "text": "to",
+   "start": 54.97,
+   "end": 55.14
+  },
+  {
+   "text": "it.",
+   "start": 55.14,
+   "end": 55.77
+  },
+  {
+   "text": "Your",
+   "start": 55.77,
+   "end": 55.92
+  },
+  {
+   "text": "heat",
+   "start": 55.92,
+   "end": 56.15
+  },
+  {
+   "text": "sensors",
+   "start": 56.15,
+   "end": 56.62
+  },
+  {
+   "text": "become",
+   "start": 56.62,
+   "end": 57.0
+  },
+  {
+   "text": "less",
+   "start": 57.0,
+   "end": 57.22
+  },
+  {
+   "text": "reactive",
+   "start": 57.22,
+   "end": 57.69
+  },
+  {
+   "text": "over",
+   "start": 57.69,
+   "end": 57.92
+  },
+  {
+   "text": "time,",
+   "start": 57.92,
+   "end": 58.6
+  },
+  {
+   "text": "so",
+   "start": 58.6,
+   "end": 58.74
+  },
+  {
+   "text": "the",
+   "start": 58.74,
+   "end": 58.86
+  },
+  {
+   "text": "same",
+   "start": 58.86,
+   "end": 59.22
+  },
+  {
+   "text": "chili",
+   "start": 59.22,
+   "end": 59.61
+  },
+  {
+   "text": "sets",
+   "start": 59.61,
+   "end": 59.9
+  },
+  {
+   "text": "off",
+   "start": 59.9,
+   "end": 60.12
+  },
+  {
+   "text": "less.",
+   "start": 60.12,
+   "end": 61.07
+  },
+  {
+   "text": "Chili",
+   "start": 61.07,
+   "end": 61.38
+  },
+  {
+   "text": "tricks",
+   "start": 61.38,
+   "end": 61.64
+  },
+  {
+   "text": "a",
+   "start": 61.64,
+   "end": 61.7
+  },
+  {
+   "text": "heat",
+   "start": 61.7,
+   "end": 61.92
+  },
+  {
+   "text": "sensor",
+   "start": 61.92,
+   "end": 62.35
+  },
+  {
+   "text": "into",
+   "start": 62.35,
+   "end": 62.61
+  },
+  {
+   "text": "saying",
+   "start": 62.61,
+   "end": 63.14
+  },
+  {
+   "text": "\"burning",
+   "start": 63.14,
+   "end": 63.57
+  },
+  {
+   "text": "hot\",",
+   "start": 63.57,
+   "end": 64.25
+  },
+  {
+   "text": "and",
+   "start": 64.25,
+   "end": 64.36
+  },
+  {
+   "text": "your",
+   "start": 64.36,
+   "end": 64.47
+  },
+  {
+   "text": "body",
+   "start": 64.47,
+   "end": 64.86
+  },
+  {
+   "text": "sweats",
+   "start": 64.86,
+   "end": 65.3
+  },
+  {
+   "text": "as",
+   "start": 65.3,
+   "end": 65.42
+  },
+  {
+   "text": "if",
+   "start": 65.42,
+   "end": 65.54
+  },
+  {
+   "text": "it",
+   "start": 65.54,
+   "end": 65.61
+  },
+  {
+   "text": "were",
+   "start": 65.61,
+   "end": 65.76
+  },
+  {
+   "text": "true.",
+   "start": 65.76,
+   "end": 66.58
+  }
+ ],
+ "keys": [
+  [],
+  [],
+  [],
+  []
+ ]
+}

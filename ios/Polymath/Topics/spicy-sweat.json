@@ -1,0 +1,84 @@
+{
+  "id": "spicy-sweat",
+  "title": "Why do I start sweating when I eat spicy food?",
+  "kind": "full",
+  "theme": "body",
+  "style": "airbrush",
+  "cards": [
+    {
+      "type": "card",
+      "title": "Chili makes a heat sensor say \"burning hot\" when nothing is hot",
+      "text": "The spicy part of a chili pepper is a compound called capsaicin. It switches on a heat sensor on your nerve endings, one that normally fires only for something truly hot, above about 43°C. So your brain hears \"burning hot\", even though nothing is.",
+      "hook": "So what does your body do about a burn that isn't there?",
+      "visual": {
+        "type": "diagram",
+        "notes": [
+          "Capsaicin from a chili switches on a heat sensor",
+          "The sensor sends \"burning hot\" to the brain, though nothing is hot"
+        ],
+        "labels": [
+          "CAPSAICIN",
+          "HEAT SENSOR",
+          "YOUR BRAIN",
+          "BURNING HOT"
+        ]
+      }
+    },
+    {
+      "type": "card",
+      "title": "Your body acts as if it's overheating, so it switches on your sweat glands",
+      "text": "Your body answers as if it were overheating. Blood vessels widen, your heart may beat faster, and your sweat glands start up to cool you down. You sweat most on your forehead, scalp, nose and upper lip.",
+      "hook": "So is sweat the only thing that reaction sets off?",
+      "visual": {
+        "type": "diagram",
+        "notes": [
+          "The burning hot message reaches a person",
+          "Sweat drops appear on forehead, scalp, nose and upper lip"
+        ],
+        "labels": [
+          "BURNING HOT",
+          "SWEAT"
+        ]
+      }
+    },
+    {
+      "type": "card",
+      "title": "Your runny nose and watery eyes are the same reaction",
+      "text": "Spicy food can make your nose run and your eyes water too. It's the same reaction to the same \"burning hot\" message, just in other parts of you.",
+      "hook": "So do people who love spicy food just put up with it?",
+      "visual": {
+        "type": "diagram",
+        "notes": [
+          "The same message reaches the person",
+          "A drip from the nose, tears from the eyes"
+        ],
+        "labels": [
+          "BURNING HOT",
+          "RUNNY NOSE",
+          "WATERY EYES"
+        ]
+      }
+    },
+    {
+      "type": "card",
+      "title": "People who eat spicy food a lot get used to it",
+      "text": "If you eat spicy food a lot, you get used to it. Your heat sensors become less reactive over time, so the same chili sets off less.",
+      "takeaway": "Chili tricks a heat sensor into saying \"burning hot\", and your body sweats as if it were true.",
+      "visual": {
+        "type": "diagram",
+        "notes": [
+          "The sensor's glow fades and the signal weakens"
+        ],
+        "labels": [
+          "HEAT SENSOR",
+          "LESS REACTIVE"
+        ]
+      }
+    },
+    {
+      "type": "more",
+      "links": [],
+      "note": "Sweating from spicy food is completely normal, but if it happens with almost any food, or seems extreme, mention it to a doctor."
+    }
+  ]
+}
