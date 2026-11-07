@@ -1,6 +1,6 @@
 # spicy-sweat spine (style: Airbrush)
 
-1. **Title:** Why do I start sweating when I eat spicy food?
+1. **Title:** Why do you start sweating when you eat spicy food?
 2. **Card 1 headline:** Chili makes a heat sensor say "burning hot" when nothing is hot
    Hook: So what does your body do about a burn that isn't there?
 3. **Card 2 headline:** Your body acts as if it's overheating, so it switches on your sweat glands

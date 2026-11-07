@@ -1,1002 +1,1002 @@
 {
  "voice": "af_heart",
- "duration": 66.67,
+ "duration": 66.58,
  "beats": [
   0.0,
-  22.98,
-  39.2,
-  52.42
+  22.88,
+  39.1,
+  52.33
  ],
  "words": [
   {
    "text": "Why",
    "start": 0.28,
-   "end": 0.41
+   "end": 0.39
   },
   {
    "text": "do",
-   "start": 0.41,
-   "end": 0.51
+   "start": 0.39,
+   "end": 0.49
   },
   {
-   "text": "I",
-   "start": 0.51,
-   "end": 0.62
+   "text": "you",
+   "start": 0.49,
+   "end": 0.57
   },
   {
    "text": "start",
-   "start": 0.62,
-   "end": 0.95
+   "start": 0.57,
+   "end": 0.9
   },
   {
    "text": "sweating",
-   "start": 0.95,
-   "end": 1.31
+   "start": 0.9,
+   "end": 1.26
   },
   {
    "text": "when",
-   "start": 1.31,
-   "end": 1.44
+   "start": 1.26,
+   "end": 1.39
   },
   {
-   "text": "I",
-   "start": 1.44,
-   "end": 1.59
+   "text": "you",
+   "start": 1.39,
+   "end": 1.5
   },
   {
    "text": "eat",
-   "start": 1.59,
-   "end": 1.8
+   "start": 1.5,
+   "end": 1.7
   },
   {
    "text": "spicy",
-   "start": 1.8,
-   "end": 2.24
+   "start": 1.7,
+   "end": 2.14
   },
   {
    "text": "food?",
-   "start": 2.24,
-   "end": 3.08
+   "start": 2.14,
+   "end": 2.98
   },
   {
    "text": "The",
-   "start": 3.08,
-   "end": 3.21
+   "start": 2.98,
+   "end": 3.11
   },
   {
    "text": "spicy",
-   "start": 3.21,
-   "end": 3.67
+   "start": 3.11,
+   "end": 3.58
   },
   {
    "text": "part",
-   "start": 3.67,
-   "end": 3.89
+   "start": 3.58,
+   "end": 3.79
   },
   {
    "text": "of",
-   "start": 3.89,
+   "start": 3.79,
+   "end": 3.86
+  },
+  {
+   "text": "a",
+   "start": 3.86,
    "end": 3.96
   },
   {
-   "text": "a",
-   "start": 3.96,
-   "end": 4.06
-  },
-  {
    "text": "chili",
-   "start": 4.06,
-   "end": 4.4
+   "start": 3.96,
+   "end": 4.3
   },
   {
    "text": "pepper",
-   "start": 4.4,
-   "end": 4.81
+   "start": 4.3,
+   "end": 4.71
   },
   {
    "text": "is",
-   "start": 4.81,
+   "start": 4.71,
+   "end": 4.84
+  },
+  {
+   "text": "a",
+   "start": 4.84,
    "end": 4.94
   },
   {
-   "text": "a",
-   "start": 4.94,
-   "end": 5.04
-  },
-  {
    "text": "compound",
-   "start": 5.04,
-   "end": 5.7
+   "start": 4.94,
+   "end": 5.6
   },
   {
    "text": "called",
-   "start": 5.7,
-   "end": 6.0
+   "start": 5.6,
+   "end": 5.9
   },
   {
    "text": "capsaicin.",
-   "start": 6.0,
-   "end": 7.33
+   "start": 5.9,
+   "end": 7.22
   },
   {
    "text": "It",
-   "start": 7.33,
-   "end": 7.51
+   "start": 7.22,
+   "end": 7.41
   },
   {
    "text": "switches",
-   "start": 7.51,
+   "start": 7.41,
+   "end": 7.81
+  },
+  {
+   "text": "on",
+   "start": 7.81,
    "end": 7.91
   },
   {
-   "text": "on",
-   "start": 7.91,
-   "end": 8.01
-  },
-  {
    "text": "a",
-   "start": 8.01,
-   "end": 8.07
+   "start": 7.91,
+   "end": 7.97
   },
   {
    "text": "heat",
-   "start": 8.07,
-   "end": 8.3
+   "start": 7.97,
+   "end": 8.2
   },
   {
    "text": "sensor",
-   "start": 8.3,
-   "end": 8.72
+   "start": 8.2,
+   "end": 8.62
   },
   {
    "text": "on",
-   "start": 8.72,
-   "end": 8.84
+   "start": 8.62,
+   "end": 8.74
   },
   {
    "text": "your",
-   "start": 8.84,
-   "end": 8.95
+   "start": 8.74,
+   "end": 8.85
   },
   {
    "text": "nerve",
-   "start": 8.95,
-   "end": 9.22
+   "start": 8.85,
+   "end": 9.12
   },
   {
    "text": "endings,",
-   "start": 9.22,
-   "end": 10.07
+   "start": 9.12,
+   "end": 9.97
   },
   {
    "text": "one",
-   "start": 10.07,
-   "end": 10.28
+   "start": 9.97,
+   "end": 10.18
   },
   {
    "text": "that",
-   "start": 10.28,
-   "end": 10.49
+   "start": 10.18,
+   "end": 10.39
   },
   {
    "text": "normally",
-   "start": 10.49,
-   "end": 10.94
+   "start": 10.39,
+   "end": 10.84
   },
   {
    "text": "fires",
-   "start": 10.94,
-   "end": 11.46
+   "start": 10.84,
+   "end": 11.36
   },
   {
    "text": "only",
-   "start": 11.46,
-   "end": 11.78
+   "start": 11.36,
+   "end": 11.68
   },
   {
    "text": "for",
-   "start": 11.78,
-   "end": 11.9
+   "start": 11.68,
+   "end": 11.8
   },
   {
    "text": "something",
-   "start": 11.9,
-   "end": 12.28
+   "start": 11.8,
+   "end": 12.18
   },
   {
    "text": "truly",
-   "start": 12.28,
-   "end": 12.72
+   "start": 12.18,
+   "end": 12.62
   },
   {
    "text": "hot,",
-   "start": 12.72,
-   "end": 13.3
+   "start": 12.62,
+   "end": 13.2
   },
   {
    "text": "above",
-   "start": 13.3,
-   "end": 13.56
+   "start": 13.2,
+   "end": 13.46
   },
   {
    "text": "about",
-   "start": 13.56,
-   "end": 13.89
+   "start": 13.46,
+   "end": 13.79
   },
   {
    "text": "43\u00b0C.",
-   "start": 13.89,
-   "end": 15.7
+   "start": 13.79,
+   "end": 15.6
   },
   {
    "text": "So",
-   "start": 15.7,
-   "end": 15.85
+   "start": 15.6,
+   "end": 15.75
   },
   {
    "text": "your",
-   "start": 15.85,
-   "end": 16.01
+   "start": 15.75,
+   "end": 15.91
   },
   {
    "text": "brain",
-   "start": 16.01,
-   "end": 16.44
+   "start": 15.91,
+   "end": 16.34
   },
   {
    "text": "hears",
-   "start": 16.44,
-   "end": 16.88
+   "start": 16.34,
+   "end": 16.77
   },
   {
    "text": "\"burning",
-   "start": 16.88,
-   "end": 17.27
+   "start": 16.77,
+   "end": 17.18
   },
   {
    "text": "hot\",",
-   "start": 17.27,
-   "end": 17.89
+   "start": 17.18,
+   "end": 17.79
   },
   {
    "text": "even",
-   "start": 17.89,
-   "end": 18.21
+   "start": 17.79,
+   "end": 18.11
   },
   {
    "text": "though",
-   "start": 18.21,
-   "end": 18.38
+   "start": 18.11,
+   "end": 18.27
   },
   {
    "text": "nothing",
-   "start": 18.38,
-   "end": 18.76
+   "start": 18.27,
+   "end": 18.66
   },
   {
    "text": "is.",
-   "start": 18.76,
-   "end": 19.51
+   "start": 18.66,
+   "end": 19.41
   },
   {
    "text": "So",
-   "start": 19.51,
-   "end": 19.7
+   "start": 19.41,
+   "end": 19.6
   },
   {
    "text": "what",
-   "start": 19.7,
-   "end": 19.84
+   "start": 19.6,
+   "end": 19.74
   },
   {
    "text": "does",
-   "start": 19.84,
-   "end": 19.96
+   "start": 19.74,
+   "end": 19.86
   },
   {
    "text": "your",
-   "start": 19.96,
-   "end": 20.07
+   "start": 19.86,
+   "end": 19.98
   },
   {
    "text": "body",
-   "start": 20.07,
-   "end": 20.4
+   "start": 19.98,
+   "end": 20.3
   },
   {
    "text": "do",
-   "start": 20.4,
-   "end": 20.57
+   "start": 20.3,
+   "end": 20.48
   },
   {
    "text": "about",
-   "start": 20.57,
-   "end": 20.81
+   "start": 20.48,
+   "end": 20.71
   },
   {
    "text": "a",
-   "start": 20.81,
-   "end": 20.89
+   "start": 20.71,
+   "end": 20.79
   },
   {
    "text": "burn",
-   "start": 20.89,
-   "end": 21.23
+   "start": 20.79,
+   "end": 21.12
   },
   {
    "text": "that",
-   "start": 21.23,
-   "end": 21.34
+   "start": 21.12,
+   "end": 21.24
   },
   {
    "text": "isn't",
-   "start": 21.34,
-   "end": 21.57
+   "start": 21.24,
+   "end": 21.48
   },
   {
    "text": "there?",
-   "start": 21.57,
-   "end": 22.27
+   "start": 21.48,
+   "end": 22.18
   },
   {
    "text": "Your",
-   "start": 23.25,
-   "end": 23.38
+   "start": 23.15,
+   "end": 23.27
   },
   {
    "text": "body",
-   "start": 23.38,
-   "end": 23.71
+   "start": 23.27,
+   "end": 23.61
   },
   {
    "text": "answers",
-   "start": 23.71,
-   "end": 24.23
+   "start": 23.61,
+   "end": 24.12
   },
   {
    "text": "as",
-   "start": 24.23,
-   "end": 24.35
+   "start": 24.12,
+   "end": 24.25
   },
   {
    "text": "if",
-   "start": 24.35,
-   "end": 24.46
+   "start": 24.25,
+   "end": 24.36
   },
   {
    "text": "it",
-   "start": 24.46,
-   "end": 24.54
+   "start": 24.36,
+   "end": 24.44
   },
   {
    "text": "were",
-   "start": 24.54,
-   "end": 24.65
+   "start": 24.44,
+   "end": 24.55
   },
   {
    "text": "overheating.",
-   "start": 24.65,
-   "end": 25.74
+   "start": 24.55,
+   "end": 25.64
   },
   {
    "text": "Blood",
-   "start": 25.74,
-   "end": 26.03
+   "start": 25.64,
+   "end": 25.93
   },
   {
    "text": "vessels",
-   "start": 26.03,
-   "end": 26.44
+   "start": 25.93,
+   "end": 26.34
   },
   {
    "text": "widen,",
-   "start": 26.44,
-   "end": 27.1
+   "start": 26.34,
+   "end": 27.0
   },
   {
    "text": "your",
-   "start": 27.1,
-   "end": 27.28
+   "start": 27.0,
+   "end": 27.18
   },
   {
    "text": "heart",
-   "start": 27.28,
-   "end": 27.54
+   "start": 27.18,
+   "end": 27.44
   },
   {
    "text": "may",
-   "start": 27.54,
-   "end": 27.7
+   "start": 27.44,
+   "end": 27.6
   },
   {
    "text": "beat",
-   "start": 27.7,
-   "end": 27.94
+   "start": 27.6,
+   "end": 27.84
   },
   {
    "text": "faster,",
-   "start": 27.94,
-   "end": 28.75
+   "start": 27.84,
+   "end": 28.65
   },
   {
    "text": "and",
-   "start": 28.75,
-   "end": 28.86
+   "start": 28.65,
+   "end": 28.76
   },
   {
    "text": "your",
-   "start": 28.86,
-   "end": 29.01
+   "start": 28.76,
+   "end": 28.91
   },
   {
    "text": "sweat",
-   "start": 29.01,
-   "end": 29.33
+   "start": 28.91,
+   "end": 29.23
   },
   {
    "text": "glands",
-   "start": 29.33,
-   "end": 29.78
+   "start": 29.23,
+   "end": 29.68
   },
   {
    "text": "start",
-   "start": 29.78,
-   "end": 30.01
+   "start": 29.68,
+   "end": 29.91
   },
   {
    "text": "up",
-   "start": 30.01,
-   "end": 30.2
+   "start": 29.91,
+   "end": 30.1
   },
   {
    "text": "to",
-   "start": 30.2,
-   "end": 30.33
+   "start": 30.1,
+   "end": 30.23
   },
   {
    "text": "cool",
-   "start": 30.33,
-   "end": 30.58
+   "start": 30.23,
+   "end": 30.48
   },
   {
    "text": "you",
-   "start": 30.58,
-   "end": 30.73
+   "start": 30.48,
+   "end": 30.62
   },
   {
    "text": "down.",
-   "start": 30.73,
-   "end": 31.6
+   "start": 30.62,
+   "end": 31.5
   },
   {
    "text": "You",
-   "start": 31.6,
-   "end": 31.76
+   "start": 31.5,
+   "end": 31.66
   },
   {
    "text": "sweat",
-   "start": 31.76,
-   "end": 32.05
+   "start": 31.66,
+   "end": 31.95
   },
   {
    "text": "most",
-   "start": 32.05,
-   "end": 32.34
+   "start": 31.95,
+   "end": 32.24
   },
   {
    "text": "on",
-   "start": 32.34,
-   "end": 32.44
+   "start": 32.24,
+   "end": 32.34
   },
   {
    "text": "your",
-   "start": 32.44,
-   "end": 32.56
+   "start": 32.34,
+   "end": 32.46
   },
   {
    "text": "forehead,",
-   "start": 32.56,
-   "end": 33.29
+   "start": 32.46,
+   "end": 33.19
   },
   {
    "text": "scalp,",
-   "start": 33.29,
-   "end": 33.94
+   "start": 33.19,
+   "end": 33.84
   },
   {
    "text": "nose",
-   "start": 33.94,
-   "end": 34.42
+   "start": 33.84,
+   "end": 34.33
   },
   {
    "text": "and",
-   "start": 34.42,
-   "end": 34.55
+   "start": 34.33,
+   "end": 34.45
   },
   {
    "text": "upper",
-   "start": 34.55,
-   "end": 34.85
+   "start": 34.45,
+   "end": 34.75
   },
   {
    "text": "lip.",
-   "start": 34.85,
-   "end": 35.58
+   "start": 34.75,
+   "end": 35.48
   },
   {
    "text": "So",
-   "start": 35.58,
-   "end": 35.78
+   "start": 35.48,
+   "end": 35.67
   },
   {
    "text": "is",
-   "start": 35.78,
-   "end": 35.91
+   "start": 35.67,
+   "end": 35.81
   },
   {
    "text": "sweat",
-   "start": 35.91,
-   "end": 36.16
+   "start": 35.81,
+   "end": 36.06
   },
   {
    "text": "the",
-   "start": 36.16,
-   "end": 36.29
+   "start": 36.06,
+   "end": 36.19
   },
   {
    "text": "only",
-   "start": 36.29,
-   "end": 36.61
+   "start": 36.19,
+   "end": 36.51
   },
   {
    "text": "thing",
-   "start": 36.61,
-   "end": 36.85
+   "start": 36.51,
+   "end": 36.75
   },
   {
    "text": "that",
-   "start": 36.85,
-   "end": 36.98
+   "start": 36.75,
+   "end": 36.88
   },
   {
    "text": "reaction",
-   "start": 36.98,
-   "end": 37.5
+   "start": 36.88,
+   "end": 37.4
   },
   {
    "text": "sets",
-   "start": 37.5,
-   "end": 37.78
+   "start": 37.4,
+   "end": 37.67
   },
   {
    "text": "off?",
-   "start": 37.78,
-   "end": 38.5
+   "start": 37.67,
+   "end": 38.4
   },
   {
    "text": "Spicy",
-   "start": 39.48,
-   "end": 39.91
+   "start": 39.38,
+   "end": 39.81
   },
   {
    "text": "food",
-   "start": 39.91,
-   "end": 40.23
+   "start": 39.81,
+   "end": 40.12
   },
   {
    "text": "can",
-   "start": 40.23,
-   "end": 40.35
+   "start": 40.12,
+   "end": 40.25
   },
   {
    "text": "make",
-   "start": 40.35,
-   "end": 40.54
+   "start": 40.25,
+   "end": 40.44
   },
   {
    "text": "your",
-   "start": 40.54,
-   "end": 40.68
+   "start": 40.44,
+   "end": 40.58
   },
   {
    "text": "nose",
-   "start": 40.68,
-   "end": 41.0
+   "start": 40.58,
+   "end": 40.9
   },
   {
    "text": "run",
-   "start": 41.0,
-   "end": 41.49
+   "start": 40.9,
+   "end": 41.39
   },
   {
    "text": "and",
-   "start": 41.49,
-   "end": 41.62
+   "start": 41.39,
+   "end": 41.52
   },
   {
    "text": "your",
-   "start": 41.62,
-   "end": 41.81
+   "start": 41.52,
+   "end": 41.71
   },
   {
    "text": "eyes",
-   "start": 41.81,
-   "end": 42.2
+   "start": 41.71,
+   "end": 42.1
   },
   {
    "text": "water",
-   "start": 42.2,
-   "end": 42.56
+   "start": 42.1,
+   "end": 42.46
   },
   {
    "text": "too.",
-   "start": 42.56,
-   "end": 43.43
+   "start": 42.46,
+   "end": 43.33
   },
   {
    "text": "It's",
-   "start": 43.43,
+   "start": 43.33,
+   "end": 43.51
+  },
+  {
+   "text": "the",
+   "start": 43.51,
    "end": 43.61
   },
   {
-   "text": "the",
-   "start": 43.61,
-   "end": 43.71
-  },
-  {
    "text": "same",
-   "start": 43.71,
-   "end": 44.05
+   "start": 43.61,
+   "end": 43.95
   },
   {
    "text": "reaction",
-   "start": 44.05,
-   "end": 44.6
+   "start": 43.95,
+   "end": 44.5
   },
   {
    "text": "to",
-   "start": 44.6,
-   "end": 44.69
+   "start": 44.5,
+   "end": 44.59
   },
   {
    "text": "the",
-   "start": 44.69,
-   "end": 44.81
+   "start": 44.59,
+   "end": 44.71
   },
   {
    "text": "same",
-   "start": 44.81,
-   "end": 45.36
+   "start": 44.71,
+   "end": 45.26
   },
   {
    "text": "\"burning",
-   "start": 45.36,
-   "end": 45.8
+   "start": 45.26,
+   "end": 45.7
   },
   {
    "text": "hot\"",
-   "start": 45.8,
-   "end": 46.05
+   "start": 45.7,
+   "end": 45.95
   },
   {
    "text": "message,",
-   "start": 46.05,
-   "end": 46.89
+   "start": 45.95,
+   "end": 46.79
   },
   {
    "text": "just",
-   "start": 46.89,
-   "end": 47.14
+   "start": 46.79,
+   "end": 47.04
   },
   {
    "text": "in",
-   "start": 47.14,
-   "end": 47.21
+   "start": 47.04,
+   "end": 47.11
   },
   {
    "text": "other",
-   "start": 47.21,
-   "end": 47.4
+   "start": 47.11,
+   "end": 47.3
   },
   {
    "text": "parts",
-   "start": 47.4,
-   "end": 47.71
+   "start": 47.3,
+   "end": 47.61
   },
   {
    "text": "of",
-   "start": 47.71,
-   "end": 47.8
+   "start": 47.61,
+   "end": 47.7
   },
   {
    "text": "you.",
-   "start": 47.8,
-   "end": 48.55
+   "start": 47.7,
+   "end": 48.45
   },
   {
    "text": "So",
-   "start": 48.55,
-   "end": 48.76
+   "start": 48.45,
+   "end": 48.66
   },
   {
    "text": "do",
-   "start": 48.76,
-   "end": 48.95
+   "start": 48.66,
+   "end": 48.85
   },
   {
    "text": "people",
-   "start": 48.95,
-   "end": 49.33
+   "start": 48.85,
+   "end": 49.23
   },
   {
    "text": "who",
-   "start": 49.33,
-   "end": 49.51
+   "start": 49.23,
+   "end": 49.41
   },
   {
    "text": "love",
-   "start": 49.51,
-   "end": 49.8
+   "start": 49.41,
+   "end": 49.7
   },
   {
    "text": "spicy",
-   "start": 49.8,
-   "end": 50.24
+   "start": 49.7,
+   "end": 50.14
   },
   {
    "text": "food",
-   "start": 50.24,
-   "end": 50.53
+   "start": 50.14,
+   "end": 50.42
   },
   {
    "text": "just",
-   "start": 50.53,
-   "end": 50.7
+   "start": 50.42,
+   "end": 50.6
   },
   {
    "text": "put",
-   "start": 50.7,
-   "end": 50.84
+   "start": 50.6,
+   "end": 50.74
   },
   {
    "text": "up",
-   "start": 50.84,
-   "end": 50.96
+   "start": 50.74,
+   "end": 50.86
   },
   {
    "text": "with",
-   "start": 50.96,
-   "end": 51.14
+   "start": 50.86,
+   "end": 51.04
   },
   {
    "text": "it?",
-   "start": 51.14,
-   "end": 51.73
+   "start": 51.04,
+   "end": 51.62
   },
   {
    "text": "If",
-   "start": 52.67,
-   "end": 52.82
+   "start": 52.58,
+   "end": 52.73
   },
   {
    "text": "you",
-   "start": 52.82,
-   "end": 52.99
+   "start": 52.73,
+   "end": 52.89
   },
   {
    "text": "eat",
-   "start": 52.99,
-   "end": 53.25
+   "start": 52.89,
+   "end": 53.15
   },
   {
    "text": "spicy",
-   "start": 53.25,
-   "end": 53.74
+   "start": 53.15,
+   "end": 53.64
   },
   {
    "text": "food",
-   "start": 53.74,
-   "end": 53.94
+   "start": 53.64,
+   "end": 53.84
   },
   {
    "text": "a",
-   "start": 53.94,
-   "end": 54.0
+   "start": 53.84,
+   "end": 53.9
   },
   {
    "text": "lot,",
-   "start": 54.0,
-   "end": 54.45
+   "start": 53.9,
+   "end": 54.35
   },
   {
    "text": "you",
-   "start": 54.45,
-   "end": 54.55
+   "start": 54.35,
+   "end": 54.45
   },
   {
    "text": "get",
-   "start": 54.55,
-   "end": 54.72
+   "start": 54.45,
+   "end": 54.62
   },
   {
    "text": "used",
-   "start": 54.72,
-   "end": 54.97
+   "start": 54.62,
+   "end": 54.88
   },
   {
    "text": "to",
-   "start": 54.97,
-   "end": 55.14
+   "start": 54.88,
+   "end": 55.04
   },
   {
    "text": "it.",
-   "start": 55.14,
-   "end": 55.77
+   "start": 55.04,
+   "end": 55.68
   },
   {
    "text": "Your",
-   "start": 55.77,
-   "end": 55.92
+   "start": 55.68,
+   "end": 55.83
   },
   {
    "text": "heat",
-   "start": 55.92,
-   "end": 56.15
+   "start": 55.83,
+   "end": 56.05
   },
   {
    "text": "sensors",
-   "start": 56.15,
-   "end": 56.62
+   "start": 56.05,
+   "end": 56.53
   },
   {
    "text": "become",
-   "start": 56.62,
-   "end": 57.0
+   "start": 56.53,
+   "end": 56.9
   },
   {
    "text": "less",
-   "start": 57.0,
-   "end": 57.22
+   "start": 56.9,
+   "end": 57.12
   },
   {
    "text": "reactive",
-   "start": 57.22,
-   "end": 57.69
+   "start": 57.12,
+   "end": 57.59
   },
   {
    "text": "over",
-   "start": 57.69,
-   "end": 57.92
+   "start": 57.59,
+   "end": 57.83
   },
   {
    "text": "time,",
-   "start": 57.92,
-   "end": 58.6
+   "start": 57.83,
+   "end": 58.5
   },
   {
    "text": "so",
-   "start": 58.6,
-   "end": 58.74
+   "start": 58.5,
+   "end": 58.64
   },
   {
    "text": "the",
-   "start": 58.74,
-   "end": 58.86
+   "start": 58.64,
+   "end": 58.76
   },
   {
    "text": "same",
-   "start": 58.86,
-   "end": 59.22
+   "start": 58.76,
+   "end": 59.12
   },
   {
    "text": "chili",
-   "start": 59.22,
-   "end": 59.61
+   "start": 59.12,
+   "end": 59.51
   },
   {
    "text": "sets",
-   "start": 59.61,
-   "end": 59.9
+   "start": 59.51,
+   "end": 59.8
   },
   {
    "text": "off",
-   "start": 59.9,
-   "end": 60.12
+   "start": 59.8,
+   "end": 60.03
   },
   {
    "text": "less.",
-   "start": 60.12,
-   "end": 61.07
+   "start": 60.03,
+   "end": 60.98
   },
   {
    "text": "Chili",
-   "start": 61.07,
-   "end": 61.38
+   "start": 60.98,
+   "end": 61.28
   },
   {
    "text": "tricks",
-   "start": 61.38,
-   "end": 61.64
+   "start": 61.28,
+   "end": 61.54
   },
   {
    "text": "a",
-   "start": 61.64,
-   "end": 61.7
+   "start": 61.54,
+   "end": 61.6
   },
   {
    "text": "heat",
-   "start": 61.7,
-   "end": 61.92
+   "start": 61.6,
+   "end": 61.83
   },
   {
    "text": "sensor",
-   "start": 61.92,
-   "end": 62.35
+   "start": 61.83,
+   "end": 62.25
   },
   {
    "text": "into",
-   "start": 62.35,
-   "end": 62.61
+   "start": 62.25,
+   "end": 62.51
   },
   {
    "text": "saying",
-   "start": 62.61,
-   "end": 63.14
+   "start": 62.51,
+   "end": 63.04
   },
   {
    "text": "\"burning",
-   "start": 63.14,
-   "end": 63.57
+   "start": 63.04,
+   "end": 63.48
   },
   {
    "text": "hot\",",
-   "start": 63.57,
-   "end": 64.25
+   "start": 63.48,
+   "end": 64.15
   },
   {
    "text": "and",
-   "start": 64.25,
-   "end": 64.36
+   "start": 64.15,
+   "end": 64.26
   },
   {
    "text": "your",
-   "start": 64.36,
-   "end": 64.47
+   "start": 64.26,
+   "end": 64.38
   },
   {
    "text": "body",
-   "start": 64.47,
-   "end": 64.86
+   "start": 64.38,
+   "end": 64.76
   },
   {
    "text": "sweats",
-   "start": 64.86,
-   "end": 65.3
+   "start": 64.76,
+   "end": 65.2
   },
   {
    "text": "as",
-   "start": 65.3,
-   "end": 65.42
+   "start": 65.2,
+   "end": 65.33
   },
   {
    "text": "if",
-   "start": 65.42,
-   "end": 65.54
+   "start": 65.33,
+   "end": 65.44
   },
   {
    "text": "it",
-   "start": 65.54,
-   "end": 65.61
+   "start": 65.44,
+   "end": 65.51
   },
   {
    "text": "were",
-   "start": 65.61,
-   "end": 65.76
+   "start": 65.51,
+   "end": 65.66
   },
   {
    "text": "true.",
-   "start": 65.76,
-   "end": 66.58
+   "start": 65.66,
+   "end": 66.48
   }
  ],
  "keys": [

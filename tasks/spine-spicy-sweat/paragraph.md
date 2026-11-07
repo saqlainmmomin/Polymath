@@ -1,6 +1,6 @@
 # spicy-sweat (working file; owner approved the explanation, no further gate)
 
-**Title (owner's words):** Why do I start sweating when I eat spicy food?
+**Title (owner's words):** Why do you start sweating when you eat spicy food?
 **Setup:** The title says the whole puzzle: spicy food, sweat. Card 1 explains what "spicy" is.
 
 **Spoken paragraph (cut):**
