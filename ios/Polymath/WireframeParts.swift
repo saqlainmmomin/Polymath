@@ -5,7 +5,7 @@ import SwiftUI
 // `on` draws the outlines (and lets meshes in), `fill` fades the black fills that hide what is behind them.
 
 enum WFParts {
-    static let names = ["ground", "globe", "moon", "tideEarth", "satellite", "wfPhone", "magnet", "pin", "clock", "tower"]
+    static let names = ["ground", "globe", "moon", "tideEarth", "satellite", "wfPhone", "magnet", "pin", "clock", "tower", "dial", "router", "earbud"]
 
     private static func pt(_ x: Double, _ y: Double) -> CGPoint { CGPoint(x: x, y: y) }
     private static func ink(_ a: Double) -> Color { WF.ink.opacity(a) }
@@ -41,6 +41,9 @@ enum WFParts {
         case "pin": pin(&c, q)
         case "clock": clock(&c, q)
         case "tower": tower(&c, q)
+        case "dial": dial(&c, q)
+        case "router": router(&c, q)
+        case "earbud": earbud(&c, q)
         default: break
         }
     }
@@ -295,5 +298,113 @@ enum WFParts {
             let b = Path(roundedRect: CGRect(x: dx - 2.5, y: -h - 16, width: 5, height: 16), cornerRadius: 1.5)
             g.fill(b, with: .color(WF.paper)); g.stroke(b, with: .color(WF.ink), lineWidth: WF.fine)
         }
+    }
+
+    // MARK: dial
+
+    /// A radio dial lying flat, centred on the origin: a slab `w` wide (294) and `h` (52) tall with a back slab behind it and `n` (40) fine ticks, every fifth longer.
+    /// `ticks` 0...1 how many ticks are drawn (left to right); `wifi` 0...1 a hatched block over the left quarter (a Wi-Fi network); `chanOn` 0...1 a pink channel
+    /// at `chan` 0...1 along the ticks, with a pointer above it; `hit` 0...1 hollows that channel and crosses it (it landed on Wi-Fi); `piece` 0...1 a small pink square under the channel (below the dial's Wi-Fi block).
+    private static func dial(_ c: inout GraphicsContext, _ q: ScenePart) {
+        let w = q["w", default: 294], h = q["h", default: 52], dx = 7.0, dy = -6.0, n = Int(q["n", default: 40]), a = BP.cl(q.on * 1.6)
+        var g = c; g.opacity *= a
+        let r = CGRect(x: -w / 2, y: -h / 2, width: w, height: h)
+        let back = Path(roundedRect: r.offsetBy(dx: dx, dy: dy), cornerRadius: 7)
+        g.fill(back, with: .color(WF.paper)); g.stroke(back, with: .color(ink(0.55)), lineWidth: WF.fine)
+        var join = Path()
+        for (x, y) in [(r.maxX - 3, r.minY + 3), (r.maxX - 3, r.maxY - 3), (r.minX + 3, r.minY + 3)] { join.move(to: pt(x, y)); join.addLine(to: pt(x + dx, y + dy)) }
+        g.stroke(join, with: .color(ink(0.55)), lineWidth: WF.fine)
+        let front = Path(roundedRect: r, cornerRadius: 7)
+        g.fill(front, with: .color(WF.paper)); g.stroke(front, with: .color(WF.ink), lineWidth: WF.line)
+        let x0 = -w / 2 + 8, span = w - 16, step = span / Double(n)
+        func tx(_ i: Int) -> Double { x0 + (Double(i) + 0.5) * step }
+        let shown = Int((q["ticks", default: 0] * Double(n)).rounded())
+        var ticks = Path()
+        for i in 0..<shown { let hh = i % 5 == 0 ? h * 0.3 : h * 0.18; ticks.move(to: pt(tx(i), -hh)); ticks.addLine(to: pt(tx(i), hh)) }
+        g.stroke(ticks, with: .color(ink(0.8)), lineWidth: WF.fine)
+        let wifi = BP.cl(q["wifi", default: 0])
+        if wifi > 0.01 {
+            let bw = span * 0.26
+            let blk = CGRect(x: x0 - 4, y: -h / 2 - 12, width: bw + 8, height: h + 24)
+            var wg = g; wg.opacity *= wifi
+            wg.fill(Path(roundedRect: blk, cornerRadius: 3), with: .color(WF.paper.opacity(0.7)))
+            var hatch = Path(); var hx = blk.minX - blk.height
+            while hx < blk.maxX { hatch.move(to: pt(hx, blk.maxY)); hatch.addLine(to: pt(hx + blk.height, blk.minY)); hx += 5.5 }
+            var hg = wg; hg.clip(to: Path(roundedRect: blk, cornerRadius: 3))
+            hg.stroke(hatch, with: .color(ink(0.55)), lineWidth: WF.fine)
+            wg.stroke(Path(roundedRect: blk, cornerRadius: 3), with: .color(WF.ink), lineWidth: WF.line)
+        }
+        let on = BP.cl(q["chanOn", default: 0])
+        if on > 0.01 {
+            var cg = g; cg.opacity *= on
+            let cx = x0 + step / 2 + BP.cl(q["chan", default: 0]) * (span - step)
+            let hit = BP.cl(q["hit", default: 0])
+            let col = CGRect(x: cx - step * 0.45, y: -h / 2 + 3, width: step * 0.9, height: h - 6)
+            if hit < 0.5 {
+                cg.fill(Path(col), with: .color(WF.accent))
+            } else {
+                cg.fill(Path(col), with: .color(WF.paper))
+                cg.stroke(Path(col), with: .color(WF.accent), lineWidth: WF.line)
+                var x = Path(); let m = 6.0
+                x.move(to: pt(cx - m, -m)); x.addLine(to: pt(cx + m, m)); x.move(to: pt(cx - m, m)); x.addLine(to: pt(cx + m, -m))
+                cg.stroke(x, with: .color(WF.accent), style: StrokeStyle(lineWidth: 1.6, lineCap: .round))
+            }
+            var ptr = Path(); ptr.move(to: pt(cx, -h / 2 - 1)); ptr.addLine(to: pt(cx - 4, -h / 2 - 9)); ptr.addLine(to: pt(cx + 4, -h / 2 - 9)); ptr.closeSubpath()
+            cg.fill(ptr, with: .color(WF.accent))
+            let piece = BP.cl(q["piece", default: 0])
+            if piece > 0.01 {
+                var pg = cg; pg.opacity *= piece
+                pg.fill(Path(roundedRect: CGRect(x: cx - 7, y: h / 2 + 15, width: 14, height: 14), cornerRadius: 3), with: .color(WF.accent))
+            }
+        }
+    }
+
+    // MARK: router
+
+    /// A Wi-Fi box standing on the origin, 62 wide and 24 tall with a back slab, three antennas (the middle one taller) and a row of lights. `lit` 0...1 turns the lights white.
+    private static func router(_ c: inout GraphicsContext, _ q: ScenePart) {
+        var g = c; g.opacity *= BP.cl(q.on * 1.6)
+        let w = 62.0, h = 24.0, dx = 8.0, dy = -6.0
+        let r = CGRect(x: -w / 2, y: -h, width: w, height: h)
+        for (ax, ah) in [(-20.0, 30.0), (0.0, 38.0), (20.0, 30.0)] {          // antennas stand behind the box
+            var s = Path(); s.move(to: pt(ax + dx * 0.6, -h + dy * 0.6)); s.addLine(to: pt(ax + dx * 0.6, -h + dy * 0.6 - ah))
+            g.stroke(s, with: .color(WF.ink), style: StrokeStyle(lineWidth: 2.4, lineCap: .round))
+            g.stroke(s, with: .color(WF.paper), style: StrokeStyle(lineWidth: 1.0, lineCap: .round))
+        }
+        let back = Path(roundedRect: r.offsetBy(dx: dx, dy: dy), cornerRadius: 4)
+        g.fill(back, with: .color(WF.paper)); g.stroke(back, with: .color(ink(0.55)), lineWidth: WF.fine)
+        var join = Path()
+        for (x, y) in [(r.maxX - 2, r.minY + 2), (r.maxX - 2, r.maxY - 2), (r.minX + 2, r.minY + 2)] { join.move(to: pt(x, y)); join.addLine(to: pt(x + dx, y + dy)) }
+        g.stroke(join, with: .color(ink(0.55)), lineWidth: WF.fine)
+        let front = Path(roundedRect: r, cornerRadius: 4)
+        g.fill(front, with: .color(WF.paper)); g.stroke(front, with: .color(WF.ink), lineWidth: WF.line)
+        let lit = BP.cl(q["lit", default: 0])
+        for i in 0..<4 {
+            let p = pt(r.minX + 10 + Double(i) * 8, -h / 2)
+            let d = Path(ellipseIn: CGRect(x: p.x - 1.8, y: p.y - 1.8, width: 3.6, height: 3.6))
+            g.fill(d, with: .color(WF.ink.opacity(0.25 + 0.75 * lit)))
+            g.stroke(d, with: .color(WF.ink), lineWidth: WF.fine * 0.8)
+        }
+        var vent = Path(); for i in 0..<3 { let y = -h / 2 - 4 + Double(i) * 4; vent.move(to: pt(r.maxX - 16, y)); vent.addLine(to: pt(r.maxX - 6, y)) }
+        g.stroke(vent, with: .color(ink(0.5)), lineWidth: WF.fine)
+    }
+
+    // MARK: earbud
+
+    /// An earbud standing on the origin, 14 wide and 36 tall: a round bud with a mesh grille, a flat back disc behind it and a stem. `glow` 0...1 fills the grille pink.
+    private static func earbud(_ c: inout GraphicsContext, _ q: ScenePart) {
+        var g = c; g.opacity *= BP.cl(q.on * 1.6)
+        let stem = Path(roundedRect: CGRect(x: -3, y: -24, width: 6, height: 24), cornerRadius: 3)
+        g.fill(stem, with: .color(WF.paper)); g.stroke(stem, with: .color(WF.ink), lineWidth: WF.line)
+        let back = Path(ellipseIn: CGRect(x: -7 + 4, y: -36 - 3, width: 14, height: 14))
+        g.fill(back, with: .color(WF.paper)); g.stroke(back, with: .color(ink(0.55)), lineWidth: WF.fine)
+        let bud = Path(ellipseIn: CGRect(x: -9, y: -35, width: 18, height: 18))
+        g.fill(bud, with: .color(WF.paper)); g.stroke(bud, with: .color(WF.ink), lineWidth: WF.line)
+        let grille = Path(ellipseIn: CGRect(x: -4.5, y: -30.5, width: 9, height: 9))
+        let glow = BP.cl(q["glow", default: 0])
+        if glow > 0.01 { var gg = g; gg.opacity *= glow; gg.fill(grille, with: .color(WF.accent)) }
+        g.stroke(grille, with: .color(ink(0.7)), lineWidth: WF.fine)
+        var mesh = Path(); mesh.move(to: pt(-4, -26)); mesh.addLine(to: pt(4, -26)); mesh.move(to: pt(0, -30)); mesh.addLine(to: pt(0, -22))
+        g.stroke(mesh, with: .color(ink(0.5)), lineWidth: WF.fine * 0.8)
     }
 }

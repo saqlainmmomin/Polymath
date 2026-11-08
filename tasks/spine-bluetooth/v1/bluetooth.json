@@ -1,0 +1,2246 @@
+{
+ "scenes": [
+  {
+   "card": 0,
+   "label": "A big Wi-Fi box on the left sends wide white rings across the room. A phone in the middle sends a small pink wave to an earbud on the right, whose grille lights pink while the music plays. A big pink question mark hangs over the wave.",
+   "elements": [
+    {
+     "part": "ground",
+     "at": [
+      171,
+      214
+     ],
+     "params": {
+      "w": 320
+     }
+    },
+    {
+     "id": "rt",
+     "part": "router",
+     "at": [
+      58,
+      214
+     ],
+     "scale": 1.55,
+     "params": {
+      "lit": 0
+     },
+     "word": "wifi"
+    },
+    {
+     "id": "rg1",
+     "part": "rings",
+     "at": [
+      84,
+      140
+     ],
+     "params": {
+      "n": 4,
+      "r0": 22,
+      "gap": 24,
+      "span": 90,
+      "rot": 0,
+      "speed": 0.5
+     },
+     "word": "drown"
+    },
+    {
+     "id": "rg2",
+     "part": "rings",
+     "at": [
+      84,
+      140
+     ],
+     "params": {
+      "n": 3,
+      "r0": 60,
+      "gap": 32,
+      "span": 110,
+      "rot": 0,
+      "speed": 0.5
+     },
+     "word": "stronger",
+     "hidden": true
+    },
+    {
+     "id": "ph",
+     "part": "wfPhone",
+     "at": [
+      160,
+      214
+     ],
+     "scale": 0.78,
+     "params": {
+      "bars": 0,
+      "pin": 0,
+      "glow": 0
+     },
+     "word": "Bluetooth"
+    },
+    {
+     "id": "eb",
+     "part": "earbud",
+     "at": [
+      270,
+      214
+     ],
+     "scale": 2.3,
+     "params": {
+      "glow": 0
+     },
+     "word": "earbuds"
+    },
+    {
+     "id": "wv",
+     "part": "wave",
+     "at": [
+      200,
+      170
+     ],
+     "params": {
+      "len": 48,
+      "amp": 6,
+      "wl": 14,
+      "col": 1,
+      "upto": 0,
+      "phase": 0
+     },
+     "word": "weak"
+    },
+    {
+     "label": "WI-FI",
+     "anchor": [
+      62,
+      205
+     ],
+     "at": [
+      62,
+      246
+     ],
+     "align": "center",
+     "word": "wifi",
+     "delay": 0.3
+    },
+    {
+     "label": "EARBUD",
+     "anchor": [
+      270,
+      206
+     ],
+     "at": [
+      270,
+      246
+     ],
+     "align": "center",
+     "word": "earbuds",
+     "delay": 0.4
+    },
+    {
+     "label": "WEAK SIGNAL",
+     "anchor": [
+      226,
+      170
+     ],
+     "at": [
+      236,
+      96
+     ],
+     "align": "leading",
+     "word": "signal",
+     "delay": 0.2
+    },
+    {
+     "id": "q",
+     "text": "?",
+     "at": [
+      214,
+      132
+     ],
+     "size": 38,
+     "stroke": "accent",
+     "word": "room#2",
+     "onpicture": true
+    }
+   ],
+   "moves": [
+    {
+     "move": "wv",
+     "prop": "upto",
+     "to": 1,
+     "word": "weak",
+     "dur": 0.9
+    },
+    {
+     "move": "rg2",
+     "prop": "opacity",
+     "to": 1,
+     "word": "stronger",
+     "dur": 0.4
+    },
+    {
+     "move": "rt",
+     "prop": "lit",
+     "to": 1,
+     "word": "wifi#2",
+     "dur": 0.4
+    },
+    {
+     "move": "eb",
+     "prop": "glow",
+     "to": 1,
+     "word": "playing",
+     "dur": 0.5
+    }
+   ]
+  },
+  {
+   "card": 1,
+   "label": "A big radio dial lying flat. A hatched block covers its left quarter (one Wi-Fi network). Dozens of narrow ticks fill the dial and one pink channel (Bluetooth) lights on the right, then slides left into the Wi-Fi block.",
+   "elements": [
+    {
+     "id": "dl",
+     "part": "dial",
+     "at": [
+      171,
+      112
+     ],
+     "params": {
+      "h": 84,
+      "ticks": 0,
+      "wifi": 0,
+      "chanOn": 0,
+      "chan": 0.62,
+      "hit": 0,
+      "piece": 0
+     },
+     "word": "picture"
+    },
+    {
+     "label": "RADIO DIAL",
+     "anchor": [
+      171,
+      154
+     ],
+     "at": [
+      171,
+      184
+     ],
+     "align": "center",
+     "word": "dial",
+     "delay": 0.1
+    },
+    {
+     "label": "ONE WI-FI NETWORK:\nABOUT A QUARTER",
+     "anchor": [
+      66,
+      58
+     ],
+     "at": [
+      84,
+      26
+     ],
+     "align": "leading",
+     "word": "quarter",
+     "delay": 0.1
+    },
+    {
+     "label": "DOZENS OF\nNARROW CHANNELS",
+     "anchor": [
+      248,
+      100
+     ],
+     "at": [
+      216,
+      30
+     ],
+     "align": "leading",
+     "word": "channels",
+     "delay": 0.1
+    },
+    {
+     "id": "cap",
+     "text": "BLUETOOTH:\nONE AT A TIME",
+     "at": [
+      171,
+      230
+     ],
+     "size": 12,
+     "word": "uses",
+     "stroke": "accent",
+     "delay": 0.2
+    },
+    {
+     "label": "BLUETOOTH COULD\nLAND ON WI-FI",
+     "anchor": [
+      66,
+      166
+     ],
+     "at": [
+      58,
+      196
+     ],
+     "align": "center",
+     "word": "wifi#2",
+     "delay": 0.1
+    }
+   ],
+   "moves": [
+    {
+     "move": "dl",
+     "prop": "wifi",
+     "to": 1,
+     "word": "wifi",
+     "dur": 0.7
+    },
+    {
+     "move": "dl",
+     "prop": "ticks",
+     "to": 1,
+     "word": "dozens",
+     "dur": 1.3,
+     "ease": "linear"
+    },
+    {
+     "move": "dl",
+     "prop": "chanOn",
+     "to": 1,
+     "word": "uses",
+     "dur": 0.4
+    },
+    {
+     "move": "dl",
+     "prop": "chan",
+     "to": 0.10256410256410256,
+     "word": "land",
+     "dur": 0.8,
+     "ease": "eio"
+    }
+   ]
+  },
+  {
+   "card": 2,
+   "label": "The same big dial with the Wi-Fi block on the left. A phone above and an earbud below ride one pink channel. It first hops slowly along pale pink marks that show the order, then flickers across the ticks very fast while 1,600 a second is said.",
+   "elements": [
+    {
+     "id": "dl",
+     "part": "dial",
+     "at": [
+      171,
+      112
+     ],
+     "params": {
+      "h": 84,
+      "ticks": 1,
+      "wifi": 1,
+      "chanOn": 0,
+      "chan": 0.615,
+      "hit": 0,
+      "piece": 0
+     },
+     "word": "Bluetooth"
+    },
+    {
+     "id": "ride",
+     "group": [
+      {
+       "part": "wfPhone",
+       "at": [
+        0,
+        -62
+       ],
+       "scale": 0.32,
+       "params": {
+        "bars": 0,
+        "pin": 0,
+        "glow": 0
+       }
+      },
+      {
+       "part": "earbud",
+       "at": [
+        0,
+        100
+       ],
+       "scale": 1.2,
+       "params": {
+        "glow": 1
+       }
+      }
+     ],
+     "at": [
+      202.2,
+      112
+     ],
+     "word": "devices"
+    },
+    {
+     "label": "PHONE",
+     "anchor": [
+      202.2,
+      22
+     ],
+     "at": [
+      172.2,
+      10
+     ],
+     "align": "trailing",
+     "word": "devices",
+     "delay": 0.2,
+     "id": "lph"
+    },
+    {
+     "label": "EARBUD",
+     "anchor": [
+      202.2,
+      196
+     ],
+     "at": [
+      232.2,
+      208
+     ],
+     "align": "leading",
+     "word": "devices",
+     "delay": 0.3,
+     "id": "leb"
+    },
+    {
+     "id": "t1",
+     "text": "UP TO 1,600\nHOPS A SECOND",
+     "at": [
+      104,
+      234
+     ],
+     "size": 12,
+     "word": "1600",
+     "stroke": "accent"
+    },
+    {
+     "id": "t2",
+     "text": "OVER A HUNDRED\nIN ONE BLINK",
+     "at": [
+      236,
+      234
+     ],
+     "size": 12,
+     "word": "hundred"
+    },
+    {
+     "label": "WI-FI",
+     "anchor": [
+      66,
+      166
+     ],
+     "at": [
+      44,
+      196
+     ],
+     "align": "center",
+     "word": "wifi"
+    },
+    {
+     "id": "g0",
+     "rect": [
+      143.7,
+      82,
+      6,
+      60
+     ],
+     "fill": "accent@0.28",
+     "stroke": "none",
+     "word": "order",
+     "delay": 0.0,
+     "hidden": true
+    },
+    {
+     "id": "g1",
+     "rect": [
+      261.9,
+      82,
+      6,
+      60
+     ],
+     "fill": "accent@0.28",
+     "stroke": "none",
+     "word": "order",
+     "delay": 0.12,
+     "hidden": true
+    },
+    {
+     "id": "g2",
+     "rect": [
+      60.3,
+      82,
+      6,
+      60
+     ],
+     "fill": "accent@0.28",
+     "stroke": "none",
+     "word": "order",
+     "delay": 0.24,
+     "hidden": true
+    },
+    {
+     "id": "g3",
+     "rect": [
+      289.7,
+      82,
+      6,
+      60
+     ],
+     "fill": "accent@0.28",
+     "stroke": "none",
+     "word": "order",
+     "delay": 0.36,
+     "hidden": true
+    },
+    {
+     "id": "g4",
+     "rect": [
+      122.9,
+      82,
+      6,
+      60
+     ],
+     "fill": "accent@0.28",
+     "stroke": "none",
+     "word": "order",
+     "delay": 0.48,
+     "hidden": true
+    },
+    {
+     "id": "g5",
+     "rect": [
+      227.1,
+      82,
+      6,
+      60
+     ],
+     "fill": "accent@0.28",
+     "stroke": "none",
+     "word": "order",
+     "delay": 0.6,
+     "hidden": true
+    },
+    {
+     "id": "g6",
+     "rect": [
+      88.1,
+      82,
+      6,
+      60
+     ],
+     "fill": "accent@0.28",
+     "stroke": "none",
+     "word": "order",
+     "delay": 0.72,
+     "hidden": true
+    },
+    {
+     "id": "g7",
+     "rect": [
+      268.8,
+      82,
+      6,
+      60
+     ],
+     "fill": "accent@0.28",
+     "stroke": "none",
+     "word": "order",
+     "delay": 0.84,
+     "hidden": true
+    },
+    {
+     "id": "g8",
+     "rect": [
+      192.4,
+      82,
+      6,
+      60
+     ],
+     "fill": "accent@0.28",
+     "stroke": "none",
+     "word": "order",
+     "delay": 0.96,
+     "hidden": true
+    }
+   ],
+   "moves": [
+    {
+     "move": "dl",
+     "prop": "chanOn",
+     "to": 1,
+     "word": "never",
+     "dur": 0.3
+    },
+    {
+     "move": "dl",
+     "prop": "chan",
+     "to": 0.46153846153846156,
+     "word": "stays",
+     "dur": 0.2,
+     "ease": "eout"
+    },
+    {
+     "move": "ride",
+     "prop": "x",
+     "to": 160.6,
+     "word": "stays",
+     "dur": 0.2,
+     "ease": "eout"
+    },
+    {
+     "move": "dl",
+     "prop": "chan",
+     "to": 0.615,
+     "word": "devices",
+     "dur": 0.3,
+     "ease": "eout"
+    },
+    {
+     "move": "ride",
+     "prop": "x",
+     "to": 202.2,
+     "word": "devices",
+     "dur": 0.3,
+     "ease": "eout"
+    },
+    {
+     "move": "lph",
+     "prop": "opacity",
+     "to": 0,
+     "word": "hop",
+     "dur": 0.3
+    },
+    {
+     "move": "leb",
+     "prop": "opacity",
+     "to": 0,
+     "word": "hop",
+     "dur": 0.3
+    },
+    {
+     "move": "g0",
+     "prop": "opacity",
+     "to": 1,
+     "word": "order",
+     "dur": 0.25
+    },
+    {
+     "move": "g1",
+     "prop": "opacity",
+     "to": 1,
+     "word": "order",
+     "dur": 0.25,
+     "delay": 0.12
+    },
+    {
+     "move": "g2",
+     "prop": "opacity",
+     "to": 1,
+     "word": "order",
+     "dur": 0.25,
+     "delay": 0.24
+    },
+    {
+     "move": "g3",
+     "prop": "opacity",
+     "to": 1,
+     "word": "order",
+     "dur": 0.25,
+     "delay": 0.36
+    },
+    {
+     "move": "g4",
+     "prop": "opacity",
+     "to": 1,
+     "word": "order",
+     "dur": 0.25,
+     "delay": 0.48
+    },
+    {
+     "move": "g5",
+     "prop": "opacity",
+     "to": 1,
+     "word": "order",
+     "dur": 0.25,
+     "delay": 0.6
+    },
+    {
+     "move": "g6",
+     "prop": "opacity",
+     "to": 1,
+     "word": "order",
+     "dur": 0.25,
+     "delay": 0.72
+    },
+    {
+     "move": "g7",
+     "prop": "opacity",
+     "to": 1,
+     "word": "order",
+     "dur": 0.25,
+     "delay": 0.84
+    },
+    {
+     "move": "g8",
+     "prop": "opacity",
+     "to": 1,
+     "word": "order",
+     "dur": 0.25,
+     "delay": 0.96
+    },
+    {
+     "move": "dl",
+     "prop": "chan",
+     "to": 0.41025641025641024,
+     "word": "hop",
+     "dur": 0.14,
+     "delay": 0.1,
+     "ease": "eout"
+    },
+    {
+     "move": "ride",
+     "prop": "x",
+     "to": 146.7,
+     "word": "hop",
+     "dur": 0.14,
+     "delay": 0.1,
+     "ease": "eout"
+    },
+    {
+     "move": "dl",
+     "prop": "chan",
+     "to": 0.8461538461538461,
+     "word": "hop",
+     "dur": 0.14,
+     "delay": 0.5,
+     "ease": "eout"
+    },
+    {
+     "move": "ride",
+     "prop": "x",
+     "to": 264.9,
+     "word": "hop",
+     "dur": 0.14,
+     "delay": 0.5,
+     "ease": "eout"
+    },
+    {
+     "move": "dl",
+     "prop": "chan",
+     "to": 0.10256410256410256,
+     "word": "hop",
+     "dur": 0.14,
+     "delay": 0.9,
+     "ease": "eout"
+    },
+    {
+     "move": "ride",
+     "prop": "x",
+     "to": 63.3,
+     "word": "hop",
+     "dur": 0.14,
+     "delay": 0.9,
+     "ease": "eout"
+    },
+    {
+     "move": "dl",
+     "prop": "chan",
+     "to": 0.9487179487179487,
+     "word": "hop",
+     "dur": 0.14,
+     "delay": 1.3,
+     "ease": "eout"
+    },
+    {
+     "move": "ride",
+     "prop": "x",
+     "to": 292.7,
+     "word": "hop",
+     "dur": 0.14,
+     "delay": 1.3,
+     "ease": "eout"
+    },
+    {
+     "move": "dl",
+     "prop": "chan",
+     "to": 0.5128205128205128,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 0.06,
+     "ease": "linear"
+    },
+    {
+     "move": "ride",
+     "prop": "x",
+     "to": 174.5,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 0.06,
+     "ease": "linear"
+    },
+    {
+     "move": "dl",
+     "prop": "chan",
+     "to": 0.23076923076923078,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 0.16,
+     "ease": "linear"
+    },
+    {
+     "move": "ride",
+     "prop": "x",
+     "to": 98.1,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 0.16,
+     "ease": "linear"
+    },
+    {
+     "move": "dl",
+     "prop": "chan",
+     "to": 0.6410256410256411,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 0.27,
+     "ease": "linear"
+    },
+    {
+     "move": "ride",
+     "prop": "x",
+     "to": 209.3,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 0.27,
+     "ease": "linear"
+    },
+    {
+     "move": "dl",
+     "prop": "chan",
+     "to": 0.07692307692307693,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 0.38,
+     "ease": "linear"
+    },
+    {
+     "move": "ride",
+     "prop": "x",
+     "to": 56.4,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 0.38,
+     "ease": "linear"
+    },
+    {
+     "move": "dl",
+     "prop": "chan",
+     "to": 0.8717948717948718,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 0.48,
+     "ease": "linear"
+    },
+    {
+     "move": "ride",
+     "prop": "x",
+     "to": 271.8,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 0.48,
+     "ease": "linear"
+    },
+    {
+     "move": "dl",
+     "prop": "chan",
+     "to": 0.15384615384615385,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 0.58,
+     "ease": "linear"
+    },
+    {
+     "move": "ride",
+     "prop": "x",
+     "to": 77.2,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 0.58,
+     "ease": "linear"
+    },
+    {
+     "move": "dl",
+     "prop": "chan",
+     "to": 0.5897435897435898,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 0.69,
+     "ease": "linear"
+    },
+    {
+     "move": "ride",
+     "prop": "x",
+     "to": 195.4,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 0.69,
+     "ease": "linear"
+    },
+    {
+     "move": "dl",
+     "prop": "chan",
+     "to": 0.9487179487179487,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 0.79,
+     "ease": "linear"
+    },
+    {
+     "move": "ride",
+     "prop": "x",
+     "to": 292.7,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 0.79,
+     "ease": "linear"
+    },
+    {
+     "move": "dl",
+     "prop": "chan",
+     "to": 0.07692307692307693,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 0.9,
+     "ease": "linear"
+    },
+    {
+     "move": "ride",
+     "prop": "x",
+     "to": 56.4,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 0.9,
+     "ease": "linear"
+    },
+    {
+     "move": "dl",
+     "prop": "chan",
+     "to": 0.8205128205128205,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 1.0,
+     "ease": "linear"
+    },
+    {
+     "move": "ride",
+     "prop": "x",
+     "to": 257.9,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 1.0,
+     "ease": "linear"
+    },
+    {
+     "move": "dl",
+     "prop": "chan",
+     "to": 0.3333333333333333,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 1.11,
+     "ease": "linear"
+    },
+    {
+     "move": "ride",
+     "prop": "x",
+     "to": 125.9,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 1.11,
+     "ease": "linear"
+    },
+    {
+     "move": "dl",
+     "prop": "chan",
+     "to": 0.05128205128205128,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 1.22,
+     "ease": "linear"
+    },
+    {
+     "move": "ride",
+     "prop": "x",
+     "to": 49.4,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 1.22,
+     "ease": "linear"
+    },
+    {
+     "move": "dl",
+     "prop": "chan",
+     "to": 0.6923076923076923,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 1.32,
+     "ease": "linear"
+    },
+    {
+     "move": "ride",
+     "prop": "x",
+     "to": 223.2,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 1.32,
+     "ease": "linear"
+    },
+    {
+     "move": "dl",
+     "prop": "chan",
+     "to": 0.10256410256410256,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 1.43,
+     "ease": "linear"
+    },
+    {
+     "move": "ride",
+     "prop": "x",
+     "to": 63.3,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 1.43,
+     "ease": "linear"
+    },
+    {
+     "move": "dl",
+     "prop": "chan",
+     "to": 0.38461538461538464,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 1.53,
+     "ease": "linear"
+    },
+    {
+     "move": "ride",
+     "prop": "x",
+     "to": 139.8,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 1.53,
+     "ease": "linear"
+    },
+    {
+     "move": "dl",
+     "prop": "chan",
+     "to": 0.1282051282051282,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 1.64,
+     "ease": "linear"
+    },
+    {
+     "move": "ride",
+     "prop": "x",
+     "to": 70.3,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 1.64,
+     "ease": "linear"
+    },
+    {
+     "move": "dl",
+     "prop": "chan",
+     "to": 0.8974358974358975,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 1.74,
+     "ease": "linear"
+    },
+    {
+     "move": "ride",
+     "prop": "x",
+     "to": 278.8,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 1.74,
+     "ease": "linear"
+    },
+    {
+     "move": "dl",
+     "prop": "chan",
+     "to": 0.6923076923076923,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 1.84,
+     "ease": "linear"
+    },
+    {
+     "move": "ride",
+     "prop": "x",
+     "to": 223.2,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 1.84,
+     "ease": "linear"
+    },
+    {
+     "move": "dl",
+     "prop": "chan",
+     "to": 0.07692307692307693,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 1.95,
+     "ease": "linear"
+    },
+    {
+     "move": "ride",
+     "prop": "x",
+     "to": 56.4,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 1.95,
+     "ease": "linear"
+    },
+    {
+     "move": "dl",
+     "prop": "chan",
+     "to": 0.9230769230769231,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 2.05,
+     "ease": "linear"
+    },
+    {
+     "move": "ride",
+     "prop": "x",
+     "to": 285.7,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 2.05,
+     "ease": "linear"
+    },
+    {
+     "move": "dl",
+     "prop": "chan",
+     "to": 0.1794871794871795,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 2.16,
+     "ease": "linear"
+    },
+    {
+     "move": "ride",
+     "prop": "x",
+     "to": 84.2,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 2.16,
+     "ease": "linear"
+    },
+    {
+     "move": "dl",
+     "prop": "chan",
+     "to": 0.358974358974359,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 2.27,
+     "ease": "linear"
+    },
+    {
+     "move": "ride",
+     "prop": "x",
+     "to": 132.8,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 2.27,
+     "ease": "linear"
+    },
+    {
+     "move": "dl",
+     "prop": "chan",
+     "to": 0.9487179487179487,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 2.37,
+     "ease": "linear"
+    },
+    {
+     "move": "ride",
+     "prop": "x",
+     "to": 292.7,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 2.37,
+     "ease": "linear"
+    },
+    {
+     "move": "dl",
+     "prop": "chan",
+     "to": 0.07692307692307693,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 2.48,
+     "ease": "linear"
+    },
+    {
+     "move": "ride",
+     "prop": "x",
+     "to": 56.4,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 2.48,
+     "ease": "linear"
+    },
+    {
+     "move": "dl",
+     "prop": "chan",
+     "to": 0.9230769230769231,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 2.58,
+     "ease": "linear"
+    },
+    {
+     "move": "ride",
+     "prop": "x",
+     "to": 285.7,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 2.58,
+     "ease": "linear"
+    },
+    {
+     "move": "dl",
+     "prop": "chan",
+     "to": 0.6410256410256411,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 2.69,
+     "ease": "linear"
+    },
+    {
+     "move": "ride",
+     "prop": "x",
+     "to": 209.3,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 2.69,
+     "ease": "linear"
+    },
+    {
+     "move": "dl",
+     "prop": "chan",
+     "to": 0.07692307692307693,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 2.79,
+     "ease": "linear"
+    },
+    {
+     "move": "ride",
+     "prop": "x",
+     "to": 56.4,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 2.79,
+     "ease": "linear"
+    },
+    {
+     "move": "dl",
+     "prop": "chan",
+     "to": 0.358974358974359,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 2.9,
+     "ease": "linear"
+    },
+    {
+     "move": "ride",
+     "prop": "x",
+     "to": 132.8,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 2.9,
+     "ease": "linear"
+    },
+    {
+     "move": "dl",
+     "prop": "chan",
+     "to": 0.05128205128205128,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 3.0,
+     "ease": "linear"
+    },
+    {
+     "move": "ride",
+     "prop": "x",
+     "to": 49.4,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 3.0,
+     "ease": "linear"
+    },
+    {
+     "move": "dl",
+     "prop": "chan",
+     "to": 0.8974358974358975,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 3.1,
+     "ease": "linear"
+    },
+    {
+     "move": "ride",
+     "prop": "x",
+     "to": 278.8,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 3.1,
+     "ease": "linear"
+    },
+    {
+     "move": "dl",
+     "prop": "chan",
+     "to": 0.20512820512820512,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 3.21,
+     "ease": "linear"
+    },
+    {
+     "move": "ride",
+     "prop": "x",
+     "to": 91.1,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 3.21,
+     "ease": "linear"
+    },
+    {
+     "move": "dl",
+     "prop": "chan",
+     "to": 0.46153846153846156,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 3.31,
+     "ease": "linear"
+    },
+    {
+     "move": "ride",
+     "prop": "x",
+     "to": 160.6,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 3.31,
+     "ease": "linear"
+    },
+    {
+     "move": "dl",
+     "prop": "chan",
+     "to": 0.6666666666666666,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 3.42,
+     "ease": "linear"
+    },
+    {
+     "move": "ride",
+     "prop": "x",
+     "to": 216.2,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 3.42,
+     "ease": "linear"
+    },
+    {
+     "move": "dl",
+     "prop": "chan",
+     "to": 0.23076923076923078,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 3.52,
+     "ease": "linear"
+    },
+    {
+     "move": "ride",
+     "prop": "x",
+     "to": 98.1,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 3.52,
+     "ease": "linear"
+    },
+    {
+     "move": "dl",
+     "prop": "chan",
+     "to": 0.8717948717948718,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 3.63,
+     "ease": "linear"
+    },
+    {
+     "move": "ride",
+     "prop": "x",
+     "to": 271.8,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 3.63,
+     "ease": "linear"
+    },
+    {
+     "move": "dl",
+     "prop": "chan",
+     "to": 0.1794871794871795,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 3.73,
+     "ease": "linear"
+    },
+    {
+     "move": "ride",
+     "prop": "x",
+     "to": 84.2,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 3.73,
+     "ease": "linear"
+    },
+    {
+     "move": "dl",
+     "prop": "chan",
+     "to": 0.9230769230769231,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 3.84,
+     "ease": "linear"
+    },
+    {
+     "move": "ride",
+     "prop": "x",
+     "to": 285.7,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 3.84,
+     "ease": "linear"
+    },
+    {
+     "move": "dl",
+     "prop": "chan",
+     "to": 0.48717948717948717,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 3.94,
+     "ease": "linear"
+    },
+    {
+     "move": "ride",
+     "prop": "x",
+     "to": 167.6,
+     "word": "1600",
+     "dur": 0.05,
+     "delay": 3.94,
+     "ease": "linear"
+    },
+    {
+     "move": "dl",
+     "prop": "chan",
+     "to": 0.615,
+     "word": "What",
+     "dur": 0.15,
+     "ease": "eout"
+    },
+    {
+     "move": "ride",
+     "prop": "x",
+     "to": 202.2,
+     "word": "What",
+     "dur": 0.15,
+     "ease": "eout"
+    }
+   ]
+  },
+  {
+   "card": 3,
+   "label": "The dial with its Wi-Fi block on the left; below it a row of five music tiles. A pink piece leaves the channel and drops into a tile, where a pink wave appears. When the channel lands in the Wi-Fi block its piece is crossed out on the way down, the tile stays empty, then the piece is sent again and the wave comes. Another piece is late and never arrives, so one tile stays empty and is marked skip. The channel keeps hopping.",
+   "elements": [
+    {
+     "id": "dl",
+     "part": "dial",
+     "at": [
+      171,
+      62
+     ],
+     "params": {
+      "ticks": 1,
+      "wifi": 1,
+      "chanOn": 0,
+      "chan": 0.7,
+      "hit": 0,
+      "piece": 0
+     },
+     "word": "hop"
+    },
+    {
+     "id": "t1",
+     "rect": [
+      18,
+      176,
+      50,
+      46,
+      6
+     ],
+     "stroke": "ink@0.5",
+     "width": 0.9,
+     "dash": [
+      3,
+      3
+     ],
+     "hidden": true
+    },
+    {
+     "id": "t2",
+     "rect": [
+      74,
+      176,
+      50,
+      46,
+      6
+     ],
+     "stroke": "ink@0.5",
+     "width": 0.9,
+     "dash": [
+      3,
+      3
+     ],
+     "hidden": true
+    },
+    {
+     "id": "t3",
+     "rect": [
+      130,
+      176,
+      50,
+      46,
+      6
+     ],
+     "stroke": "ink@0.5",
+     "width": 0.9,
+     "dash": [
+      3,
+      3
+     ],
+     "hidden": true
+    },
+    {
+     "id": "t4",
+     "rect": [
+      186,
+      176,
+      50,
+      46,
+      6
+     ],
+     "stroke": "ink@0.5",
+     "width": 0.9,
+     "dash": [
+      3,
+      3
+     ],
+     "hidden": true
+    },
+    {
+     "id": "t5",
+     "rect": [
+      242,
+      176,
+      50,
+      46,
+      6
+     ],
+     "stroke": "ink@0.5",
+     "width": 0.9,
+     "dash": [
+      3,
+      3
+     ],
+     "hidden": true
+    },
+    {
+     "id": "m1",
+     "part": "wave",
+     "at": [
+      23,
+      199.0
+     ],
+     "params": {
+      "len": 40,
+      "amp": 11,
+      "wl": 12,
+      "col": 1,
+      "upto": 1,
+      "phase": 0
+     },
+     "hidden": true
+    },
+    {
+     "id": "m2",
+     "part": "wave",
+     "at": [
+      79,
+      199.0
+     ],
+     "params": {
+      "len": 40,
+      "amp": 11,
+      "wl": 12,
+      "col": 1,
+      "upto": 1,
+      "phase": 0
+     },
+     "hidden": true
+    },
+    {
+     "id": "m3",
+     "part": "wave",
+     "at": [
+      135,
+      199.0
+     ],
+     "params": {
+      "len": 40,
+      "amp": 11,
+      "wl": 12,
+      "col": 1,
+      "upto": 1,
+      "phase": 0
+     },
+     "hidden": true
+    },
+    {
+     "id": "m5",
+     "part": "wave",
+     "at": [
+      247,
+      199.0
+     ],
+     "params": {
+      "len": 40,
+      "amp": 11,
+      "wl": 12,
+      "col": 1,
+      "upto": 1,
+      "phase": 0
+     },
+     "hidden": true
+    },
+    {
+     "id": "fa",
+     "group": [
+      {
+       "rect": [
+        -8,
+        -8,
+        16,
+        16,
+        3
+       ],
+       "fill": "accent",
+       "stroke": "none"
+      }
+     ],
+     "at": [
+      184.6,
+      110
+     ],
+     "hidden": true
+    },
+    {
+     "id": "fb",
+     "group": [
+      {
+       "rect": [
+        -8,
+        -8,
+        16,
+        16,
+        3
+       ],
+       "fill": "accent",
+       "stroke": "none"
+      }
+     ],
+     "at": [
+      63.3,
+      110
+     ],
+     "hidden": true
+    },
+    {
+     "id": "fc",
+     "group": [
+      {
+       "rect": [
+        -8,
+        -8,
+        16,
+        16,
+        3
+       ],
+       "fill": "accent",
+       "stroke": "none"
+      }
+     ],
+     "at": [
+      236.1,
+      110
+     ],
+     "hidden": true
+    },
+    {
+     "id": "fd",
+     "group": [
+      {
+       "rect": [
+        -8,
+        -8,
+        16,
+        16,
+        3
+       ],
+       "fill": "accent",
+       "stroke": "none"
+      }
+     ],
+     "at": [
+      132.8,
+      110
+     ],
+     "hidden": true
+    },
+    {
+     "id": "fx",
+     "group": [
+      {
+       "path": "M-9 -9 L9 9",
+       "stroke": "accent",
+       "width": 2.4
+      },
+      {
+       "path": "M-9 9 L9 -9",
+       "stroke": "accent",
+       "width": 2.4
+      }
+     ],
+     "at": [
+      96,
+      150
+     ],
+     "hidden": true
+    },
+    {
+     "id": "tl",
+     "text": "LOST",
+     "at": [
+      99,
+      242
+     ],
+     "size": 15,
+     "word": "lost",
+     "hidden": true
+    },
+    {
+     "id": "ts",
+     "text": "SENT AGAIN",
+     "at": [
+      99,
+      242
+     ],
+     "size": 15,
+     "word": "later",
+     "hidden": true
+    },
+    {
+     "id": "tk",
+     "text": "SKIP",
+     "at": [
+      211,
+      242
+     ],
+     "size": 15,
+     "word": "skips",
+     "stroke": "accent",
+     "hidden": true
+    }
+   ],
+   "moves": [
+    {
+     "move": "dl",
+     "prop": "chanOn",
+     "to": 1,
+     "word": "carries",
+     "dur": 0.3
+    },
+    {
+     "move": "dl",
+     "prop": "chan",
+     "to": 0.55,
+     "word": "carries",
+     "dur": 0.2,
+     "delay": 0.1,
+     "ease": "eout"
+    },
+    {
+     "move": "dl",
+     "prop": "piece",
+     "to": 1,
+     "word": "carries",
+     "dur": 0.3,
+     "delay": 0.4
+    },
+    {
+     "move": "t1",
+     "prop": "opacity",
+     "to": 1,
+     "word": "carries",
+     "dur": 0.3,
+     "delay": 0.2
+    },
+    {
+     "move": "dl",
+     "prop": "piece",
+     "to": 0,
+     "word": "piece",
+     "dur": 0.1
+    },
+    {
+     "move": "fa",
+     "prop": "opacity",
+     "to": 1,
+     "word": "piece",
+     "dur": 0.1
+    },
+    {
+     "move": "fa",
+     "prop": "x",
+     "to": 43,
+     "word": "piece",
+     "dur": 0.7,
+     "ease": "eio"
+    },
+    {
+     "move": "fa",
+     "prop": "y",
+     "to": 199.0,
+     "word": "piece",
+     "dur": 0.7,
+     "ease": "eio"
+    },
+    {
+     "move": "m1",
+     "prop": "opacity",
+     "to": 1,
+     "word": "music",
+     "dur": 0.3,
+     "delay": 0.45
+    },
+    {
+     "move": "fa",
+     "prop": "opacity",
+     "to": 0,
+     "word": "music",
+     "dur": 0.2,
+     "delay": 0.55
+    },
+    {
+     "move": "dl",
+     "prop": "chan",
+     "to": 0.10256410256410256,
+     "word": "lands",
+     "dur": 0.25,
+     "ease": "eout"
+    },
+    {
+     "move": "dl",
+     "prop": "piece",
+     "to": 1,
+     "word": "lands",
+     "dur": 0.3,
+     "delay": 0.2
+    },
+    {
+     "move": "t2",
+     "prop": "opacity",
+     "to": 1,
+     "word": "lands",
+     "dur": 0.3,
+     "delay": 0.2
+    },
+    {
+     "move": "dl",
+     "prop": "hit",
+     "to": 1,
+     "word": "wifi",
+     "dur": 0.3
+    },
+    {
+     "move": "dl",
+     "prop": "piece",
+     "to": 0,
+     "word": "only",
+     "dur": 0.1
+    },
+    {
+     "move": "fb",
+     "prop": "opacity",
+     "to": 1,
+     "word": "only",
+     "dur": 0.1
+    },
+    {
+     "move": "fb",
+     "prop": "x",
+     "to": 96,
+     "word": "only",
+     "dur": 0.7,
+     "ease": "eio"
+    },
+    {
+     "move": "fb",
+     "prop": "y",
+     "to": 150,
+     "word": "only",
+     "dur": 0.7,
+     "ease": "eio"
+    },
+    {
+     "move": "fb",
+     "prop": "opacity",
+     "to": 0,
+     "word": "lost",
+     "dur": 0.15
+    },
+    {
+     "move": "fx",
+     "prop": "opacity",
+     "to": 1,
+     "word": "lost",
+     "dur": 0.2
+    },
+    {
+     "move": "tl",
+     "prop": "opacity",
+     "to": 1,
+     "word": "lost",
+     "dur": 0.2
+    },
+    {
+     "move": "fx",
+     "prop": "opacity",
+     "to": 0,
+     "word": "sent",
+     "dur": 0.3
+    },
+    {
+     "move": "tl",
+     "prop": "opacity",
+     "to": 0,
+     "word": "again",
+     "dur": 0.2
+    },
+    {
+     "move": "dl",
+     "prop": "chan",
+     "to": 0.74,
+     "word": "sent",
+     "dur": 0.25,
+     "ease": "eout"
+    },
+    {
+     "move": "dl",
+     "prop": "hit",
+     "to": 0,
+     "word": "sent",
+     "dur": 0.2
+    },
+    {
+     "move": "dl",
+     "prop": "piece",
+     "to": 1,
+     "word": "sent",
+     "dur": 0.3,
+     "delay": 0.15
+    },
+    {
+     "move": "dl",
+     "prop": "piece",
+     "to": 0,
+     "word": "again",
+     "dur": 0.1
+    },
+    {
+     "move": "fc",
+     "prop": "opacity",
+     "to": 1,
+     "word": "again",
+     "dur": 0.1
+    },
+    {
+     "move": "fc",
+     "prop": "x",
+     "to": 99,
+     "word": "again",
+     "dur": 0.8,
+     "ease": "eio"
+    },
+    {
+     "move": "fc",
+     "prop": "y",
+     "to": 199.0,
+     "word": "again",
+     "dur": 0.8,
+     "ease": "eio"
+    },
+    {
+     "move": "m2",
+     "prop": "opacity",
+     "to": 1,
+     "word": "later",
+     "dur": 0.3,
+     "delay": 0.3
+    },
+    {
+     "move": "fc",
+     "prop": "opacity",
+     "to": 0,
+     "word": "later",
+     "dur": 0.2,
+     "delay": 0.4
+    },
+    {
+     "move": "ts",
+     "prop": "opacity",
+     "to": 1,
+     "word": "later",
+     "dur": 0.3,
+     "delay": 0.5
+    },
+    {
+     "move": "t3",
+     "prop": "opacity",
+     "to": 1,
+     "word": "if#2",
+     "dur": 0.3
+    },
+    {
+     "move": "m3",
+     "prop": "opacity",
+     "to": 1,
+     "word": "if#2",
+     "dur": 0.3,
+     "delay": 0.2
+    },
+    {
+     "move": "t4",
+     "prop": "opacity",
+     "to": 1,
+     "word": "resend",
+     "dur": 0.3
+    },
+    {
+     "move": "dl",
+     "prop": "chan",
+     "to": 0.358974358974359,
+     "word": "resend",
+     "dur": 0.2,
+     "ease": "eout"
+    },
+    {
+     "move": "dl",
+     "prop": "piece",
+     "to": 1,
+     "word": "resend",
+     "dur": 0.3,
+     "delay": 0.15
+    },
+    {
+     "move": "dl",
+     "prop": "piece",
+     "to": 0,
+     "word": "late",
+     "dur": 0.1
+    },
+    {
+     "move": "fd",
+     "prop": "opacity",
+     "to": 1,
+     "word": "late",
+     "dur": 0.1
+    },
+    {
+     "move": "fd",
+     "prop": "x",
+     "to": 160,
+     "word": "late",
+     "dur": 0.9,
+     "ease": "linear"
+    },
+    {
+     "move": "fd",
+     "prop": "y",
+     "to": 150,
+     "word": "late",
+     "dur": 0.9,
+     "ease": "linear"
+    },
+    {
+     "move": "fd",
+     "prop": "opacity",
+     "to": 0,
+     "word": "skips",
+     "dur": 0.2
+    },
+    {
+     "move": "tk",
+     "prop": "opacity",
+     "to": 1,
+     "word": "skips",
+     "dur": 0.2
+    },
+    {
+     "move": "ts",
+     "prop": "opacity",
+     "to": 0,
+     "word": "skips",
+     "dur": 0.2
+    },
+    {
+     "move": "t5",
+     "prop": "opacity",
+     "to": 1,
+     "word": "split",
+     "dur": 0.3
+    },
+    {
+     "move": "m5",
+     "prop": "opacity",
+     "to": 1,
+     "word": "split",
+     "dur": 0.3,
+     "delay": 0.2
+    },
+    {
+     "move": "dl",
+     "prop": "chan",
+     "to": 0.5897435897435898,
+     "word": "Bluetooth",
+     "dur": 0.12,
+     "delay": 0.2,
+     "ease": "eout"
+    },
+    {
+     "move": "dl",
+     "prop": "chan",
+     "to": 0.41025641025641024,
+     "word": "Bluetooth",
+     "dur": 0.12,
+     "delay": 0.56,
+     "ease": "eout"
+    },
+    {
+     "move": "dl",
+     "prop": "chan",
+     "to": 0.7948717948717948,
+     "word": "Bluetooth",
+     "dur": 0.12,
+     "delay": 0.92,
+     "ease": "eout"
+    },
+    {
+     "move": "dl",
+     "prop": "chan",
+     "to": 0.9743589743589743,
+     "word": "Bluetooth",
+     "dur": 0.12,
+     "delay": 1.28,
+     "ease": "eout"
+    },
+    {
+     "move": "dl",
+     "prop": "chan",
+     "to": 0.3076923076923077,
+     "word": "Bluetooth",
+     "dur": 0.12,
+     "delay": 1.64,
+     "ease": "eout"
+    },
+    {
+     "move": "dl",
+     "prop": "chan",
+     "to": 0.9743589743589743,
+     "word": "Bluetooth",
+     "dur": 0.12,
+     "delay": 2.0,
+     "ease": "eout"
+    },
+    {
+     "move": "dl",
+     "prop": "chan",
+     "to": 0.6153846153846154,
+     "word": "Bluetooth",
+     "dur": 0.12,
+     "delay": 2.36,
+     "ease": "eout"
+    },
+    {
+     "move": "dl",
+     "prop": "chan",
+     "to": 0.9743589743589743,
+     "word": "Bluetooth",
+     "dur": 0.12,
+     "delay": 2.72,
+     "ease": "eout"
+    },
+    {
+     "move": "dl",
+     "prop": "chan",
+     "to": 0.4358974358974359,
+     "word": "Bluetooth",
+     "dur": 0.12,
+     "delay": 3.08,
+     "ease": "eout"
+    },
+    {
+     "move": "dl",
+     "prop": "chan",
+     "to": 0.8205128205128205,
+     "word": "Bluetooth",
+     "dur": 0.12,
+     "delay": 3.44,
+     "ease": "eout"
+    },
+    {
+     "move": "dl",
+     "prop": "chan",
+     "to": 0.20512820512820512,
+     "word": "Bluetooth",
+     "dur": 0.12,
+     "delay": 3.8,
+     "ease": "eout"
+    },
+    {
+     "move": "dl",
+     "prop": "chan",
+     "to": 0.46153846153846156,
+     "word": "Bluetooth",
+     "dur": 0.12,
+     "delay": 4.16,
+     "ease": "eout"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,1615 @@
+{
+ "voice": "af_heart",
+ "duration": 111.5,
+ "beats": [
+  0.0,
+  19.23,
+  37.02,
+  70.28,
+  83.53
+ ],
+ "words": [
+  {
+   "text": "How",
+   "start": 0.28,
+   "end": 0.41
+  },
+  {
+   "text": "does",
+   "start": 0.41,
+   "end": 0.6
+  },
+  {
+   "text": "Bluetooth",
+   "start": 0.6,
+   "end": 1.05
+  },
+  {
+   "text": "work?",
+   "start": 1.05,
+   "end": 1.74
+  },
+  {
+   "text": "Bluetooth",
+   "start": 1.74,
+   "end": 2.27
+  },
+  {
+   "text": "is",
+   "start": 2.27,
+   "end": 2.4
+  },
+  {
+   "text": "a",
+   "start": 2.4,
+   "end": 2.52
+  },
+  {
+   "text": "short-range",
+   "start": 2.52,
+   "end": 3.17
+  },
+  {
+   "text": "radio",
+   "start": 3.17,
+   "end": 3.58
+  },
+  {
+   "text": "link:",
+   "start": 3.58,
+   "end": 4.34
+  },
+  {
+   "text": "two",
+   "start": 4.34,
+   "end": 4.55
+  },
+  {
+   "text": "devices,",
+   "start": 4.55,
+   "end": 5.25
+  },
+  {
+   "text": "like",
+   "start": 5.25,
+   "end": 5.41
+  },
+  {
+   "text": "a",
+   "start": 5.41,
+   "end": 5.53
+  },
+  {
+   "text": "phone",
+   "start": 5.53,
+   "end": 6.0
+  },
+  {
+   "text": "and",
+   "start": 6.0,
+   "end": 6.11
+  },
+  {
+   "text": "an",
+   "start": 6.11,
+   "end": 6.24
+  },
+  {
+   "text": "earbud,",
+   "start": 6.24,
+   "end": 7.01
+  },
+  {
+   "text": "send",
+   "start": 7.01,
+   "end": 7.21
+  },
+  {
+   "text": "each",
+   "start": 7.21,
+   "end": 7.34
+  },
+  {
+   "text": "other",
+   "start": 7.34,
+   "end": 7.53
+  },
+  {
+   "text": "data",
+   "start": 7.53,
+   "end": 7.89
+  },
+  {
+   "text": "as",
+   "start": 7.89,
+   "end": 8.06
+  },
+  {
+   "text": "radio",
+   "start": 8.06,
+   "end": 8.55
+  },
+  {
+   "text": "waves.",
+   "start": 8.55,
+   "end": 9.55
+  },
+  {
+   "text": "And",
+   "start": 9.55,
+   "end": 9.72
+  },
+  {
+   "text": "it",
+   "start": 9.72,
+   "end": 9.89
+  },
+  {
+   "text": "runs",
+   "start": 9.89,
+   "end": 10.26
+  },
+  {
+   "text": "on",
+   "start": 10.26,
+   "end": 10.36
+  },
+  {
+   "text": "the",
+   "start": 10.36,
+   "end": 10.47
+  },
+  {
+   "text": "same",
+   "start": 10.47,
+   "end": 10.82
+  },
+  {
+   "text": "stretch",
+   "start": 10.82,
+   "end": 11.16
+  },
+  {
+   "text": "of",
+   "start": 11.16,
+   "end": 11.28
+  },
+  {
+   "text": "airwaves",
+   "start": 11.28,
+   "end": 11.82
+  },
+  {
+   "text": "that",
+   "start": 11.82,
+   "end": 12.03
+  },
+  {
+   "text": "lots",
+   "start": 12.03,
+   "end": 12.29
+  },
+  {
+   "text": "of",
+   "start": 12.29,
+   "end": 12.41
+  },
+  {
+   "text": "Wi-Fi",
+   "start": 12.41,
+   "end": 12.85
+  },
+  {
+   "text": "uses,",
+   "start": 12.85,
+   "end": 13.57
+  },
+  {
+   "text": "so",
+   "start": 13.57,
+   "end": 13.75
+  },
+  {
+   "text": "the",
+   "start": 13.75,
+   "end": 13.89
+  },
+  {
+   "text": "two",
+   "start": 13.89,
+   "end": 14.25
+  },
+  {
+   "text": "share",
+   "start": 14.25,
+   "end": 14.53
+  },
+  {
+   "text": "a",
+   "start": 14.53,
+   "end": 14.64
+  },
+  {
+   "text": "crowded",
+   "start": 14.64,
+   "end": 15.05
+  },
+  {
+   "text": "space.",
+   "start": 15.05,
+   "end": 16.05
+  },
+  {
+   "text": "So",
+   "start": 16.05,
+   "end": 16.25
+  },
+  {
+   "text": "how",
+   "start": 16.25,
+   "end": 16.45
+  },
+  {
+   "text": "do",
+   "start": 16.45,
+   "end": 16.64
+  },
+  {
+   "text": "two",
+   "start": 16.64,
+   "end": 16.85
+  },
+  {
+   "text": "devices",
+   "start": 16.85,
+   "end": 17.38
+  },
+  {
+   "text": "find",
+   "start": 17.38,
+   "end": 17.66
+  },
+  {
+   "text": "each",
+   "start": 17.66,
+   "end": 17.79
+  },
+  {
+   "text": "other?",
+   "start": 17.79,
+   "end": 18.52
+  },
+  {
+   "text": "To",
+   "start": 19.53,
+   "end": 19.62
+  },
+  {
+   "text": "meet,",
+   "start": 19.62,
+   "end": 20.04
+  },
+  {
+   "text": "one",
+   "start": 20.04,
+   "end": 20.28
+  },
+  {
+   "text": "device",
+   "start": 20.28,
+   "end": 20.68
+  },
+  {
+   "text": "announces",
+   "start": 20.68,
+   "end": 21.18
+  },
+  {
+   "text": "itself,",
+   "start": 21.18,
+   "end": 21.89
+  },
+  {
+   "text": "saying",
+   "start": 21.89,
+   "end": 22.25
+  },
+  {
+   "text": "\"I'm",
+   "start": 22.25,
+   "end": 22.48
+  },
+  {
+   "text": "here\",",
+   "start": 22.48,
+   "end": 23.0
+  },
+  {
+   "text": "and",
+   "start": 23.0,
+   "end": 23.11
+  },
+  {
+   "text": "the",
+   "start": 23.11,
+   "end": 23.2
+  },
+  {
+   "text": "other",
+   "start": 23.2,
+   "end": 23.45
+  },
+  {
+   "text": "spots",
+   "start": 23.45,
+   "end": 23.84
+  },
+  {
+   "text": "it.",
+   "start": 23.84,
+   "end": 24.54
+  },
+  {
+   "text": "Then",
+   "start": 24.54,
+   "end": 24.83
+  },
+  {
+   "text": "they",
+   "start": 24.83,
+   "end": 24.99
+  },
+  {
+   "text": "swap",
+   "start": 24.99,
+   "end": 25.39
+  },
+  {
+   "text": "secret",
+   "start": 25.39,
+   "end": 25.8
+  },
+  {
+   "text": "codes,",
+   "start": 25.8,
+   "end": 26.33
+  },
+  {
+   "text": "called",
+   "start": 26.33,
+   "end": 26.64
+  },
+  {
+   "text": "keys.",
+   "start": 26.64,
+   "end": 27.68
+  },
+  {
+   "text": "The",
+   "start": 27.68,
+   "end": 27.81
+  },
+  {
+   "text": "keys",
+   "start": 27.81,
+   "end": 28.16
+  },
+  {
+   "text": "scramble",
+   "start": 28.16,
+   "end": 28.66
+  },
+  {
+   "text": "what",
+   "start": 28.66,
+   "end": 28.8
+  },
+  {
+   "text": "they",
+   "start": 28.8,
+   "end": 28.96
+  },
+  {
+   "text": "send",
+   "start": 28.96,
+   "end": 29.23
+  },
+  {
+   "text": "later,",
+   "start": 29.23,
+   "end": 29.88
+  },
+  {
+   "text": "and",
+   "start": 29.88,
+   "end": 30.0
+  },
+  {
+   "text": "let",
+   "start": 30.0,
+   "end": 30.19
+  },
+  {
+   "text": "the",
+   "start": 30.19,
+   "end": 30.29
+  },
+  {
+   "text": "two",
+   "start": 30.29,
+   "end": 30.55
+  },
+  {
+   "text": "reconnect",
+   "start": 30.55,
+   "end": 31.09
+  },
+  {
+   "text": "on",
+   "start": 31.09,
+   "end": 31.19
+  },
+  {
+   "text": "their",
+   "start": 31.19,
+   "end": 31.35
+  },
+  {
+   "text": "own",
+   "start": 31.35,
+   "end": 31.6
+  },
+  {
+   "text": "next",
+   "start": 31.6,
+   "end": 31.88
+  },
+  {
+   "text": "time.",
+   "start": 31.88,
+   "end": 32.75
+  },
+  {
+   "text": "So",
+   "start": 32.75,
+   "end": 32.95
+  },
+  {
+   "text": "once",
+   "start": 32.95,
+   "end": 33.19
+  },
+  {
+   "text": "they're",
+   "start": 33.19,
+   "end": 33.35
+  },
+  {
+   "text": "connected,",
+   "start": 33.35,
+   "end": 34.14
+  },
+  {
+   "text": "how",
+   "start": 34.14,
+   "end": 34.35
+  },
+  {
+   "text": "do",
+   "start": 34.35,
+   "end": 34.46
+  },
+  {
+   "text": "they",
+   "start": 34.46,
+   "end": 34.61
+  },
+  {
+   "text": "cope",
+   "start": 34.61,
+   "end": 34.91
+  },
+  {
+   "text": "with",
+   "start": 34.91,
+   "end": 35.04
+  },
+  {
+   "text": "all",
+   "start": 35.04,
+   "end": 35.2
+  },
+  {
+   "text": "that",
+   "start": 35.2,
+   "end": 35.4
+  },
+  {
+   "text": "Wi-Fi?",
+   "start": 35.4,
+   "end": 36.33
+  },
+  {
+   "text": "Bluetooth",
+   "start": 37.3,
+   "end": 37.75
+  },
+  {
+   "text": "cuts",
+   "start": 37.75,
+   "end": 37.99
+  },
+  {
+   "text": "its",
+   "start": 37.99,
+   "end": 38.1
+  },
+  {
+   "text": "airwaves",
+   "start": 38.1,
+   "end": 38.61
+  },
+  {
+   "text": "into",
+   "start": 38.61,
+   "end": 38.82
+  },
+  {
+   "text": "dozens",
+   "start": 38.82,
+   "end": 39.19
+  },
+  {
+   "text": "of",
+   "start": 39.19,
+   "end": 39.3
+  },
+  {
+   "text": "narrow",
+   "start": 39.3,
+   "end": 39.61
+  },
+  {
+   "text": "channels,",
+   "start": 39.61,
+   "end": 40.27
+  },
+  {
+   "text": "like",
+   "start": 40.27,
+   "end": 40.41
+  },
+  {
+   "text": "the",
+   "start": 40.41,
+   "end": 40.5
+  },
+  {
+   "text": "stations",
+   "start": 40.5,
+   "end": 41.05
+  },
+  {
+   "text": "on",
+   "start": 41.05,
+   "end": 41.16
+  },
+  {
+   "text": "a",
+   "start": 41.16,
+   "end": 41.25
+  },
+  {
+   "text": "radio",
+   "start": 41.25,
+   "end": 41.65
+  },
+  {
+   "text": "dial.",
+   "start": 41.65,
+   "end": 42.55
+  },
+  {
+   "text": "One",
+   "start": 42.55,
+   "end": 42.82
+  },
+  {
+   "text": "Wi-Fi",
+   "start": 42.82,
+   "end": 43.25
+  },
+  {
+   "text": "network",
+   "start": 43.25,
+   "end": 43.6
+  },
+  {
+   "text": "can",
+   "start": 43.6,
+   "end": 43.77
+  },
+  {
+   "text": "cover",
+   "start": 43.77,
+   "end": 44.09
+  },
+  {
+   "text": "about",
+   "start": 44.09,
+   "end": 44.29
+  },
+  {
+   "text": "a",
+   "start": 44.29,
+   "end": 44.35
+  },
+  {
+   "text": "quarter",
+   "start": 44.35,
+   "end": 44.71
+  },
+  {
+   "text": "of",
+   "start": 44.71,
+   "end": 44.8
+  },
+  {
+   "text": "that",
+   "start": 44.8,
+   "end": 45.02
+  },
+  {
+   "text": "dial.",
+   "start": 45.02,
+   "end": 45.76
+  },
+  {
+   "text": "So",
+   "start": 45.76,
+   "end": 45.89
+  },
+  {
+   "text": "the",
+   "start": 45.89,
+   "end": 45.97
+  },
+  {
+   "text": "devices",
+   "start": 45.97,
+   "end": 46.51
+  },
+  {
+   "text": "never",
+   "start": 46.51,
+   "end": 46.84
+  },
+  {
+   "text": "stay",
+   "start": 46.84,
+   "end": 47.22
+  },
+  {
+   "text": "on",
+   "start": 47.22,
+   "end": 47.4
+  },
+  {
+   "text": "one",
+   "start": 47.4,
+   "end": 47.64
+  },
+  {
+   "text": "channel.",
+   "start": 47.64,
+   "end": 48.52
+  },
+  {
+   "text": "Streaming",
+   "start": 48.52,
+   "end": 48.95
+  },
+  {
+   "text": "music,",
+   "start": 48.95,
+   "end": 49.47
+  },
+  {
+   "text": "they",
+   "start": 49.47,
+   "end": 49.62
+  },
+  {
+   "text": "hop",
+   "start": 49.62,
+   "end": 49.86
+  },
+  {
+   "text": "between",
+   "start": 49.86,
+   "end": 50.21
+  },
+  {
+   "text": "channels",
+   "start": 50.21,
+   "end": 50.67
+  },
+  {
+   "text": "as",
+   "start": 50.67,
+   "end": 50.84
+  },
+  {
+   "text": "often",
+   "start": 50.84,
+   "end": 51.22
+  },
+  {
+   "text": "as",
+   "start": 51.22,
+   "end": 51.38
+  },
+  {
+   "text": "1,600",
+   "start": 51.38,
+   "end": 52.45
+  },
+  {
+   "text": "times",
+   "start": 52.45,
+   "end": 52.76
+  },
+  {
+   "text": "a",
+   "start": 52.76,
+   "end": 52.83
+  },
+  {
+   "text": "second.",
+   "start": 52.83,
+   "end": 53.66
+  },
+  {
+   "text": "Each",
+   "start": 53.66,
+   "end": 53.92
+  },
+  {
+   "text": "hop",
+   "start": 53.92,
+   "end": 54.17
+  },
+  {
+   "text": "carries",
+   "start": 54.17,
+   "end": 54.58
+  },
+  {
+   "text": "a",
+   "start": 54.58,
+   "end": 54.69
+  },
+  {
+   "text": "tiny",
+   "start": 54.69,
+   "end": 55.1
+  },
+  {
+   "text": "piece",
+   "start": 55.1,
+   "end": 55.36
+  },
+  {
+   "text": "of",
+   "start": 55.36,
+   "end": 55.45
+  },
+  {
+   "text": "music.",
+   "start": 55.45,
+   "end": 56.33
+  },
+  {
+   "text": "If",
+   "start": 56.33,
+   "end": 56.46
+  },
+  {
+   "text": "a",
+   "start": 56.46,
+   "end": 56.52
+  },
+  {
+   "text": "hop",
+   "start": 56.52,
+   "end": 56.8
+  },
+  {
+   "text": "lands",
+   "start": 56.8,
+   "end": 57.09
+  },
+  {
+   "text": "on",
+   "start": 57.09,
+   "end": 57.22
+  },
+  {
+   "text": "Wi-Fi,",
+   "start": 57.22,
+   "end": 57.92
+  },
+  {
+   "text": "only",
+   "start": 57.92,
+   "end": 58.22
+  },
+  {
+   "text": "that",
+   "start": 58.22,
+   "end": 58.45
+  },
+  {
+   "text": "piece",
+   "start": 58.45,
+   "end": 58.72
+  },
+  {
+   "text": "is",
+   "start": 58.72,
+   "end": 58.88
+  },
+  {
+   "text": "lost,",
+   "start": 58.88,
+   "end": 59.45
+  },
+  {
+   "text": "and",
+   "start": 59.45,
+   "end": 59.56
+  },
+  {
+   "text": "it's",
+   "start": 59.56,
+   "end": 59.67
+  },
+  {
+   "text": "sent",
+   "start": 59.67,
+   "end": 59.89
+  },
+  {
+   "text": "again.",
+   "start": 59.89,
+   "end": 60.72
+  },
+  {
+   "text": "If",
+   "start": 60.72,
+   "end": 60.9
+  },
+  {
+   "text": "the",
+   "start": 60.9,
+   "end": 61.0
+  },
+  {
+   "text": "resend",
+   "start": 61.0,
+   "end": 61.49
+  },
+  {
+   "text": "is",
+   "start": 61.49,
+   "end": 61.62
+  },
+  {
+   "text": "late,",
+   "start": 61.62,
+   "end": 62.08
+  },
+  {
+   "text": "the",
+   "start": 62.08,
+   "end": 62.17
+  },
+  {
+   "text": "music",
+   "start": 62.17,
+   "end": 62.52
+  },
+  {
+   "text": "skips",
+   "start": 62.52,
+   "end": 62.88
+  },
+  {
+   "text": "for",
+   "start": 62.88,
+   "end": 62.99
+  },
+  {
+   "text": "a",
+   "start": 62.99,
+   "end": 63.05
+  },
+  {
+   "text": "split",
+   "start": 63.05,
+   "end": 63.4
+  },
+  {
+   "text": "second.",
+   "start": 63.4,
+   "end": 64.29
+  },
+  {
+   "text": "But",
+   "start": 64.62,
+   "end": 64.75
+  },
+  {
+   "text": "for",
+   "start": 64.75,
+   "end": 64.88
+  },
+  {
+   "text": "hopping",
+   "start": 64.88,
+   "end": 65.3
+  },
+  {
+   "text": "to",
+   "start": 65.3,
+   "end": 65.42
+  },
+  {
+   "text": "work,",
+   "start": 65.42,
+   "end": 66.09
+  },
+  {
+   "text": "both",
+   "start": 66.09,
+   "end": 66.4
+  },
+  {
+   "text": "devices",
+   "start": 66.4,
+   "end": 66.92
+  },
+  {
+   "text": "must",
+   "start": 66.92,
+   "end": 67.2
+  },
+  {
+   "text": "land",
+   "start": 67.2,
+   "end": 67.51
+  },
+  {
+   "text": "on",
+   "start": 67.51,
+   "end": 67.61
+  },
+  {
+   "text": "the",
+   "start": 67.61,
+   "end": 67.71
+  },
+  {
+   "text": "same",
+   "start": 67.71,
+   "end": 68.04
+  },
+  {
+   "text": "channel",
+   "start": 68.04,
+   "end": 68.44
+  },
+  {
+   "text": "every",
+   "start": 68.44,
+   "end": 68.75
+  },
+  {
+   "text": "time.",
+   "start": 68.75,
+   "end": 69.58
+  },
+  {
+   "text": "Both",
+   "start": 70.55,
+   "end": 70.83
+  },
+  {
+   "text": "devices",
+   "start": 70.83,
+   "end": 71.43
+  },
+  {
+   "text": "have",
+   "start": 71.43,
+   "end": 71.62
+  },
+  {
+   "text": "to",
+   "start": 71.62,
+   "end": 71.71
+  },
+  {
+   "text": "be",
+   "start": 71.71,
+   "end": 71.88
+  },
+  {
+   "text": "on",
+   "start": 71.88,
+   "end": 71.99
+  },
+  {
+   "text": "the",
+   "start": 71.99,
+   "end": 72.09
+  },
+  {
+   "text": "same",
+   "start": 72.09,
+   "end": 72.44
+  },
+  {
+   "text": "channel",
+   "start": 72.44,
+   "end": 72.85
+  },
+  {
+   "text": "at",
+   "start": 72.85,
+   "end": 72.94
+  },
+  {
+   "text": "the",
+   "start": 72.94,
+   "end": 73.06
+  },
+  {
+   "text": "same",
+   "start": 73.06,
+   "end": 73.4
+  },
+  {
+   "text": "instant.",
+   "start": 73.4,
+   "end": 74.48
+  },
+  {
+   "text": "So",
+   "start": 74.48,
+   "end": 74.68
+  },
+  {
+   "text": "one",
+   "start": 74.68,
+   "end": 74.81
+  },
+  {
+   "text": "of",
+   "start": 74.81,
+   "end": 74.89
+  },
+  {
+   "text": "them",
+   "start": 74.89,
+   "end": 75.11
+  },
+  {
+   "text": "sets",
+   "start": 75.11,
+   "end": 75.43
+  },
+  {
+   "text": "the",
+   "start": 75.43,
+   "end": 75.54
+  },
+  {
+   "text": "timing",
+   "start": 75.54,
+   "end": 76.11
+  },
+  {
+   "text": "and",
+   "start": 76.11,
+   "end": 76.24
+  },
+  {
+   "text": "the",
+   "start": 76.24,
+   "end": 76.36
+  },
+  {
+   "text": "order",
+   "start": 76.36,
+   "end": 76.69
+  },
+  {
+   "text": "of",
+   "start": 76.69,
+   "end": 76.81
+  },
+  {
+   "text": "channels,",
+   "start": 76.81,
+   "end": 77.65
+  },
+  {
+   "text": "and",
+   "start": 77.65,
+   "end": 77.76
+  },
+  {
+   "text": "the",
+   "start": 77.76,
+   "end": 77.85
+  },
+  {
+   "text": "other",
+   "start": 77.85,
+   "end": 78.16
+  },
+  {
+   "text": "follows",
+   "start": 78.16,
+   "end": 78.56
+  },
+  {
+   "text": "it,",
+   "start": 78.56,
+   "end": 78.99
+  },
+  {
+   "text": "hop",
+   "start": 78.99,
+   "end": 79.25
+  },
+  {
+   "text": "for",
+   "start": 79.25,
+   "end": 79.38
+  },
+  {
+   "text": "hop.",
+   "start": 79.38,
+   "end": 80.15
+  },
+  {
+   "text": "So",
+   "start": 80.15,
+   "end": 80.38
+  },
+  {
+   "text": "what",
+   "start": 80.38,
+   "end": 80.51
+  },
+  {
+   "text": "does",
+   "start": 80.51,
+   "end": 80.65
+  },
+  {
+   "text": "all",
+   "start": 80.65,
+   "end": 80.81
+  },
+  {
+   "text": "that",
+   "start": 80.81,
+   "end": 81.0
+  },
+  {
+   "text": "radio",
+   "start": 81.0,
+   "end": 81.39
+  },
+  {
+   "text": "cost",
+   "start": 81.39,
+   "end": 81.78
+  },
+  {
+   "text": "in",
+   "start": 81.78,
+   "end": 81.9
+  },
+  {
+   "text": "battery?",
+   "start": 81.9,
+   "end": 82.83
+  },
+  {
+   "text": "Very",
+   "start": 83.83,
+   "end": 84.12
+  },
+  {
+   "text": "little.",
+   "start": 84.12,
+   "end": 84.89
+  },
+  {
+   "text": "Bluetooth",
+   "start": 84.89,
+   "end": 85.35
+  },
+  {
+   "text": "typically",
+   "start": 85.35,
+   "end": 85.75
+  },
+  {
+   "text": "reaches",
+   "start": 85.75,
+   "end": 86.1
+  },
+  {
+   "text": "only",
+   "start": 86.1,
+   "end": 86.39
+  },
+  {
+   "text": "about",
+   "start": 86.39,
+   "end": 86.62
+  },
+  {
+   "text": "10",
+   "start": 86.62,
+   "end": 86.88
+  },
+  {
+   "text": "meters,",
+   "start": 86.88,
+   "end": 87.45
+  },
+  {
+   "text": "at",
+   "start": 87.45,
+   "end": 87.58
+  },
+  {
+   "text": "very",
+   "start": 87.58,
+   "end": 87.85
+  },
+  {
+   "text": "low",
+   "start": 87.85,
+   "end": 88.03
+  },
+  {
+   "text": "power,",
+   "start": 88.03,
+   "end": 88.6
+  },
+  {
+   "text": "which",
+   "start": 88.6,
+   "end": 88.79
+  },
+  {
+   "text": "is",
+   "start": 88.79,
+   "end": 88.9
+  },
+  {
+   "text": "why",
+   "start": 88.9,
+   "end": 89.14
+  },
+  {
+   "text": "earbuds",
+   "start": 89.14,
+   "end": 89.59
+  },
+  {
+   "text": "and",
+   "start": 89.59,
+   "end": 89.7
+  },
+  {
+   "text": "watches",
+   "start": 89.7,
+   "end": 90.15
+  },
+  {
+   "text": "run",
+   "start": 90.15,
+   "end": 90.38
+  },
+  {
+   "text": "for",
+   "start": 90.38,
+   "end": 90.54
+  },
+  {
+   "text": "hours",
+   "start": 90.54,
+   "end": 90.89
+  },
+  {
+   "text": "on",
+   "start": 90.89,
+   "end": 91.0
+  },
+  {
+   "text": "tiny",
+   "start": 91.0,
+   "end": 91.33
+  },
+  {
+   "text": "batteries.",
+   "start": 91.33,
+   "end": 92.35
+  },
+  {
+   "text": "It",
+   "start": 92.35,
+   "end": 92.5
+  },
+  {
+   "text": "comes",
+   "start": 92.5,
+   "end": 92.74
+  },
+  {
+   "text": "in",
+   "start": 92.74,
+   "end": 92.89
+  },
+  {
+   "text": "two",
+   "start": 92.89,
+   "end": 93.11
+  },
+  {
+   "text": "flavors.",
+   "start": 93.11,
+   "end": 94.03
+  },
+  {
+   "text": "Classic",
+   "start": 94.03,
+   "end": 94.4
+  },
+  {
+   "text": "streams",
+   "start": 94.4,
+   "end": 94.79
+  },
+  {
+   "text": "without",
+   "start": 94.79,
+   "end": 95.01
+  },
+  {
+   "text": "a",
+   "start": 95.01,
+   "end": 95.08
+  },
+  {
+   "text": "break,",
+   "start": 95.08,
+   "end": 95.6
+  },
+  {
+   "text": "for",
+   "start": 95.6,
+   "end": 95.73
+  },
+  {
+   "text": "headphones",
+   "start": 95.73,
+   "end": 96.34
+  },
+  {
+   "text": "and",
+   "start": 96.34,
+   "end": 96.45
+  },
+  {
+   "text": "speakers.",
+   "start": 96.45,
+   "end": 97.6
+  },
+  {
+   "text": "Low",
+   "start": 97.6,
+   "end": 97.85
+  },
+  {
+   "text": "Energy",
+   "start": 97.85,
+   "end": 98.29
+  },
+  {
+   "text": "sends",
+   "start": 98.29,
+   "end": 98.61
+  },
+  {
+   "text": "small",
+   "start": 98.61,
+   "end": 98.98
+  },
+  {
+   "text": "bursts",
+   "start": 98.98,
+   "end": 99.43
+  },
+  {
+   "text": "and",
+   "start": 99.43,
+   "end": 99.56
+  },
+  {
+   "text": "sleeps",
+   "start": 99.56,
+   "end": 99.93
+  },
+  {
+   "text": "in",
+   "start": 99.93,
+   "end": 100.04
+  },
+  {
+   "text": "between,",
+   "start": 100.04,
+   "end": 100.8
+  },
+  {
+   "text": "for",
+   "start": 100.8,
+   "end": 100.96
+  },
+  {
+   "text": "fitness",
+   "start": 100.96,
+   "end": 101.33
+  },
+  {
+   "text": "trackers",
+   "start": 101.33,
+   "end": 101.86
+  },
+  {
+   "text": "and",
+   "start": 101.86,
+   "end": 102.01
+  },
+  {
+   "text": "smart",
+   "start": 102.01,
+   "end": 102.33
+  },
+  {
+   "text": "tags.",
+   "start": 102.33,
+   "end": 103.24
+  },
+  {
+   "text": "Bluetooth",
+   "start": 103.24,
+   "end": 103.78
+  },
+  {
+   "text": "is",
+   "start": 103.78,
+   "end": 103.9
+  },
+  {
+   "text": "a",
+   "start": 103.9,
+   "end": 104.03
+  },
+  {
+   "text": "short-range",
+   "start": 104.03,
+   "end": 104.68
+  },
+  {
+   "text": "radio",
+   "start": 104.68,
+   "end": 105.05
+  },
+  {
+   "text": "link:",
+   "start": 105.05,
+   "end": 105.69
+  },
+  {
+   "text": "two",
+   "start": 105.69,
+   "end": 105.95
+  },
+  {
+   "text": "devices",
+   "start": 105.95,
+   "end": 106.48
+  },
+  {
+   "text": "introduce",
+   "start": 106.48,
+   "end": 106.95
+  },
+  {
+   "text": "themselves",
+   "start": 106.95,
+   "end": 107.45
+  },
+  {
+   "text": "once,",
+   "start": 107.45,
+   "end": 108.03
+  },
+  {
+   "text": "then",
+   "start": 108.03,
+   "end": 108.21
+  },
+  {
+   "text": "hop",
+   "start": 108.21,
+   "end": 108.5
+  },
+  {
+   "text": "between",
+   "start": 108.5,
+   "end": 108.86
+  },
+  {
+   "text": "channels",
+   "start": 108.86,
+   "end": 109.3
+  },
+  {
+   "text": "together",
+   "start": 109.3,
+   "end": 109.73
+  },
+  {
+   "text": "to",
+   "start": 109.73,
+   "end": 109.83
+  },
+  {
+   "text": "stay",
+   "start": 109.83,
+   "end": 110.11
+  },
+  {
+   "text": "clear",
+   "start": 110.11,
+   "end": 110.39
+  },
+  {
+   "text": "of",
+   "start": 110.39,
+   "end": 110.48
+  },
+  {
+   "text": "Wi-Fi.",
+   "start": 110.48,
+   "end": 111.4
+  }
+ ],
+ "keys": [
+  [],
+  [],
+  [],
+  [],
+  []
+ ]
+}
