@@ -21,7 +21,7 @@ struct SceneLook {
     var hair: Double { wire ? WF.fine : brush ? 1.2 : DR.hair }
 
     /// Kit colours by name, with an optional alpha ("ink@0.4"). Shared: ink accent face side paper white mid dim. Drafting adds accentSide;
-    /// Airbrush adds blue orange salmon skin yellow lime green.
+    /// Airbrush adds blue orange salmon skin yellow lime green red pink violet teal brown.
     func color(_ name: String) -> Color? {
         let bits = name.split(separator: "@"), a = bits.count > 1 ? Double(bits[1]) ?? 1 : 1
         let base: Color
@@ -42,6 +42,11 @@ struct SceneLook {
         case "yellow": base = AB.yellow
         case "lime": base = AB.lime
         case "green": base = AB.green
+        case "red": base = AB.red
+        case "pink": base = AB.pink
+        case "violet": base = AB.violet
+        case "teal": base = AB.teal
+        case "brown": base = AB.brown
         default: return nil
         }
         return a == 1 ? base : base.opacity(a)

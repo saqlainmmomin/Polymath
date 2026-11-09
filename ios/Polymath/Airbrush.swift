@@ -15,6 +15,12 @@ enum AB {
     static let yellow = Color(hex: 0xFFF23C)
     static let lime = Color(hex: 0xB6E32B)
     static let green = Color(hex: 0x6DB33F)         // the words
+    // Extra base colours (owner, 2026-11-09: "we can afford a few more colours"), so distinct things can look distinct.
+    static let red = Color(hex: 0xE4513F)
+    static let pink = Color(hex: 0xF27BB0)
+    static let violet = Color(hex: 0x8A6FE8)
+    static let teal = Color(hex: 0x2BB5A6)
+    static let brown = Color(hex: 0xB07A4F)
     static let line = 2.3
     static let font = "DINCondensed-Bold"           // ships with iOS
 

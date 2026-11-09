@@ -15,8 +15,12 @@ extension SceneLook {
         case 6: return brush ? AB.yellow : ink
         case 7: return brush ? AB.lime : ink
         case 8: return brush ? AB.green : ink
-        case 9: return brush ? Color(hex: 0xE4513F) : ink
+        case 9: return brush ? AB.red : ink
         case 10: return .white
+        case 11: return brush ? AB.pink : ink
+        case 12: return brush ? AB.violet : ink
+        case 13: return brush ? AB.teal : ink
+        case 14: return brush ? AB.brown : ink
         default: return ink
         }
     }
