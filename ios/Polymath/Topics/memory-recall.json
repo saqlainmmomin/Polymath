@@ -1,0 +1,103 @@
+{
+  "id": "memory-recall",
+  "title": "How does your brain bring back a memory?",
+  "kind": "full",
+  "theme": "body",
+  "style": "airbrush",
+  "cards": [
+    {
+      "type": "card",
+      "title": "A memory isn't a video: it's kept as linked pieces",
+      "text": "Remembering isn't pressing play on a video. A memory is kept as linked pieces, what you saw, heard and felt, stored in different parts of your brain.",
+      "hook": "So what starts bringing those pieces back?",
+      "visual": {
+        "type": "diagram",
+        "notes": [
+          "A video with a play button, crossed out",
+          "A brain with three linked pieces: what you saw, heard and felt"
+        ],
+        "labels": [
+          "NOT A VIDEO",
+          "SAW",
+          "HEARD",
+          "FELT"
+        ]
+      }
+    },
+    {
+      "type": "card",
+      "title": "Recall starts with a cue that matches one of the pieces",
+      "text": "Recall starts with a cue: a question, a smell, a song or a place that matches one of those pieces.",
+      "hook": "So what happens once a cue wakes up one piece?",
+      "visual": {
+        "type": "diagram",
+        "notes": [
+          "Cues on the left: a question, a flower's smell, a song, a place",
+          "The song matches one piece in the brain, which lights up"
+        ],
+        "labels": [
+          "CUE",
+          "MATCHES"
+        ]
+      }
+    },
+    {
+      "type": "card",
+      "title": "One piece wakes up, and the signal spreads until the whole memory comes back",
+      "text": "That piece wakes up, and the signal spreads along the links until the whole memory comes back. And when you can't remember something, the memory is often still there, just missing the right cue. That's the tip-of-the-tongue feeling.",
+      "hook": "So if the pieces are put back together each time, can a memory change?",
+      "visual": {
+        "type": "diagram",
+        "notes": [
+          "One piece lights, the signal runs along the links, the whole memory glows",
+          "Then the pieces go dim but stay; a wrong cue bounces off, the right cue clicks and they light again"
+        ],
+        "labels": [
+          "WHOLE MEMORY",
+          "STILL THERE",
+          "TIP OF THE TONGUE"
+        ]
+      }
+    },
+    {
+      "type": "card",
+      "title": "A memory is put back together each time, so it can change without you noticing",
+      "text": "Because the pieces are put back together each time, your brain fills any gaps with what it knows and expects. So a memory can change without you noticing.",
+      "visual": {
+        "type": "diagram",
+        "notes": [
+          "The pieces fly back together; one gap is left",
+          "The brain fills the gap with a new piece that looks like the rest"
+        ],
+        "labels": [
+          "GAP",
+          "WHAT IT EXPECTS"
+        ]
+      }
+    },
+    {
+      "type": "card",
+      "title": "One word changed how people remembered a car crash",
+      "text": "In one famous experiment, people watched a video of a car crash. Some were asked how fast the cars were going when they \"hit\" each other. Others were asked how fast they were going when they \"smashed\" into each other. The \"smashed\" group guessed faster speeds, and some even remembered broken glass that was never there.",
+      "takeaway": "Remembering is rebuilding, not replaying.",
+      "visual": {
+        "type": "diagram",
+        "notes": [
+          "A video of two cars crashing",
+          "Two groups side by side: hit gives a lower speed, smashed a higher one and broken glass",
+          "The glass fades: never there"
+        ],
+        "labels": [
+          "HIT",
+          "SMASHED",
+          "BROKEN GLASS",
+          "NEVER THERE"
+        ]
+      }
+    },
+    {
+      "type": "more",
+      "links": []
+    }
+  ]
+}

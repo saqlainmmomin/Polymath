@@ -1,0 +1,79 @@
+{
+  "id": "memory-encoding",
+  "title": "How does your brain decide what to remember?",
+  "kind": "full",
+  "theme": "body",
+  "style": "airbrush",
+  "cards": [
+    {
+      "type": "card",
+      "title": "Odds are, you never lost that memory. You never made it.",
+      "text": "Ever forgotten where you put your keys? Odds are, you never really “lost” that memory. You never made it. Making a memory starts with encoding: turning what you see and hear into a form your brain can keep.",
+      "visual": {
+        "type": "diagram",
+        "notes": [
+          "Keys put down while your mind is elsewhere",
+          "What you see and hear goes into the brain as a memory: encoding"
+        ],
+        "labels": ["KEYS", "ENCODING"]
+      }
+    },
+    {
+      "type": "card",
+      "title": "Attention works like a spotlight on what you take in",
+      "text": "Your senses take in far more than you could ever keep, so attention works like a spotlight. Only what it lands on gets a chance to become a memory. The rest mostly fades.",
+      "visual": {
+        "type": "diagram",
+        "notes": [
+          "Many things pour in through the senses",
+          "A spotlight lands on one; the rest fade"
+        ],
+        "labels": ["ATTENTION", "THE REST FADES"]
+      }
+    },
+    {
+      "type": "card",
+      "title": "What you noticed waits in a tiny workspace",
+      "text": "What you noticed then waits in working memory, a tiny workspace that holds about four things. Once your mind moves on, they slip away in seconds, unless you work with them.",
+      "visual": {
+        "type": "diagram",
+        "notes": [
+          "A small tray holds about four things",
+          "When the mind moves on, they slip away"
+        ],
+        "labels": ["WORKING MEMORY", "ABOUT FOUR THINGS"]
+      }
+    },
+    {
+      "type": "card",
+      "title": "How you work with it decides how well it sticks",
+      "text": "And how you work with them decides how well they stick. Just repeating a phone number leaves a weak memory. Thinking about what something means, and linking it to what you know, leaves a strong one.",
+      "visual": {
+        "type": "diagram",
+        "notes": [
+          "Repeating: a faint memory with one thin link",
+          "Meaning and links to what you know: a strong memory with many links"
+        ],
+        "labels": ["REPEATING", "WEAK", "MEANING", "STRONG"]
+      }
+    },
+    {
+      "type": "card",
+      "title": "You've seen thousands of pennies but never really looked",
+      "text": "You can picture a penny, but could you draw which way the head faces, or where the words sit? Most people can't: they've seen thousands but never really looked.",
+      "takeaway": "You can't remember what you never took in.",
+      "visual": {
+        "type": "diagram",
+        "notes": [
+          "A blurry penny: which way does the head face, where are the words?",
+          "Many pennies seen, none looked at"
+        ],
+        "labels": ["WHICH WAY?", "WORDS?"]
+      }
+    },
+    {
+      "type": "more",
+      "links": []
+    }
+  ]
+}

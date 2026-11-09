@@ -1,0 +1,2337 @@
+{
+ "scenes": [
+  {
+   "card": 0,
+   "label": "A video with a play button is crossed out: not a video. A brain holds three linked pieces: what you saw, heard and felt.",
+   "elements": [
+    {
+     "id": "bg",
+     "part": "spray",
+     "at": [
+      228,
+      150
+     ],
+     "params": {
+      "rx": 96,
+      "ry": 82,
+      "col": 2,
+      "alpha": 0.22,
+      "grow": 1
+     },
+     "word": "brain"
+    },
+    {
+     "id": "brain",
+     "part": "brain",
+     "at": [
+      225,
+      145
+     ],
+     "scale": 1.5,
+     "params": {
+      "lit": 0
+     },
+     "word": "brain"
+    },
+    {
+     "id": "vid",
+     "group": [
+      {
+       "rect": [
+        -46,
+        -32,
+        92,
+        64,
+        8
+       ],
+       "fill": "blue@0.55"
+      },
+      {
+       "path": "M-9 -14 L15 0 L-9 14 Z",
+       "fill": "white"
+      }
+     ],
+     "at": [
+      70,
+      140
+     ],
+     "word": "remembering"
+    },
+    {
+     "id": "x",
+     "group": [
+      {
+       "path": "M-52 -38 L52 38",
+       "stroke": "ink",
+       "width": 3
+      },
+      {
+       "path": "M52 -38 L-52 38",
+       "stroke": "ink",
+       "width": 3
+      }
+     ],
+     "at": [
+      70,
+      140
+     ],
+     "word": "video"
+    },
+    {
+     "id": "nv",
+     "text": "NOT A VIDEO",
+     "at": [
+      70,
+      206
+     ],
+     "size": 22,
+     "word": "video",
+     "hidden": true,
+     "scale": 0.4,
+     "onpicture": true,
+     "delay": 0.2
+    },
+    {
+     "id": "l0",
+     "path": "M192 150 L250 118",
+     "stroke": "ink@0.75",
+     "width": 1.8,
+     "word": "stored"
+    },
+    {
+     "id": "l1",
+     "path": "M192 150 L255 178",
+     "stroke": "ink@0.75",
+     "width": 1.8,
+     "word": "stored"
+    },
+    {
+     "id": "l2",
+     "path": "M250 118 L255 178",
+     "stroke": "ink@0.75",
+     "width": 1.8,
+     "word": "stored"
+    },
+    {
+     "id": "saw",
+     "group": [
+      {
+       "circle": [
+        0,
+        0,
+        16
+       ],
+       "fill": "blue"
+      },
+      {
+       "path": "M-10 0 Q0 -9 10 0 Q0 9 -10 0 Z",
+       "fill": "white"
+      },
+      {
+       "circle": [
+        0,
+        0,
+        3.2
+       ],
+       "fill": "ink",
+       "stroke": "none"
+      }
+     ],
+     "at": [
+      250,
+      118
+     ],
+     "word": "saw"
+    },
+    {
+     "id": "heard",
+     "group": [
+      {
+       "rect": [
+        -16,
+        -16,
+        32,
+        32,
+        7
+       ],
+       "fill": "orange"
+      },
+      {
+       "path": "M-3 7 L-3 -8 L7 -10 L7 4",
+       "stroke": "ink",
+       "width": 1.8
+      },
+      {
+       "circle": [
+        -5.5,
+        7,
+        3
+       ],
+       "fill": "ink",
+       "stroke": "none"
+      },
+      {
+       "circle": [
+        4.5,
+        4.5,
+        3
+       ],
+       "fill": "ink",
+       "stroke": "none"
+      }
+     ],
+     "at": [
+      192,
+      150
+     ],
+     "word": "heard"
+    },
+    {
+     "id": "felt",
+     "group": [
+      {
+       "path": "M0 17 C-24 2 -20 -20 0 -9 C20 -20 24 2 0 17 Z",
+       "fill": "vg:lime:green"
+      },
+      {
+       "circle": [
+        -5,
+        -3,
+        2.2
+       ],
+       "fill": "ink",
+       "stroke": "none"
+      },
+      {
+       "circle": [
+        5,
+        -3,
+        2.2
+       ],
+       "fill": "ink",
+       "stroke": "none"
+      },
+      {
+       "path": "M-5 4 Q0 8 5 4",
+       "stroke": "ink",
+       "width": 1.5
+      }
+     ],
+     "at": [
+      255,
+      178
+     ],
+     "word": "felt"
+    },
+    {
+     "label": "SAW",
+     "anchor": [
+      250,
+      101
+     ],
+     "at": [
+      262,
+      66
+     ],
+     "align": "center",
+     "word": "saw",
+     "delay": 0.2
+    },
+    {
+     "label": "HEARD",
+     "anchor": [
+      180,
+      138
+     ],
+     "at": [
+      150,
+      74
+     ],
+     "align": "center",
+     "word": "heard",
+     "delay": 0.2
+    },
+    {
+     "label": "FELT",
+     "anchor": [
+      255,
+      195
+     ],
+     "at": [
+      255,
+      242
+     ],
+     "align": "center",
+     "word": "felt",
+     "delay": 0.2
+    }
+   ],
+   "moves": [
+    {
+     "move": "nv",
+     "prop": "opacity",
+     "to": 1,
+     "word": "video",
+     "dur": 0.3,
+     "delay": 0.2
+    },
+    {
+     "move": "nv",
+     "prop": "scale",
+     "to": 1.0,
+     "word": "video",
+     "dur": 0.5,
+     "ease": "snap",
+     "delay": 0.2
+    },
+    {
+     "move": "saw",
+     "prop": "scale",
+     "to": 1.18,
+     "word": "back",
+     "dur": 0.25,
+     "delay": 0
+    },
+    {
+     "move": "saw",
+     "prop": "scale",
+     "to": 1.0,
+     "word": "back",
+     "dur": 0.4,
+     "delay": 0.3
+    },
+    {
+     "move": "heard",
+     "prop": "scale",
+     "to": 1.18,
+     "word": "back",
+     "dur": 0.25,
+     "delay": 0.15
+    },
+    {
+     "move": "heard",
+     "prop": "scale",
+     "to": 1.0,
+     "word": "back",
+     "dur": 0.4,
+     "delay": 0.44999999999999996
+    },
+    {
+     "move": "felt",
+     "prop": "scale",
+     "to": 1.18,
+     "word": "back",
+     "dur": 0.25,
+     "delay": 0.3
+    },
+    {
+     "move": "felt",
+     "prop": "scale",
+     "to": 1.0,
+     "word": "back",
+     "dur": 0.4,
+     "delay": 0.6
+    }
+   ]
+  },
+  {
+   "card": 1,
+   "label": "Cues on the left: a question mark, a cup with a smell, a song, a place. An arrow runs from the song to the matching piece in the brain, which glows.",
+   "elements": [
+    {
+     "id": "bg",
+     "part": "spray",
+     "at": [
+      228,
+      150
+     ],
+     "params": {
+      "rx": 96,
+      "ry": 82,
+      "col": 2,
+      "alpha": 0.22,
+      "grow": 1
+     }
+    },
+    {
+     "id": "brain",
+     "part": "brain",
+     "at": [
+      225,
+      145
+     ],
+     "scale": 1.5,
+     "params": {
+      "lit": 0
+     }
+    },
+    {
+     "id": "l0",
+     "path": "M192 150 L250 118",
+     "stroke": "ink@0.75",
+     "width": 1.8
+    },
+    {
+     "id": "l1",
+     "path": "M192 150 L255 178",
+     "stroke": "ink@0.75",
+     "width": 1.8
+    },
+    {
+     "id": "l2",
+     "path": "M250 118 L255 178",
+     "stroke": "ink@0.75",
+     "width": 1.8
+    },
+    {
+     "id": "glowH",
+     "part": "glow",
+     "at": [
+      192,
+      150
+     ],
+     "params": {
+      "r": 32,
+      "col": 1,
+      "alpha": 0.95
+     },
+     "hidden": true
+    },
+    {
+     "id": "saw",
+     "group": [
+      {
+       "circle": [
+        0,
+        0,
+        16
+       ],
+       "fill": "blue"
+      },
+      {
+       "path": "M-10 0 Q0 -9 10 0 Q0 9 -10 0 Z",
+       "fill": "white"
+      },
+      {
+       "circle": [
+        0,
+        0,
+        3.2
+       ],
+       "fill": "ink",
+       "stroke": "none"
+      }
+     ],
+     "at": [
+      250,
+      118
+     ]
+    },
+    {
+     "id": "heard",
+     "group": [
+      {
+       "rect": [
+        -16,
+        -16,
+        32,
+        32,
+        7
+       ],
+       "fill": "orange"
+      },
+      {
+       "path": "M-3 7 L-3 -8 L7 -10 L7 4",
+       "stroke": "ink",
+       "width": 1.8
+      },
+      {
+       "circle": [
+        -5.5,
+        7,
+        3
+       ],
+       "fill": "ink",
+       "stroke": "none"
+      },
+      {
+       "circle": [
+        4.5,
+        4.5,
+        3
+       ],
+       "fill": "ink",
+       "stroke": "none"
+      }
+     ],
+     "at": [
+      192,
+      150
+     ]
+    },
+    {
+     "id": "felt",
+     "group": [
+      {
+       "path": "M0 17 C-24 2 -20 -20 0 -9 C20 -20 24 2 0 17 Z",
+       "fill": "vg:lime:green"
+      },
+      {
+       "circle": [
+        -5,
+        -3,
+        2.2
+       ],
+       "fill": "ink",
+       "stroke": "none"
+      },
+      {
+       "circle": [
+        5,
+        -3,
+        2.2
+       ],
+       "fill": "ink",
+       "stroke": "none"
+      },
+      {
+       "path": "M-5 4 Q0 8 5 4",
+       "stroke": "ink",
+       "width": 1.5
+      }
+     ],
+     "at": [
+      255,
+      178
+     ]
+    },
+    {
+     "id": "cue",
+     "text": "CUE",
+     "at": [
+      50,
+      36
+     ],
+     "size": 24,
+     "word": "cue",
+     "hidden": true,
+     "scale": 0.4,
+     "onpicture": true
+    },
+    {
+     "id": "q",
+     "text": "?",
+     "at": [
+      50,
+      82
+     ],
+     "size": 36,
+     "word": "question",
+     "hidden": true,
+     "scale": 0.4,
+     "onpicture": true
+    },
+    {
+     "id": "cup",
+     "group": [
+      {
+       "path": "M0 16 L0 0",
+       "stroke": "green",
+       "width": 2.2
+      },
+      {
+       "path": "M0 10 C5 6 9 7 11 9 C8 12 4 12 0 10 Z",
+       "fill": "lime"
+      },
+      {
+       "circle": [
+        0,
+        -10,
+        5.5
+       ],
+       "fill": "salmon"
+      },
+      {
+       "circle": [
+        -8,
+        -4,
+        5.5
+       ],
+       "fill": "salmon"
+      },
+      {
+       "circle": [
+        8,
+        -4,
+        5.5
+       ],
+       "fill": "salmon"
+      },
+      {
+       "circle": [
+        -5,
+        4,
+        5.5
+       ],
+       "fill": "salmon"
+      },
+      {
+       "circle": [
+        5,
+        4,
+        5.5
+       ],
+       "fill": "salmon"
+      },
+      {
+       "circle": [
+        0,
+        -2,
+        4.5
+       ],
+       "fill": "yellow"
+      },
+      {
+       "path": "M16 -12 C20 -15 22 -9 26 -12 M17 -2 C21 -5 23 1 27 -2",
+       "stroke": "ink@0.6",
+       "width": 1.4
+      }
+     ],
+     "at": [
+      46,
+      132
+     ],
+     "scale": 1.35,
+     "word": "smell"
+    },
+    {
+     "id": "note",
+     "group": [
+      {
+       "path": "M-3 10 L-3 -14 L11 -18 L11 6",
+       "stroke": "ink",
+       "width": 2.2
+      },
+      {
+       "circle": [
+        -7,
+        10,
+        5
+       ],
+       "fill": "orange"
+      },
+      {
+       "circle": [
+        7,
+        6,
+        5
+       ],
+       "fill": "orange"
+      }
+     ],
+     "at": [
+      50,
+      180
+     ],
+     "word": "song"
+    },
+    {
+     "id": "house",
+     "group": [
+      {
+       "path": "M-14 16 L-14 -2 L14 -2 L14 16 Z",
+       "fill": "skin"
+      },
+      {
+       "path": "M-19 -1 L0 -18 L19 -1 Z",
+       "fill": "blue"
+      },
+      {
+       "rect": [
+        -4,
+        4,
+        8,
+        12
+       ],
+       "fill": "ink@0.7",
+       "stroke": "none"
+      }
+     ],
+     "at": [
+      50,
+      226
+     ],
+     "word": "place"
+    },
+    {
+     "id": "arr",
+     "part": "arrow",
+     "at": [
+      72,
+      174
+     ],
+     "rotate": -12,
+     "params": {
+      "len": 96,
+      "col": 0,
+      "w": 2.4,
+      "head": 9
+     },
+     "word": "matches"
+    },
+    {
+     "id": "mt",
+     "text": "MATCHES ONE PIECE",
+     "at": [
+      180,
+      262
+     ],
+     "size": 22,
+     "word": "matches",
+     "hidden": true,
+     "scale": 0.4,
+     "onpicture": true,
+     "delay": 0.3
+    }
+   ],
+   "moves": [
+    {
+     "move": "cue",
+     "prop": "opacity",
+     "to": 1,
+     "word": "cue",
+     "dur": 0.3
+    },
+    {
+     "move": "cue",
+     "prop": "scale",
+     "to": 1.0,
+     "word": "cue",
+     "dur": 0.5,
+     "ease": "snap"
+    },
+    {
+     "move": "q",
+     "prop": "opacity",
+     "to": 1,
+     "word": "question",
+     "dur": 0.3
+    },
+    {
+     "move": "q",
+     "prop": "scale",
+     "to": 1.0,
+     "word": "question",
+     "dur": 0.5,
+     "ease": "snap"
+    },
+    {
+     "move": "glowH",
+     "prop": "opacity",
+     "to": 1,
+     "word": "matches",
+     "dur": 0.5,
+     "delay": 0.2
+    },
+    {
+     "move": "mt",
+     "prop": "opacity",
+     "to": 1,
+     "word": "matches",
+     "dur": 0.3,
+     "delay": 0.3
+    },
+    {
+     "move": "mt",
+     "prop": "scale",
+     "to": 1.0,
+     "word": "matches",
+     "dur": 0.5,
+     "ease": "snap",
+     "delay": 0.3
+    },
+    {
+     "move": "note",
+     "prop": "scale",
+     "to": 1.18,
+     "word": "matches",
+     "dur": 0.25,
+     "delay": 0
+    },
+    {
+     "move": "note",
+     "prop": "scale",
+     "to": 1.0,
+     "word": "matches",
+     "dur": 0.4,
+     "delay": 0.3
+    },
+    {
+     "move": "heard",
+     "prop": "scale",
+     "to": 1.18,
+     "word": "wakes",
+     "dur": 0.25,
+     "delay": 0
+    },
+    {
+     "move": "heard",
+     "prop": "scale",
+     "to": 1.0,
+     "word": "wakes",
+     "dur": 0.4,
+     "delay": 0.3
+    }
+   ]
+  },
+  {
+   "card": 2,
+   "label": "The song's piece glows, yellow signals run along the links and the whole brain lights up. Then the pieces go dim but stay; a house cue bounces off, the song cue clicks into place and the memory lights again: the tip of the tongue.",
+   "elements": [
+    {
+     "id": "bg",
+     "part": "spray",
+     "at": [
+      228,
+      150
+     ],
+     "params": {
+      "rx": 96,
+      "ry": 82,
+      "col": 2,
+      "alpha": 0.22,
+      "grow": 1
+     }
+    },
+    {
+     "id": "brain",
+     "part": "brain",
+     "at": [
+      225,
+      145
+     ],
+     "scale": 1.5,
+     "params": {
+      "lit": 0
+     }
+    },
+    {
+     "id": "l0",
+     "path": "M192 150 L250 118",
+     "stroke": "ink@0.75",
+     "width": 1.8
+    },
+    {
+     "id": "l1",
+     "path": "M192 150 L255 178",
+     "stroke": "ink@0.75",
+     "width": 1.8
+    },
+    {
+     "id": "l2",
+     "path": "M250 118 L255 178",
+     "stroke": "ink@0.75",
+     "width": 1.8
+    },
+    {
+     "id": "glowH",
+     "part": "glow",
+     "at": [
+      192,
+      150
+     ],
+     "params": {
+      "r": 32,
+      "col": 1,
+      "alpha": 0.95
+     },
+     "hidden": true
+    },
+    {
+     "id": "saw",
+     "group": [
+      {
+       "circle": [
+        0,
+        0,
+        16
+       ],
+       "fill": "blue"
+      },
+      {
+       "path": "M-10 0 Q0 -9 10 0 Q0 9 -10 0 Z",
+       "fill": "white"
+      },
+      {
+       "circle": [
+        0,
+        0,
+        3.2
+       ],
+       "fill": "ink",
+       "stroke": "none"
+      }
+     ],
+     "at": [
+      250,
+      118
+     ]
+    },
+    {
+     "id": "heard",
+     "group": [
+      {
+       "rect": [
+        -16,
+        -16,
+        32,
+        32,
+        7
+       ],
+       "fill": "orange"
+      },
+      {
+       "path": "M-3 7 L-3 -8 L7 -10 L7 4",
+       "stroke": "ink",
+       "width": 1.8
+      },
+      {
+       "circle": [
+        -5.5,
+        7,
+        3
+       ],
+       "fill": "ink",
+       "stroke": "none"
+      },
+      {
+       "circle": [
+        4.5,
+        4.5,
+        3
+       ],
+       "fill": "ink",
+       "stroke": "none"
+      }
+     ],
+     "at": [
+      192,
+      150
+     ]
+    },
+    {
+     "id": "felt",
+     "group": [
+      {
+       "path": "M0 17 C-24 2 -20 -20 0 -9 C20 -20 24 2 0 17 Z",
+       "fill": "vg:lime:green"
+      },
+      {
+       "circle": [
+        -5,
+        -3,
+        2.2
+       ],
+       "fill": "ink",
+       "stroke": "none"
+      },
+      {
+       "circle": [
+        5,
+        -3,
+        2.2
+       ],
+       "fill": "ink",
+       "stroke": "none"
+      },
+      {
+       "path": "M-5 4 Q0 8 5 4",
+       "stroke": "ink",
+       "width": 1.5
+      }
+     ],
+     "at": [
+      255,
+      178
+     ]
+    },
+    {
+     "id": "note",
+     "group": [
+      {
+       "path": "M-3 10 L-3 -14 L11 -18 L11 6",
+       "stroke": "ink",
+       "width": 2.2
+      },
+      {
+       "circle": [
+        -7,
+        10,
+        5
+       ],
+       "fill": "orange"
+      },
+      {
+       "circle": [
+        7,
+        6,
+        5
+       ],
+       "fill": "orange"
+      }
+     ],
+     "at": [
+      50,
+      180
+     ]
+    },
+    {
+     "id": "arr",
+     "part": "arrow",
+     "at": [
+      72,
+      174
+     ],
+     "rotate": -12,
+     "params": {
+      "len": 96,
+      "col": 0,
+      "w": 2.4,
+      "head": 9
+     }
+    },
+    {
+     "id": "b1",
+     "group": [
+      {
+       "circle": [
+        0,
+        0,
+        5
+       ],
+       "fill": "yellow"
+      }
+     ],
+     "at": [
+      192,
+      150
+     ],
+     "hidden": true
+    },
+    {
+     "id": "b2",
+     "group": [
+      {
+       "circle": [
+        0,
+        0,
+        5
+       ],
+       "fill": "yellow"
+      }
+     ],
+     "at": [
+      192,
+      150
+     ],
+     "hidden": true
+    },
+    {
+     "id": "wm",
+     "text": "WHOLE MEMORY",
+     "at": [
+      225,
+      40
+     ],
+     "size": 22,
+     "word": "whole",
+     "hidden": true,
+     "scale": 0.4,
+     "onpicture": true,
+     "delay": 0.3
+    },
+    {
+     "id": "wrong",
+     "group": [
+      {
+       "path": "M-14 16 L-14 -2 L14 -2 L14 16 Z",
+       "fill": "skin"
+      },
+      {
+       "path": "M-19 -1 L0 -18 L19 -1 Z",
+       "fill": "blue"
+      },
+      {
+       "rect": [
+        -4,
+        4,
+        8,
+        12
+       ],
+       "fill": "ink@0.7",
+       "stroke": "none"
+      }
+     ],
+     "at": [
+      44,
+      150
+     ],
+     "hidden": true
+    },
+    {
+     "id": "right",
+     "group": [
+      {
+       "path": "M-3 10 L-3 -14 L11 -18 L11 6",
+       "stroke": "ink",
+       "width": 2.2
+      },
+      {
+       "circle": [
+        -7,
+        10,
+        5
+       ],
+       "fill": "orange"
+      },
+      {
+       "circle": [
+        7,
+        6,
+        5
+       ],
+       "fill": "orange"
+      }
+     ],
+     "at": [
+      44,
+      160
+     ],
+     "hidden": true
+    },
+    {
+     "id": "st",
+     "text": "STILL THERE",
+     "at": [
+      225,
+      250
+     ],
+     "size": 22,
+     "word": "still",
+     "hidden": true,
+     "scale": 0.4,
+     "onpicture": true
+    },
+    {
+     "id": "tip",
+     "text": "TIP OF THE TONGUE",
+     "at": [
+      225,
+      40
+     ],
+     "size": 22,
+     "word": "tipofthetongue",
+     "hidden": true,
+     "scale": 0.4,
+     "onpicture": true,
+     "delay": 0.1
+    }
+   ],
+   "moves": [
+    {
+     "move": "glowH",
+     "prop": "opacity",
+     "to": 1,
+     "word": "wakes",
+     "dur": 0.4
+    },
+    {
+     "move": "heard",
+     "prop": "scale",
+     "to": 1.18,
+     "word": "wakes",
+     "dur": 0.25,
+     "delay": 0
+    },
+    {
+     "move": "heard",
+     "prop": "scale",
+     "to": 1.0,
+     "word": "wakes",
+     "dur": 0.4,
+     "delay": 0.3
+    },
+    {
+     "move": "b1",
+     "prop": "opacity",
+     "to": 1,
+     "word": "spreads",
+     "dur": 0.15
+    },
+    {
+     "move": "b2",
+     "prop": "opacity",
+     "to": 1,
+     "word": "spreads",
+     "dur": 0.15
+    },
+    {
+     "move": "b1",
+     "prop": "x",
+     "to": 250,
+     "word": "spreads",
+     "dur": 0.8,
+     "ease": "eio"
+    },
+    {
+     "move": "b1",
+     "prop": "y",
+     "to": 118,
+     "word": "spreads",
+     "dur": 0.8,
+     "ease": "eio"
+    },
+    {
+     "move": "b2",
+     "prop": "x",
+     "to": 255,
+     "word": "spreads",
+     "dur": 0.8,
+     "ease": "eio"
+    },
+    {
+     "move": "b2",
+     "prop": "y",
+     "to": 178,
+     "word": "spreads",
+     "dur": 0.8,
+     "ease": "eio"
+    },
+    {
+     "move": "b1",
+     "prop": "opacity",
+     "to": 0,
+     "word": "whole",
+     "dur": 0.4,
+     "delay": 0.3
+    },
+    {
+     "move": "b2",
+     "prop": "opacity",
+     "to": 0,
+     "word": "whole",
+     "dur": 0.4,
+     "delay": 0.3
+    },
+    {
+     "move": "brain",
+     "prop": "lit",
+     "to": 1,
+     "word": "whole",
+     "dur": 0.6
+    },
+    {
+     "move": "wm",
+     "prop": "opacity",
+     "to": 1,
+     "word": "whole",
+     "dur": 0.3,
+     "delay": 0.3
+    },
+    {
+     "move": "wm",
+     "prop": "scale",
+     "to": 1.0,
+     "word": "whole",
+     "dur": 0.5,
+     "ease": "snap",
+     "delay": 0.3
+    },
+    {
+     "move": "brain",
+     "prop": "lit",
+     "to": 0,
+     "word": "cant",
+     "dur": 0.5
+    },
+    {
+     "move": "glowH",
+     "prop": "opacity",
+     "to": 0,
+     "word": "cant",
+     "dur": 0.4
+    },
+    {
+     "move": "wm",
+     "prop": "opacity",
+     "to": 0,
+     "word": "cant",
+     "dur": 0.4
+    },
+    {
+     "move": "note",
+     "prop": "opacity",
+     "to": 0,
+     "word": "cant",
+     "dur": 0.4
+    },
+    {
+     "move": "arr",
+     "prop": "opacity",
+     "to": 0,
+     "word": "cant",
+     "dur": 0.4
+    },
+    {
+     "move": "saw",
+     "prop": "opacity",
+     "to": 0.3,
+     "word": "cant",
+     "dur": 0.6,
+     "delay": 0.2
+    },
+    {
+     "move": "heard",
+     "prop": "opacity",
+     "to": 0.3,
+     "word": "cant",
+     "dur": 0.6,
+     "delay": 0.2
+    },
+    {
+     "move": "felt",
+     "prop": "opacity",
+     "to": 0.3,
+     "word": "cant",
+     "dur": 0.6,
+     "delay": 0.2
+    },
+    {
+     "move": "l0",
+     "prop": "opacity",
+     "to": 0.3,
+     "word": "cant",
+     "dur": 0.6,
+     "delay": 0.2
+    },
+    {
+     "move": "l1",
+     "prop": "opacity",
+     "to": 0.3,
+     "word": "cant",
+     "dur": 0.6,
+     "delay": 0.2
+    },
+    {
+     "move": "l2",
+     "prop": "opacity",
+     "to": 0.3,
+     "word": "cant",
+     "dur": 0.6,
+     "delay": 0.2
+    },
+    {
+     "move": "st",
+     "prop": "opacity",
+     "to": 1,
+     "word": "still",
+     "dur": 0.3
+    },
+    {
+     "move": "st",
+     "prop": "scale",
+     "to": 1.0,
+     "word": "still",
+     "dur": 0.5,
+     "ease": "snap"
+    },
+    {
+     "move": "wrong",
+     "prop": "opacity",
+     "to": 1,
+     "word": "missing",
+     "dur": 0.2
+    },
+    {
+     "move": "wrong",
+     "prop": "x",
+     "to": 150,
+     "word": "missing",
+     "dur": 0.45,
+     "ease": "eio"
+    },
+    {
+     "move": "wrong",
+     "prop": "x",
+     "to": 70,
+     "word": "missing",
+     "dur": 0.5,
+     "delay": 0.5,
+     "ease": "snap"
+    },
+    {
+     "move": "wrong",
+     "prop": "rotate",
+     "to": -25,
+     "word": "missing",
+     "dur": 0.4,
+     "delay": 0.5
+    },
+    {
+     "move": "wrong",
+     "prop": "opacity",
+     "to": 0,
+     "word": "right",
+     "dur": 0.3,
+     "delay": 0.1
+    },
+    {
+     "move": "right",
+     "prop": "opacity",
+     "to": 1,
+     "word": "cue",
+     "dur": 0.2
+    },
+    {
+     "move": "right",
+     "prop": "x",
+     "to": 152,
+     "word": "cue",
+     "dur": 0.5,
+     "ease": "eio"
+    },
+    {
+     "move": "right",
+     "prop": "y",
+     "to": 156,
+     "word": "cue",
+     "dur": 0.5,
+     "ease": "eio"
+    },
+    {
+     "move": "right",
+     "prop": "opacity",
+     "to": 0,
+     "word": "thats",
+     "dur": 0.3,
+     "delay": 0.2
+    },
+    {
+     "move": "glowH",
+     "prop": "opacity",
+     "to": 1,
+     "word": "thats",
+     "dur": 0.3
+    },
+    {
+     "move": "saw",
+     "prop": "opacity",
+     "to": 1,
+     "word": "thats",
+     "dur": 0.4,
+     "delay": 0.1
+    },
+    {
+     "move": "heard",
+     "prop": "opacity",
+     "to": 1,
+     "word": "thats",
+     "dur": 0.4,
+     "delay": 0.1
+    },
+    {
+     "move": "felt",
+     "prop": "opacity",
+     "to": 1,
+     "word": "thats",
+     "dur": 0.4,
+     "delay": 0.1
+    },
+    {
+     "move": "l0",
+     "prop": "opacity",
+     "to": 1,
+     "word": "thats",
+     "dur": 0.4,
+     "delay": 0.1
+    },
+    {
+     "move": "l1",
+     "prop": "opacity",
+     "to": 1,
+     "word": "thats",
+     "dur": 0.4,
+     "delay": 0.1
+    },
+    {
+     "move": "l2",
+     "prop": "opacity",
+     "to": 1,
+     "word": "thats",
+     "dur": 0.4,
+     "delay": 0.1
+    },
+    {
+     "move": "brain",
+     "prop": "lit",
+     "to": 1,
+     "word": "thats",
+     "dur": 0.5,
+     "delay": 0.2
+    },
+    {
+     "move": "st",
+     "prop": "opacity",
+     "to": 0,
+     "word": "tipofthetongue",
+     "dur": 0.3
+    },
+    {
+     "move": "tip",
+     "prop": "opacity",
+     "to": 1,
+     "word": "tipofthetongue",
+     "dur": 0.3,
+     "delay": 0.1
+    },
+    {
+     "move": "tip",
+     "prop": "scale",
+     "to": 1.0,
+     "word": "tipofthetongue",
+     "dur": 0.5,
+     "ease": "snap",
+     "delay": 0.1
+    },
+    {
+     "move": "saw",
+     "prop": "scale",
+     "to": 1.18,
+     "word": "together",
+     "dur": 0.25,
+     "delay": 0
+    },
+    {
+     "move": "saw",
+     "prop": "scale",
+     "to": 1.0,
+     "word": "together",
+     "dur": 0.4,
+     "delay": 0.3
+    },
+    {
+     "move": "heard",
+     "prop": "scale",
+     "to": 1.18,
+     "word": "together",
+     "dur": 0.25,
+     "delay": 0.15
+    },
+    {
+     "move": "heard",
+     "prop": "scale",
+     "to": 1.0,
+     "word": "together",
+     "dur": 0.4,
+     "delay": 0.44999999999999996
+    },
+    {
+     "move": "felt",
+     "prop": "scale",
+     "to": 1.18,
+     "word": "together",
+     "dur": 0.25,
+     "delay": 0.3
+    },
+    {
+     "move": "felt",
+     "prop": "scale",
+     "to": 1.0,
+     "word": "together",
+     "dur": 0.4,
+     "delay": 0.6
+    }
+   ]
+  },
+  {
+   "card": 3,
+   "label": "Two pieces fly back into the brain and link up, leaving a dashed gap; the brain fills the gap with a new lime piece: what it expects.",
+   "elements": [
+    {
+     "id": "bg",
+     "part": "spray",
+     "at": [
+      228,
+      150
+     ],
+     "params": {
+      "rx": 96,
+      "ry": 82,
+      "col": 2,
+      "alpha": 0.22,
+      "grow": 1
+     }
+    },
+    {
+     "id": "brain",
+     "part": "brain",
+     "at": [
+      225,
+      145
+     ],
+     "scale": 1.5,
+     "params": {
+      "lit": 0
+     }
+    },
+    {
+     "id": "l0",
+     "path": "M192 150 L250 118",
+     "stroke": "ink@0.75",
+     "width": 1.8,
+     "word": "together",
+     "delay": 0.6
+    },
+    {
+     "id": "l1",
+     "path": "M192 150 L255 178",
+     "stroke": "ink@0.75",
+     "width": 1.8,
+     "word": "together",
+     "delay": 0.75
+    },
+    {
+     "id": "l2",
+     "path": "M250 118 L255 178",
+     "stroke": "ink@0.75",
+     "width": 1.8,
+     "word": "together",
+     "delay": 0.8999999999999999
+    },
+    {
+     "id": "saw",
+     "group": [
+      {
+       "circle": [
+        0,
+        0,
+        16
+       ],
+       "fill": "blue"
+      },
+      {
+       "path": "M-10 0 Q0 -9 10 0 Q0 9 -10 0 Z",
+       "fill": "white"
+      },
+      {
+       "circle": [
+        0,
+        0,
+        3.2
+       ],
+       "fill": "ink",
+       "stroke": "none"
+      }
+     ],
+     "at": [
+      64,
+      76
+     ]
+    },
+    {
+     "id": "heard",
+     "group": [
+      {
+       "rect": [
+        -16,
+        -16,
+        32,
+        32,
+        7
+       ],
+       "fill": "orange"
+      },
+      {
+       "path": "M-3 7 L-3 -8 L7 -10 L7 4",
+       "stroke": "ink",
+       "width": 1.8
+      },
+      {
+       "circle": [
+        -5.5,
+        7,
+        3
+       ],
+       "fill": "ink",
+       "stroke": "none"
+      },
+      {
+       "circle": [
+        4.5,
+        4.5,
+        3
+       ],
+       "fill": "ink",
+       "stroke": "none"
+      }
+     ],
+     "at": [
+      96,
+      206
+     ]
+    },
+    {
+     "id": "gap",
+     "circle": [
+      255,
+      178,
+      16
+     ],
+     "stroke": "ink@0.8",
+     "width": 1.6,
+     "dash": [
+      4,
+      4
+     ],
+     "word": "gaps",
+     "hidden": true
+    },
+    {
+     "id": "gapL",
+     "label": "GAP",
+     "anchor": [
+      255,
+      196
+     ],
+     "at": [
+      255,
+      242
+     ],
+     "align": "center",
+     "word": "gaps",
+     "delay": 0.2
+    },
+    {
+     "id": "new",
+     "group": [
+      {
+       "part": "glow",
+       "params": {
+        "r": 28,
+        "col": 1,
+        "alpha": 0.9
+       }
+      },
+      {
+       "path": "M0 17 C-24 2 -20 -20 0 -9 C20 -20 24 2 0 17 Z",
+       "fill": "vg:lime:green"
+      },
+      {
+       "circle": [
+        -5,
+        -3,
+        2.2
+       ],
+       "fill": "ink",
+       "stroke": "none"
+      },
+      {
+       "circle": [
+        5,
+        -3,
+        2.2
+       ],
+       "fill": "ink",
+       "stroke": "none"
+      },
+      {
+       "path": "M-5 6 Q0 2 5 6",
+       "stroke": "ink",
+       "width": 1.5
+      }
+     ],
+     "at": [
+      255,
+      178
+     ],
+     "word": "expects",
+     "hidden": true,
+     "scale": 0.4
+    },
+    {
+     "id": "exL",
+     "label": "WHAT IT\nEXPECTS",
+     "anchor": [
+      240,
+      186
+     ],
+     "at": [
+      112,
+      228
+     ],
+     "align": "center",
+     "word": "expects",
+     "delay": 0.3
+    }
+   ],
+   "moves": [
+    {
+     "move": "saw",
+     "prop": "x",
+     "to": 250,
+     "word": "together",
+     "dur": 0.8,
+     "ease": "eio"
+    },
+    {
+     "move": "saw",
+     "prop": "y",
+     "to": 118,
+     "word": "together",
+     "dur": 0.8,
+     "ease": "eio"
+    },
+    {
+     "move": "heard",
+     "prop": "x",
+     "to": 192,
+     "word": "together",
+     "dur": 0.8,
+     "delay": 0.15,
+     "ease": "eio"
+    },
+    {
+     "move": "heard",
+     "prop": "y",
+     "to": 150,
+     "word": "together",
+     "dur": 0.8,
+     "delay": 0.15,
+     "ease": "eio"
+    },
+    {
+     "move": "gap",
+     "prop": "opacity",
+     "to": 1,
+     "word": "gaps",
+     "dur": 0.3
+    },
+    {
+     "move": "gap",
+     "prop": "opacity",
+     "to": 0,
+     "word": "expects",
+     "dur": 0.4,
+     "delay": 0.3
+    },
+    {
+     "move": "gapL",
+     "prop": "opacity",
+     "to": 0,
+     "word": "expects",
+     "dur": 0.3
+    },
+    {
+     "move": "new",
+     "prop": "opacity",
+     "to": 1,
+     "word": "expects",
+     "dur": 0.3,
+     "delay": 0.1
+    },
+    {
+     "move": "new",
+     "prop": "scale",
+     "to": 1.0,
+     "word": "expects",
+     "dur": 0.5,
+     "ease": "snap",
+     "delay": 0.1
+    },
+    {
+     "move": "new",
+     "prop": "scale",
+     "to": 1.25,
+     "word": "change",
+     "dur": 0.25,
+     "delay": 0
+    },
+    {
+     "move": "new",
+     "prop": "scale",
+     "to": 1.0,
+     "word": "change",
+     "dur": 0.4,
+     "delay": 0.3
+    },
+    {
+     "move": "saw",
+     "prop": "scale",
+     "to": 1.18,
+     "word": "noticing",
+     "dur": 0.25,
+     "delay": 0
+    },
+    {
+     "move": "saw",
+     "prop": "scale",
+     "to": 1.0,
+     "word": "noticing",
+     "dur": 0.4,
+     "delay": 0.3
+    },
+    {
+     "move": "heard",
+     "prop": "scale",
+     "to": 1.18,
+     "word": "noticing",
+     "dur": 0.25,
+     "delay": 0.15
+    },
+    {
+     "move": "heard",
+     "prop": "scale",
+     "to": 1.0,
+     "word": "noticing",
+     "dur": 0.4,
+     "delay": 0.44999999999999996
+    }
+   ]
+  },
+  {
+   "card": 4,
+   "label": "A small video of two cars crashing. Left, the word hit sends a blue speed needle low; right, smashed sends an orange needle high and broken glass glows below it, then fades: never there. Last: rebuilding, not replaying.",
+   "elements": [
+    {
+     "id": "screen",
+     "rect": [
+      106,
+      14,
+      132,
+      72,
+      8
+     ],
+     "fill": "skin",
+     "word": "video"
+    },
+    {
+     "id": "road",
+     "path": "M114 70 L230 70",
+     "stroke": "ink",
+     "width": 1.6,
+     "word": "video"
+    },
+    {
+     "id": "carA",
+     "group": [
+      {
+       "path": "M-28 4 L-28 -6 C-28 -10 -24 -12 -20 -12 L-10 -12 L-4 -22 L14 -22 L20 -12 L24 -12 C28 -12 30 -8 30 -4 L30 4 Z",
+       "fill": "blue"
+      },
+      {
+       "path": "M-6 -13 L-1 -19 L12 -19 L16 -13 Z",
+       "fill": "white"
+      },
+      {
+       "circle": [
+        -16,
+        5,
+        6
+       ],
+       "fill": "ink",
+       "stroke": "none"
+      },
+      {
+       "circle": [
+        18,
+        5,
+        6
+       ],
+       "fill": "ink",
+       "stroke": "none"
+      }
+     ],
+     "at": [
+      128,
+      64
+     ],
+     "scale": 0.6,
+     "word": "video"
+    },
+    {
+     "id": "carB",
+     "group": [
+      {
+       "path": "M-28 4 L-28 -6 C-28 -10 -24 -12 -20 -12 L-10 -12 L-4 -22 L14 -22 L20 -12 L24 -12 C28 -12 30 -8 30 -4 L30 4 Z",
+       "fill": "orange"
+      },
+      {
+       "path": "M-6 -13 L-1 -19 L12 -19 L16 -13 Z",
+       "fill": "white"
+      },
+      {
+       "circle": [
+        -16,
+        5,
+        6
+       ],
+       "fill": "ink",
+       "stroke": "none"
+      },
+      {
+       "circle": [
+        18,
+        5,
+        6
+       ],
+       "fill": "ink",
+       "stroke": "none"
+      }
+     ],
+     "at": [
+      216,
+      64
+     ],
+     "scale": 0.6,
+     "word": "video",
+     "mirror": true
+    },
+    {
+     "id": "bang",
+     "part": "glow",
+     "at": [
+      172,
+      56
+     ],
+     "params": {
+      "r": 16,
+      "col": 3,
+      "alpha": 0.8
+     },
+     "hidden": true
+    },
+    {
+     "id": "cols",
+     "group": [
+      {
+       "id": "w1",
+       "text": "\"HIT\"",
+       "at": [
+        86,
+        118
+       ],
+       "size": 24,
+       "word": "hit",
+       "onpicture": true
+      },
+      {
+       "id": "hg",
+       "group": [
+        {
+         "path": "M-36 0 C-36 -48 36 -48 36 0 Z",
+         "fill": "blue@0.45"
+        },
+        {
+         "path": "M-28 -2 L-22 -2 M0 -30 L0 -24 M28 -2 L22 -2",
+         "stroke": "ink@0.7",
+         "width": 1.4
+        }
+       ],
+       "at": [
+        86,
+        192
+       ],
+       "word": "hit"
+      },
+      {
+       "id": "hn",
+       "group": [
+        {
+         "path": "M0 0 L-29 0",
+         "stroke": "ink",
+         "width": 3
+        },
+        {
+         "circle": [
+          0,
+          0,
+          3.5
+         ],
+         "fill": "ink",
+         "stroke": "none"
+        }
+       ],
+       "at": [
+        86,
+        192
+       ],
+       "word": "hit"
+      },
+      {
+       "id": "w2",
+       "text": "\"SMASHED\"",
+       "at": [
+        232,
+        118
+       ],
+       "size": 24,
+       "word": "smashed",
+       "onpicture": true
+      },
+      {
+       "id": "sg",
+       "group": [
+        {
+         "path": "M-36 0 C-36 -48 36 -48 36 0 Z",
+         "fill": "orange"
+        },
+        {
+         "path": "M-28 -2 L-22 -2 M0 -30 L0 -24 M28 -2 L22 -2",
+         "stroke": "ink@0.7",
+         "width": 1.4
+        }
+       ],
+       "at": [
+        232,
+        192
+       ],
+       "word": "smashed"
+      },
+      {
+       "id": "sn",
+       "group": [
+        {
+         "path": "M0 0 L-29 0",
+         "stroke": "ink",
+         "width": 3
+        },
+        {
+         "circle": [
+          0,
+          0,
+          3.5
+         ],
+         "fill": "ink",
+         "stroke": "none"
+        }
+       ],
+       "at": [
+        232,
+        192
+       ],
+       "word": "smashed"
+      }
+     ]
+    },
+    {
+     "id": "glass",
+     "group": [
+      {
+       "part": "glow",
+       "params": {
+        "r": 26,
+        "col": 1,
+        "alpha": 0.9
+       }
+      },
+      {
+       "path": "M-16 2 L-9 -5 L-5 3 Z",
+       "fill": "blue@0.7"
+      },
+      {
+       "path": "M2 -1 L11 -7 L13 3 Z",
+       "fill": "blue@0.7"
+      },
+      {
+       "path": "M-4 6 L5 4 L0 11 Z",
+       "fill": "blue@0.7"
+      }
+     ],
+     "at": [
+      232,
+      220
+     ],
+     "word": "glass",
+     "hidden": true
+    },
+    {
+     "id": "gl",
+     "text": "BROKEN GLASS",
+     "at": [
+      226,
+      256
+     ],
+     "size": 22,
+     "word": "glass",
+     "hidden": true,
+     "scale": 0.4,
+     "onpicture": true,
+     "delay": 0.2
+    },
+    {
+     "id": "nt",
+     "text": "NEVER THERE",
+     "at": [
+      226,
+      256
+     ],
+     "size": 22,
+     "word": "never",
+     "hidden": true,
+     "scale": 0.4,
+     "onpicture": true
+    },
+    {
+     "id": "end",
+     "text": "REBUILDING,\nNOT REPLAYING",
+     "at": [
+      172,
+      180
+     ],
+     "size": 28,
+     "word": "rebuilding",
+     "hidden": true,
+     "scale": 0.4,
+     "onpicture": true,
+     "delay": 0.4
+    }
+   ],
+   "moves": [
+    {
+     "move": "carA",
+     "prop": "x",
+     "to": 156,
+     "word": "crash",
+     "dur": 0.6,
+     "ease": "fall"
+    },
+    {
+     "move": "carB",
+     "prop": "x",
+     "to": 188,
+     "word": "crash",
+     "dur": 0.6,
+     "ease": "fall"
+    },
+    {
+     "move": "bang",
+     "prop": "opacity",
+     "to": 1,
+     "word": "crash",
+     "dur": 0.2,
+     "delay": 0.55
+    },
+    {
+     "move": "hn",
+     "prop": "rotate",
+     "to": 55,
+     "word": "each",
+     "dur": 0.8,
+     "ease": "snap"
+    },
+    {
+     "move": "sn",
+     "prop": "rotate",
+     "to": 140,
+     "word": "faster",
+     "dur": 0.8,
+     "ease": "snap"
+    },
+    {
+     "move": "glass",
+     "prop": "opacity",
+     "to": 1,
+     "word": "glass",
+     "dur": 0.4
+    },
+    {
+     "move": "gl",
+     "prop": "opacity",
+     "to": 1,
+     "word": "glass",
+     "dur": 0.3,
+     "delay": 0.2
+    },
+    {
+     "move": "gl",
+     "prop": "scale",
+     "to": 1.0,
+     "word": "glass",
+     "dur": 0.5,
+     "ease": "snap",
+     "delay": 0.2
+    },
+    {
+     "move": "gl",
+     "prop": "opacity",
+     "to": 0,
+     "word": "never",
+     "dur": 0.3
+    },
+    {
+     "move": "glass",
+     "prop": "opacity",
+     "to": 0.15,
+     "word": "never",
+     "dur": 0.8,
+     "delay": 0.3
+    },
+    {
+     "move": "nt",
+     "prop": "opacity",
+     "to": 1,
+     "word": "never",
+     "dur": 0.3,
+     "delay": 0.3
+    },
+    {
+     "move": "nt",
+     "prop": "scale",
+     "to": 1.0,
+     "word": "never",
+     "dur": 0.5,
+     "ease": "snap",
+     "delay": 0.3
+    },
+    {
+     "move": "cols",
+     "prop": "opacity",
+     "to": 0,
+     "word": "rebuilding",
+     "dur": 0.4
+    },
+    {
+     "move": "glass",
+     "prop": "opacity",
+     "to": 0,
+     "word": "rebuilding",
+     "dur": 0.4
+    },
+    {
+     "move": "nt",
+     "prop": "opacity",
+     "to": 0,
+     "word": "rebuilding",
+     "dur": 0.4
+    },
+    {
+     "move": "end",
+     "prop": "opacity",
+     "to": 1,
+     "word": "rebuilding",
+     "dur": 0.3,
+     "delay": 0.4
+    },
+    {
+     "move": "end",
+     "prop": "scale",
+     "to": 1.0,
+     "word": "rebuilding",
+     "dur": 0.5,
+     "ease": "snap",
+     "delay": 0.4
+    }
+   ]
+  }
+ ]
+}

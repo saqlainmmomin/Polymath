@@ -1,0 +1,104 @@
+{
+  "id": "memory-consolidation",
+  "title": "How does a new memory become one that lasts?",
+  "kind": "full",
+  "theme": "body",
+  "style": "airbrush",
+  "cards": [
+    {
+      "type": "card",
+      "title": "A brand-new memory is like wet cement: soft at first",
+      "text": "A memory is a set of brain cells that fired together during an experience, now linked so they can fire together again. But a brand-new memory is like wet cement: it's soft at first, and it needs time to set.",
+      "hook": "So what does it take for a memory to set?",
+      "visual": {
+        "type": "diagram",
+        "notes": [
+          "A few brain cells light up together, then stay linked",
+          "The linked cells sit in soft wet cement that has not set yet"
+        ],
+        "labels": [
+          "BRAIN CELLS",
+          "WET CEMENT"
+        ]
+      }
+    },
+    {
+      "type": "card",
+      "title": "Within hours, the cells build proteins that make their links sturdier",
+      "text": "Turning it into a memory that lasts is called consolidation. Within hours, those cells build new proteins, the building material that makes their links sturdier.",
+      "visual": {
+        "type": "diagram",
+        "notes": [
+          "Two linked brain cells, a thin link between them",
+          "Proteins travel to the link and it grows thick"
+        ],
+        "labels": [
+          "CONSOLIDATION",
+          "WITHIN HOURS",
+          "NEW PROTEINS",
+          "STURDIER LINK"
+        ]
+      }
+    },
+    {
+      "type": "card",
+      "title": "The hippocampus ties the pieces together into one memory",
+      "text": "A memory has pieces: what you saw, heard and felt, each kept in a different part of your brain. The hippocampus, a seahorse-shaped part deep in your brain, ties those pieces together into one memory.",
+      "hook": "So what does the hippocampus do while you sleep?",
+      "visual": {
+        "type": "diagram",
+        "notes": [
+          "What you saw, heard and felt land in three parts of a brain",
+          "A seahorse-shaped hippocampus deep inside ties them together"
+        ],
+        "labels": [
+          "SAW",
+          "HEARD",
+          "FELT",
+          "HIPPOCAMPUS"
+        ]
+      }
+    },
+    {
+      "type": "card",
+      "title": "In deep sleep, the hippocampus replays your day to the cortex",
+      "text": "In deep sleep, the hippocampus replays your day to the cortex, the brain's outer layer, gradually moving it into long-term storage.",
+      "visual": {
+        "type": "diagram",
+        "notes": [
+          "A sleeping brain under a moon",
+          "Replays flow from the hippocampus to the outer layer, which holds the memory"
+        ],
+        "labels": [
+          "DEEP SLEEP",
+          "CORTEX",
+          "LONG-TERM STORAGE"
+        ]
+      }
+    },
+    {
+      "type": "card",
+      "title": "Students who sleep after studying remember more than those who pull an all-nighter",
+      "text": "Studies show that students who sleep after studying remember more than students who pull an all-nighter. Learning doesn't end when you close the book.",
+      "takeaway": "A new memory starts soft, its cells build proteins, the hippocampus ties its pieces together, and sleep moves it into long-term storage.",
+      "visual": {
+        "type": "diagram",
+        "notes": [
+          "A student asleep and a student pulling an all-nighter",
+          "The sleeper remembers more",
+          "Recap: soft cement, links thickening, the hippocampus tying pieces, sleep replay to the cortex"
+        ],
+        "labels": [
+          "SLEPT",
+          "ALL-NIGHTER",
+          "REMEMBERS MORE"
+        ]
+      }
+    },
+    {
+      "type": "more",
+      "links": [],
+      "note": "Each time you recall a memory, it can soften again for a while and has to set again."
+    }
+  ]
+}

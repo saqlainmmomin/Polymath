@@ -1,0 +1,935 @@
+{
+ "voice": "af_heart",
+ "duration": 61.85,
+ "beats": [
+  0.0,
+  15.28,
+  26.55,
+  37.65,
+  49.65
+ ],
+ "words": [
+  {
+   "text": "How",
+   "start": 0.28,
+   "end": 0.39
+  },
+  {
+   "text": "does",
+   "start": 0.39,
+   "end": 0.51
+  },
+  {
+   "text": "your",
+   "start": 0.51,
+   "end": 0.62
+  },
+  {
+   "text": "brain",
+   "start": 0.62,
+   "end": 0.95
+  },
+  {
+   "text": "decide",
+   "start": 0.95,
+   "end": 1.4
+  },
+  {
+   "text": "what",
+   "start": 1.4,
+   "end": 1.55
+  },
+  {
+   "text": "to",
+   "start": 1.55,
+   "end": 1.64
+  },
+  {
+   "text": "remember?",
+   "start": 1.64,
+   "end": 2.61
+  },
+  {
+   "text": "Ever",
+   "start": 2.61,
+   "end": 2.9
+  },
+  {
+   "text": "forgotten",
+   "start": 2.9,
+   "end": 3.4
+  },
+  {
+   "text": "where",
+   "start": 3.4,
+   "end": 3.55
+  },
+  {
+   "text": "you",
+   "start": 3.55,
+   "end": 3.65
+  },
+  {
+   "text": "put",
+   "start": 3.65,
+   "end": 3.79
+  },
+  {
+   "text": "your",
+   "start": 3.79,
+   "end": 3.9
+  },
+  {
+   "text": "keys?",
+   "start": 3.9,
+   "end": 4.81
+  },
+  {
+   "text": "Odds",
+   "start": 4.81,
+   "end": 5.24
+  },
+  {
+   "text": "are,",
+   "start": 5.24,
+   "end": 5.62
+  },
+  {
+   "text": "you",
+   "start": 5.62,
+   "end": 5.75
+  },
+  {
+   "text": "never",
+   "start": 5.75,
+   "end": 6.06
+  },
+  {
+   "text": "really",
+   "start": 6.06,
+   "end": 6.42
+  },
+  {
+   "text": "\u201clost\u201d",
+   "start": 6.42,
+   "end": 6.95
+  },
+  {
+   "text": "that",
+   "start": 6.95,
+   "end": 7.15
+  },
+  {
+   "text": "memory.",
+   "start": 7.15,
+   "end": 7.88
+  },
+  {
+   "text": "You",
+   "start": 7.88,
+   "end": 8.0
+  },
+  {
+   "text": "never",
+   "start": 8.0,
+   "end": 8.25
+  },
+  {
+   "text": "made",
+   "start": 8.25,
+   "end": 8.47
+  },
+  {
+   "text": "it.",
+   "start": 8.47,
+   "end": 9.14
+  },
+  {
+   "text": "Making",
+   "start": 9.14,
+   "end": 9.44
+  },
+  {
+   "text": "a",
+   "start": 9.44,
+   "end": 9.5
+  },
+  {
+   "text": "memory",
+   "start": 9.5,
+   "end": 9.93
+  },
+  {
+   "text": "starts",
+   "start": 9.93,
+   "end": 10.26
+  },
+  {
+   "text": "with",
+   "start": 10.26,
+   "end": 10.4
+  },
+  {
+   "text": "encoding:",
+   "start": 10.4,
+   "end": 11.29
+  },
+  {
+   "text": "turning",
+   "start": 11.29,
+   "end": 11.64
+  },
+  {
+   "text": "what",
+   "start": 11.64,
+   "end": 11.78
+  },
+  {
+   "text": "you",
+   "start": 11.78,
+   "end": 11.93
+  },
+  {
+   "text": "see",
+   "start": 11.93,
+   "end": 12.2
+  },
+  {
+   "text": "and",
+   "start": 12.2,
+   "end": 12.34
+  },
+  {
+   "text": "hear",
+   "start": 12.34,
+   "end": 12.61
+  },
+  {
+   "text": "into",
+   "start": 12.61,
+   "end": 12.81
+  },
+  {
+   "text": "a",
+   "start": 12.81,
+   "end": 12.91
+  },
+  {
+   "text": "form",
+   "start": 12.91,
+   "end": 13.22
+  },
+  {
+   "text": "your",
+   "start": 13.22,
+   "end": 13.35
+  },
+  {
+   "text": "brain",
+   "start": 13.35,
+   "end": 13.68
+  },
+  {
+   "text": "can",
+   "start": 13.68,
+   "end": 13.85
+  },
+  {
+   "text": "keep.",
+   "start": 13.85,
+   "end": 14.57
+  },
+  {
+   "text": "Your",
+   "start": 15.55,
+   "end": 15.74
+  },
+  {
+   "text": "senses",
+   "start": 15.74,
+   "end": 16.29
+  },
+  {
+   "text": "take",
+   "start": 16.29,
+   "end": 16.51
+  },
+  {
+   "text": "in",
+   "start": 16.51,
+   "end": 16.7
+  },
+  {
+   "text": "far",
+   "start": 16.7,
+   "end": 17.0
+  },
+  {
+   "text": "more",
+   "start": 17.0,
+   "end": 17.23
+  },
+  {
+   "text": "than",
+   "start": 17.23,
+   "end": 17.35
+  },
+  {
+   "text": "you",
+   "start": 17.35,
+   "end": 17.45
+  },
+  {
+   "text": "could",
+   "start": 17.45,
+   "end": 17.6
+  },
+  {
+   "text": "ever",
+   "start": 17.6,
+   "end": 17.88
+  },
+  {
+   "text": "keep,",
+   "start": 17.88,
+   "end": 18.45
+  },
+  {
+   "text": "so",
+   "start": 18.45,
+   "end": 18.62
+  },
+  {
+   "text": "attention",
+   "start": 18.62,
+   "end": 19.18
+  },
+  {
+   "text": "works",
+   "start": 19.18,
+   "end": 19.46
+  },
+  {
+   "text": "like",
+   "start": 19.46,
+   "end": 19.61
+  },
+  {
+   "text": "a",
+   "start": 19.61,
+   "end": 19.69
+  },
+  {
+   "text": "spotlight.",
+   "start": 19.69,
+   "end": 20.74
+  },
+  {
+   "text": "Only",
+   "start": 20.74,
+   "end": 21.07
+  },
+  {
+   "text": "what",
+   "start": 21.07,
+   "end": 21.21
+  },
+  {
+   "text": "it",
+   "start": 21.21,
+   "end": 21.3
+  },
+  {
+   "text": "lands",
+   "start": 21.3,
+   "end": 21.65
+  },
+  {
+   "text": "on",
+   "start": 21.65,
+   "end": 21.93
+  },
+  {
+   "text": "gets",
+   "start": 21.93,
+   "end": 22.14
+  },
+  {
+   "text": "a",
+   "start": 22.14,
+   "end": 22.21
+  },
+  {
+   "text": "chance",
+   "start": 22.21,
+   "end": 22.57
+  },
+  {
+   "text": "to",
+   "start": 22.57,
+   "end": 22.66
+  },
+  {
+   "text": "become",
+   "start": 22.66,
+   "end": 22.99
+  },
+  {
+   "text": "a",
+   "start": 22.99,
+   "end": 23.05
+  },
+  {
+   "text": "memory.",
+   "start": 23.05,
+   "end": 23.99
+  },
+  {
+   "text": "The",
+   "start": 23.99,
+   "end": 24.12
+  },
+  {
+   "text": "rest",
+   "start": 24.12,
+   "end": 24.54
+  },
+  {
+   "text": "mostly",
+   "start": 24.54,
+   "end": 24.96
+  },
+  {
+   "text": "fades.",
+   "start": 24.96,
+   "end": 25.85
+  },
+  {
+   "text": "What",
+   "start": 26.8,
+   "end": 26.93
+  },
+  {
+   "text": "you",
+   "start": 26.93,
+   "end": 27.03
+  },
+  {
+   "text": "noticed",
+   "start": 27.03,
+   "end": 27.41
+  },
+  {
+   "text": "then",
+   "start": 27.41,
+   "end": 27.61
+  },
+  {
+   "text": "waits",
+   "start": 27.61,
+   "end": 27.95
+  },
+  {
+   "text": "in",
+   "start": 27.95,
+   "end": 28.1
+  },
+  {
+   "text": "working",
+   "start": 28.1,
+   "end": 28.43
+  },
+  {
+   "text": "memory,",
+   "start": 28.43,
+   "end": 29.19
+  },
+  {
+   "text": "a",
+   "start": 29.19,
+   "end": 29.31
+  },
+  {
+   "text": "tiny",
+   "start": 29.31,
+   "end": 29.75
+  },
+  {
+   "text": "workspace",
+   "start": 29.75,
+   "end": 30.35
+  },
+  {
+   "text": "that",
+   "start": 30.35,
+   "end": 30.5
+  },
+  {
+   "text": "holds",
+   "start": 30.5,
+   "end": 30.81
+  },
+  {
+   "text": "about",
+   "start": 30.81,
+   "end": 31.11
+  },
+  {
+   "text": "four",
+   "start": 31.11,
+   "end": 31.38
+  },
+  {
+   "text": "things.",
+   "start": 31.38,
+   "end": 32.35
+  },
+  {
+   "text": "Once",
+   "start": 32.35,
+   "end": 32.61
+  },
+  {
+   "text": "your",
+   "start": 32.61,
+   "end": 32.73
+  },
+  {
+   "text": "mind",
+   "start": 32.73,
+   "end": 33.12
+  },
+  {
+   "text": "moves",
+   "start": 33.12,
+   "end": 33.4
+  },
+  {
+   "text": "on,",
+   "start": 33.4,
+   "end": 33.9
+  },
+  {
+   "text": "they",
+   "start": 33.9,
+   "end": 34.06
+  },
+  {
+   "text": "slip",
+   "start": 34.06,
+   "end": 34.3
+  },
+  {
+   "text": "away",
+   "start": 34.3,
+   "end": 34.6
+  },
+  {
+   "text": "in",
+   "start": 34.6,
+   "end": 34.75
+  },
+  {
+   "text": "seconds,",
+   "start": 34.75,
+   "end": 35.45
+  },
+  {
+   "text": "unless",
+   "start": 35.45,
+   "end": 35.77
+  },
+  {
+   "text": "you",
+   "start": 35.77,
+   "end": 35.9
+  },
+  {
+   "text": "work",
+   "start": 35.9,
+   "end": 36.14
+  },
+  {
+   "text": "with",
+   "start": 36.14,
+   "end": 36.27
+  },
+  {
+   "text": "them.",
+   "start": 36.27,
+   "end": 36.95
+  },
+  {
+   "text": "And",
+   "start": 37.9,
+   "end": 38.05
+  },
+  {
+   "text": "how",
+   "start": 38.05,
+   "end": 38.23
+  },
+  {
+   "text": "you",
+   "start": 38.23,
+   "end": 38.38
+  },
+  {
+   "text": "work",
+   "start": 38.38,
+   "end": 38.64
+  },
+  {
+   "text": "with",
+   "start": 38.64,
+   "end": 38.76
+  },
+  {
+   "text": "them",
+   "start": 38.76,
+   "end": 38.95
+  },
+  {
+   "text": "decides",
+   "start": 38.95,
+   "end": 39.59
+  },
+  {
+   "text": "how",
+   "start": 39.59,
+   "end": 39.8
+  },
+  {
+   "text": "well",
+   "start": 39.8,
+   "end": 40.02
+  },
+  {
+   "text": "they",
+   "start": 40.02,
+   "end": 40.24
+  },
+  {
+   "text": "stick.",
+   "start": 40.24,
+   "end": 41.11
+  },
+  {
+   "text": "Just",
+   "start": 41.11,
+   "end": 41.35
+  },
+  {
+   "text": "repeating",
+   "start": 41.35,
+   "end": 41.8
+  },
+  {
+   "text": "a",
+   "start": 41.8,
+   "end": 41.92
+  },
+  {
+   "text": "phone",
+   "start": 41.92,
+   "end": 42.27
+  },
+  {
+   "text": "number",
+   "start": 42.27,
+   "end": 42.62
+  },
+  {
+   "text": "leaves",
+   "start": 42.62,
+   "end": 42.9
+  },
+  {
+   "text": "a",
+   "start": 42.9,
+   "end": 43.01
+  },
+  {
+   "text": "weak",
+   "start": 43.01,
+   "end": 43.27
+  },
+  {
+   "text": "memory.",
+   "start": 43.27,
+   "end": 44.24
+  },
+  {
+   "text": "Thinking",
+   "start": 44.24,
+   "end": 44.55
+  },
+  {
+   "text": "about",
+   "start": 44.55,
+   "end": 44.81
+  },
+  {
+   "text": "what",
+   "start": 44.81,
+   "end": 44.95
+  },
+  {
+   "text": "something",
+   "start": 44.95,
+   "end": 45.3
+  },
+  {
+   "text": "means,",
+   "start": 45.3,
+   "end": 46.05
+  },
+  {
+   "text": "and",
+   "start": 46.05,
+   "end": 46.21
+  },
+  {
+   "text": "linking",
+   "start": 46.21,
+   "end": 46.55
+  },
+  {
+   "text": "it",
+   "start": 46.55,
+   "end": 46.67
+  },
+  {
+   "text": "to",
+   "start": 46.67,
+   "end": 46.77
+  },
+  {
+   "text": "what",
+   "start": 46.77,
+   "end": 46.92
+  },
+  {
+   "text": "you",
+   "start": 46.92,
+   "end": 47.02
+  },
+  {
+   "text": "know,",
+   "start": 47.02,
+   "end": 47.56
+  },
+  {
+   "text": "leaves",
+   "start": 47.56,
+   "end": 47.86
+  },
+  {
+   "text": "a",
+   "start": 47.86,
+   "end": 47.92
+  },
+  {
+   "text": "strong",
+   "start": 47.92,
+   "end": 48.3
+  },
+  {
+   "text": "one.",
+   "start": 48.3,
+   "end": 48.95
+  },
+  {
+   "text": "You",
+   "start": 49.92,
+   "end": 50.02
+  },
+  {
+   "text": "can",
+   "start": 50.02,
+   "end": 50.17
+  },
+  {
+   "text": "picture",
+   "start": 50.17,
+   "end": 50.56
+  },
+  {
+   "text": "a",
+   "start": 50.56,
+   "end": 50.62
+  },
+  {
+   "text": "penny,",
+   "start": 50.62,
+   "end": 51.23
+  },
+  {
+   "text": "but",
+   "start": 51.23,
+   "end": 51.38
+  },
+  {
+   "text": "could",
+   "start": 51.38,
+   "end": 51.52
+  },
+  {
+   "text": "you",
+   "start": 51.52,
+   "end": 51.69
+  },
+  {
+   "text": "draw",
+   "start": 51.69,
+   "end": 52.02
+  },
+  {
+   "text": "which",
+   "start": 52.02,
+   "end": 52.31
+  },
+  {
+   "text": "way",
+   "start": 52.31,
+   "end": 52.57
+  },
+  {
+   "text": "the",
+   "start": 52.57,
+   "end": 52.67
+  },
+  {
+   "text": "head",
+   "start": 52.67,
+   "end": 52.9
+  },
+  {
+   "text": "faces,",
+   "start": 52.9,
+   "end": 53.64
+  },
+  {
+   "text": "or",
+   "start": 53.64,
+   "end": 53.86
+  },
+  {
+   "text": "where",
+   "start": 53.86,
+   "end": 54.1
+  },
+  {
+   "text": "the",
+   "start": 54.1,
+   "end": 54.2
+  },
+  {
+   "text": "words",
+   "start": 54.2,
+   "end": 54.54
+  },
+  {
+   "text": "sit?",
+   "start": 54.54,
+   "end": 55.4
+  },
+  {
+   "text": "Most",
+   "start": 55.4,
+   "end": 55.73
+  },
+  {
+   "text": "people",
+   "start": 55.73,
+   "end": 56.05
+  },
+  {
+   "text": "can't:",
+   "start": 56.05,
+   "end": 56.7
+  },
+  {
+   "text": "they've",
+   "start": 56.7,
+   "end": 56.94
+  },
+  {
+   "text": "seen",
+   "start": 56.94,
+   "end": 57.24
+  },
+  {
+   "text": "thousands",
+   "start": 57.24,
+   "end": 57.85
+  },
+  {
+   "text": "but",
+   "start": 57.85,
+   "end": 58.01
+  },
+  {
+   "text": "never",
+   "start": 58.01,
+   "end": 58.33
+  },
+  {
+   "text": "really",
+   "start": 58.33,
+   "end": 58.62
+  },
+  {
+   "text": "looked.",
+   "start": 58.62,
+   "end": 59.4
+  },
+  {
+   "text": "You",
+   "start": 59.4,
+   "end": 59.56
+  },
+  {
+   "text": "can't",
+   "start": 59.56,
+   "end": 59.85
+  },
+  {
+   "text": "remember",
+   "start": 59.85,
+   "end": 60.3
+  },
+  {
+   "text": "what",
+   "start": 60.3,
+   "end": 60.45
+  },
+  {
+   "text": "you",
+   "start": 60.45,
+   "end": 60.6
+  },
+  {
+   "text": "never",
+   "start": 60.6,
+   "end": 60.88
+  },
+  {
+   "text": "took",
+   "start": 60.88,
+   "end": 61.08
+  },
+  {
+   "text": "in.",
+   "start": 61.08,
+   "end": 61.75
+  }
+ ],
+ "keys": [
+  [],
+  [],
+  [],
+  [],
+  []
+ ]
+}

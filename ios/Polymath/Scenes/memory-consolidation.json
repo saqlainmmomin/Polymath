@@ -1,0 +1,4149 @@
+{
+ "scenes": [
+  {
+   "card": 0,
+   "label": "A few round brain cells light up yellow together and stay joined by links; below them a slab of wet cement, and a clock ticking.",
+   "elements": [
+    {
+     "id": "bg",
+     "part": "spray",
+     "at": [
+      172,
+      120
+     ],
+     "params": {
+      "rx": 140,
+      "ry": 86,
+      "col": 7,
+      "alpha": 0.22,
+      "grow": 1
+     },
+     "word": "memory#2"
+    },
+    {
+     "id": "g0",
+     "part": "glow",
+     "at": [
+      110,
+      110
+     ],
+     "params": {
+      "r": 30,
+      "col": 1,
+      "alpha": 0.95
+     },
+     "hidden": true,
+     "word": "fired"
+    },
+    {
+     "id": "g1",
+     "part": "glow",
+     "at": [
+      162,
+      78
+     ],
+     "params": {
+      "r": 30,
+      "col": 1,
+      "alpha": 0.95
+     },
+     "hidden": true,
+     "word": "fired"
+    },
+    {
+     "id": "g2",
+     "part": "glow",
+     "at": [
+      222,
+      100
+     ],
+     "params": {
+      "r": 30,
+      "col": 1,
+      "alpha": 0.95
+     },
+     "hidden": true,
+     "word": "fired"
+    },
+    {
+     "id": "g3",
+     "part": "glow",
+     "at": [
+      140,
+      158
+     ],
+     "params": {
+      "r": 30,
+      "col": 1,
+      "alpha": 0.95
+     },
+     "hidden": true,
+     "word": "fired"
+    },
+    {
+     "id": "g4",
+     "part": "glow",
+     "at": [
+      208,
+      156
+     ],
+     "params": {
+      "r": 30,
+      "col": 1,
+      "alpha": 0.95
+     },
+     "hidden": true,
+     "word": "fired"
+    },
+    {
+     "id": "net",
+     "group": [
+      {
+       "path": "M110 110 L162 78 M162 78 L222 100 M110 110 L140 158 M140 158 L208 156 M208 156 L222 100 M162 78 L208 156",
+       "stroke": "ink",
+       "width": 2.4
+      }
+     ],
+     "word": "linked",
+     "draw": 1.0
+    },
+    {
+     "id": "c0",
+     "group": [
+      {
+       "path": "M-30 -16 L-50 -30 L-58 -26 M-50 -30 L-52 -42 M-22 26 L-36 46 M28 -20 L42 -38 M32 18 L50 30",
+       "stroke": "ink",
+       "width": 1.6
+      },
+      {
+       "circle": [
+        0,
+        0,
+        34
+       ],
+       "fill": "vg:skin:salmon"
+      },
+      {
+       "circle": [
+        0,
+        0,
+        11
+       ],
+       "fill": "orange@0.8"
+      }
+     ],
+     "at": [
+      110,
+      110
+     ],
+     "scale": 0.42,
+     "word": "cells"
+    },
+    {
+     "id": "c1",
+     "group": [
+      {
+       "path": "M-30 -16 L-50 -30 L-58 -26 M-50 -30 L-52 -42 M-22 26 L-36 46 M28 -20 L42 -38 M32 18 L50 30",
+       "stroke": "ink",
+       "width": 1.6
+      },
+      {
+       "circle": [
+        0,
+        0,
+        34
+       ],
+       "fill": "vg:skin:salmon"
+      },
+      {
+       "circle": [
+        0,
+        0,
+        11
+       ],
+       "fill": "orange@0.8"
+      }
+     ],
+     "at": [
+      162,
+      78
+     ],
+     "scale": 0.42,
+     "word": "cells",
+     "delay": 0.1
+    },
+    {
+     "id": "c2",
+     "group": [
+      {
+       "path": "M-30 -16 L-50 -30 L-58 -26 M-50 -30 L-52 -42 M-22 26 L-36 46 M28 -20 L42 -38 M32 18 L50 30",
+       "stroke": "ink",
+       "width": 1.6
+      },
+      {
+       "circle": [
+        0,
+        0,
+        34
+       ],
+       "fill": "vg:skin:salmon"
+      },
+      {
+       "circle": [
+        0,
+        0,
+        11
+       ],
+       "fill": "orange@0.8"
+      }
+     ],
+     "at": [
+      222,
+      100
+     ],
+     "scale": 0.42,
+     "word": "cells",
+     "delay": 0.2
+    },
+    {
+     "id": "c3",
+     "group": [
+      {
+       "path": "M-30 -16 L-50 -30 L-58 -26 M-50 -30 L-52 -42 M-22 26 L-36 46 M28 -20 L42 -38 M32 18 L50 30",
+       "stroke": "ink",
+       "width": 1.6
+      },
+      {
+       "circle": [
+        0,
+        0,
+        34
+       ],
+       "fill": "vg:skin:salmon"
+      },
+      {
+       "circle": [
+        0,
+        0,
+        11
+       ],
+       "fill": "orange@0.8"
+      }
+     ],
+     "at": [
+      140,
+      158
+     ],
+     "scale": 0.42,
+     "word": "cells",
+     "delay": 0.30000000000000004
+    },
+    {
+     "id": "c4",
+     "group": [
+      {
+       "path": "M-30 -16 L-50 -30 L-58 -26 M-50 -30 L-52 -42 M-22 26 L-36 46 M28 -20 L42 -38 M32 18 L50 30",
+       "stroke": "ink",
+       "width": 1.6
+      },
+      {
+       "circle": [
+        0,
+        0,
+        34
+       ],
+       "fill": "vg:skin:salmon"
+      },
+      {
+       "circle": [
+        0,
+        0,
+        11
+       ],
+       "fill": "orange@0.8"
+      }
+     ],
+     "at": [
+      208,
+      156
+     ],
+     "scale": 0.42,
+     "word": "cells",
+     "delay": 0.4
+    },
+    {
+     "id": "lc",
+     "label": "BRAIN CELLS",
+     "anchor": [
+      162,
+      64
+     ],
+     "at": [
+      162,
+      36
+     ],
+     "align": "center",
+     "word": "cells",
+     "delay": 0.5
+    },
+    {
+     "id": "cem",
+     "rect": [
+      52,
+      196,
+      240,
+      44,
+      10
+     ],
+     "fill": "ink@0.22",
+     "word": "cement"
+    },
+    {
+     "id": "b1",
+     "circle": [
+      92,
+      214,
+      3
+     ],
+     "fill": "white",
+     "word": "cement",
+     "delay": 0.4
+    },
+    {
+     "id": "b2",
+     "circle": [
+      178,
+      224,
+      2.5
+     ],
+     "fill": "white",
+     "word": "cement",
+     "delay": 0.5
+    },
+    {
+     "id": "b3",
+     "circle": [
+      246,
+      210,
+      3
+     ],
+     "fill": "white",
+     "word": "cement",
+     "delay": 0.6
+    },
+    {
+     "id": "wc",
+     "text": "WET CEMENT",
+     "at": [
+      172,
+      262
+     ],
+     "size": 22,
+     "word": "cement",
+     "hidden": true,
+     "scale": 0.4
+    },
+    {
+     "id": "clock",
+     "group": [
+      {
+       "circle": [
+        0,
+        0,
+        20
+       ],
+       "fill": "white"
+      },
+      {
+       "id": "hand",
+       "group": [
+        {
+         "path": "M0 2 L0 -13",
+         "stroke": "ink",
+         "width": 2.2
+        }
+       ]
+      }
+     ],
+     "at": [
+      300,
+      46
+     ],
+     "word": "time",
+     "hidden": true
+    }
+   ],
+   "moves": [
+    {
+     "move": "g0",
+     "prop": "opacity",
+     "to": 1,
+     "word": "fired",
+     "dur": 0.3
+    },
+    {
+     "move": "g1",
+     "prop": "opacity",
+     "to": 1,
+     "word": "fired",
+     "dur": 0.3,
+     "delay": 0.06
+    },
+    {
+     "move": "g2",
+     "prop": "opacity",
+     "to": 1,
+     "word": "fired",
+     "dur": 0.3,
+     "delay": 0.12
+    },
+    {
+     "move": "g3",
+     "prop": "opacity",
+     "to": 1,
+     "word": "fired",
+     "dur": 0.3,
+     "delay": 0.18
+    },
+    {
+     "move": "g4",
+     "prop": "opacity",
+     "to": 1,
+     "word": "fired",
+     "dur": 0.3,
+     "delay": 0.24
+    },
+    {
+     "move": "g0",
+     "prop": "opacity",
+     "to": 0,
+     "word": "experience",
+     "dur": 0.5
+    },
+    {
+     "move": "g1",
+     "prop": "opacity",
+     "to": 0,
+     "word": "experience",
+     "dur": 0.5
+    },
+    {
+     "move": "g2",
+     "prop": "opacity",
+     "to": 0,
+     "word": "experience",
+     "dur": 0.5
+    },
+    {
+     "move": "g3",
+     "prop": "opacity",
+     "to": 0,
+     "word": "experience",
+     "dur": 0.5
+    },
+    {
+     "move": "g4",
+     "prop": "opacity",
+     "to": 0,
+     "word": "experience",
+     "dur": 0.5
+    },
+    {
+     "move": "g0",
+     "prop": "opacity",
+     "to": 1,
+     "word": "again",
+     "dur": 0.3
+    },
+    {
+     "move": "g1",
+     "prop": "opacity",
+     "to": 1,
+     "word": "again",
+     "dur": 0.3,
+     "delay": 0.06
+    },
+    {
+     "move": "g2",
+     "prop": "opacity",
+     "to": 1,
+     "word": "again",
+     "dur": 0.3,
+     "delay": 0.12
+    },
+    {
+     "move": "g3",
+     "prop": "opacity",
+     "to": 1,
+     "word": "again",
+     "dur": 0.3,
+     "delay": 0.18
+    },
+    {
+     "move": "g4",
+     "prop": "opacity",
+     "to": 1,
+     "word": "again",
+     "dur": 0.3,
+     "delay": 0.24
+    },
+    {
+     "move": "g0",
+     "prop": "opacity",
+     "to": 0,
+     "word": "but",
+     "dur": 0.5
+    },
+    {
+     "move": "g1",
+     "prop": "opacity",
+     "to": 0,
+     "word": "but",
+     "dur": 0.5
+    },
+    {
+     "move": "g2",
+     "prop": "opacity",
+     "to": 0,
+     "word": "but",
+     "dur": 0.5
+    },
+    {
+     "move": "g3",
+     "prop": "opacity",
+     "to": 0,
+     "word": "but",
+     "dur": 0.5
+    },
+    {
+     "move": "g4",
+     "prop": "opacity",
+     "to": 0,
+     "word": "but",
+     "dur": 0.5
+    },
+    {
+     "move": "lc",
+     "prop": "opacity",
+     "to": 0,
+     "word": "cement",
+     "dur": 0.3
+    },
+    {
+     "move": "wc",
+     "prop": "opacity",
+     "to": 1,
+     "word": "cement",
+     "dur": 0.3,
+     "delay": 0.3
+    },
+    {
+     "move": "wc",
+     "prop": "scale",
+     "to": 1.0,
+     "word": "cement",
+     "dur": 0.5,
+     "delay": 0.3,
+     "ease": "snap"
+    },
+    {
+     "move": "c0",
+     "prop": "y",
+     "to": 118,
+     "word": "soft",
+     "dur": 0.4
+    },
+    {
+     "move": "c0",
+     "prop": "y",
+     "to": 110,
+     "word": "soft",
+     "dur": 0.6,
+     "delay": 0.4
+    },
+    {
+     "move": "c1",
+     "prop": "y",
+     "to": 86,
+     "word": "soft",
+     "dur": 0.4
+    },
+    {
+     "move": "c1",
+     "prop": "y",
+     "to": 78,
+     "word": "soft",
+     "dur": 0.6,
+     "delay": 0.4
+    },
+    {
+     "move": "c2",
+     "prop": "y",
+     "to": 108,
+     "word": "soft",
+     "dur": 0.4
+    },
+    {
+     "move": "c2",
+     "prop": "y",
+     "to": 100,
+     "word": "soft",
+     "dur": 0.6,
+     "delay": 0.4
+    },
+    {
+     "move": "c3",
+     "prop": "y",
+     "to": 166,
+     "word": "soft",
+     "dur": 0.4
+    },
+    {
+     "move": "c3",
+     "prop": "y",
+     "to": 158,
+     "word": "soft",
+     "dur": 0.6,
+     "delay": 0.4
+    },
+    {
+     "move": "c4",
+     "prop": "y",
+     "to": 164,
+     "word": "soft",
+     "dur": 0.4
+    },
+    {
+     "move": "c4",
+     "prop": "y",
+     "to": 156,
+     "word": "soft",
+     "dur": 0.6,
+     "delay": 0.4
+    },
+    {
+     "move": "net",
+     "prop": "y",
+     "to": 8,
+     "word": "soft",
+     "dur": 0.4
+    },
+    {
+     "move": "net",
+     "prop": "y",
+     "to": 0,
+     "word": "soft",
+     "dur": 0.6,
+     "delay": 0.4
+    },
+    {
+     "move": "clock",
+     "prop": "opacity",
+     "to": 1,
+     "word": "time",
+     "dur": 0.3
+    },
+    {
+     "move": "hand",
+     "prop": "rotate",
+     "to": 360,
+     "word": "time",
+     "dur": 2.4,
+     "delay": 0.2,
+     "ease": "linear"
+    }
+   ]
+  },
+  {
+   "card": 1,
+   "label": "Two brain cells close up, joined by a thin link; small orange proteins gather on it and the link turns thick and yellow.",
+   "elements": [
+    {
+     "id": "bg",
+     "part": "spray",
+     "at": [
+      172,
+      140
+     ],
+     "params": {
+      "rx": 150,
+      "ry": 46,
+      "col": 2,
+      "alpha": 0.16,
+      "grow": 1
+     },
+     "word": "turning"
+    },
+    {
+     "id": "thin",
+     "path": "M122 140 L222 140",
+     "stroke": "ink",
+     "width": 1.6,
+     "word": "turning"
+    },
+    {
+     "id": "thick",
+     "rect": [
+      120,
+      131,
+      104,
+      18,
+      9
+     ],
+     "fill": "yellow",
+     "hidden": true,
+     "word": "sturdier"
+    },
+    {
+     "id": "cl",
+     "group": [
+      {
+       "path": "M-30 -16 L-50 -30 L-58 -26 M-50 -30 L-52 -42 M-22 26 L-36 46 M28 -20 L42 -38 M32 18 L50 30",
+       "stroke": "ink",
+       "width": 1.6
+      },
+      {
+       "circle": [
+        0,
+        0,
+        34
+       ],
+       "fill": "vg:skin:salmon"
+      },
+      {
+       "circle": [
+        0,
+        0,
+        11
+       ],
+       "fill": "orange@0.8"
+      }
+     ],
+     "at": [
+      90,
+      140
+     ],
+     "scale": 1.0,
+     "word": "turning"
+    },
+    {
+     "id": "cr",
+     "group": [
+      {
+       "path": "M-30 -16 L-50 -30 L-58 -26 M-50 -30 L-52 -42 M-22 26 L-36 46 M28 -20 L42 -38 M32 18 L50 30",
+       "stroke": "ink",
+       "width": 1.6
+      },
+      {
+       "circle": [
+        0,
+        0,
+        34
+       ],
+       "fill": "vg:skin:salmon"
+      },
+      {
+       "circle": [
+        0,
+        0,
+        11
+       ],
+       "fill": "orange@0.8"
+      }
+     ],
+     "at": [
+      254,
+      140
+     ],
+     "scale": 1.0,
+     "word": "turning",
+     "delay": 0.2
+    },
+    {
+     "id": "con",
+     "text": "CONSOLIDATION",
+     "at": [
+      172,
+      40
+     ],
+     "size": 26,
+     "word": "consolidation",
+     "hidden": true,
+     "scale": 0.4
+    },
+    {
+     "id": "hrs",
+     "text": "WITHIN HOURS",
+     "at": [
+      172,
+      254
+     ],
+     "size": 22,
+     "word": "hours",
+     "hidden": true,
+     "scale": 0.4
+    },
+    {
+     "id": "stu",
+     "text": "STURDIER LINK",
+     "at": [
+      172,
+      254
+     ],
+     "size": 22,
+     "word": "sturdier",
+     "hidden": true,
+     "scale": 0.4
+    },
+    {
+     "id": "p0",
+     "group": [
+      {
+       "circle": [
+        0,
+        0,
+        5.5
+       ],
+       "fill": "orange"
+      }
+     ],
+     "at": [
+      86,
+      136
+     ],
+     "hidden": true,
+     "word": "proteins"
+    },
+    {
+     "id": "p1",
+     "group": [
+      {
+       "circle": [
+        0,
+        0,
+        5.5
+       ],
+       "fill": "orange"
+      }
+     ],
+     "at": [
+      96,
+      146
+     ],
+     "hidden": true,
+     "word": "proteins"
+    },
+    {
+     "id": "p2",
+     "group": [
+      {
+       "circle": [
+        0,
+        0,
+        5.5
+       ],
+       "fill": "orange"
+      }
+     ],
+     "at": [
+      92,
+      130
+     ],
+     "hidden": true,
+     "word": "proteins"
+    },
+    {
+     "id": "p3",
+     "group": [
+      {
+       "circle": [
+        0,
+        0,
+        5.5
+       ],
+       "fill": "orange"
+      }
+     ],
+     "at": [
+      258,
+      136
+     ],
+     "hidden": true,
+     "word": "proteins"
+    },
+    {
+     "id": "p4",
+     "group": [
+      {
+       "circle": [
+        0,
+        0,
+        5.5
+       ],
+       "fill": "orange"
+      }
+     ],
+     "at": [
+      248,
+      146
+     ],
+     "hidden": true,
+     "word": "proteins"
+    },
+    {
+     "id": "p5",
+     "group": [
+      {
+       "circle": [
+        0,
+        0,
+        5.5
+       ],
+       "fill": "orange"
+      }
+     ],
+     "at": [
+      252,
+      130
+     ],
+     "hidden": true,
+     "word": "proteins"
+    },
+    {
+     "id": "lp",
+     "label": "NEW PROTEINS",
+     "anchor": [
+      172,
+      128
+     ],
+     "at": [
+      172,
+      90
+     ],
+     "align": "center",
+     "word": "material",
+     "delay": 0.5
+    }
+   ],
+   "moves": [
+    {
+     "move": "con",
+     "prop": "opacity",
+     "to": 1,
+     "word": "consolidation",
+     "dur": 0.3
+    },
+    {
+     "move": "con",
+     "prop": "scale",
+     "to": 1.0,
+     "word": "consolidation",
+     "dur": 0.5,
+     "ease": "snap"
+    },
+    {
+     "move": "hrs",
+     "prop": "opacity",
+     "to": 1,
+     "word": "hours",
+     "dur": 0.3
+    },
+    {
+     "move": "hrs",
+     "prop": "scale",
+     "to": 1.0,
+     "word": "hours",
+     "dur": 0.5,
+     "ease": "snap"
+    },
+    {
+     "move": "p0",
+     "prop": "opacity",
+     "to": 1,
+     "word": "build",
+     "dur": 0.3
+    },
+    {
+     "move": "p0",
+     "prop": "x",
+     "to": 134,
+     "word": "proteins",
+     "dur": 0.9
+    },
+    {
+     "move": "p0",
+     "prop": "y",
+     "to": 140,
+     "word": "proteins",
+     "dur": 0.9
+    },
+    {
+     "move": "p1",
+     "prop": "opacity",
+     "to": 1,
+     "word": "build",
+     "dur": 0.3,
+     "delay": 0.08
+    },
+    {
+     "move": "p1",
+     "prop": "x",
+     "to": 152,
+     "word": "proteins",
+     "dur": 0.9,
+     "delay": 0.1
+    },
+    {
+     "move": "p1",
+     "prop": "y",
+     "to": 140,
+     "word": "proteins",
+     "dur": 0.9,
+     "delay": 0.1
+    },
+    {
+     "move": "p2",
+     "prop": "opacity",
+     "to": 1,
+     "word": "build",
+     "dur": 0.3,
+     "delay": 0.16
+    },
+    {
+     "move": "p2",
+     "prop": "x",
+     "to": 170,
+     "word": "proteins",
+     "dur": 0.9,
+     "delay": 0.2
+    },
+    {
+     "move": "p2",
+     "prop": "y",
+     "to": 140,
+     "word": "proteins",
+     "dur": 0.9,
+     "delay": 0.2
+    },
+    {
+     "move": "p3",
+     "prop": "opacity",
+     "to": 1,
+     "word": "build",
+     "dur": 0.3,
+     "delay": 0.24
+    },
+    {
+     "move": "p3",
+     "prop": "x",
+     "to": 210,
+     "word": "proteins",
+     "dur": 0.9,
+     "delay": 0.30000000000000004
+    },
+    {
+     "move": "p3",
+     "prop": "y",
+     "to": 140,
+     "word": "proteins",
+     "dur": 0.9,
+     "delay": 0.30000000000000004
+    },
+    {
+     "move": "p4",
+     "prop": "opacity",
+     "to": 1,
+     "word": "build",
+     "dur": 0.3,
+     "delay": 0.32
+    },
+    {
+     "move": "p4",
+     "prop": "x",
+     "to": 192,
+     "word": "proteins",
+     "dur": 0.9,
+     "delay": 0.4
+    },
+    {
+     "move": "p4",
+     "prop": "y",
+     "to": 140,
+     "word": "proteins",
+     "dur": 0.9,
+     "delay": 0.4
+    },
+    {
+     "move": "p5",
+     "prop": "opacity",
+     "to": 1,
+     "word": "build",
+     "dur": 0.3,
+     "delay": 0.4
+    },
+    {
+     "move": "p5",
+     "prop": "x",
+     "to": 176,
+     "word": "proteins",
+     "dur": 0.9,
+     "delay": 0.5
+    },
+    {
+     "move": "p5",
+     "prop": "y",
+     "to": 140,
+     "word": "proteins",
+     "dur": 0.9,
+     "delay": 0.5
+    },
+    {
+     "move": "hrs",
+     "prop": "opacity",
+     "to": 0,
+     "word": "material",
+     "dur": 0.3
+    },
+    {
+     "move": "thick",
+     "prop": "opacity",
+     "to": 1,
+     "word": "sturdier",
+     "dur": 0.5
+    },
+    {
+     "move": "stu",
+     "prop": "opacity",
+     "to": 1,
+     "word": "sturdier",
+     "dur": 0.3,
+     "delay": 0.4
+    },
+    {
+     "move": "stu",
+     "prop": "scale",
+     "to": 1.0,
+     "word": "sturdier",
+     "dur": 0.5,
+     "delay": 0.4,
+     "ease": "snap"
+    },
+    {
+     "move": "lp",
+     "prop": "opacity",
+     "to": 0,
+     "word": "sturdier",
+     "dur": 0.3
+    }
+   ]
+  },
+  {
+   "card": 2,
+   "label": "An eye, an ear and a heart drop their pieces into three parts of a brain; a yellow seahorse-shaped hippocampus deep inside ties them together.",
+   "elements": [
+    {
+     "id": "brain",
+     "part": "brain",
+     "at": [
+      172,
+      160
+     ],
+     "scale": 1.9,
+     "params": {
+      "lit": 0
+     },
+     "word": "brain"
+    },
+    {
+     "id": "halo0",
+     "part": "spray",
+     "at": [
+      80,
+      50
+     ],
+     "params": {
+      "rx": 24,
+      "ry": 20,
+      "col": 2,
+      "alpha": 0.4,
+      "grow": 1
+     },
+     "word": "saw"
+    },
+    {
+     "id": "halo1",
+     "part": "spray",
+     "at": [
+      172,
+      50
+     ],
+     "params": {
+      "rx": 24,
+      "ry": 20,
+      "col": 7,
+      "alpha": 0.4,
+      "grow": 1
+     },
+     "word": "heard"
+    },
+    {
+     "id": "halo2",
+     "part": "spray",
+     "at": [
+      264,
+      50
+     ],
+     "params": {
+      "rx": 24,
+      "ry": 20,
+      "col": 3,
+      "alpha": 0.4,
+      "grow": 1
+     },
+     "word": "felt"
+    },
+    {
+     "id": "eye",
+     "part": "eye",
+     "at": [
+      80,
+      50
+     ],
+     "params": {
+      "s": 0.55
+     },
+     "word": "saw"
+    },
+    {
+     "id": "ear",
+     "path": "M168 32 C184 28 192 44 186 56 C182 62 178 64 178 70 C178 76 168 78 164 72 C160 66 158 36 168 32 Z",
+     "fill": "skin",
+     "word": "heard"
+    },
+    {
+     "id": "heart",
+     "path": "M264 66 C246 54 248 36 258 36 C262 36 264 40 264 42 C264 40 266 36 270 36 C280 36 282 54 264 66 Z",
+     "fill": "orange",
+     "word": "felt"
+    },
+    {
+     "id": "tsaw",
+     "text": "SAW",
+     "at": [
+      80,
+      14
+     ],
+     "size": 19,
+     "word": "saw",
+     "hidden": true,
+     "scale": 0.4
+    },
+    {
+     "id": "thrd",
+     "text": "HEARD",
+     "at": [
+      172,
+      14
+     ],
+     "size": 19,
+     "word": "heard",
+     "hidden": true,
+     "scale": 0.4
+    },
+    {
+     "id": "tflt",
+     "text": "FELT",
+     "at": [
+      264,
+      14
+     ],
+     "size": 19,
+     "word": "felt",
+     "hidden": true,
+     "scale": 0.4
+    },
+    {
+     "id": "s0",
+     "part": "spray",
+     "at": [
+      116,
+      142
+     ],
+     "params": {
+      "rx": 26,
+      "ry": 18,
+      "col": 2,
+      "alpha": 0.75,
+      "grow": 1
+     },
+     "word": "different",
+     "delay": 0.6,
+     "hidden": true
+    },
+    {
+     "id": "s1",
+     "part": "spray",
+     "at": [
+      178,
+      112
+     ],
+     "params": {
+      "rx": 26,
+      "ry": 18,
+      "col": 7,
+      "alpha": 0.75,
+      "grow": 1
+     },
+     "word": "different",
+     "delay": 0.75,
+     "hidden": true
+    },
+    {
+     "id": "s2",
+     "part": "spray",
+     "at": [
+      234,
+      150
+     ],
+     "params": {
+      "rx": 26,
+      "ry": 18,
+      "col": 3,
+      "alpha": 0.75,
+      "grow": 1
+     },
+     "word": "different",
+     "delay": 0.8999999999999999,
+     "hidden": true
+    },
+    {
+     "id": "tie0",
+     "path": "M172 168 L116 142",
+     "stroke": "orange",
+     "width": 2.4,
+     "dash": [
+      5,
+      4
+     ],
+     "word": "ties",
+     "delay": 0.0,
+     "draw": 0.6
+    },
+    {
+     "id": "tie1",
+     "path": "M172 168 L178 112",
+     "stroke": "orange",
+     "width": 2.4,
+     "dash": [
+      5,
+      4
+     ],
+     "word": "ties",
+     "delay": 0.15,
+     "draw": 0.6
+    },
+    {
+     "id": "tie2",
+     "path": "M172 168 L234 150",
+     "stroke": "orange",
+     "width": 2.4,
+     "dash": [
+      5,
+      4
+     ],
+     "word": "ties",
+     "delay": 0.3,
+     "draw": 0.6
+    },
+    {
+     "id": "d0",
+     "group": [
+      {
+       "circle": [
+        0,
+        0,
+        6
+       ],
+       "fill": "blue"
+      }
+     ],
+     "at": [
+      80,
+      50
+     ],
+     "hidden": true,
+     "word": "saw"
+    },
+    {
+     "id": "d1",
+     "group": [
+      {
+       "circle": [
+        0,
+        0,
+        6
+       ],
+       "fill": "lime"
+      }
+     ],
+     "at": [
+      172,
+      50
+     ],
+     "hidden": true,
+     "word": "heard"
+    },
+    {
+     "id": "d2",
+     "group": [
+      {
+       "circle": [
+        0,
+        0,
+        6
+       ],
+       "fill": "orange"
+      }
+     ],
+     "at": [
+      264,
+      50
+     ],
+     "hidden": true,
+     "word": "felt"
+    },
+    {
+     "id": "hip",
+     "group": [
+      {
+       "part": "glow",
+       "params": {
+        "r": 30,
+        "col": 1,
+        "alpha": 0.8
+       }
+      },
+      {
+       "path": "M2 -26 C9 -28 14 -23 13 -16 C12 -11 9 -9 10 -4 C14 4 14 12 7 18 C2 23 -6 23 -8 17 C-10 11 -4 8 0 11 C3 13 4 9 1 6 C-4 1 -6 -4 -4 -9 L-7 -11 L-19 -12 L-19 -17 L-7 -17 C-5 -22 -2 -25 2 -26 Z",
+       "fill": "yellow",
+       "width": 1.6
+      },
+      {
+       "path": "M12 -6 L18 -8 L17 -2 L12 0",
+       "fill": "orange",
+       "width": 1.2
+      },
+      {
+       "circle": [
+        3,
+        -19,
+        1.8
+       ],
+       "fill": "ink"
+      }
+     ],
+     "at": [
+      172,
+      168
+     ],
+     "word": "hippocampus",
+     "hidden": true,
+     "scale": 0.4
+    },
+    {
+     "id": "thip",
+     "text": "HIPPOCAMPUS",
+     "at": [
+      172,
+      264
+     ],
+     "size": 22,
+     "word": "hippocampus",
+     "hidden": true,
+     "scale": 0.4,
+     "delay": 0.3
+    }
+   ],
+   "moves": [
+    {
+     "move": "tsaw",
+     "prop": "opacity",
+     "to": 1,
+     "word": "saw",
+     "dur": 0.3
+    },
+    {
+     "move": "tsaw",
+     "prop": "scale",
+     "to": 1.0,
+     "word": "saw",
+     "dur": 0.5,
+     "ease": "snap"
+    },
+    {
+     "move": "thrd",
+     "prop": "opacity",
+     "to": 1,
+     "word": "heard",
+     "dur": 0.3
+    },
+    {
+     "move": "thrd",
+     "prop": "scale",
+     "to": 1.0,
+     "word": "heard",
+     "dur": 0.5,
+     "ease": "snap"
+    },
+    {
+     "move": "tflt",
+     "prop": "opacity",
+     "to": 1,
+     "word": "felt",
+     "dur": 0.3
+    },
+    {
+     "move": "tflt",
+     "prop": "scale",
+     "to": 1.0,
+     "word": "felt",
+     "dur": 0.5,
+     "ease": "snap"
+    },
+    {
+     "move": "d0",
+     "prop": "opacity",
+     "to": 1,
+     "word": "saw",
+     "dur": 0.3,
+     "delay": 0.2
+    },
+    {
+     "move": "d0",
+     "prop": "x",
+     "to": 116,
+     "word": "different",
+     "dur": 0.8
+    },
+    {
+     "move": "d0",
+     "prop": "y",
+     "to": 142,
+     "word": "different",
+     "dur": 0.8,
+     "ease": "fall"
+    },
+    {
+     "move": "s0",
+     "prop": "opacity",
+     "to": 1,
+     "word": "different",
+     "dur": 0.4,
+     "delay": 0.6
+    },
+    {
+     "move": "d1",
+     "prop": "opacity",
+     "to": 1,
+     "word": "heard",
+     "dur": 0.3,
+     "delay": 0.2
+    },
+    {
+     "move": "d1",
+     "prop": "x",
+     "to": 178,
+     "word": "different",
+     "dur": 0.8,
+     "delay": 0.15
+    },
+    {
+     "move": "d1",
+     "prop": "y",
+     "to": 112,
+     "word": "different",
+     "dur": 0.8,
+     "delay": 0.15,
+     "ease": "fall"
+    },
+    {
+     "move": "s1",
+     "prop": "opacity",
+     "to": 1,
+     "word": "different",
+     "dur": 0.4,
+     "delay": 0.75
+    },
+    {
+     "move": "d2",
+     "prop": "opacity",
+     "to": 1,
+     "word": "felt",
+     "dur": 0.3,
+     "delay": 0.2
+    },
+    {
+     "move": "d2",
+     "prop": "x",
+     "to": 234,
+     "word": "different",
+     "dur": 0.8,
+     "delay": 0.3
+    },
+    {
+     "move": "d2",
+     "prop": "y",
+     "to": 150,
+     "word": "different",
+     "dur": 0.8,
+     "delay": 0.3,
+     "ease": "fall"
+    },
+    {
+     "move": "s2",
+     "prop": "opacity",
+     "to": 1,
+     "word": "different",
+     "dur": 0.4,
+     "delay": 0.8999999999999999
+    },
+    {
+     "move": "hip",
+     "prop": "opacity",
+     "to": 1,
+     "word": "hippocampus",
+     "dur": 0.3
+    },
+    {
+     "move": "hip",
+     "prop": "scale",
+     "to": 1.0,
+     "word": "hippocampus",
+     "dur": 0.5,
+     "ease": "snap"
+    },
+    {
+     "move": "thip",
+     "prop": "opacity",
+     "to": 1,
+     "word": "hippocampus",
+     "dur": 0.3,
+     "delay": 0.3
+    },
+    {
+     "move": "thip",
+     "prop": "scale",
+     "to": 1.0,
+     "word": "hippocampus",
+     "dur": 0.5,
+     "delay": 0.3,
+     "ease": "snap"
+    },
+    {
+     "move": "hip",
+     "prop": "scale",
+     "to": 1.25,
+     "word": "one",
+     "dur": 0.3
+    },
+    {
+     "move": "hip",
+     "prop": "scale",
+     "to": 1.0,
+     "word": "one",
+     "dur": 0.4,
+     "delay": 0.3
+    }
+   ]
+  },
+  {
+   "card": 3,
+   "label": "A brain at night under a moon; yellow beads flow from the hippocampus out to the brain's green outer layer, where coloured patches of memory settle in.",
+   "elements": [
+    {
+     "id": "night",
+     "part": "spray",
+     "at": [
+      172,
+      162
+     ],
+     "params": {
+      "rx": 128,
+      "ry": 92,
+      "col": 2,
+      "alpha": 0.22,
+      "grow": 1
+     },
+     "word": "deep"
+    },
+    {
+     "id": "moon",
+     "path": "M60 22 C42 22 34 42 44 54 C52 62 66 60 70 52 C56 54 48 42 54 30 C56 26 58 24 60 22 Z",
+     "fill": "white",
+     "word": "sleep"
+    },
+    {
+     "id": "tds",
+     "text": "DEEP SLEEP",
+     "at": [
+      172,
+      22
+     ],
+     "size": 22,
+     "word": "sleep",
+     "hidden": true,
+     "scale": 0.4
+    },
+    {
+     "id": "brain",
+     "part": "brain",
+     "at": [
+      172,
+      160
+     ],
+     "scale": 1.9,
+     "params": {
+      "lit": 0
+     },
+     "word": "in"
+    },
+    {
+     "id": "ctx",
+     "group": [
+      {
+       "path": "M80 157 C80 122.2 121.2 94 172 94 C222.8 94 264 122.2 264 157 C264 191.8 222.8 220 172 220 C121.2 220 80 191.8 80 157 Z",
+       "stroke": "lime@0.6",
+       "width": 30
+      }
+     ],
+     "clip": {
+      "path": "M80 157 C80 122.2 121.2 94 172 94 C222.8 94 264 122.2 264 157 C264 191.8 222.8 220 172 220 C121.2 220 80 191.8 80 157 Z"
+     },
+     "word": "cortex",
+     "draw": 1.0
+    },
+    {
+     "id": "m0",
+     "part": "spray",
+     "at": [
+      108,
+      122
+     ],
+     "params": {
+      "rx": 16,
+      "ry": 12,
+      "col": 2,
+      "alpha": 0.85,
+      "grow": 1
+     },
+     "word": "storage",
+     "delay": 0.0,
+     "hidden": true
+    },
+    {
+     "id": "m1",
+     "part": "spray",
+     "at": [
+      172,
+      107
+     ],
+     "params": {
+      "rx": 16,
+      "ry": 12,
+      "col": 3,
+      "alpha": 0.85,
+      "grow": 1
+     },
+     "word": "storage",
+     "delay": 0.1,
+     "hidden": true
+    },
+    {
+     "id": "m2",
+     "part": "spray",
+     "at": [
+      236,
+      122
+     ],
+     "params": {
+      "rx": 16,
+      "ry": 12,
+      "col": 4,
+      "alpha": 0.85,
+      "grow": 1
+     },
+     "word": "storage",
+     "delay": 0.2,
+     "hidden": true
+    },
+    {
+     "id": "m3",
+     "part": "spray",
+     "at": [
+      93,
+      162
+     ],
+     "params": {
+      "rx": 16,
+      "ry": 12,
+      "col": 3,
+      "alpha": 0.85,
+      "grow": 1
+     },
+     "word": "storage",
+     "delay": 0.30000000000000004,
+     "hidden": true
+    },
+    {
+     "id": "m4",
+     "part": "spray",
+     "at": [
+      251,
+      162
+     ],
+     "params": {
+      "rx": 16,
+      "ry": 12,
+      "col": 2,
+      "alpha": 0.85,
+      "grow": 1
+     },
+     "word": "storage",
+     "delay": 0.4,
+     "hidden": true
+    },
+    {
+     "id": "hip",
+     "group": [
+      {
+       "part": "glow",
+       "params": {
+        "r": 30,
+        "col": 1,
+        "alpha": 0.8
+       }
+      },
+      {
+       "path": "M2 -26 C9 -28 14 -23 13 -16 C12 -11 9 -9 10 -4 C14 4 14 12 7 18 C2 23 -6 23 -8 17 C-10 11 -4 8 0 11 C3 13 4 9 1 6 C-4 1 -6 -4 -4 -9 L-7 -11 L-19 -12 L-19 -17 L-7 -17 C-5 -22 -2 -25 2 -26 Z",
+       "fill": "yellow",
+       "width": 1.6
+      },
+      {
+       "path": "M12 -6 L18 -8 L17 -2 L12 0",
+       "fill": "orange",
+       "width": 1.2
+      },
+      {
+       "circle": [
+        3,
+        -19,
+        1.8
+       ],
+       "fill": "ink"
+      }
+     ],
+     "at": [
+      172,
+      168
+     ],
+     "word": "in"
+    },
+    {
+     "id": "r00",
+     "group": [
+      {
+       "circle": [
+        0,
+        0,
+        5
+       ],
+       "fill": "yellow"
+      }
+     ],
+     "at": [
+      172,
+      168
+     ],
+     "hidden": true,
+     "word": "replays"
+    },
+    {
+     "id": "r01",
+     "group": [
+      {
+       "circle": [
+        0,
+        0,
+        5
+       ],
+       "fill": "yellow"
+      }
+     ],
+     "at": [
+      172,
+      168
+     ],
+     "hidden": true,
+     "word": "replays"
+    },
+    {
+     "id": "r02",
+     "group": [
+      {
+       "circle": [
+        0,
+        0,
+        5
+       ],
+       "fill": "yellow"
+      }
+     ],
+     "at": [
+      172,
+      168
+     ],
+     "hidden": true,
+     "word": "replays"
+    },
+    {
+     "id": "r03",
+     "group": [
+      {
+       "circle": [
+        0,
+        0,
+        5
+       ],
+       "fill": "yellow"
+      }
+     ],
+     "at": [
+      172,
+      168
+     ],
+     "hidden": true,
+     "word": "replays"
+    },
+    {
+     "id": "r04",
+     "group": [
+      {
+       "circle": [
+        0,
+        0,
+        5
+       ],
+       "fill": "yellow"
+      }
+     ],
+     "at": [
+      172,
+      168
+     ],
+     "hidden": true,
+     "word": "replays"
+    },
+    {
+     "id": "r10",
+     "group": [
+      {
+       "circle": [
+        0,
+        0,
+        5
+       ],
+       "fill": "yellow"
+      }
+     ],
+     "at": [
+      172,
+      168
+     ],
+     "hidden": true,
+     "word": "day"
+    },
+    {
+     "id": "r11",
+     "group": [
+      {
+       "circle": [
+        0,
+        0,
+        5
+       ],
+       "fill": "yellow"
+      }
+     ],
+     "at": [
+      172,
+      168
+     ],
+     "hidden": true,
+     "word": "day"
+    },
+    {
+     "id": "r12",
+     "group": [
+      {
+       "circle": [
+        0,
+        0,
+        5
+       ],
+       "fill": "yellow"
+      }
+     ],
+     "at": [
+      172,
+      168
+     ],
+     "hidden": true,
+     "word": "day"
+    },
+    {
+     "id": "r13",
+     "group": [
+      {
+       "circle": [
+        0,
+        0,
+        5
+       ],
+       "fill": "yellow"
+      }
+     ],
+     "at": [
+      172,
+      168
+     ],
+     "hidden": true,
+     "word": "day"
+    },
+    {
+     "id": "r14",
+     "group": [
+      {
+       "circle": [
+        0,
+        0,
+        5
+       ],
+       "fill": "yellow"
+      }
+     ],
+     "at": [
+      172,
+      168
+     ],
+     "hidden": true,
+     "word": "day"
+    },
+    {
+     "id": "lctx",
+     "label": "CORTEX",
+     "anchor": [
+      172,
+      96
+     ],
+     "at": [
+      172,
+      72
+     ],
+     "align": "center",
+     "word": "outer",
+     "delay": 0.2
+    },
+    {
+     "id": "tlt",
+     "text": "LONG-TERM STORAGE",
+     "at": [
+      172,
+      262
+     ],
+     "size": 22,
+     "word": "storage",
+     "hidden": true,
+     "scale": 0.4
+    },
+    {
+     "id": "r20",
+     "group": [
+      {
+       "circle": [
+        0,
+        0,
+        5
+       ],
+       "fill": "yellow"
+      }
+     ],
+     "at": [
+      172,
+      168
+     ],
+     "hidden": true,
+     "word": "gradually"
+    },
+    {
+     "id": "r21",
+     "group": [
+      {
+       "circle": [
+        0,
+        0,
+        5
+       ],
+       "fill": "yellow"
+      }
+     ],
+     "at": [
+      172,
+      168
+     ],
+     "hidden": true,
+     "word": "gradually"
+    },
+    {
+     "id": "r22",
+     "group": [
+      {
+       "circle": [
+        0,
+        0,
+        5
+       ],
+       "fill": "yellow"
+      }
+     ],
+     "at": [
+      172,
+      168
+     ],
+     "hidden": true,
+     "word": "gradually"
+    },
+    {
+     "id": "r23",
+     "group": [
+      {
+       "circle": [
+        0,
+        0,
+        5
+       ],
+       "fill": "yellow"
+      }
+     ],
+     "at": [
+      172,
+      168
+     ],
+     "hidden": true,
+     "word": "gradually"
+    },
+    {
+     "id": "r24",
+     "group": [
+      {
+       "circle": [
+        0,
+        0,
+        5
+       ],
+       "fill": "yellow"
+      }
+     ],
+     "at": [
+      172,
+      168
+     ],
+     "hidden": true,
+     "word": "gradually"
+    }
+   ],
+   "moves": [
+    {
+     "move": "tds",
+     "prop": "opacity",
+     "to": 1,
+     "word": "sleep",
+     "dur": 0.3
+    },
+    {
+     "move": "tds",
+     "prop": "scale",
+     "to": 1.0,
+     "word": "sleep",
+     "dur": 0.5,
+     "ease": "snap"
+    },
+    {
+     "move": "r00",
+     "prop": "opacity",
+     "to": 1,
+     "word": "replays",
+     "dur": 0.2
+    },
+    {
+     "move": "r00",
+     "prop": "x",
+     "to": 108,
+     "word": "replays",
+     "dur": 0.9
+    },
+    {
+     "move": "r00",
+     "prop": "y",
+     "to": 122,
+     "word": "replays",
+     "dur": 0.9
+    },
+    {
+     "move": "r00",
+     "prop": "opacity",
+     "to": 0,
+     "word": "replays",
+     "dur": 0.3,
+     "delay": 0.9
+    },
+    {
+     "move": "r01",
+     "prop": "opacity",
+     "to": 1,
+     "word": "replays",
+     "dur": 0.2,
+     "delay": 0.08
+    },
+    {
+     "move": "r01",
+     "prop": "x",
+     "to": 172,
+     "word": "replays",
+     "dur": 0.9,
+     "delay": 0.08
+    },
+    {
+     "move": "r01",
+     "prop": "y",
+     "to": 107,
+     "word": "replays",
+     "dur": 0.9,
+     "delay": 0.08
+    },
+    {
+     "move": "r01",
+     "prop": "opacity",
+     "to": 0,
+     "word": "replays",
+     "dur": 0.3,
+     "delay": 0.98
+    },
+    {
+     "move": "r02",
+     "prop": "opacity",
+     "to": 1,
+     "word": "replays",
+     "dur": 0.2,
+     "delay": 0.16
+    },
+    {
+     "move": "r02",
+     "prop": "x",
+     "to": 236,
+     "word": "replays",
+     "dur": 0.9,
+     "delay": 0.16
+    },
+    {
+     "move": "r02",
+     "prop": "y",
+     "to": 122,
+     "word": "replays",
+     "dur": 0.9,
+     "delay": 0.16
+    },
+    {
+     "move": "r02",
+     "prop": "opacity",
+     "to": 0,
+     "word": "replays",
+     "dur": 0.3,
+     "delay": 1.06
+    },
+    {
+     "move": "r03",
+     "prop": "opacity",
+     "to": 1,
+     "word": "replays",
+     "dur": 0.2,
+     "delay": 0.24
+    },
+    {
+     "move": "r03",
+     "prop": "x",
+     "to": 93,
+     "word": "replays",
+     "dur": 0.9,
+     "delay": 0.24
+    },
+    {
+     "move": "r03",
+     "prop": "y",
+     "to": 162,
+     "word": "replays",
+     "dur": 0.9,
+     "delay": 0.24
+    },
+    {
+     "move": "r03",
+     "prop": "opacity",
+     "to": 0,
+     "word": "replays",
+     "dur": 0.3,
+     "delay": 1.1400000000000001
+    },
+    {
+     "move": "r04",
+     "prop": "opacity",
+     "to": 1,
+     "word": "replays",
+     "dur": 0.2,
+     "delay": 0.32
+    },
+    {
+     "move": "r04",
+     "prop": "x",
+     "to": 251,
+     "word": "replays",
+     "dur": 0.9,
+     "delay": 0.32
+    },
+    {
+     "move": "r04",
+     "prop": "y",
+     "to": 162,
+     "word": "replays",
+     "dur": 0.9,
+     "delay": 0.32
+    },
+    {
+     "move": "r04",
+     "prop": "opacity",
+     "to": 0,
+     "word": "replays",
+     "dur": 0.3,
+     "delay": 1.22
+    },
+    {
+     "move": "r10",
+     "prop": "opacity",
+     "to": 1,
+     "word": "day",
+     "dur": 0.2
+    },
+    {
+     "move": "r10",
+     "prop": "x",
+     "to": 108,
+     "word": "day",
+     "dur": 0.9
+    },
+    {
+     "move": "r10",
+     "prop": "y",
+     "to": 122,
+     "word": "day",
+     "dur": 0.9
+    },
+    {
+     "move": "r10",
+     "prop": "opacity",
+     "to": 0,
+     "word": "day",
+     "dur": 0.3,
+     "delay": 0.9
+    },
+    {
+     "move": "r11",
+     "prop": "opacity",
+     "to": 1,
+     "word": "day",
+     "dur": 0.2,
+     "delay": 0.08
+    },
+    {
+     "move": "r11",
+     "prop": "x",
+     "to": 172,
+     "word": "day",
+     "dur": 0.9,
+     "delay": 0.08
+    },
+    {
+     "move": "r11",
+     "prop": "y",
+     "to": 107,
+     "word": "day",
+     "dur": 0.9,
+     "delay": 0.08
+    },
+    {
+     "move": "r11",
+     "prop": "opacity",
+     "to": 0,
+     "word": "day",
+     "dur": 0.3,
+     "delay": 0.98
+    },
+    {
+     "move": "r12",
+     "prop": "opacity",
+     "to": 1,
+     "word": "day",
+     "dur": 0.2,
+     "delay": 0.16
+    },
+    {
+     "move": "r12",
+     "prop": "x",
+     "to": 236,
+     "word": "day",
+     "dur": 0.9,
+     "delay": 0.16
+    },
+    {
+     "move": "r12",
+     "prop": "y",
+     "to": 122,
+     "word": "day",
+     "dur": 0.9,
+     "delay": 0.16
+    },
+    {
+     "move": "r12",
+     "prop": "opacity",
+     "to": 0,
+     "word": "day",
+     "dur": 0.3,
+     "delay": 1.06
+    },
+    {
+     "move": "r13",
+     "prop": "opacity",
+     "to": 1,
+     "word": "day",
+     "dur": 0.2,
+     "delay": 0.24
+    },
+    {
+     "move": "r13",
+     "prop": "x",
+     "to": 93,
+     "word": "day",
+     "dur": 0.9,
+     "delay": 0.24
+    },
+    {
+     "move": "r13",
+     "prop": "y",
+     "to": 162,
+     "word": "day",
+     "dur": 0.9,
+     "delay": 0.24
+    },
+    {
+     "move": "r13",
+     "prop": "opacity",
+     "to": 0,
+     "word": "day",
+     "dur": 0.3,
+     "delay": 1.1400000000000001
+    },
+    {
+     "move": "r14",
+     "prop": "opacity",
+     "to": 1,
+     "word": "day",
+     "dur": 0.2,
+     "delay": 0.32
+    },
+    {
+     "move": "r14",
+     "prop": "x",
+     "to": 251,
+     "word": "day",
+     "dur": 0.9,
+     "delay": 0.32
+    },
+    {
+     "move": "r14",
+     "prop": "y",
+     "to": 162,
+     "word": "day",
+     "dur": 0.9,
+     "delay": 0.32
+    },
+    {
+     "move": "r14",
+     "prop": "opacity",
+     "to": 0,
+     "word": "day",
+     "dur": 0.3,
+     "delay": 1.22
+    },
+    {
+     "move": "r20",
+     "prop": "opacity",
+     "to": 1,
+     "word": "gradually",
+     "dur": 0.2
+    },
+    {
+     "move": "r20",
+     "prop": "x",
+     "to": 108,
+     "word": "gradually",
+     "dur": 1.0
+    },
+    {
+     "move": "r20",
+     "prop": "y",
+     "to": 122,
+     "word": "gradually",
+     "dur": 1.0
+    },
+    {
+     "move": "r20",
+     "prop": "opacity",
+     "to": 0,
+     "word": "gradually",
+     "dur": 0.3,
+     "delay": 1.0
+    },
+    {
+     "move": "m0",
+     "prop": "opacity",
+     "to": 1,
+     "word": "storage",
+     "dur": 0.5
+    },
+    {
+     "move": "r21",
+     "prop": "opacity",
+     "to": 1,
+     "word": "gradually",
+     "dur": 0.2,
+     "delay": 0.08
+    },
+    {
+     "move": "r21",
+     "prop": "x",
+     "to": 172,
+     "word": "gradually",
+     "dur": 1.0,
+     "delay": 0.08
+    },
+    {
+     "move": "r21",
+     "prop": "y",
+     "to": 107,
+     "word": "gradually",
+     "dur": 1.0,
+     "delay": 0.08
+    },
+    {
+     "move": "r21",
+     "prop": "opacity",
+     "to": 0,
+     "word": "gradually",
+     "dur": 0.3,
+     "delay": 1.08
+    },
+    {
+     "move": "m1",
+     "prop": "opacity",
+     "to": 1,
+     "word": "storage",
+     "dur": 0.5,
+     "delay": 0.1
+    },
+    {
+     "move": "r22",
+     "prop": "opacity",
+     "to": 1,
+     "word": "gradually",
+     "dur": 0.2,
+     "delay": 0.16
+    },
+    {
+     "move": "r22",
+     "prop": "x",
+     "to": 236,
+     "word": "gradually",
+     "dur": 1.0,
+     "delay": 0.16
+    },
+    {
+     "move": "r22",
+     "prop": "y",
+     "to": 122,
+     "word": "gradually",
+     "dur": 1.0,
+     "delay": 0.16
+    },
+    {
+     "move": "r22",
+     "prop": "opacity",
+     "to": 0,
+     "word": "gradually",
+     "dur": 0.3,
+     "delay": 1.16
+    },
+    {
+     "move": "m2",
+     "prop": "opacity",
+     "to": 1,
+     "word": "storage",
+     "dur": 0.5,
+     "delay": 0.2
+    },
+    {
+     "move": "r23",
+     "prop": "opacity",
+     "to": 1,
+     "word": "gradually",
+     "dur": 0.2,
+     "delay": 0.24
+    },
+    {
+     "move": "r23",
+     "prop": "x",
+     "to": 93,
+     "word": "gradually",
+     "dur": 1.0,
+     "delay": 0.24
+    },
+    {
+     "move": "r23",
+     "prop": "y",
+     "to": 162,
+     "word": "gradually",
+     "dur": 1.0,
+     "delay": 0.24
+    },
+    {
+     "move": "r23",
+     "prop": "opacity",
+     "to": 0,
+     "word": "gradually",
+     "dur": 0.3,
+     "delay": 1.24
+    },
+    {
+     "move": "m3",
+     "prop": "opacity",
+     "to": 1,
+     "word": "storage",
+     "dur": 0.5,
+     "delay": 0.30000000000000004
+    },
+    {
+     "move": "r24",
+     "prop": "opacity",
+     "to": 1,
+     "word": "gradually",
+     "dur": 0.2,
+     "delay": 0.32
+    },
+    {
+     "move": "r24",
+     "prop": "x",
+     "to": 251,
+     "word": "gradually",
+     "dur": 1.0,
+     "delay": 0.32
+    },
+    {
+     "move": "r24",
+     "prop": "y",
+     "to": 162,
+     "word": "gradually",
+     "dur": 1.0,
+     "delay": 0.32
+    },
+    {
+     "move": "r24",
+     "prop": "opacity",
+     "to": 0,
+     "word": "gradually",
+     "dur": 0.3,
+     "delay": 1.32
+    },
+    {
+     "move": "m4",
+     "prop": "opacity",
+     "to": 1,
+     "word": "storage",
+     "dur": 0.5,
+     "delay": 0.4
+    },
+    {
+     "move": "tlt",
+     "prop": "opacity",
+     "to": 1,
+     "word": "storage",
+     "dur": 0.3,
+     "delay": 0.2
+    },
+    {
+     "move": "tlt",
+     "prop": "scale",
+     "to": 1.0,
+     "word": "storage",
+     "dur": 0.5,
+     "delay": 0.2,
+     "ease": "snap"
+    },
+    {
+     "move": "hip",
+     "prop": "opacity",
+     "to": 0.55,
+     "word": "storage",
+     "dur": 0.8,
+     "delay": 0.4
+    }
+   ]
+  },
+  {
+   "card": 4,
+   "label": "A student asleep in bed under a moon remembers more than a student pulling an all-nighter by a lamp; then four small pictures recap the topic: cells in wet cement, a link made sturdy by proteins, the hippocampus tying pieces together, and sleep replaying it to the cortex.",
+   "elements": [
+    {
+     "id": "moon",
+     "path": "M60 22 C42 22 34 42 44 54 C52 62 66 60 70 52 C56 54 48 42 54 30 C56 26 58 24 60 22 Z",
+     "fill": "white",
+     "word": "sleep"
+    },
+    {
+     "id": "bed",
+     "group": [
+      {
+       "path": "M24 196 L156 196 M28 196 L28 214 M152 196 L152 214",
+       "stroke": "ink",
+       "width": 2.2
+      },
+      {
+       "rect": [
+        26,
+        168,
+        30,
+        14,
+        6
+       ],
+       "fill": "white"
+      },
+      {
+       "circle": [
+        44,
+        166,
+        13
+       ],
+       "fill": "skin"
+      },
+      {
+       "rect": [
+        52,
+        164,
+        100,
+        32,
+        10
+       ],
+       "fill": "blue@0.85"
+      }
+     ],
+     "word": "sleep"
+    },
+    {
+     "id": "zz",
+     "text": "Z z",
+     "at": [
+      72,
+      146
+     ],
+     "size": 19,
+     "word": "sleep",
+     "hidden": true,
+     "scale": 0.4,
+     "delay": 0.4
+    },
+    {
+     "id": "lamp",
+     "part": "glow",
+     "at": [
+      250,
+      150
+     ],
+     "params": {
+      "r": 60,
+      "col": 3,
+      "alpha": 0.45
+     },
+     "word": "pull"
+    },
+    {
+     "id": "who",
+     "part": "person",
+     "at": [
+      250,
+      214
+     ],
+     "scale": 0.62,
+     "params": {
+      "blink": 0
+     },
+     "word": "pull"
+    },
+    {
+     "id": "bl",
+     "part": "brain",
+     "at": [
+      90,
+      82
+     ],
+     "scale": 0.62,
+     "params": {
+      "lit": 0
+     },
+     "word": "remember"
+    },
+    {
+     "id": "br",
+     "part": "brain",
+     "at": [
+      250,
+      58
+     ],
+     "scale": 0.5,
+     "params": {
+      "lit": 0
+     },
+     "word": "remember",
+     "delay": 0.2
+    },
+    {
+     "id": "tsl",
+     "text": "SLEPT",
+     "at": [
+      90,
+      246
+     ],
+     "size": 22,
+     "word": "sleep",
+     "hidden": true,
+     "scale": 0.4
+    },
+    {
+     "id": "tst",
+     "text": "ALL-NIGHTER",
+     "at": [
+      232,
+      246
+     ],
+     "size": 22,
+     "word": "pull",
+     "hidden": true,
+     "scale": 0.4
+    },
+    {
+     "id": "tmore",
+     "text": "REMEMBERS MORE",
+     "at": [
+      130,
+      24
+     ],
+     "size": 22,
+     "word": "more",
+     "hidden": true,
+     "scale": 0.4
+    },
+    {
+     "id": "q1",
+     "group": [
+      {
+       "part": "spray",
+       "at": [
+        172,
+        130
+       ],
+       "params": {
+        "rx": 140,
+        "ry": 100,
+        "col": 7,
+        "alpha": 0.22,
+        "grow": 1
+       }
+      },
+      {
+       "rect": [
+        52,
+        196,
+        240,
+        44,
+        10
+       ],
+       "fill": "ink@0.22"
+      },
+      {
+       "id": "q1net",
+       "group": [
+        {
+         "path": "M110 110 L162 78 M162 78 L222 100 M110 110 L140 158 M140 158 L208 156 M208 156 L222 100 M162 78 L208 156",
+         "stroke": "ink",
+         "width": 2.4
+        },
+        {
+         "id": "q1c0",
+         "group": [
+          {
+           "path": "M-30 -16 L-50 -30 L-58 -26 M-50 -30 L-52 -42 M-22 26 L-36 46 M28 -20 L42 -38 M32 18 L50 30",
+           "stroke": "ink",
+           "width": 1.6
+          },
+          {
+           "circle": [
+            0,
+            0,
+            34
+           ],
+           "fill": "vg:skin:salmon"
+          },
+          {
+           "circle": [
+            0,
+            0,
+            11
+           ],
+           "fill": "orange@0.8"
+          }
+         ],
+         "at": [
+          110,
+          110
+         ],
+         "scale": 0.42
+        },
+        {
+         "id": "q1c1",
+         "group": [
+          {
+           "path": "M-30 -16 L-50 -30 L-58 -26 M-50 -30 L-52 -42 M-22 26 L-36 46 M28 -20 L42 -38 M32 18 L50 30",
+           "stroke": "ink",
+           "width": 1.6
+          },
+          {
+           "circle": [
+            0,
+            0,
+            34
+           ],
+           "fill": "vg:skin:salmon"
+          },
+          {
+           "circle": [
+            0,
+            0,
+            11
+           ],
+           "fill": "orange@0.8"
+          }
+         ],
+         "at": [
+          162,
+          78
+         ],
+         "scale": 0.42
+        },
+        {
+         "id": "q1c2",
+         "group": [
+          {
+           "path": "M-30 -16 L-50 -30 L-58 -26 M-50 -30 L-52 -42 M-22 26 L-36 46 M28 -20 L42 -38 M32 18 L50 30",
+           "stroke": "ink",
+           "width": 1.6
+          },
+          {
+           "circle": [
+            0,
+            0,
+            34
+           ],
+           "fill": "vg:skin:salmon"
+          },
+          {
+           "circle": [
+            0,
+            0,
+            11
+           ],
+           "fill": "orange@0.8"
+          }
+         ],
+         "at": [
+          222,
+          100
+         ],
+         "scale": 0.42
+        },
+        {
+         "id": "q1c3",
+         "group": [
+          {
+           "path": "M-30 -16 L-50 -30 L-58 -26 M-50 -30 L-52 -42 M-22 26 L-36 46 M28 -20 L42 -38 M32 18 L50 30",
+           "stroke": "ink",
+           "width": 1.6
+          },
+          {
+           "circle": [
+            0,
+            0,
+            34
+           ],
+           "fill": "vg:skin:salmon"
+          },
+          {
+           "circle": [
+            0,
+            0,
+            11
+           ],
+           "fill": "orange@0.8"
+          }
+         ],
+         "at": [
+          140,
+          158
+         ],
+         "scale": 0.42
+        },
+        {
+         "id": "q1c4",
+         "group": [
+          {
+           "path": "M-30 -16 L-50 -30 L-58 -26 M-50 -30 L-52 -42 M-22 26 L-36 46 M28 -20 L42 -38 M32 18 L50 30",
+           "stroke": "ink",
+           "width": 1.6
+          },
+          {
+           "circle": [
+            0,
+            0,
+            34
+           ],
+           "fill": "vg:skin:salmon"
+          },
+          {
+           "circle": [
+            0,
+            0,
+            11
+           ],
+           "fill": "orange@0.8"
+          }
+         ],
+         "at": [
+          208,
+          156
+         ],
+         "scale": 0.42
+        }
+       ]
+      }
+     ],
+     "at": [
+      4,
+      2
+     ],
+     "scale": 0.45,
+     "word": "starts",
+     "hidden": true,
+     "draw": 0.4
+    },
+    {
+     "id": "q2",
+     "group": [
+      {
+       "part": "spray",
+       "at": [
+        172,
+        140
+       ],
+       "params": {
+        "rx": 150,
+        "ry": 100,
+        "col": 2,
+        "alpha": 0.16,
+        "grow": 1
+       }
+      },
+      {
+       "path": "M122 140 L222 140",
+       "stroke": "ink",
+       "width": 1.6
+      },
+      {
+       "id": "q2thick",
+       "rect": [
+        120,
+        131,
+        104,
+        18,
+        9
+       ],
+       "fill": "yellow",
+       "hidden": true
+      },
+      {
+       "id": "q2l",
+       "group": [
+        {
+         "path": "M-30 -16 L-50 -30 L-58 -26 M-50 -30 L-52 -42 M-22 26 L-36 46 M28 -20 L42 -38 M32 18 L50 30",
+         "stroke": "ink",
+         "width": 1.6
+        },
+        {
+         "circle": [
+          0,
+          0,
+          34
+         ],
+         "fill": "vg:skin:salmon"
+        },
+        {
+         "circle": [
+          0,
+          0,
+          11
+         ],
+         "fill": "orange@0.8"
+        }
+       ],
+       "at": [
+        90,
+        140
+       ],
+       "scale": 1.0
+      },
+      {
+       "id": "q2r",
+       "group": [
+        {
+         "path": "M-30 -16 L-50 -30 L-58 -26 M-50 -30 L-52 -42 M-22 26 L-36 46 M28 -20 L42 -38 M32 18 L50 30",
+         "stroke": "ink",
+         "width": 1.6
+        },
+        {
+         "circle": [
+          0,
+          0,
+          34
+         ],
+         "fill": "vg:skin:salmon"
+        },
+        {
+         "circle": [
+          0,
+          0,
+          11
+         ],
+         "fill": "orange@0.8"
+        }
+       ],
+       "at": [
+        254,
+        140
+       ],
+       "scale": 1.0
+      },
+      {
+       "id": "q2p0",
+       "group": [
+        {
+         "circle": [
+          0,
+          0,
+          6
+         ],
+         "fill": "orange"
+        }
+       ],
+       "at": [
+        134,
+        140
+       ],
+       "hidden": true
+      },
+      {
+       "id": "q2p1",
+       "group": [
+        {
+         "circle": [
+          0,
+          0,
+          6
+         ],
+         "fill": "orange"
+        }
+       ],
+       "at": [
+        152,
+        140
+       ],
+       "hidden": true
+      },
+      {
+       "id": "q2p2",
+       "group": [
+        {
+         "circle": [
+          0,
+          0,
+          6
+         ],
+         "fill": "orange"
+        }
+       ],
+       "at": [
+        170,
+        140
+       ],
+       "hidden": true
+      },
+      {
+       "id": "q2p3",
+       "group": [
+        {
+         "circle": [
+          0,
+          0,
+          6
+         ],
+         "fill": "orange"
+        }
+       ],
+       "at": [
+        210,
+        140
+       ],
+       "hidden": true
+      },
+      {
+       "id": "q2p4",
+       "group": [
+        {
+         "circle": [
+          0,
+          0,
+          6
+         ],
+         "fill": "orange"
+        }
+       ],
+       "at": [
+        192,
+        140
+       ],
+       "hidden": true
+      },
+      {
+       "id": "q2p5",
+       "group": [
+        {
+         "circle": [
+          0,
+          0,
+          6
+         ],
+         "fill": "orange"
+        }
+       ],
+       "at": [
+        176,
+        140
+       ],
+       "hidden": true
+      }
+     ],
+     "at": [
+      168,
+      2
+     ],
+     "scale": 0.45,
+     "word": "cells",
+     "hidden": true,
+     "draw": 0.4
+    },
+    {
+     "id": "q3",
+     "group": [
+      {
+       "part": "brain",
+       "at": [
+        172,
+        160
+       ],
+       "scale": 1.9,
+       "params": {
+        "lit": 0
+       }
+      },
+      {
+       "id": "q3s0",
+       "part": "spray",
+       "at": [
+        116,
+        142
+       ],
+       "params": {
+        "rx": 26,
+        "ry": 18,
+        "col": 2,
+        "alpha": 0.8,
+        "grow": 1
+       },
+       "hidden": true
+      },
+      {
+       "id": "q3s1",
+       "part": "spray",
+       "at": [
+        178,
+        112
+       ],
+       "params": {
+        "rx": 26,
+        "ry": 18,
+        "col": 7,
+        "alpha": 0.8,
+        "grow": 1
+       },
+       "hidden": true
+      },
+      {
+       "id": "q3s2",
+       "part": "spray",
+       "at": [
+        234,
+        150
+       ],
+       "params": {
+        "rx": 26,
+        "ry": 18,
+        "col": 3,
+        "alpha": 0.8,
+        "grow": 1
+       },
+       "hidden": true
+      },
+      {
+       "id": "q3t0",
+       "path": "M172 168 L116 142",
+       "stroke": "orange",
+       "width": 3,
+       "hidden": true
+      },
+      {
+       "id": "q3t1",
+       "path": "M172 168 L178 112",
+       "stroke": "orange",
+       "width": 3,
+       "hidden": true
+      },
+      {
+       "id": "q3t2",
+       "path": "M172 168 L234 150",
+       "stroke": "orange",
+       "width": 3,
+       "hidden": true
+      },
+      {
+       "id": "q3hip",
+       "group": [
+        {
+         "part": "glow",
+         "params": {
+          "r": 30,
+          "col": 1,
+          "alpha": 0.8
+         }
+        },
+        {
+         "path": "M2 -26 C9 -28 14 -23 13 -16 C12 -11 9 -9 10 -4 C14 4 14 12 7 18 C2 23 -6 23 -8 17 C-10 11 -4 8 0 11 C3 13 4 9 1 6 C-4 1 -6 -4 -4 -9 L-7 -11 L-19 -12 L-19 -17 L-7 -17 C-5 -22 -2 -25 2 -26 Z",
+         "fill": "yellow",
+         "width": 1.6
+        },
+        {
+         "path": "M12 -6 L18 -8 L17 -2 L12 0",
+         "fill": "orange",
+         "width": 1.2
+        },
+        {
+         "circle": [
+          3,
+          -19,
+          1.8
+         ],
+         "fill": "ink"
+        }
+       ],
+       "at": [
+        172,
+        168
+       ],
+       "hidden": true
+      }
+     ],
+     "at": [
+      4,
+      126
+     ],
+     "scale": 0.45,
+     "word": "hippocampus",
+     "hidden": true,
+     "draw": 0.4
+    },
+    {
+     "id": "q4",
+     "group": [
+      {
+       "path": "M60 22 C42 22 34 42 44 54 C52 62 66 60 70 52 C56 54 48 42 54 30 C56 26 58 24 60 22 Z",
+       "fill": "white"
+      },
+      {
+       "part": "brain",
+       "at": [
+        172,
+        160
+       ],
+       "scale": 1.9,
+       "params": {
+        "lit": 0
+       }
+      },
+      {
+       "group": [
+        {
+         "path": "M80 157 C80 122.2 121.2 94 172 94 C222.8 94 264 122.2 264 157 C264 191.8 222.8 220 172 220 C121.2 220 80 191.8 80 157 Z",
+         "stroke": "lime@0.6",
+         "width": 30
+        }
+       ],
+       "clip": {
+        "path": "M80 157 C80 122.2 121.2 94 172 94 C222.8 94 264 122.2 264 157 C264 191.8 222.8 220 172 220 C121.2 220 80 191.8 80 157 Z"
+       }
+      },
+      {
+       "id": "q4m0",
+       "part": "spray",
+       "at": [
+        108,
+        122
+       ],
+       "params": {
+        "rx": 16,
+        "ry": 12,
+        "col": 2,
+        "alpha": 0.85,
+        "grow": 1
+       },
+       "hidden": true
+      },
+      {
+       "id": "q4m1",
+       "part": "spray",
+       "at": [
+        172,
+        107
+       ],
+       "params": {
+        "rx": 16,
+        "ry": 12,
+        "col": 7,
+        "alpha": 0.85,
+        "grow": 1
+       },
+       "hidden": true
+      },
+      {
+       "id": "q4m2",
+       "part": "spray",
+       "at": [
+        236,
+        122
+       ],
+       "params": {
+        "rx": 16,
+        "ry": 12,
+        "col": 3,
+        "alpha": 0.85,
+        "grow": 1
+       },
+       "hidden": true
+      },
+      {
+       "id": "q4m3",
+       "part": "spray",
+       "at": [
+        93,
+        162
+       ],
+       "params": {
+        "rx": 16,
+        "ry": 12,
+        "col": 7,
+        "alpha": 0.85,
+        "grow": 1
+       },
+       "hidden": true
+      },
+      {
+       "id": "q4m4",
+       "part": "spray",
+       "at": [
+        251,
+        162
+       ],
+       "params": {
+        "rx": 16,
+        "ry": 12,
+        "col": 2,
+        "alpha": 0.85,
+        "grow": 1
+       },
+       "hidden": true
+      },
+      {
+       "id": "q4r0",
+       "group": [
+        {
+         "circle": [
+          0,
+          0,
+          6
+         ],
+         "fill": "yellow"
+        }
+       ],
+       "at": [
+        172,
+        168
+       ],
+       "hidden": true
+      },
+      {
+       "id": "q4r1",
+       "group": [
+        {
+         "circle": [
+          0,
+          0,
+          6
+         ],
+         "fill": "yellow"
+        }
+       ],
+       "at": [
+        172,
+        168
+       ],
+       "hidden": true
+      },
+      {
+       "id": "q4r2",
+       "group": [
+        {
+         "circle": [
+          0,
+          0,
+          6
+         ],
+         "fill": "yellow"
+        }
+       ],
+       "at": [
+        172,
+        168
+       ],
+       "hidden": true
+      },
+      {
+       "id": "q4r3",
+       "group": [
+        {
+         "circle": [
+          0,
+          0,
+          6
+         ],
+         "fill": "yellow"
+        }
+       ],
+       "at": [
+        172,
+        168
+       ],
+       "hidden": true
+      },
+      {
+       "id": "q4r4",
+       "group": [
+        {
+         "circle": [
+          0,
+          0,
+          6
+         ],
+         "fill": "yellow"
+        }
+       ],
+       "at": [
+        172,
+        168
+       ],
+       "hidden": true
+      }
+     ],
+     "at": [
+      160,
+      124
+     ],
+     "scale": 0.45,
+     "word": "sleep#2",
+     "hidden": true,
+     "draw": 0.4
+    }
+   ],
+   "moves": [
+    {
+     "move": "zz",
+     "prop": "opacity",
+     "to": 1,
+     "word": "sleep",
+     "dur": 0.3,
+     "delay": 0.4
+    },
+    {
+     "move": "zz",
+     "prop": "scale",
+     "to": 1.0,
+     "word": "sleep",
+     "dur": 0.5,
+     "delay": 0.4,
+     "ease": "snap"
+    },
+    {
+     "move": "tsl",
+     "prop": "opacity",
+     "to": 1,
+     "word": "sleep",
+     "dur": 0.3
+    },
+    {
+     "move": "tsl",
+     "prop": "scale",
+     "to": 1.0,
+     "word": "sleep",
+     "dur": 0.5,
+     "ease": "snap"
+    },
+    {
+     "move": "tst",
+     "prop": "opacity",
+     "to": 1,
+     "word": "pull",
+     "dur": 0.3
+    },
+    {
+     "move": "tst",
+     "prop": "scale",
+     "to": 1.0,
+     "word": "pull",
+     "dur": 0.5,
+     "ease": "snap"
+    },
+    {
+     "move": "bl",
+     "prop": "lit",
+     "to": 1,
+     "word": "more",
+     "dur": 0.6
+    },
+    {
+     "move": "br",
+     "prop": "lit",
+     "to": 0.15,
+     "word": "more",
+     "dur": 0.6
+    },
+    {
+     "move": "tmore",
+     "prop": "opacity",
+     "to": 1,
+     "word": "more",
+     "dur": 0.3,
+     "delay": 0.2
+    },
+    {
+     "move": "tmore",
+     "prop": "scale",
+     "to": 1.0,
+     "word": "more",
+     "dur": 0.5,
+     "delay": 0.2,
+     "ease": "snap"
+    },
+    {
+     "move": "br",
+     "prop": "opacity",
+     "to": 0.45,
+     "word": "learning",
+     "dur": 0.8
+    },
+    {
+     "move": "who",
+     "prop": "blink",
+     "to": 1,
+     "word": "learning",
+     "dur": 0.2
+    },
+    {
+     "move": "bl",
+     "prop": "scale",
+     "to": 0.72,
+     "word": "close",
+     "dur": 0.4
+    },
+    {
+     "move": "bl",
+     "prop": "scale",
+     "to": 0.62,
+     "word": "close",
+     "dur": 0.5,
+     "delay": 0.4
+    },
+    {
+     "move": "moon",
+     "prop": "opacity",
+     "to": 0,
+     "word": "new",
+     "dur": 0.4
+    },
+    {
+     "move": "bed",
+     "prop": "opacity",
+     "to": 0,
+     "word": "new",
+     "dur": 0.4
+    },
+    {
+     "move": "zz",
+     "prop": "opacity",
+     "to": 0,
+     "word": "new",
+     "dur": 0.4
+    },
+    {
+     "move": "lamp",
+     "prop": "opacity",
+     "to": 0,
+     "word": "new",
+     "dur": 0.4
+    },
+    {
+     "move": "who",
+     "prop": "opacity",
+     "to": 0,
+     "word": "new",
+     "dur": 0.4
+    },
+    {
+     "move": "bl",
+     "prop": "opacity",
+     "to": 0,
+     "word": "new",
+     "dur": 0.4
+    },
+    {
+     "move": "br",
+     "prop": "opacity",
+     "to": 0,
+     "word": "new",
+     "dur": 0.4
+    },
+    {
+     "move": "tsl",
+     "prop": "opacity",
+     "to": 0,
+     "word": "new",
+     "dur": 0.4
+    },
+    {
+     "move": "tst",
+     "prop": "opacity",
+     "to": 0,
+     "word": "new",
+     "dur": 0.4
+    },
+    {
+     "move": "tmore",
+     "prop": "opacity",
+     "to": 0,
+     "word": "new",
+     "dur": 0.4
+    },
+    {
+     "move": "q1",
+     "prop": "opacity",
+     "to": 1,
+     "word": "starts",
+     "dur": 0.3
+    },
+    {
+     "move": "q1net",
+     "prop": "y",
+     "to": 14,
+     "word": "soft",
+     "dur": 0.4
+    },
+    {
+     "move": "q1net",
+     "prop": "y",
+     "to": 0,
+     "word": "soft",
+     "dur": 0.5,
+     "delay": 0.45
+    },
+    {
+     "move": "q2",
+     "prop": "opacity",
+     "to": 1,
+     "word": "cells",
+     "dur": 0.3
+    },
+    {
+     "move": "q2p0",
+     "prop": "opacity",
+     "to": 1,
+     "word": "build",
+     "dur": 0.2
+    },
+    {
+     "move": "q2p1",
+     "prop": "opacity",
+     "to": 1,
+     "word": "build",
+     "dur": 0.2,
+     "delay": 0.05
+    },
+    {
+     "move": "q2p2",
+     "prop": "opacity",
+     "to": 1,
+     "word": "build",
+     "dur": 0.2,
+     "delay": 0.1
+    },
+    {
+     "move": "q2p3",
+     "prop": "opacity",
+     "to": 1,
+     "word": "build",
+     "dur": 0.2,
+     "delay": 0.15000000000000002
+    },
+    {
+     "move": "q2p4",
+     "prop": "opacity",
+     "to": 1,
+     "word": "build",
+     "dur": 0.2,
+     "delay": 0.2
+    },
+    {
+     "move": "q2p5",
+     "prop": "opacity",
+     "to": 1,
+     "word": "build",
+     "dur": 0.2,
+     "delay": 0.25
+    },
+    {
+     "move": "q2thick",
+     "prop": "opacity",
+     "to": 1,
+     "word": "proteins",
+     "dur": 0.4,
+     "delay": 0.3
+    },
+    {
+     "move": "q3",
+     "prop": "opacity",
+     "to": 1,
+     "word": "hippocampus",
+     "dur": 0.3
+    },
+    {
+     "move": "q3hip",
+     "prop": "opacity",
+     "to": 1,
+     "word": "hippocampus",
+     "dur": 0.3,
+     "delay": 0.1
+    },
+    {
+     "move": "q3s0",
+     "prop": "opacity",
+     "to": 1,
+     "word": "pieces",
+     "dur": 0.3
+    },
+    {
+     "move": "q3s1",
+     "prop": "opacity",
+     "to": 1,
+     "word": "pieces",
+     "dur": 0.3,
+     "delay": 0.1
+    },
+    {
+     "move": "q3s2",
+     "prop": "opacity",
+     "to": 1,
+     "word": "pieces",
+     "dur": 0.3,
+     "delay": 0.2
+    },
+    {
+     "move": "q3t0",
+     "prop": "opacity",
+     "to": 1,
+     "word": "ties",
+     "dur": 0.3
+    },
+    {
+     "move": "q3t1",
+     "prop": "opacity",
+     "to": 1,
+     "word": "ties",
+     "dur": 0.3,
+     "delay": 0.1
+    },
+    {
+     "move": "q3t2",
+     "prop": "opacity",
+     "to": 1,
+     "word": "ties",
+     "dur": 0.3,
+     "delay": 0.2
+    },
+    {
+     "move": "q4",
+     "prop": "opacity",
+     "to": 1,
+     "word": "sleep#2",
+     "dur": 0.3
+    },
+    {
+     "move": "q4r0",
+     "prop": "opacity",
+     "to": 1,
+     "word": "moves",
+     "dur": 0.2
+    },
+    {
+     "move": "q4r0",
+     "prop": "x",
+     "to": 108,
+     "word": "moves",
+     "dur": 0.7
+    },
+    {
+     "move": "q4r0",
+     "prop": "y",
+     "to": 122,
+     "word": "moves",
+     "dur": 0.7
+    },
+    {
+     "move": "q4r0",
+     "prop": "opacity",
+     "to": 0,
+     "word": "storage",
+     "dur": 0.3
+    },
+    {
+     "move": "q4m0",
+     "prop": "opacity",
+     "to": 1,
+     "word": "storage",
+     "dur": 0.4
+    },
+    {
+     "move": "q4r1",
+     "prop": "opacity",
+     "to": 1,
+     "word": "moves",
+     "dur": 0.2,
+     "delay": 0.06
+    },
+    {
+     "move": "q4r1",
+     "prop": "x",
+     "to": 172,
+     "word": "moves",
+     "dur": 0.7,
+     "delay": 0.06
+    },
+    {
+     "move": "q4r1",
+     "prop": "y",
+     "to": 107,
+     "word": "moves",
+     "dur": 0.7,
+     "delay": 0.06
+    },
+    {
+     "move": "q4r1",
+     "prop": "opacity",
+     "to": 0,
+     "word": "storage",
+     "dur": 0.3
+    },
+    {
+     "move": "q4m1",
+     "prop": "opacity",
+     "to": 1,
+     "word": "storage",
+     "dur": 0.4,
+     "delay": 0.08
+    },
+    {
+     "move": "q4r2",
+     "prop": "opacity",
+     "to": 1,
+     "word": "moves",
+     "dur": 0.2,
+     "delay": 0.12
+    },
+    {
+     "move": "q4r2",
+     "prop": "x",
+     "to": 236,
+     "word": "moves",
+     "dur": 0.7,
+     "delay": 0.12
+    },
+    {
+     "move": "q4r2",
+     "prop": "y",
+     "to": 122,
+     "word": "moves",
+     "dur": 0.7,
+     "delay": 0.12
+    },
+    {
+     "move": "q4r2",
+     "prop": "opacity",
+     "to": 0,
+     "word": "storage",
+     "dur": 0.3
+    },
+    {
+     "move": "q4m2",
+     "prop": "opacity",
+     "to": 1,
+     "word": "storage",
+     "dur": 0.4,
+     "delay": 0.16
+    },
+    {
+     "move": "q4r3",
+     "prop": "opacity",
+     "to": 1,
+     "word": "moves",
+     "dur": 0.2,
+     "delay": 0.18
+    },
+    {
+     "move": "q4r3",
+     "prop": "x",
+     "to": 93,
+     "word": "moves",
+     "dur": 0.7,
+     "delay": 0.18
+    },
+    {
+     "move": "q4r3",
+     "prop": "y",
+     "to": 162,
+     "word": "moves",
+     "dur": 0.7,
+     "delay": 0.18
+    },
+    {
+     "move": "q4r3",
+     "prop": "opacity",
+     "to": 0,
+     "word": "storage",
+     "dur": 0.3
+    },
+    {
+     "move": "q4m3",
+     "prop": "opacity",
+     "to": 1,
+     "word": "storage",
+     "dur": 0.4,
+     "delay": 0.24
+    },
+    {
+     "move": "q4r4",
+     "prop": "opacity",
+     "to": 1,
+     "word": "moves",
+     "dur": 0.2,
+     "delay": 0.24
+    },
+    {
+     "move": "q4r4",
+     "prop": "x",
+     "to": 251,
+     "word": "moves",
+     "dur": 0.7,
+     "delay": 0.24
+    },
+    {
+     "move": "q4r4",
+     "prop": "y",
+     "to": 162,
+     "word": "moves",
+     "dur": 0.7,
+     "delay": 0.24
+    },
+    {
+     "move": "q4r4",
+     "prop": "opacity",
+     "to": 0,
+     "word": "storage",
+     "dur": 0.3
+    },
+    {
+     "move": "q4m4",
+     "prop": "opacity",
+     "to": 1,
+     "word": "storage",
+     "dur": 0.4,
+     "delay": 0.32
+    }
+   ]
+  }
+ ]
+}

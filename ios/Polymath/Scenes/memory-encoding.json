@@ -1,0 +1,1837 @@
+{
+ "scenes": [
+  {
+   "card": 0,
+   "label": "A bedside table and a hook by the door, each asking keys?; a brain beside them has an empty thought bubble with a question mark. Then an eye sends what it sees along an arrow into the brain, which lights up: encoding.",
+   "elements": [
+    {
+     "id": "ground",
+     "part": "ground",
+     "at": [
+      150,
+      236
+     ],
+     "params": {
+      "w": 260
+     }
+    },
+    {
+     "id": "bed",
+     "rect": [
+      18,
+      180,
+      70,
+      56,
+      5
+     ],
+     "fill": "salmon",
+     "width": 2.0
+    },
+    {
+     "id": "drawer",
+     "path": "M24 204 L82 204",
+     "width": 1.4
+    },
+    {
+     "id": "knob",
+     "circle": [
+      53,
+      220,
+      3.5
+     ],
+     "fill": "ink"
+    },
+    {
+     "id": "lampb",
+     "path": "M44 180 L62 180 L58 168 L48 168 Z",
+     "fill": "blue"
+    },
+    {
+     "id": "lamps",
+     "path": "M38 168 L68 168 L60 148 L46 148 Z",
+     "fill": "lime"
+    },
+    {
+     "id": "door",
+     "rect": [
+      140,
+      112,
+      56,
+      124,
+      3
+     ],
+     "fill": "orange",
+     "width": 2.0
+    },
+    {
+     "id": "dknob",
+     "circle": [
+      186,
+      176,
+      4
+     ],
+     "fill": "ink"
+    },
+    {
+     "id": "plate",
+     "rect": [
+      108,
+      148,
+      16,
+      10,
+      2
+     ],
+     "fill": "blue"
+    },
+    {
+     "id": "hook",
+     "path": "M116 158 L116 168 C116 176 126 176 126 168",
+     "width": 2.0
+    },
+    {
+     "id": "k1",
+     "text": "KEYS?",
+     "at": [
+      53,
+      128
+     ],
+     "size": 22,
+     "word": "keys",
+     "hidden": true,
+     "scale": 0.4
+    },
+    {
+     "id": "k2",
+     "text": "KEYS?",
+     "at": [
+      110,
+      198
+     ],
+     "size": 22,
+     "word": "keys",
+     "hidden": true,
+     "scale": 0.4,
+     "delay": 0.3
+    },
+    {
+     "id": "brain",
+     "part": "brain",
+     "at": [
+      252,
+      112
+     ],
+     "scale": 0.9,
+     "params": {
+      "lit": 0
+     },
+     "word": "memory"
+    },
+    {
+     "id": "bub1",
+     "circle": [
+      292,
+      72,
+      4
+     ],
+     "stroke": "ink@0.6",
+     "word": "never#2"
+    },
+    {
+     "id": "bub2",
+     "circle": [
+      302,
+      58,
+      6
+     ],
+     "stroke": "ink@0.6",
+     "word": "never#2",
+     "delay": 0.15
+    },
+    {
+     "id": "bub",
+     "circle": [
+      312,
+      30,
+      20
+     ],
+     "stroke": "ink@0.6",
+     "dash": [
+      4,
+      4
+     ],
+     "word": "never#2",
+     "delay": 0.3
+    },
+    {
+     "id": "q",
+     "text": "?",
+     "at": [
+      312,
+      32
+     ],
+     "size": 26,
+     "word": "made",
+     "hidden": true,
+     "scale": 0.4,
+     "onpicture": true
+    },
+    {
+     "id": "eye",
+     "part": "eye",
+     "at": [
+      60,
+      88
+     ],
+     "params": {
+      "s": 1,
+      "look": 1
+     },
+     "word": "see"
+    },
+    {
+     "id": "arr",
+     "part": "arrow",
+     "at": [
+      96,
+      92
+     ],
+     "params": {
+      "len": 104,
+      "col": 0,
+      "w": 2.4,
+      "head": 9
+     },
+     "word": "turning"
+    },
+    {
+     "id": "bead",
+     "group": [
+      {
+       "circle": [
+        0,
+        0,
+        6
+       ],
+       "fill": "yellow"
+      }
+     ],
+     "at": [
+      96,
+      92
+     ],
+     "hidden": true
+    },
+    {
+     "id": "enc",
+     "text": "ENCODING",
+     "at": [
+      150,
+      60
+     ],
+     "size": 22,
+     "word": "encoding",
+     "hidden": true,
+     "scale": 0.4
+    }
+   ],
+   "moves": [
+    {
+     "move": "q",
+     "prop": "opacity",
+     "to": 1,
+     "word": "made",
+     "dur": 0.3
+    },
+    {
+     "move": "q",
+     "prop": "scale",
+     "to": 1.0,
+     "word": "made",
+     "dur": 0.5,
+     "ease": "snap"
+    },
+    {
+     "move": "enc",
+     "prop": "opacity",
+     "to": 1,
+     "word": "encoding",
+     "dur": 0.3
+    },
+    {
+     "move": "enc",
+     "prop": "scale",
+     "to": 1.0,
+     "word": "encoding",
+     "dur": 0.5,
+     "ease": "snap"
+    },
+    {
+     "move": "k1",
+     "prop": "opacity",
+     "to": 1,
+     "word": "keys",
+     "dur": 0.3
+    },
+    {
+     "move": "k1",
+     "prop": "scale",
+     "to": 1.0,
+     "word": "keys",
+     "dur": 0.5,
+     "ease": "snap"
+    },
+    {
+     "move": "k2",
+     "prop": "opacity",
+     "to": 1,
+     "word": "keys",
+     "dur": 0.3,
+     "delay": 0.3
+    },
+    {
+     "move": "k2",
+     "prop": "scale",
+     "to": 1.0,
+     "word": "keys",
+     "dur": 0.5,
+     "delay": 0.3,
+     "ease": "snap"
+    },
+    {
+     "move": "bead",
+     "prop": "opacity",
+     "to": 1,
+     "word": "turning",
+     "dur": 0.1
+    },
+    {
+     "move": "bead",
+     "prop": "x",
+     "to": 212,
+     "word": "turning",
+     "dur": 1.2,
+     "delay": 0.1,
+     "ease": "linear"
+    },
+    {
+     "move": "bead",
+     "prop": "opacity",
+     "to": 0,
+     "word": "keep",
+     "dur": 0.2
+    },
+    {
+     "move": "brain",
+     "prop": "lit",
+     "to": 1,
+     "word": "keep",
+     "dur": 0.6
+    }
+   ]
+  },
+  {
+   "card": 1,
+   "label": "An eye on the left takes in a crowd of coloured things; a spotlight from above lands on one, which glows and sends a bead to the brain on the right; the rest fade.",
+   "elements": [
+    {
+     "id": "back",
+     "part": "spray",
+     "at": [
+      180,
+      150
+     ],
+     "params": {
+      "rx": 120,
+      "ry": 80,
+      "col": 2,
+      "alpha": 0.18,
+      "grow": 1
+     },
+     "word": "senses"
+    },
+    {
+     "id": "eye",
+     "part": "eye",
+     "at": [
+      44,
+      150
+     ],
+     "params": {
+      "s": 1,
+      "look": 1
+     },
+     "word": "senses"
+    },
+    {
+     "id": "cone",
+     "path": "M170 22 L190 22 L224 156 L136 156 Z",
+     "fill": "yellow@0.35",
+     "stroke": "none",
+     "word": "spotlight",
+     "hidden": true
+    },
+    {
+     "id": "lamp",
+     "rect": [
+      164,
+      8,
+      32,
+      16,
+      4
+     ],
+     "fill": "blue",
+     "word": "spotlight"
+    },
+    {
+     "id": "glow",
+     "part": "glow",
+     "at": [
+      180,
+      144
+     ],
+     "params": {
+      "r": 34,
+      "col": 1,
+      "alpha": 0.9
+     },
+     "word": "lands",
+     "hidden": true
+    },
+    {
+     "id": "o0",
+     "circle": [
+      110,
+      112,
+      13
+     ],
+     "fill": "blue",
+     "word": "far",
+     "delay": 0.0
+    },
+    {
+     "id": "o1",
+     "circle": [
+      150,
+      176,
+      15
+     ],
+     "fill": "lime",
+     "word": "far",
+     "delay": 0.12
+    },
+    {
+     "id": "o2",
+     "circle": [
+      206,
+      100,
+      12
+     ],
+     "fill": "salmon",
+     "word": "far",
+     "delay": 0.24
+    },
+    {
+     "id": "o3",
+     "circle": [
+      236,
+      188,
+      14
+     ],
+     "fill": "orange",
+     "word": "far",
+     "delay": 0.36
+    },
+    {
+     "id": "o4",
+     "circle": [
+      114,
+      214,
+      11
+     ],
+     "fill": "skin",
+     "word": "far",
+     "delay": 0.48
+    },
+    {
+     "id": "o5",
+     "circle": [
+      180,
+      144,
+      16
+     ],
+     "fill": "skin",
+     "word": "far",
+     "delay": 0.6
+    },
+    {
+     "id": "o6",
+     "circle": [
+      252,
+      136,
+      12
+     ],
+     "fill": "blue",
+     "word": "far",
+     "delay": 0.72
+    },
+    {
+     "id": "o7",
+     "circle": [
+      156,
+      84,
+      10
+     ],
+     "fill": "lime",
+     "word": "far",
+     "delay": 0.84
+    },
+    {
+     "label": "ATTENTION",
+     "anchor": [
+      194,
+      62
+     ],
+     "at": [
+      250,
+      40
+     ],
+     "align": "center",
+     "word": "spotlight",
+     "delay": 0.3
+    },
+    {
+     "id": "brain",
+     "part": "brain",
+     "at": [
+      298,
+      96
+     ],
+     "scale": 0.6,
+     "params": {
+      "lit": 0
+     },
+     "word": "chance"
+    },
+    {
+     "id": "bead",
+     "group": [
+      {
+       "circle": [
+        0,
+        0,
+        6
+       ],
+       "fill": "yellow"
+      }
+     ],
+     "at": [
+      180,
+      144
+     ],
+     "hidden": true
+    },
+    {
+     "id": "rest",
+     "text": "THE REST FADES",
+     "at": [
+      150,
+      262
+     ],
+     "size": 22,
+     "word": "fades",
+     "hidden": true,
+     "scale": 0.4
+    }
+   ],
+   "moves": [
+    {
+     "move": "cone",
+     "prop": "opacity",
+     "to": 1,
+     "word": "spotlight",
+     "dur": 0.5
+    },
+    {
+     "move": "glow",
+     "prop": "opacity",
+     "to": 1,
+     "word": "lands",
+     "dur": 0.4
+    },
+    {
+     "move": "bead",
+     "prop": "opacity",
+     "to": 1,
+     "word": "memory",
+     "dur": 0.1
+    },
+    {
+     "move": "bead",
+     "prop": "x",
+     "to": 298,
+     "word": "memory",
+     "dur": 0.8,
+     "delay": 0.1
+    },
+    {
+     "move": "bead",
+     "prop": "y",
+     "to": 96,
+     "word": "memory",
+     "dur": 0.8,
+     "delay": 0.1
+    },
+    {
+     "move": "bead",
+     "prop": "opacity",
+     "to": 0,
+     "word": "memory",
+     "dur": 0.2,
+     "delay": 0.9
+    },
+    {
+     "move": "brain",
+     "prop": "lit",
+     "to": 1,
+     "word": "memory",
+     "dur": 0.5,
+     "delay": 0.8
+    },
+    {
+     "move": "o0",
+     "prop": "opacity",
+     "to": 0.18,
+     "word": "rest",
+     "dur": 1.0
+    },
+    {
+     "move": "o1",
+     "prop": "opacity",
+     "to": 0.18,
+     "word": "rest",
+     "dur": 1.0,
+     "delay": 0.1
+    },
+    {
+     "move": "o2",
+     "prop": "opacity",
+     "to": 0.18,
+     "word": "rest",
+     "dur": 1.0,
+     "delay": 0.2
+    },
+    {
+     "move": "o3",
+     "prop": "opacity",
+     "to": 0.18,
+     "word": "rest",
+     "dur": 1.0,
+     "delay": 0.3
+    },
+    {
+     "move": "o4",
+     "prop": "opacity",
+     "to": 0.18,
+     "word": "rest",
+     "dur": 1.0,
+     "delay": 0.4
+    },
+    {
+     "move": "o6",
+     "prop": "opacity",
+     "to": 0.18,
+     "word": "rest",
+     "dur": 1.0,
+     "delay": 0.6
+    },
+    {
+     "move": "o7",
+     "prop": "opacity",
+     "to": 0.18,
+     "word": "rest",
+     "dur": 1.0,
+     "delay": 0.7
+    },
+    {
+     "move": "rest",
+     "prop": "opacity",
+     "to": 1,
+     "word": "fades",
+     "dur": 0.3
+    },
+    {
+     "move": "rest",
+     "prop": "scale",
+     "to": 1.0,
+     "word": "fades",
+     "dur": 0.5,
+     "ease": "snap"
+    }
+   ]
+  },
+  {
+   "card": 2,
+   "label": "Four coloured things drop into the four cups of a small tray, working memory; three slide away and vanish, gone in seconds, and the one you work with glows.",
+   "elements": [
+    {
+     "id": "brain",
+     "part": "brain",
+     "at": [
+      298,
+      96
+     ],
+     "scale": 0.6,
+     "params": {
+      "lit": 0
+     }
+    },
+    {
+     "id": "tback",
+     "part": "spray",
+     "at": [
+      170,
+      157
+     ],
+     "params": {
+      "rx": 130,
+      "ry": 60,
+      "col": 7,
+      "alpha": 0.2,
+      "grow": 1
+     }
+    },
+    {
+     "id": "tray",
+     "rect": [
+      70,
+      128,
+      200,
+      58,
+      16
+     ],
+     "fill": "blue@0.35",
+     "width": 2.0
+    },
+    {
+     "id": "s0",
+     "circle": [
+      100,
+      157,
+      19
+     ],
+     "stroke": "ink@0.5",
+     "dash": [
+      3,
+      3
+     ],
+     "delay": 0.0
+    },
+    {
+     "id": "s1",
+     "circle": [
+      146,
+      157,
+      19
+     ],
+     "stroke": "ink@0.5",
+     "dash": [
+      3,
+      3
+     ],
+     "delay": 0.1
+    },
+    {
+     "id": "s2",
+     "circle": [
+      192,
+      157,
+      19
+     ],
+     "stroke": "ink@0.5",
+     "dash": [
+      3,
+      3
+     ],
+     "delay": 0.2
+    },
+    {
+     "id": "s3",
+     "circle": [
+      238,
+      157,
+      19
+     ],
+     "stroke": "ink@0.5",
+     "dash": [
+      3,
+      3
+     ],
+     "delay": 0.3
+    },
+    {
+     "id": "glow",
+     "part": "glow",
+     "at": [
+      238,
+      157
+     ],
+     "params": {
+      "r": 36,
+      "col": 1,
+      "alpha": 1
+     },
+     "word": "work",
+     "hidden": true
+    },
+    {
+     "id": "i0",
+     "group": [
+      {
+       "circle": [
+        0,
+        0,
+        14
+       ],
+       "fill": "blue"
+      }
+     ],
+     "at": [
+      100,
+      40
+     ],
+     "word": "noticed",
+     "delay": 0.0,
+     "hidden": true
+    },
+    {
+     "id": "i1",
+     "group": [
+      {
+       "circle": [
+        0,
+        0,
+        14
+       ],
+       "fill": "lime"
+      }
+     ],
+     "at": [
+      146,
+      40
+     ],
+     "word": "noticed",
+     "delay": 0.15,
+     "hidden": true
+    },
+    {
+     "id": "i2",
+     "group": [
+      {
+       "circle": [
+        0,
+        0,
+        14
+       ],
+       "fill": "orange"
+      }
+     ],
+     "at": [
+      192,
+      40
+     ],
+     "word": "noticed",
+     "delay": 0.3,
+     "hidden": true
+    },
+    {
+     "id": "i3",
+     "group": [
+      {
+       "circle": [
+        0,
+        0,
+        14
+       ],
+       "fill": "salmon"
+      }
+     ],
+     "at": [
+      238,
+      40
+     ],
+     "word": "noticed",
+     "delay": 0.45,
+     "hidden": true
+    },
+    {
+     "id": "wm",
+     "text": "WORKING MEMORY",
+     "at": [
+      166,
+      98
+     ],
+     "size": 22,
+     "word": "working",
+     "hidden": true,
+     "scale": 0.4
+    },
+    {
+     "id": "four",
+     "text": "ABOUT FOUR THINGS",
+     "at": [
+      166,
+      228
+     ],
+     "size": 22,
+     "word": "four",
+     "hidden": true,
+     "scale": 0.4
+    },
+    {
+     "id": "gone",
+     "text": "GONE IN SECONDS",
+     "at": [
+      166,
+      228
+     ],
+     "size": 22,
+     "word": "seconds",
+     "hidden": true,
+     "scale": 0.4
+    }
+   ],
+   "moves": [
+    {
+     "move": "i0",
+     "prop": "opacity",
+     "to": 1,
+     "word": "noticed",
+     "dur": 0.2
+    },
+    {
+     "move": "i0",
+     "prop": "y",
+     "to": 157,
+     "word": "noticed",
+     "dur": 0.6,
+     "ease": "fall"
+    },
+    {
+     "move": "i1",
+     "prop": "opacity",
+     "to": 1,
+     "word": "noticed",
+     "dur": 0.2,
+     "delay": 0.15
+    },
+    {
+     "move": "i1",
+     "prop": "y",
+     "to": 157,
+     "word": "noticed",
+     "dur": 0.6,
+     "delay": 0.15,
+     "ease": "fall"
+    },
+    {
+     "move": "i2",
+     "prop": "opacity",
+     "to": 1,
+     "word": "noticed",
+     "dur": 0.2,
+     "delay": 0.3
+    },
+    {
+     "move": "i2",
+     "prop": "y",
+     "to": 157,
+     "word": "noticed",
+     "dur": 0.6,
+     "delay": 0.3,
+     "ease": "fall"
+    },
+    {
+     "move": "i3",
+     "prop": "opacity",
+     "to": 1,
+     "word": "noticed",
+     "dur": 0.2,
+     "delay": 0.45
+    },
+    {
+     "move": "i3",
+     "prop": "y",
+     "to": 157,
+     "word": "noticed",
+     "dur": 0.6,
+     "delay": 0.45,
+     "ease": "fall"
+    },
+    {
+     "move": "i0",
+     "prop": "y",
+     "to": 180,
+     "word": "slip",
+     "dur": 0.8
+    },
+    {
+     "move": "i0",
+     "prop": "opacity",
+     "to": 0,
+     "word": "slip",
+     "dur": 0.8
+    },
+    {
+     "move": "i1",
+     "prop": "y",
+     "to": 180,
+     "word": "slip",
+     "dur": 0.8,
+     "delay": 0.3
+    },
+    {
+     "move": "i1",
+     "prop": "opacity",
+     "to": 0,
+     "word": "slip",
+     "dur": 0.8,
+     "delay": 0.3
+    },
+    {
+     "move": "i2",
+     "prop": "y",
+     "to": 180,
+     "word": "slip",
+     "dur": 0.8,
+     "delay": 0.6
+    },
+    {
+     "move": "i2",
+     "prop": "opacity",
+     "to": 0,
+     "word": "slip",
+     "dur": 0.8,
+     "delay": 0.6
+    },
+    {
+     "move": "wm",
+     "prop": "opacity",
+     "to": 1,
+     "word": "working",
+     "dur": 0.3
+    },
+    {
+     "move": "wm",
+     "prop": "scale",
+     "to": 1.0,
+     "word": "working",
+     "dur": 0.5,
+     "ease": "snap"
+    },
+    {
+     "move": "four",
+     "prop": "opacity",
+     "to": 1,
+     "word": "four",
+     "dur": 0.3
+    },
+    {
+     "move": "four",
+     "prop": "scale",
+     "to": 1.0,
+     "word": "four",
+     "dur": 0.5,
+     "ease": "snap"
+    },
+    {
+     "move": "four",
+     "prop": "opacity",
+     "to": 0,
+     "word": "seconds",
+     "dur": 0.2
+    },
+    {
+     "move": "gone",
+     "prop": "opacity",
+     "to": 1,
+     "word": "seconds",
+     "dur": 0.3,
+     "delay": 0.2
+    },
+    {
+     "move": "gone",
+     "prop": "scale",
+     "to": 1.0,
+     "word": "seconds",
+     "dur": 0.5,
+     "delay": 0.2,
+     "ease": "snap"
+    },
+    {
+     "move": "glow",
+     "prop": "opacity",
+     "to": 1,
+     "word": "work",
+     "dur": 0.5
+    }
+   ]
+  },
+  {
+   "card": 3,
+   "label": "Left: a phone number repeated three times leaves a faint dashed memory with one thin link, weak. Right: an orange memory linked to six things you know glows, strong.",
+   "elements": [
+    {
+     "id": "sp1",
+     "part": "spray",
+     "at": [
+      84,
+      150
+     ],
+     "params": {
+      "rx": 70,
+      "ry": 100,
+      "col": 4,
+      "alpha": 0.2,
+      "grow": 1
+     }
+    },
+    {
+     "id": "sp2",
+     "part": "spray",
+     "at": [
+      252,
+      150
+     ],
+     "params": {
+      "rx": 80,
+      "ry": 100,
+      "col": 2,
+      "alpha": 0.15,
+      "grow": 1
+     },
+     "word": "thinking"
+    },
+    {
+     "id": "div",
+     "path": "M168 40 L168 236",
+     "stroke": "ink@0.3",
+     "dash": [
+      5,
+      5
+     ]
+    },
+    {
+     "id": "ph1",
+     "circle": [
+      84,
+      184,
+      16
+     ],
+     "stroke": "ink@0.3",
+     "dash": [
+      3,
+      3
+     ],
+     "word": "decides"
+    },
+    {
+     "id": "ph2",
+     "circle": [
+      250,
+      150,
+      24
+     ],
+     "stroke": "ink@0.3",
+     "dash": [
+      3,
+      3
+     ],
+     "word": "decides",
+     "delay": 0.2
+    },
+    {
+     "id": "rep",
+     "text": "REPEATING",
+     "at": [
+      84,
+      40
+     ],
+     "size": 22,
+     "word": "repeating",
+     "hidden": true,
+     "scale": 0.4
+    },
+    {
+     "id": "n1",
+     "text": "555 0142",
+     "at": [
+      84,
+      82
+     ],
+     "size": 19,
+     "word": "phone",
+     "hidden": true,
+     "scale": 0.4
+    },
+    {
+     "id": "n2",
+     "text": "555 0142",
+     "at": [
+      84,
+      106
+     ],
+     "size": 19,
+     "word": "phone",
+     "hidden": true,
+     "scale": 0.4,
+     "delay": 0.3
+    },
+    {
+     "id": "n3",
+     "text": "555 0142",
+     "at": [
+      84,
+      130
+     ],
+     "size": 19,
+     "word": "phone",
+     "hidden": true,
+     "scale": 0.4,
+     "delay": 0.6
+    },
+    {
+     "id": "weakm",
+     "circle": [
+      84,
+      184,
+      16
+     ],
+     "fill": "lime@0.3",
+     "stroke": "ink@0.4",
+     "dash": [
+      3,
+      3
+     ],
+     "word": "weak"
+    },
+    {
+     "id": "link0",
+     "path": "M100 184 L132 184",
+     "stroke": "ink@0.35",
+     "width": 1,
+     "word": "weak",
+     "delay": 0.2
+    },
+    {
+     "id": "wdot",
+     "circle": [
+      140,
+      184,
+      7
+     ],
+     "fill": "blue@0.4",
+     "word": "weak",
+     "delay": 0.3
+    },
+    {
+     "id": "weak",
+     "text": "WEAK",
+     "at": [
+      84,
+      254
+     ],
+     "size": 22,
+     "word": "weak",
+     "hidden": true,
+     "scale": 0.4
+    },
+    {
+     "id": "mean",
+     "text": "MEANING",
+     "at": [
+      250,
+      40
+     ],
+     "size": 22,
+     "word": "means",
+     "hidden": true,
+     "scale": 0.4
+    },
+    {
+     "id": "glow",
+     "part": "glow",
+     "at": [
+      250,
+      150
+     ],
+     "params": {
+      "r": 44,
+      "col": 1,
+      "alpha": 0.9
+     },
+     "word": "strong",
+     "hidden": true
+    },
+    {
+     "id": "l0",
+     "path": "M250 150 L312 150",
+     "stroke": "ink",
+     "width": 2.0,
+     "word": "linking",
+     "delay": 0.0
+    },
+    {
+     "id": "l1",
+     "path": "M250 150 L281 96",
+     "stroke": "ink",
+     "width": 2.0,
+     "word": "linking",
+     "delay": 0.12
+    },
+    {
+     "id": "l2",
+     "path": "M250 150 L219 96",
+     "stroke": "ink",
+     "width": 2.0,
+     "word": "linking",
+     "delay": 0.24
+    },
+    {
+     "id": "l3",
+     "path": "M250 150 L188 150",
+     "stroke": "ink",
+     "width": 2.0,
+     "word": "linking",
+     "delay": 0.36
+    },
+    {
+     "id": "l4",
+     "path": "M250 150 L219 204",
+     "stroke": "ink",
+     "width": 2.0,
+     "word": "linking",
+     "delay": 0.48
+    },
+    {
+     "id": "l5",
+     "path": "M250 150 L281 204",
+     "stroke": "ink",
+     "width": 2.0,
+     "word": "linking",
+     "delay": 0.6
+    },
+    {
+     "id": "strongm",
+     "group": [
+      {
+       "circle": [
+        0,
+        0,
+        24
+       ],
+       "fill": "orange"
+      }
+     ],
+     "at": [
+      250,
+      150
+     ],
+     "word": "thinking"
+    },
+    {
+     "id": "d0",
+     "circle": [
+      312,
+      150,
+      10
+     ],
+     "fill": "blue",
+     "word": "know",
+     "delay": 0.0
+    },
+    {
+     "id": "d1",
+     "circle": [
+      281,
+      96,
+      10
+     ],
+     "fill": "lime",
+     "word": "know",
+     "delay": 0.1
+    },
+    {
+     "id": "d2",
+     "circle": [
+      219,
+      96,
+      10
+     ],
+     "fill": "salmon",
+     "word": "know",
+     "delay": 0.2
+    },
+    {
+     "id": "d3",
+     "circle": [
+      188,
+      150,
+      10
+     ],
+     "fill": "skin",
+     "word": "know",
+     "delay": 0.3
+    },
+    {
+     "id": "d4",
+     "circle": [
+      219,
+      204,
+      10
+     ],
+     "fill": "green",
+     "word": "know",
+     "delay": 0.4
+    },
+    {
+     "id": "d5",
+     "circle": [
+      281,
+      204,
+      10
+     ],
+     "fill": "blue",
+     "word": "know",
+     "delay": 0.5
+    },
+    {
+     "id": "strong",
+     "text": "STRONG",
+     "at": [
+      250,
+      254
+     ],
+     "size": 22,
+     "word": "strong",
+     "hidden": true,
+     "scale": 0.4
+    }
+   ],
+   "moves": [
+    {
+     "move": "rep",
+     "prop": "opacity",
+     "to": 1,
+     "word": "repeating",
+     "dur": 0.3
+    },
+    {
+     "move": "rep",
+     "prop": "scale",
+     "to": 1.0,
+     "word": "repeating",
+     "dur": 0.5,
+     "ease": "snap"
+    },
+    {
+     "move": "n1",
+     "prop": "opacity",
+     "to": 1,
+     "word": "phone",
+     "dur": 0.3
+    },
+    {
+     "move": "n1",
+     "prop": "scale",
+     "to": 1.0,
+     "word": "phone",
+     "dur": 0.5,
+     "ease": "snap"
+    },
+    {
+     "move": "n2",
+     "prop": "opacity",
+     "to": 1,
+     "word": "phone",
+     "dur": 0.3,
+     "delay": 0.3
+    },
+    {
+     "move": "n2",
+     "prop": "scale",
+     "to": 1.0,
+     "word": "phone",
+     "dur": 0.5,
+     "delay": 0.3,
+     "ease": "snap"
+    },
+    {
+     "move": "n3",
+     "prop": "opacity",
+     "to": 1,
+     "word": "phone",
+     "dur": 0.3,
+     "delay": 0.6
+    },
+    {
+     "move": "n3",
+     "prop": "scale",
+     "to": 1.0,
+     "word": "phone",
+     "dur": 0.5,
+     "delay": 0.6,
+     "ease": "snap"
+    },
+    {
+     "move": "weak",
+     "prop": "opacity",
+     "to": 1,
+     "word": "weak",
+     "dur": 0.3
+    },
+    {
+     "move": "weak",
+     "prop": "scale",
+     "to": 1.0,
+     "word": "weak",
+     "dur": 0.5,
+     "ease": "snap"
+    },
+    {
+     "move": "mean",
+     "prop": "opacity",
+     "to": 1,
+     "word": "means",
+     "dur": 0.3
+    },
+    {
+     "move": "mean",
+     "prop": "scale",
+     "to": 1.0,
+     "word": "means",
+     "dur": 0.5,
+     "ease": "snap"
+    },
+    {
+     "move": "strong",
+     "prop": "opacity",
+     "to": 1,
+     "word": "strong",
+     "dur": 0.3
+    },
+    {
+     "move": "strong",
+     "prop": "scale",
+     "to": 1.0,
+     "word": "strong",
+     "dur": 0.5,
+     "ease": "snap"
+    },
+    {
+     "move": "glow",
+     "prop": "opacity",
+     "to": 1,
+     "word": "strong",
+     "dur": 0.5
+    },
+    {
+     "move": "strongm",
+     "prop": "scale",
+     "to": 1.15,
+     "word": "strong",
+     "dur": 0.3
+    },
+    {
+     "move": "strongm",
+     "prop": "scale",
+     "to": 1.0,
+     "word": "strong",
+     "dur": 0.4,
+     "delay": 0.3
+    }
+   ]
+  },
+  {
+   "card": 4,
+   "label": "A blurry penny with a head on it: which way does it face, and where do the words sit? Pennies pile up all round, and a half-closed eye has never really looked: never taken in.",
+   "elements": [
+    {
+     "id": "pback",
+     "part": "spray",
+     "at": [
+      180,
+      132
+     ],
+     "params": {
+      "rx": 120,
+      "ry": 100,
+      "col": 2,
+      "alpha": 0.18,
+      "grow": 1
+     }
+    },
+    {
+     "id": "penny",
+     "circle": [
+      180,
+      132,
+      66
+     ],
+     "fill": "vg:orange:salmon",
+     "width": 2.2,
+     "word": "penny"
+    },
+    {
+     "id": "rim",
+     "circle": [
+      180,
+      132,
+      56
+     ],
+     "stroke": "ink@0.5",
+     "width": 1.2,
+     "word": "penny",
+     "delay": 0.2
+    },
+    {
+     "id": "bust",
+     "path": "M150 176 C152 158 166 150 182 150 C198 150 212 158 214 176 Z",
+     "fill": "orange",
+     "stroke": "ink@0.6",
+     "word": "penny",
+     "delay": 0.4
+    },
+    {
+     "id": "head",
+     "circle": [
+      182,
+      122,
+      22
+     ],
+     "fill": "orange",
+     "stroke": "ink@0.6",
+     "word": "penny",
+     "delay": 0.4
+    },
+    {
+     "id": "blur",
+     "part": "spray",
+     "at": [
+      182,
+      136
+     ],
+     "params": {
+      "rx": 34,
+      "ry": 40,
+      "col": 3,
+      "alpha": 0.7,
+      "grow": 1
+     },
+     "word": "picture"
+    },
+    {
+     "id": "lr",
+     "part": "arrow",
+     "at": [
+      150,
+      186
+     ],
+     "params": {
+      "len": 64,
+      "col": 0,
+      "w": 2.2,
+      "head": 8,
+      "both": 1
+     },
+     "word": "faces"
+    },
+    {
+     "id": "which",
+     "text": "WHICH WAY?",
+     "at": [
+      180,
+      34
+     ],
+     "size": 22,
+     "word": "head",
+     "hidden": true,
+     "scale": 0.4
+    },
+    {
+     "id": "words",
+     "part": "arc",
+     "at": [
+      180,
+      132
+     ],
+     "params": {
+      "rx": 60,
+      "ry": 60,
+      "a0": 200,
+      "a1": 340,
+      "dash": 1
+     },
+     "word": "words"
+    },
+    {
+     "id": "wq",
+     "text": "WORDS?",
+     "at": [
+      180,
+      226
+     ],
+     "size": 22,
+     "word": "words",
+     "hidden": true,
+     "scale": 0.4
+    },
+    {
+     "id": "eye",
+     "part": "eye",
+     "at": [
+      58,
+      130
+     ],
+     "params": {
+      "s": 1,
+      "look": 1,
+      "lid": 0
+     },
+     "word": "seen"
+    },
+    {
+     "id": "p0",
+     "circle": [
+      36,
+      52,
+      13
+     ],
+     "fill": "orange@0.7",
+     "word": "thousands",
+     "delay": 0.0
+    },
+    {
+     "id": "p1",
+     "circle": [
+      306,
+      52,
+      13
+     ],
+     "fill": "orange@0.7",
+     "word": "thousands",
+     "delay": 0.1
+    },
+    {
+     "id": "p2",
+     "circle": [
+      26,
+      200,
+      13
+     ],
+     "fill": "orange@0.7",
+     "word": "thousands",
+     "delay": 0.2
+    },
+    {
+     "id": "p3",
+     "circle": [
+      318,
+      170,
+      13
+     ],
+     "fill": "orange@0.7",
+     "word": "thousands",
+     "delay": 0.3
+    },
+    {
+     "id": "p4",
+     "circle": [
+      70,
+      236,
+      13
+     ],
+     "fill": "orange@0.7",
+     "word": "thousands",
+     "delay": 0.4
+    },
+    {
+     "id": "p5",
+     "circle": [
+      300,
+      110,
+      13
+     ],
+     "fill": "orange@0.7",
+     "word": "thousands",
+     "delay": 0.5
+    },
+    {
+     "id": "took",
+     "text": "NEVER TAKEN IN",
+     "at": [
+      180,
+      262
+     ],
+     "size": 22,
+     "word": "took",
+     "hidden": true,
+     "scale": 0.4
+    }
+   ],
+   "moves": [
+    {
+     "move": "which",
+     "prop": "opacity",
+     "to": 1,
+     "word": "head",
+     "dur": 0.3
+    },
+    {
+     "move": "which",
+     "prop": "scale",
+     "to": 1.0,
+     "word": "head",
+     "dur": 0.5,
+     "ease": "snap"
+    },
+    {
+     "move": "wq",
+     "prop": "opacity",
+     "to": 1,
+     "word": "words",
+     "dur": 0.3
+    },
+    {
+     "move": "wq",
+     "prop": "scale",
+     "to": 1.0,
+     "word": "words",
+     "dur": 0.5,
+     "ease": "snap"
+    },
+    {
+     "move": "took",
+     "prop": "opacity",
+     "to": 1,
+     "word": "took",
+     "dur": 0.3
+    },
+    {
+     "move": "took",
+     "prop": "scale",
+     "to": 1.0,
+     "word": "took",
+     "dur": 0.5,
+     "ease": "snap"
+    },
+    {
+     "move": "eye",
+     "prop": "lid",
+     "to": 1,
+     "word": "never",
+     "dur": 0.5
+    }
+   ]
+  }
+ ]
+}
