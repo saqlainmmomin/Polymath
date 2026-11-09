@@ -7,17 +7,15 @@
   "cards": [
     {
       "type": "card",
-      "title": "Bluetooth is a short-range radio link that shares its airwaves with Wi-Fi",
-      "text": "Bluetooth is a short-range radio link: two devices, like a phone and an earbud, send each other data as radio waves. And it runs on the same stretch of airwaves that lots of Wi-Fi uses, so the two share a crowded space.",
+      "title": "Bluetooth is a short-range radio link between two devices",
+      "text": "Bluetooth is a short-range radio link: two devices, like a phone and an earbud, send each other data through the air as radio waves.",
       "hook": "So how do two devices find each other?",
       "visual": {
         "type": "diagram",
         "notes": [
-          "Wi-Fi fills the room with radio waves",
-          "A phone sends Bluetooth radio waves straight to an earbud"
+          "A phone sends radio waves straight to an earbud"
         ],
         "labels": [
-          "Wi-Fi",
           "Phone",
           "Bluetooth link",
           "Earbud"
@@ -28,7 +26,7 @@
       "type": "card",
       "title": "First, the two devices introduce themselves and swap keys",
       "text": "To meet, one device announces itself, saying \"I'm here\", and the other spots it. Then they swap secret codes, called keys. The keys scramble what they send later, and let the two reconnect on their own next time.",
-      "hook": "So once they're connected, how do they cope with all that Wi-Fi?",
+      "hook": "Once they're connected, they have one more problem to deal with.",
       "visual": {
         "type": "diagram",
         "notes": [
@@ -46,9 +44,9 @@
     },
     {
       "type": "card",
-      "title": "Then they hop from channel to channel, up to 1,600 times a second",
-      "text": "Bluetooth cuts its airwaves into dozens of narrow channels, like the stations on a radio dial. One Wi-Fi network can cover about a quarter of that dial. So the devices never stay on one channel. Streaming music, they hop between channels as often as 1,600 times a second. Each hop carries a tiny piece of music. If a hop lands on Wi-Fi, only that piece is lost, and it's sent again. If the resend is late, the music skips for a split second.",
-      "hook": "But for hopping to work, both devices must land on the same channel every time.",
+      "title": "Wi-Fi shares the band, so Bluetooth hops, up to 1,600 times a second",
+      "text": "Wi-Fi sits on the same band of airwaves as Bluetooth, so the two could collide. To avoid that, Bluetooth hops. It cuts its airwaves into dozens of narrow channels, like the stations on a radio dial, and one Wi-Fi network can cover about a quarter of that dial. So the devices never stay on one channel. Streaming music, they hop as often as 1,600 times a second. Each hop carries a tiny piece of music. If a hop lands on Wi-Fi, only that piece is lost, and it's sent again. If the resend is late, the music skips for a split second.",
+      "hook": "But how do the two devices know which channel to hop to next?",
       "visual": {
         "type": "diagram",
         "notes": [
@@ -67,8 +65,8 @@
     {
       "type": "card",
       "title": "One device sets the order of channels and the other follows it",
-      "text": "Both devices have to be on the same channel at the same instant. So one of them sets the timing and the order of channels, and the other follows it, hop for hop.",
-      "hook": "So what does all that radio cost in battery?",
+      "text": "One of the two sets the timing and the order of channels, and the other follows it, hop for hop. That way they always land on the same channel at the same instant.",
+      "hook": "So what kinds of Bluetooth are there?",
       "visual": {
         "type": "diagram",
         "notes": [
@@ -85,18 +83,16 @@
     },
     {
       "type": "card",
-      "title": "Short range and low power let tiny batteries run for hours",
-      "text": "Very little. Bluetooth typically reaches only about 10 meters, at very low power, which is why earbuds and watches run for hours on tiny batteries. It comes in two flavors. Classic streams without a break, for headphones and speakers. Low Energy sends small bursts and sleeps in between, for fitness trackers and smart tags.",
+      "title": "Bluetooth comes in two flavors: one streams, one sends bursts",
+      "text": "Bluetooth comes in two flavors. Classic streams without a break, for headphones and speakers. Low Energy sends small bursts and sleeps in between, for fitness trackers and smart tags.",
       "takeaway": "Bluetooth is a short-range radio link: two devices introduce themselves once, then hop between channels together to stay clear of Wi-Fi.",
       "visual": {
         "type": "diagram",
         "notes": [
-          "Short range, low power",
           "Classic streams all the time",
           "Low Energy sends bursts and sleeps"
         ],
         "labels": [
-          "About 10 m",
           "Classic",
           "Low Energy"
         ]

@@ -2,7 +2,7 @@
  "scenes": [
   {
    "card": 0,
-   "label": "A Wi-Fi router on the left sends white rings into the room. A phone sends a small pink wave to an earbud on the right, whose grille lights pink. The router's rings spread wide over the same room, so it is crowded.",
+   "label": "A phone on the left and an earbud on the right, big. A pink wave grows from the phone to the earbud, whose grille lights pink.",
    "elements": [
     {
      "part": "ground",
@@ -15,61 +15,13 @@
      }
     },
     {
-     "id": "rt",
-     "part": "router",
-     "at": [
-      46,
-      222
-     ],
-     "scale": 1.3,
-     "params": {
-      "lit": 0
-     },
-     "word": "lots"
-    },
-    {
-     "id": "rg1",
-     "part": "rings",
-     "at": [
-      80,
-      160
-     ],
-     "params": {
-      "n": 4,
-      "r0": 20,
-      "gap": 20,
-      "span": 100,
-      "rot": 0,
-      "speed": 0.5
-     },
-     "word": "wifi"
-    },
-    {
-     "id": "rg2",
-     "part": "rings",
-     "at": [
-      80,
-      160
-     ],
-     "params": {
-      "n": 3,
-      "r0": 52,
-      "gap": 26,
-      "span": 110,
-      "rot": 0,
-      "speed": 0.5
-     },
-     "word": "crowded",
-     "hidden": true
-    },
-    {
      "id": "ph",
      "part": "wfPhone",
      "at": [
-      140,
+      112,
       222
      ],
-     "scale": 0.95,
+     "scale": 1.05,
      "params": {
       "bars": 0,
       "pin": 0,
@@ -81,10 +33,10 @@
      "id": "eb",
      "part": "earbud",
      "at": [
-      262,
+      256,
       222
      ],
-     "scale": 2.7,
+     "scale": 3.0,
      "params": {
       "glow": 0
      },
@@ -94,12 +46,12 @@
      "id": "wv",
      "part": "wave",
      "at": [
-      190,
-      152
+      166,
+      150
      ],
      "params": {
-      "len": 46,
-      "amp": 7,
+      "len": 50,
+      "amp": 8,
       "wl": 12,
       "col": 1,
       "upto": 0,
@@ -108,27 +60,13 @@
      "word": "send"
     },
     {
-     "label": "WI-FI",
-     "anchor": [
-      46,
-      214
-     ],
-     "at": [
-      46,
-      252
-     ],
-     "align": "center",
-     "word": "lots",
-     "delay": 0.3
-    },
-    {
      "label": "PHONE",
      "anchor": [
-      140,
+      112,
       214
      ],
      "at": [
-      140,
+      112,
       252
      ],
      "align": "center",
@@ -138,11 +76,11 @@
     {
      "label": "EARBUD",
      "anchor": [
-      262,
+      256,
       214
      ],
      "at": [
-      262,
+      256,
       252
      ],
      "align": "center",
@@ -152,12 +90,12 @@
     {
      "label": "BLUETOOTH\nLINK",
      "anchor": [
-      213,
-      146
+      192,
+      144
      ],
      "at": [
-      216,
-      98
+      196,
+      92
      ],
      "align": "leading",
      "word": "data",
@@ -178,20 +116,6 @@
      "to": 1,
      "word": "data",
      "dur": 0.5
-    },
-    {
-     "move": "rt",
-     "prop": "lit",
-     "to": 1,
-     "word": "uses",
-     "dur": 0.4
-    },
-    {
-     "move": "rg2",
-     "prop": "opacity",
-     "to": 1,
-     "word": "crowded",
-     "dur": 0.4
     }
    ]
   },
@@ -602,7 +526,7 @@
       "hit": 0,
       "piece": 0
      },
-     "word": "airwaves"
+     "word": "sits"
     },
     {
      "id": "lw",
@@ -951,7 +875,7 @@
      "move": "dl",
      "prop": "ticks",
      "to": 1,
-     "word": "dozens",
+     "word": "airwaves",
      "dur": 1.3,
      "ease": "linear"
     },
@@ -959,7 +883,7 @@
      "move": "dl",
      "prop": "wifi",
      "to": 1,
-     "word": "wifi",
+     "word": "same",
      "dur": 0.7
     },
     {
@@ -1341,7 +1265,7 @@
      "move": "dl",
      "prop": "hit",
      "to": 1,
-     "word": "wifi#2",
+     "word": "wifi#3",
      "dur": 0.3
     },
     {
@@ -1596,7 +1520,7 @@
      "move": "dl",
      "prop": "chan",
      "to": 0.59,
-     "word": "hopping",
+     "word": "hop#4",
      "dur": 0.12,
      "delay": 0.2,
      "ease": "eout"
@@ -1605,7 +1529,7 @@
      "move": "dl",
      "prop": "chan",
      "to": 0.41,
-     "word": "hopping",
+     "word": "hop#4",
      "dur": 0.12,
      "delay": 0.56,
      "ease": "eout"
@@ -1614,7 +1538,7 @@
      "move": "dl",
      "prop": "chan",
      "to": 0.79,
-     "word": "hopping",
+     "word": "hop#4",
      "dur": 0.12,
      "delay": 0.9199999999999999,
      "ease": "eout"
@@ -1623,7 +1547,7 @@
      "move": "dl",
      "prop": "chan",
      "to": 0.97,
-     "word": "hopping",
+     "word": "hop#4",
      "dur": 0.12,
      "delay": 1.28,
      "ease": "eout"
@@ -1632,7 +1556,7 @@
      "move": "dl",
      "prop": "chan",
      "to": 0.31,
-     "word": "hopping",
+     "word": "hop#4",
      "dur": 0.12,
      "delay": 1.64,
      "ease": "eout"
@@ -1641,7 +1565,7 @@
      "move": "dl",
      "prop": "chan",
      "to": 0.97,
-     "word": "hopping",
+     "word": "hop#4",
      "dur": 0.12,
      "delay": 1.9999999999999998,
      "ease": "eout"
@@ -1650,7 +1574,7 @@
      "move": "dl",
      "prop": "chan",
      "to": 0.62,
-     "word": "hopping",
+     "word": "hop#4",
      "dur": 0.12,
      "delay": 2.3600000000000003,
      "ease": "eout"
@@ -1659,7 +1583,7 @@
      "move": "dl",
      "prop": "chan",
      "to": 0.97,
-     "word": "hopping",
+     "word": "hop#4",
      "dur": 0.12,
      "delay": 2.72,
      "ease": "eout"
@@ -1668,36 +1592,25 @@
      "move": "dl",
      "prop": "chan",
      "to": 0.44,
-     "word": "hopping",
+     "word": "hop#4",
      "dur": 0.12,
      "delay": 3.08,
      "ease": "eout"
     },
     {
      "move": "dl",
-     "prop": "chan",
-     "to": 0.82,
-     "word": "hopping",
-     "dur": 0.12,
-     "delay": 3.44,
-     "ease": "eout"
+     "prop": "chanOn",
+     "to": 1,
+     "word": "hops",
+     "dur": 0.4
     },
     {
      "move": "dl",
      "prop": "chan",
-     "to": 0.2,
-     "word": "hopping",
-     "dur": 0.12,
-     "delay": 3.8,
-     "ease": "eout"
-    },
-    {
-     "move": "dl",
-     "prop": "chan",
-     "to": 0.46,
-     "word": "hopping",
-     "dur": 0.12,
-     "delay": 4.16,
+     "to": 0.3,
+     "word": "hops",
+     "dur": 0.3,
+     "delay": 0.3,
      "ease": "eout"
     }
    ]
@@ -1722,7 +1635,7 @@
       "hit": 0,
       "piece": 0
      },
-     "word": "both"
+     "word": "one"
     },
     {
      "id": "ride",
@@ -1756,7 +1669,7 @@
       181.9,
       112
      ],
-     "word": "devices"
+     "word": "two"
     },
     {
      "label": "PHONE",
@@ -1769,7 +1682,7 @@
       10
      ],
      "align": "trailing",
-     "word": "devices",
+     "word": "two",
      "delay": 0.2,
      "id": "lph"
     },
@@ -1784,7 +1697,7 @@
       208
      ],
      "align": "leading",
-     "word": "devices",
+     "word": "two",
      "delay": 0.3,
      "id": "leb"
     },
@@ -1799,7 +1712,7 @@
       246
      ],
      "align": "center",
-     "word": "both"
+     "word": "one"
     },
     {
      "id": "cap",
@@ -1945,7 +1858,7 @@
      "move": "dl",
      "prop": "chanOn",
      "to": 1,
-     "word": "channel",
+     "word": "one",
      "dur": 0.3
     },
     {
@@ -2369,155 +2282,8 @@
   },
   {
    "card": 4,
-   "label": "First the phone and earbud with a small pink wave between them, a dimension line 'about 10 meters' under them and a small battery with 'runs for hours'. Then these fade and two rows appear: Classic as one unbroken wave, Low Energy as short bursts with sleeping gaps between.",
+   "label": "Two rows: Classic as one unbroken pink wave, Low Energy as short bursts with sleeping gaps. Then the rows fade and a router, a phone and an earbud show the link staying clear of Wi-Fi.",
    "elements": [
-    {
-     "id": "gr",
-     "part": "ground",
-     "at": [
-      171,
-      222
-     ],
-     "params": {
-      "w": 330
-     }
-    },
-    {
-     "id": "ph",
-     "part": "wfPhone",
-     "at": [
-      85,
-      222
-     ],
-     "scale": 0.95,
-     "params": {
-      "bars": 0,
-      "pin": 0,
-      "glow": 0
-     },
-     "word": "bluetooth"
-    },
-    {
-     "id": "eb",
-     "part": "earbud",
-     "at": [
-      262,
-      222
-     ],
-     "scale": 2.7,
-     "params": {
-      "glow": 1
-     },
-     "word": "bluetooth"
-    },
-    {
-     "id": "wv",
-     "part": "wave",
-     "at": [
-      140,
-      152
-     ],
-     "params": {
-      "len": 92,
-      "amp": 4,
-      "wl": 14,
-      "col": 1,
-      "upto": 0,
-      "phase": 0
-     },
-     "word": "reaches"
-    },
-    {
-     "id": "dm",
-     "part": "dim",
-     "at": [
-      85,
-      252
-     ],
-     "params": {
-      "len": 177
-     },
-     "word": "meters",
-     "hidden": true
-    },
-    {
-     "id": "dt",
-     "text": "ABOUT 10 METERS",
-     "at": [
-      173,
-      270
-     ],
-     "size": 13,
-     "stroke": "accent",
-     "word": "meters",
-     "hidden": true
-    },
-    {
-     "id": "lp",
-     "text": "VERY LOW\nPOWER",
-     "at": [
-      186,
-      96
-     ],
-     "size": 13,
-     "word": "power",
-     "hidden": true
-    },
-    {
-     "id": "bat",
-     "group": [
-      {
-       "rect": [
-        -22,
-        -11,
-        40,
-        22,
-        4
-       ],
-       "stroke": "ink",
-       "width": 1.6
-      },
-      {
-       "rect": [
-        18,
-        -5,
-        4,
-        10,
-        1
-       ],
-       "stroke": "ink",
-       "width": 1.6
-      },
-      {
-       "rect": [
-        -19,
-        -8,
-        9,
-        16,
-        2
-       ],
-       "fill": "accent",
-       "stroke": "none"
-      }
-     ],
-     "at": [
-      262,
-      70
-     ],
-     "word": "batteries",
-     "hidden": true
-    },
-    {
-     "id": "bt",
-     "text": "RUNS FOR HOURS",
-     "at": [
-      262,
-      34
-     ],
-     "size": 13,
-     "word": "hours",
-     "hidden": true
-    },
     {
      "id": "c0",
      "text": "CLASSIC",
@@ -2583,7 +2349,7 @@
       150
      ],
      "size": 17,
-     "word": "low#2",
+     "word": "low",
      "hidden": true
     },
     {
@@ -2684,10 +2450,10 @@
      "id": "rrt",
      "part": "router",
      "at": [
-      46,
+      44,
       222
      ],
-     "scale": 1.3,
+     "scale": 1.2,
      "params": {
       "lit": 1
      },
@@ -2697,8 +2463,8 @@
      "id": "rrg",
      "part": "rings",
      "at": [
-      80,
-      160
+      76,
+      164
      ],
      "params": {
       "n": 4,
@@ -2711,10 +2477,22 @@
      "hidden": true
     },
     {
+     "id": "gr",
+     "part": "ground",
+     "at": [
+      171,
+      222
+     ],
+     "params": {
+      "w": 330
+     },
+     "hidden": true
+    },
+    {
      "id": "ph2",
      "part": "wfPhone",
      "at": [
-      140,
+      130,
       222
      ],
      "scale": 0.95,
@@ -2726,10 +2504,23 @@
      "hidden": true
     },
     {
+     "id": "eb",
+     "part": "earbud",
+     "at": [
+      262,
+      222
+     ],
+     "scale": 2.7,
+     "params": {
+      "glow": 1
+     },
+     "hidden": true
+    },
+    {
      "id": "rwv",
      "part": "wave",
      "at": [
-      190,
+      178,
       152
      ],
      "params": {
@@ -2755,111 +2546,6 @@
     }
    ],
    "moves": [
-    {
-     "move": "wv",
-     "prop": "upto",
-     "to": 1,
-     "word": "reaches",
-     "dur": 0.8
-    },
-    {
-     "move": "dm",
-     "prop": "opacity",
-     "to": 1,
-     "word": "meters",
-     "dur": 0.3
-    },
-    {
-     "move": "dt",
-     "prop": "opacity",
-     "to": 1,
-     "word": "meters",
-     "dur": 0.3
-    },
-    {
-     "move": "lp",
-     "prop": "opacity",
-     "to": 1,
-     "word": "power",
-     "dur": 0.3
-    },
-    {
-     "move": "bat",
-     "prop": "opacity",
-     "to": 1,
-     "word": "batteries",
-     "dur": 0.3
-    },
-    {
-     "move": "bt",
-     "prop": "opacity",
-     "to": 1,
-     "word": "hours",
-     "dur": 0.3
-    },
-    {
-     "move": "gr",
-     "prop": "opacity",
-     "to": 0,
-     "word": "flavors",
-     "dur": 0.4
-    },
-    {
-     "move": "ph",
-     "prop": "opacity",
-     "to": 0,
-     "word": "flavors",
-     "dur": 0.4
-    },
-    {
-     "move": "eb",
-     "prop": "opacity",
-     "to": 0,
-     "word": "flavors",
-     "dur": 0.4
-    },
-    {
-     "move": "wv",
-     "prop": "opacity",
-     "to": 0,
-     "word": "flavors",
-     "dur": 0.4
-    },
-    {
-     "move": "dm",
-     "prop": "opacity",
-     "to": 0,
-     "word": "flavors",
-     "dur": 0.4
-    },
-    {
-     "move": "dt",
-     "prop": "opacity",
-     "to": 0,
-     "word": "flavors",
-     "dur": 0.4
-    },
-    {
-     "move": "lp",
-     "prop": "opacity",
-     "to": 0,
-     "word": "flavors",
-     "dur": 0.4
-    },
-    {
-     "move": "bat",
-     "prop": "opacity",
-     "to": 0,
-     "word": "flavors",
-     "dur": 0.4
-    },
-    {
-     "move": "bt",
-     "prop": "opacity",
-     "to": 0,
-     "word": "flavors",
-     "dur": 0.4
-    },
     {
      "move": "c0",
      "prop": "opacity",
@@ -2892,21 +2578,21 @@
      "move": "l0",
      "prop": "opacity",
      "to": 1,
-     "word": "low#2",
+     "word": "low",
      "dur": 0.3
     },
     {
      "move": "wcp",
      "prop": "opacity",
      "to": 0,
-     "word": "low#2",
+     "word": "low",
      "dur": 0.3
     },
     {
      "move": "wci",
      "prop": "opacity",
      "to": 1,
-     "word": "low#2",
+     "word": "low",
      "dur": 0.3
     },
     {
